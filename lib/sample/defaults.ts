@@ -1,0 +1,88 @@
+import type { SystemConfig } from "../contracts/index";
+
+export const DEFAULT_SYSTEM_CONFIG: SystemConfig = {
+  location: {
+    id: "sheffield-research-array",
+    name: "Sheffield Solar Research Array",
+    latitude: 53.3811,
+    longitude: -1.4701,
+    elevationM: 95,
+    timezone: "Europe/London",
+    standardUtcOffsetMinutes: 0,
+  },
+  array: {
+    capacityKwDc: 48,
+    tiltDeg: 32,
+    azimuthDeg: 180,
+    tracking: "fixed",
+    maxTrackerTiltDeg: 60,
+    panelTechnology: "bifacial-mono-n",
+    bifaciality: 0.72,
+    temperatureCoefficientPerC: -0.0034,
+    degradationPerYear: 0.004,
+    systemAgeYears: 2,
+    dcAcRatio: 1.2,
+    inverterEfficiency: 0.975,
+  },
+  losses: {
+    horizon: 0.012,
+    shading: 0.018,
+    soiling: 0.022,
+    dust: 0.006,
+    snow: 0.002,
+    mismatch: 0.012,
+    wiring: 0.015,
+    strings: 0.007,
+    availability: 0.012,
+    curtailment: 0,
+  },
+  battery: {
+    enabled: true,
+    capacityKWh: 24,
+    maxChargeKw: 12,
+    maxDischargeKw: 12,
+    minSocFraction: 0.08,
+    maxSocFraction: 0.95,
+    initialSocFraction: 0.5,
+    chargeEfficiency: 0.95,
+    dischargeEfficiency: 0.94,
+    selfDischargePerHour: 0.00005,
+    reserveFraction: 0.12,
+  },
+  tariff: {
+    currency: "GBP",
+    importPricePerKWh: 0.245,
+    peakImportPricePerKWh: 0.34,
+    peakStartHour: 16,
+    peakEndHour: 20,
+    exportPricePerKWh: 0.15,
+    annualFixedCost: 215,
+    gridExportLimitKw: 30,
+  },
+  demand: {
+    annualDemandKWh: 58_000,
+    profile: "commercial",
+    weekendFraction: 0.52,
+  },
+  carbon: {
+    gridIntensityKgCo2ePerKWh: 0.193,
+    exportDisplacementFactor: 0.82,
+    embodiedCarbonKgCo2ePerKwp: 720,
+  },
+  weatherScenario: "representative",
+  seed: 2_026_0721,
+};
+
+export function mergeSystemConfig(patch: Partial<SystemConfig> = {}): SystemConfig {
+  return {
+    ...DEFAULT_SYSTEM_CONFIG,
+    ...patch,
+    location: { ...DEFAULT_SYSTEM_CONFIG.location, ...patch.location },
+    array: { ...DEFAULT_SYSTEM_CONFIG.array, ...patch.array },
+    losses: { ...DEFAULT_SYSTEM_CONFIG.losses, ...patch.losses },
+    battery: { ...DEFAULT_SYSTEM_CONFIG.battery, ...patch.battery },
+    tariff: { ...DEFAULT_SYSTEM_CONFIG.tariff, ...patch.tariff },
+    demand: { ...DEFAULT_SYSTEM_CONFIG.demand, ...patch.demand },
+    carbon: { ...DEFAULT_SYSTEM_CONFIG.carbon, ...patch.carbon },
+  };
+}

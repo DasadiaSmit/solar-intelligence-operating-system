@@ -1,0 +1,18 @@
+{
+  "name": "Solar Intelligence Operating System",
+  "short_name": "SI·OS",
+  "description": "Full-year photovoltaic forecasting, simulation and scientific audit environment.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#03070a",
+  "theme_color": "#03070a",
+  "categories": ["science", "energy", "productivity"],
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
