@@ -1,90 +1,149 @@
-# Solar Intelligence OS — continuity and handoff ledger
+# Solar Intelligence OS — completion, evidence, and continuity ledger
 
-**Last updated:** 2026-07-21 (Europe/London)  
-**Repository:** `/Users/alrey/Documents/smit final project 2`  
-**Purpose:** this is the restart point if the active Codex session or usage allowance ends. It records what exists, what has been proven, what remains, and the exact next order of work.
+**Last updated:** 2026-07-22 00:09 BST (Europe/London)
+**Workspace:** `/Users/alrey/Documents/smit final project 2`
+**Private production URL:** https://solar-intelligence-os.vaikartana-revanta.chatgpt.site
+**Source branch:** `main`
+**Purpose:** authoritative restart and handoff record. If a future task resumes this project, read this file before changing code.
 
 ## 1. Current outcome
 
-The repository has been transformed from the supplied Sites starter into a working Solar Intelligence Operating System. It now contains:
+Solar Intelligence Operating System is implemented as a working research and decision-support application, not a static mock-up. It provides:
 
-- a strict-TypeScript Next/Vinext/React application;
-- a deterministic, credential-free 8,760-hour scientific sample mode;
-- solar geometry, irradiance, electrical-loss, battery/grid, representative-year, forecasting, uncertainty, and optimisation modules;
-- provider adapters, fallback policy, validation, caching, retries, provenance, immutable snapshot support, scheduled ingestion, D1 schema, and migration;
-- versioned APIs;
-- one linked operating shell containing all 14 requested workspaces;
-- scientific, architecture, provider, provenance, deployment, security, recovery, validation, and limitations documentation.
+- a strict-TypeScript Next 16 / React 19 / Vinext application targeting a Cloudflare Worker;
+- a deterministic, credential-free, offline-capable 8,760-hour annual proving dataset;
+- tested solar geometry, irradiance, module-temperature, DC/AC, loss-chain, battery, grid, tariff, carbon, representative-year, forecasting, uncertainty, and optimisation calculations;
+- versioned APIs, provider adapters, data-quality/provenance contracts, D1 persistence, migrations, optional immutable R2 snapshots, and a scheduled-ingestion handler;
+- one linked mission-control shell containing all 14 requested workspaces;
+- responsive observatory/daylight visual states, shared timeline/replay, scenario branching, keyboard commands, annotations, saved views, status boundaries, and scientific provenance;
+- research, architecture, provider, provenance, validation, security, deployment, recovery, performance, and limitation documentation;
+- a private production deployment and a credential-free sample mode.
 
-This is not presented as a commissioned plant prediction. Sample weather and production are visibly labelled simulated; estimates are explicitly not guaranteed.
+The application never describes simulated sample production as measured truth or guaranteed output.
 
-## 2. Verified now
+## 2. Release state
 
-### Completed verification
+### Published
 
-- `tsc --noEmit`: **PASS**, zero diagnostics after removal of the disposable starter preview.
-- `pnpm run lint`: **PASS**, zero errors and zero warnings after the final scenario-control edit.
-- `pnpm run test:science`: **PASS**, 9/9 tests.
-- `pnpm run test:smoke`: **PASS**, 5/5 tests. These now cover the full-year simulation API, invalid bounds, all 14 workspace registrations, scientific-status language, built assets, worker safeguards, hosting bindings, the migration, bundle budget, and documentation inventory.
-- Scientific tests cover:
-  - NOAA-style solar geometry and day/night behavior;
-  - clear-sky irradiance;
-  - POA transposition and explicit ASHRAE angle-of-incidence modifier;
-  - Faiman temperature response;
-  - deterministic 8,760-hour sample years;
-  - representative-year day selection and source weights;
-  - battery energy conservation and state limits;
-  - regression, forecast metrics, and rolling-origin validation;
-  - Pareto filtering and seeded Monte Carlo;
-  - provider UTC/unit/fallback semantics;
-  - the integrated annual operating snapshot.
-- Provider/data focused checks completed during implementation:
-  - deterministic manifest hashing;
-  - live-provider failure to explicitly labelled simulation fallback with attempt lineage;
-  - no-D1 scheduler no-op behavior;
-  - no-R2 explicit snapshot-store status;
-  - invalid simulation bounds rejected;
-  - generated migration applied to SQLite with no foreign-key failures.
-- `pnpm test`: **PASS after all final source edits**. It completed the 9-test science/provider suite, a fresh five-environment production build, and the 5-test API/artifact smoke suite in sequence.
-- Final production build output: workspace client module **85,211 bytes uncompressed**; complete `dist` tree **2.5 MB**.
-- Desktop browser inspection at 1280×720: **PASS after fixes** for the Annual Forecast Observatory. The shell rendered with the linked chronology, confidence galaxy, Production DNA, representative-year comparison, inspector and orbital timeline.
-- All 14 workspace navigation buttons were clicked in sequence: **14/14 headings present and visible**.
-- Desktop browser console was clean after the compact transport and a fresh server start; the earlier `Network connection lost` condition was traced to an oversized nested RSC payload plus stale hot-reload state, not a model failure.
-- Top-level geometry after repair: the 1280×720 shell, header and orbital deck no longer overflow their fixed viewport.
-- Typography-token fault found and fixed: `--font-mono`/`--font-sans` are now resolved on `body`, where the dynamically supplied Geist variables exist.
-- Browser transport performance defect found and fixed: the canonical API still exposes the full nested 8,760-hour record, while the UI receives the versioned `sios-hour-tuple-v1` projection from `lib/client-snapshot.ts`. Development document responses dropped from tens of seconds/disconnections to roughly 2.5–3.2 seconds including the deterministic annual calculation.
+- Owner-only production release: https://solar-intelligence-os.vaikartana-revanta.chatgpt.site
+- Sites project identity is persisted in `.openai/hosting.json`.
+- Logical bindings: D1 `DB` and R2 `SNAPSHOTS`.
+- The deployed archive contains `dist/server/index.js`, hosting metadata, and the complete Drizzle migration tree.
+- `public/og.png` is an inspected 1200×630 original social card; metadata derives its absolute image URL from the incoming request host.
+- The favicon and manifest use the SI·OS observatory visual language; unused starter artwork and example routes were removed.
 
-### Still to be rerun by the primary integration pass
+### Access and runtime mode
 
-- a clean local-server restart, then browser verification that `Increase DC CAPACITY` changes annual output, displays `SIMULATED`, enables reset, and that reset restores the base state;
-- inspector tabs, theme, command palette, replay, annotations, focus mode, offline event, night cursor and low-confidence state;
-- mobile and tablet viewport inspection, keyboard traversal and final console log review;
-- exactly one generated/inspected OG image and metadata wiring;
-- Sites deployment and deployed-URL smoke check.
+- Deployment is private/owner-only.
+- No private provider credential is embedded in source or deployment metadata.
+- Hosted and local operation default to deterministic `SIMULATED` sample mode.
+- Open-Meteo and PVGIS live paths activate only through documented runtime configuration.
+- R2 snapshot writes occur only when the `SNAPSHOTS` binding exists.
+- The Worker scheduled-ingestion hook is implemented, but no production cron trigger is packaged. It remains dormant until a schedule is configured and verified in the Sites/Cloudflare control plane.
 
-The clean server restart was attempted at the end of the 2026-07-21 session and was rejected because the Codex weekly allowance had been exhausted. The reported reset time was **2026-07-28 18:07 Europe/London**. No workaround was attempted.
+## 3. Final automated evidence
 
-## 3. Functional implementation map
+All of the following passed after the last functional and metadata changes:
 
-### Scientific core — implemented
+- `pnpm exec tsc --noEmit`: PASS, zero diagnostics.
+- `pnpm run lint`: PASS, zero warnings/errors.
+- `pnpm run test:science`: PASS, 10/10.
+- `pnpm run test:smoke`: PASS, 5/5.
+- `pnpm test`: PASS, including a fresh five-environment Vinext production build.
+- Final build includes all seven application/API routes and the Worker entry point.
 
-- `lib/solar/`: solar position, sunrise/sunset inputs, clear-sky irradiance, POA direct/diffuse/reflected/rear components, tracking approximation, AOI modifier, Faiman temperature, losses, degradation, inverter/clipping, annual simulation.
-- `lib/energy/`: hourly demand, battery dispatch, tariff, grid import/export, curtailment, carbon, unit helpers.
-- `lib/representative-year/`: whole-day multivariate selection from 2022–2025 with monthly construction records and source-year weights. It does not simply average the four years.
-- `lib/forecasting/`: seasonal naive, moving average, exponential smoothing, ridge meteorological regression, physical and hybrid probabilistic ensemble, metrics, rolling-origin evaluation, registry/version status.
-- `lib/optimisation/`: executable grid search, Pareto analysis, seeded Monte Carlo, sensitivity/stress scenario support.
-- `lib/operating-snapshot.ts`: integrates the above into a typed 8,760-hour snapshot used by the application and `/api/v1/simulate`.
+Scientific/data coverage includes:
 
-### Data platform — implemented
+1. NOAA-style solar geometry and night/day behavior.
+2. Plane-of-array irradiance and optical angle-of-incidence loss.
+3. Faiman module-temperature response.
+4. Deterministic 8,760-hour multi-year proving data and representative-year construction.
+5. Battery energy conservation and state limits.
+6. Arbitrary-base scenario invariance for tilt/azimuth normalization.
+7. Numerical forecast metrics, ridge fit, and rolling-origin evaluation.
+8. Pareto filtering and seeded Monte Carlo reproducibility.
+9. Provider units, UTC validation, and explicit fallback semantics.
+10. Integrated auditable annual operating snapshot.
 
-- `lib/providers/`: sample, Open-Meteo, and PVGIS adapters; query parsing; schema/unit/time normalization; validation; quality; caching; retries/backoff; fallback semantics; scheduled ingestion.
-- `lib/provenance/`: canonical hashing, manifest creation, lineage, optional immutable R2 storage.
-- `db/schema.ts` and `drizzle/0000_wealthy_johnny_storm.sql`: 12-table operational schema and migration.
-- `.env.example`: safe environment configuration; no secrets or hard-coded keys.
-- `.openai/hosting.json`: D1 `DB` and R2 `SNAPSHOTS` declarations.
-- `worker/index.ts`: application worker, security headers, and scheduled-ingestion hook.
+API/artifact coverage includes:
 
-### Versioned APIs — implemented
+- complete, labelled, reproducible simulation output;
+- rejection of invalid engineering bounds;
+- all 14 workspace registrations and honest lifecycle/status language;
+- deployable Worker output, hosting bindings, migration, and safeguards;
+- required scientific and continuity documentation.
+
+## 4. Interaction and visual evidence
+
+The in-app browser successfully verified the desktop application at 1280×720 before publication:
+
+- all 14 workspace navigation controls produced the correct visible heading;
+- the DC-capacity step control changed 48.0 to 48.1 kWp, changed linked hourly/annual production, displayed `SIMULATED`, exposed the screening limitation, and enabled reset;
+- reset restored the scientific base configuration;
+- inspector `inspect`, `compare`, `losses`, and `provenance` views activated the correct content;
+- observatory/daylight theme switching worked;
+- command palette opened and closed with accessible controls;
+- annual replay changed to pause state and advanced the linked cursor;
+- day stepping updated the inspector and orbital timeline together;
+- focus mode entered and exited correctly;
+- moving the annual chronology to 02 Jan 07:30 produced `data-solar-phase="night"` and the night analytical atmosphere;
+- the browser console was clean after the compact annual transport replaced the oversized nested RSC payload.
+
+The final accessibility/responsive audit then found and fixed these additional issues:
+
+- global Space no longer steals keyboard activation from buttons or sliders;
+- mobile SSR starts with the inspector closed; desktop opens it only after viewport detection;
+- mobile focus mode keeps the primary workspace in column 1;
+- saved workspaces now restore validated workspace, bounded scenario, selected hour, and inspector tab;
+- weather and battery hourly fields now update the shared cursor;
+- hidden rail/inspector controls are conditionally unmounted instead of remaining focusable;
+- inspector tabs now use roving tab stops, linked tabpanels, arrow/Home/End navigation;
+- dialogs trap and restore focus and expose labelled close controls;
+- annotation creation is available from the command palette at compact widths;
+- coordinates use correct N/S/E/W notation;
+- scenario orientation response is normalized relative to the imported base configuration;
+- Digital Twin battery flow uses the scenario battery capacity;
+- scenario controls use larger desktop and touch targets;
+- mobile retains compact lifecycle, quality/network, and non-guarantee status;
+- sample replay is explicitly a modelled scenario-to-base delta, not a fabricated observed forecast error.
+
+TypeScript, lint, all tests, and the production build passed after those fixes.
+
+### Browser-policy limitation
+
+After the final code changes, the browser-control surface rejected both local reload and the deployed URL under its safety policy. No workaround was attempted. Therefore the final corrected mobile/tablet pixels and production console were not re-inspected through automation. This is the only outstanding release-acceptance check; it is not a failed build or deployment.
+
+Manual acceptance checklist:
+
+1. Open the private production URL while signed into the owner workspace.
+2. At phone width, confirm the inspector is closed initially, `SCENARIO / INSPECT` opens it, Close returns to the workspace, and the bottom lifecycle strip remains legible.
+3. At tablet width, confirm the inspector behaves as a drawer and the primary stage/orbital deck do not overflow.
+4. Focus `Increase DC CAPACITY`, press Space, and confirm it increments without starting replay.
+5. Enter/exit Focus on phone and confirm the main workspace remains visible.
+6. Open the command palette, choose `Annotate linked hour`, attach a note, save the workspace, refresh, and confirm restoration.
+7. Open Weather and Battery workspaces and confirm an hourly cell changes the shared linked time.
+8. Review the browser console for errors/warnings.
+
+## 5. Implementation map
+
+### Scientific core
+
+- `lib/solar/`: solar position; clear-sky irradiance; POA direct/diffuse/reflected/rear components; tracking and bifacial approximations; AOI; Faiman temperature; explicit losses; degradation; inverter/clipping; annual simulation.
+- `lib/energy/`: demand, battery dispatch, self-consumption, grid import/export, curtailment, tariffs, carbon, reliability, unit helpers.
+- `lib/representative-year/`: whole-day multivariate 2022–2025 selection with monthly construction records, continuity penalty, and source-year weights. It does not average four annual totals and call the result typical.
+- `lib/forecasting/`: seasonal naive, moving average, exponential smoothing, ridge meteorological regression, physical/hybrid probabilistic ensemble, metrics, interval calibration, rolling-origin evaluation, registry/version status.
+- `lib/optimisation/`: executable grid search, Pareto filtering, seeded Monte Carlo, sensitivity and stress methods.
+- `lib/operating-snapshot.ts`: typed integration boundary used by the UI and `/api/v1/simulate`.
+
+### Data platform
+
+- `lib/providers/`: deterministic sample, Open-Meteo, and PVGIS adapters; validation; UTC/unit normalization; missing/outlier handling; quality; bounded retry/backoff; cache; semantic fallback; scheduled ingestion.
+- `lib/provenance/`: canonical hashes, manifests, lineage, content-addressed optional R2 storage.
+- `db/schema.ts` plus `drizzle/`: 12-table D1 operational schema and generated migration.
+- `.env.example`: safe optional provider/runtime settings; no secrets.
+- `worker/index.ts`: app Worker, image optimisation, security headers, and failure-signalling scheduled hook.
+
+### Versioned APIs
 
 - `GET /api/v1/health`
 - `GET /api/v1/weather`
@@ -93,17 +152,13 @@ The clean server restart was attempted at the end of the 2026-07-21 session and 
 - `GET|POST /api/v1/scenarios`
 - `GET|PUT|DELETE /api/v1/scenarios/:id`
 
-Mutation routes use the repository's authentication/role helpers where applicable. Local sample mode remains usable without private credentials.
-
-### Product workspaces — implemented shell and data-connected instruments
-
-All workspaces live in one linked mission-control shell under `components/solar-os/`:
+### Workspaces
 
 1. Solar Digital Twin Operations
-2. Annual Energy Forecast Observatory (default)
+2. Annual Energy Forecast Observatory
 3. Weather and Atmosphere Command Centre
 4. Forecast Model Laboratory
-5. Forecast Replay and Validation Centre
+5. Forecast Replay and Validation Centre — `SIMULATED` scenario-delta replay in sample mode
 6. Solar Array Engineering Studio
 7. Scenario and Resilience Simulator
 8. Battery and Energy-Flow Optimisation Centre
@@ -114,45 +169,68 @@ All workspaces live in one linked mission-control shell under `components/solar-
 13. Research Publication Studio
 14. Executive Mission Control
 
-The shell includes linked year/hour state, Canvas chronology and Production DNA, orbital timeline/replay, scenario recomputation, inspector tabs, loss waterfall, provenance, annotations, saved views, command palette, shortcuts, focus mode, daylight/observatory themes, responsive layouts, reduced-motion handling, confidence/sample markers, and explicit implementation-status labels.
+All share location, annual dataset, selected hour, configuration, scenario, uncertainty, and provenance state.
 
-## 4. Status boundaries
+## 6. Scientific status boundary
 
 ### Implemented and executable
 
-- deterministic sample annual simulation;
-- physics and energy-flow pipeline listed above;
+- deterministic annual sample simulation;
+- physics, loss-chain, battery/grid, revenue and carbon calculations;
 - representative-year construction and four-year comparison;
-- baseline/ridge/physical/hybrid model evaluation;
-- interval output and validation metrics;
+- baseline/ridge/physical/hybrid evaluation and intervals;
 - grid/Pareto/Monte Carlo optimisation methods;
-- Open-Meteo/PVGIS provider paths and controlled sample fallback;
-- persistence schema, provenance manifests, APIs, scheduled job hook;
-- all 14 navigable analytical workspaces and cross-linked state.
+- provider adapters, fallback, quality, provenance, APIs, schema/migration, and job hook;
+- all 14 linked workspaces and global interaction state.
 
-### Experimental
+### Experimental or simulated
 
-- representative year is built from deterministic proving data until measured/reanalysis snapshots are ingested;
-- physical model uses generic coefficients and simplified site geometry;
-- scenario recomputation in the browser is a transparent sensitivity surrogate, not a replacement for the server physics run;
-- historical “observations” in sample mode are synthetic validation targets;
-- probabilistic intervals are empirical proving intervals, not site-calibrated guarantees.
+- proving weather/production until measured/reanalysis snapshots are ingested;
+- generic electrical and loss coefficients;
+- client-side scenario screening surrogate;
+- empirical proving intervals;
+- sample replay as scenario delta rather than measured residual.
 
-### Planned / intentionally not fabricated
+### Planned and intentionally not fabricated
 
-- trained ARIMA/SARIMA, random forest, gradient boosting, TCN, LSTM, Transformer, and full physics-informed neural models;
-- calibrated satellite cloud products and operational ECMWF ingestion beyond the documented adapter architecture;
-- GIS terrain/horizon meshes, neighbouring-site regional ranking, and true 3D/WebGPU terrain;
-- Bayesian optimiser service and full robust/scenario-tree solver;
-- commissioned plant telemetry, site-specific soiling/snow calibration, IEC-grade electrical design, and bankable yield certification;
-- external identity-provider configuration and production operations credentials.
+- trained ARIMA/SARIMA, random forest, gradient boosting, TCN, LSTM, Transformer, and physics-informed neural models with real tracked artifacts;
+- operational Copernicus/ERA5 and ECMWF bulk ingestion;
+- calibrated satellite-cloud product and archived issue-time forecast replay;
+- GIS terrain/horizon meshes and true regional ranking;
+- production Bayesian/robust/scenario-tree solver services;
+- commissioned plant telemetry, IEC-grade electrical design, and bankable certification.
 
-These appear as `PLANNED` or `EXPERIMENTAL` in the interface and model registry rather than as fake metrics.
+## 7. Remaining work
 
-## 5. Documentation inventory
+No known source-code, test, build, packaging, or deployment blocker remains.
 
-- `README.md` — product, quick start, workspaces, architecture, APIs, persistence, deployment.
-- `IMPLEMENTATION_PLAN.md` — repository audit and vertical-slice plan written before implementation.
+Required before treating results as production/financial truth:
+
+1. Complete the short manual visual checklist in section 4.
+2. Configure and observe the hosting-control-plane ingestion schedule if live refresh is required.
+3. Attach calibrated measured production, meter, and availability data.
+4. Run an archived issue-time forecast backtest against observations.
+5. Complete provider licence/capacity review, tenant/security review, restore exercise, load/failover testing, and site/electrical engineering validation.
+6. Train/version the planned statistical and deep-learning challengers only when genuine datasets and reproducible evaluation artifacts exist.
+
+## 8. Restart commands
+
+```bash
+export PATH="/Users/alrey/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin:/Users/alrey/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:$PATH"
+pnpm install
+pnpm run test:science
+pnpm exec tsc --noEmit
+pnpm run lint
+pnpm test
+pnpm run dev
+```
+
+The local URL is `http://localhost:3000`. Do not add private keys to source. Preserve the lifecycle boundary: executable tested code may be `IMPLEMENTED`; proving/scenario output is `SIMULATED`; unresolved research methods are `EXPERIMENTAL`; untrained/deferred methods stay `PLANNED`.
+
+## 9. Documentation inventory
+
+- `README.md`
+- `IMPLEMENTATION_PLAN.md`
 - `docs/ARCHITECTURE.md`
 - `docs/SCIENTIFIC_METHODS.md`
 - `docs/MODEL_VALIDATION.md`
@@ -163,49 +241,7 @@ These appear as `PLANNED` or `EXPERIMENTAL` in the interface and model registry 
 - `docs/BACKUP_RECOVERY.md`
 - `docs/SECURITY.md`
 - `docs/RESEARCH_ROADMAP.md`
+- `docs/PERFORMANCE.md`
 - `research/README.md`
 
-## 6. Exact commands
-
-Use the bundled runtime in this Codex workspace:
-
-```bash
-export PATH="/Users/alrey/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin:/Users/alrey/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:$PATH"
-pnpm install
-pnpm run test:science
-./node_modules/.bin/tsc --noEmit
-pnpm run build
-pnpm run test:smoke
-pnpm run dev
-```
-
-The local application is then available at `http://localhost:3000`.
-
-## 7. Remaining work — ordered, not optional for final handoff
-
-1. Start a fresh development server. Do not reuse the stopped/hot-reloaded process from 2026-07-21.
-2. Verify the final accessible scenario step controls:
-   - click `Increase DC CAPACITY`;
-   - confirm the displayed capacity and annual generation both change;
-   - confirm `SIMULATED` and the disclosure appear;
-   - confirm reset becomes enabled and restores the exact base values.
-3. Finish browser QA:
-   - inspector tabs, daylight theme, command palette, replay, focus, annotation and saved-view interactions;
-   - offline event, night cursor, low-confidence and empty/error routes;
-   - tablet and mobile breakpoints, keyboard order, focus visibility, reduced motion and overflow;
-   - final error/warning console read.
-4. Fix any observed interaction, accessibility, rendering, or overflow defect; rerun `pnpm test`, `pnpm run lint`, and `tsc --noEmit` after every code change.
-5. Generate exactly one OG/social preview image, inspect it, store it at `public/og.png`, and wire host-derived absolute metadata.
-6. Read and follow the Sites hosting skill, deploy, smoke-test the deployed URL, and record the URL in `README.md` and this ledger.
-
-## 8. Known immediate risks to check
-
-- The compact tuple transport is implemented, desktop-proven, and included in a passing final production build/test gate.
-- The accessible `−`/`+` scenario step controls compile and lint clean, but were added immediately before the blocked clean restart and have not yet been browser-click verified.
-- Direct automation of native range sliders did not emit React change events in the in-app test surface. This led to the accessible step-button addition; it is not evidence that manual range interaction is broken.
-- Worker scheduling and R2 integration compiled and built before the final two UI/transport edits. Reconfirm in the next full build.
-- No hosted URL or final social image exists yet.
-
-## 9. Restart instruction
-
-If work resumes in a new session, read this file, `IMPLEMENTATION_PLAN.md`, and `README.md` first. Start at section 7, item 1. Do not rebuild completed architecture or replace the implemented stack. Preserve the explicit scientific-status boundary: real calculations and adapters may be `IMPLEMENTED`; deterministic proving data are `SIMULATED`; untrained/deferred research models remain `PLANNED`.
+This file is the canonical continuity ledger. Update it after any future model, provider, schema, deployment, validation, or scientific-status change.

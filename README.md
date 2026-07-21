@@ -30,6 +30,10 @@ pnpm dev
 
 Open `http://localhost:3000`. No API keys or database are required for sample mode.
 
+## Private production deployment
+
+The validated owner-only production release is available at [solar-intelligence-os.vaikartana-revanta.chatgpt.site](https://solar-intelligence-os.vaikartana-revanta.chatgpt.site). The hosted application starts in the same explicitly simulated, credential-free sample mode as the local build; live providers remain optional and no API key is embedded in the release.
+
 Run validation:
 
 ```bash
@@ -44,7 +48,7 @@ Create `.env.local` only when enabling optional live-provider or hosted features
 2. Annual Energy Forecast Observatory
 3. Weather and Atmosphere Command Centre
 4. Forecast Model Laboratory
-5. Forecast Replay and Validation Centre
+5. Forecast Replay and Validation Centre (sample mode uses an explicitly simulated scenario-delta replay; measured validation requires an attached observed dataset)
 6. Solar Array Engineering Studio
 7. Scenario and Resilience Simulator
 8. Battery and Energy-Flow Optimisation Centre
@@ -65,7 +69,7 @@ The application preserves the Sites Vinext foundation:
 - Vinext/Vite Cloudflare Worker output.
 - Pure UI-independent scientific modules.
 - Versioned `/api/v1` routes.
-- Cloudflare D1 + Drizzle for durable structured records.
+- Cloudflare D1 + Drizzle for durable structured records, with optional content-addressed R2 snapshots.
 - Deterministic source-controlled sample data for offline reproducibility.
 
 See [Architecture](docs/ARCHITECTURE.md) and the original [Implementation plan](IMPLEMENTATION_PLAN.md).
@@ -104,7 +108,7 @@ Invalid inputs return structured errors. Provider failure falls back only to a s
 
 ## Persistence and migrations
 
-`.openai/hosting.json` declares the logical D1 binding. Generate a new migration after changing `db/schema.ts`:
+`.openai/hosting.json` declares the logical D1 and R2 bindings. Generate a new migration after changing `db/schema.ts`:
 
 ```bash
 pnpm db:generate
@@ -120,6 +124,8 @@ Current implementation, verification evidence, precise remaining work, and resta
 - [Backup and recovery](docs/BACKUP_RECOVERY.md)
 
 Production deployment requires provider licence/capacity review, measured-plant validation, authorization/access-policy review, restore testing, and site/electrical engineering validation.
+
+The final release gate passed 10 scientific/data tests, 5 API/artifact smoke tests, strict TypeScript, lint, and a fresh production build. The precise evidence and remaining operational acceptance items are recorded in [PROJECT_STATUS.md](./PROJECT_STATUS.md).
 
 ## Research objective
 

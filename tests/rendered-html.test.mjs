@@ -80,7 +80,9 @@ test("production output, migration, hosting bindings and worker safeguards are p
   ]);
   assert.ok(assets.some((name) => name.startsWith("SolarOperatingSystem-") && name.endsWith(".js")));
   assert.ok(assets.some((name) => name.endsWith(".css")));
-  assert.deepEqual(JSON.parse(hosting), { d1: "DB", r2: "SNAPSHOTS" });
+  const hostingConfig = JSON.parse(hosting);
+  assert.match(hostingConfig.project_id, /^appgprj_[a-z0-9]+$/, "Sites project identity must be persisted after creation");
+  assert.deepEqual({ d1: hostingConfig.d1, r2: hostingConfig.r2 }, { d1: "DB", r2: "SNAPSHOTS" });
   assert.match(worker, /runScheduledIngestion/);
   assert.match(worker, /X-Content-Type-Options/);
   assert.match(worker, /Permissions-Policy/);
