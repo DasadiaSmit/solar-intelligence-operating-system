@@ -16,6 +16,102 @@ interface CanvasSize {
   dpr: number;
 }
 
+type CanvasTone = "forecast" | "solar" | "positive" | "critical" | "model";
+
+interface CanvasPalette {
+  void: string;
+  shell: string;
+  instrument: string;
+  instrument2: string;
+  line: string;
+  lineBright: string;
+  text: string;
+  muted: string;
+  dim: string;
+  solar: string;
+  forecast: string;
+  historical: string;
+  positive: string;
+  critical: string;
+  model: string;
+  fontMono: string;
+}
+
+const FALLBACK_FONT_MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+const CANVAS_FALLBACKS: Omit<CanvasPalette, "fontMono"> = {
+  void: "#070907",
+  shell: "#0c100e",
+  instrument: "#141b17",
+  instrument2: "#1a231e",
+  line: "#27332e",
+  lineBright: "#41564d",
+  text: "#f2eee4",
+  muted: "#adb7b0",
+  dim: "#7b8981",
+  solar: "#e7c46a",
+  forecast: "#72cdba",
+  historical: "#86a5d1",
+  positive: "#82c99f",
+  critical: "#ee7b70",
+  model: "#bda3d6",
+};
+
+function cssToken(style: CSSStyleDeclaration, name: string, fallback: string): string {
+  const value = style.getPropertyValue(name).trim();
+  return value && !value.includes("var(") ? value : fallback;
+}
+
+function readCanvasPalette(canvas: HTMLCanvasElement): CanvasPalette {
+  const style = getComputedStyle(canvas);
+  return {
+    void: cssToken(style, "--void", CANVAS_FALLBACKS.void),
+    shell: cssToken(style, "--shell", CANVAS_FALLBACKS.shell),
+    instrument: cssToken(style, "--instrument", CANVAS_FALLBACKS.instrument),
+    instrument2: cssToken(style, "--instrument-2", CANVAS_FALLBACKS.instrument2),
+    line: cssToken(style, "--line", CANVAS_FALLBACKS.line),
+    lineBright: cssToken(style, "--line-bright", CANVAS_FALLBACKS.lineBright),
+    text: cssToken(style, "--text", CANVAS_FALLBACKS.text),
+    muted: cssToken(style, "--muted", CANVAS_FALLBACKS.muted),
+    dim: cssToken(style, "--dim", CANVAS_FALLBACKS.dim),
+    solar: cssToken(style, "--solar", CANVAS_FALLBACKS.solar),
+    forecast: cssToken(style, "--forecast", CANVAS_FALLBACKS.forecast),
+    historical: cssToken(style, "--historical", CANVAS_FALLBACKS.historical),
+    positive: cssToken(style, "--positive", CANVAS_FALLBACKS.positive),
+    critical: cssToken(style, "--critical", CANVAS_FALLBACKS.critical),
+    model: cssToken(style, "--model", CANVAS_FALLBACKS.model),
+    fontMono: style.fontFamily || FALLBACK_FONT_MONO,
+  };
+}
+
+type Rgb = readonly [number, number, number];
+
+function colourChannels(value: string, fallback: string): Rgb {
+  const hex = value.trim().match(/^#([\da-f]{3}|[\da-f]{6})$/i)?.[1];
+  if (hex) {
+    const expanded = hex.length === 3 ? [...hex].map((channel) => channel + channel).join("") : hex;
+    return [0, 2, 4].map((offset) => Number.parseInt(expanded.slice(offset, offset + 2), 16)) as unknown as Rgb;
+  }
+  const rgb = value.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/i);
+  if (rgb) return [Number(rgb[1]), Number(rgb[2]), Number(rgb[3])];
+  return colourChannels(fallback, "#000000");
+}
+
+function alphaColour(value: string, alpha: number, fallback = CANVAS_FALLBACKS.text): string {
+  const [red, green, blue] = colourChannels(value, fallback);
+  return `rgba(${Math.round(red)}, ${Math.round(green)}, ${Math.round(blue)}, ${clamp(alpha, 0, 1)})`;
+}
+
+function mixColour(from: string, to: string, amount: number, alpha = 1): string {
+  const start = colourChannels(from, CANVAS_FALLBACKS.instrument);
+  const end = colourChannels(to, CANVAS_FALLBACKS.forecast);
+  const ratio = clamp(amount, 0, 1);
+  return `rgba(${Math.round(start[0] + (end[0] - start[0]) * ratio)}, ${Math.round(start[1] + (end[1] - start[1]) * ratio)}, ${Math.round(start[2] + (end[2] - start[2]) * ratio)}, ${clamp(alpha, 0, 1)})`;
+}
+
+function canvasFont(palette: CanvasPalette, size: number, weight = 400): string {
+  return `${weight} ${size}px ${palette.fontMono}`;
+}
+
 function setupCanvas(canvas: HTMLCanvasElement): CanvasSize | null {
   const rect = canvas.getBoundingClientRect();
   if (rect.width < 2 || rect.height < 2) return null;
@@ -34,7 +130,7 @@ function setupCanvas(canvas: HTMLCanvasElement): CanvasSize | null {
 
 function useCanvasDraw(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
-  draw: (context: CanvasRenderingContext2D, size: CanvasSize) => void,
+  draw: (context: CanvasRenderingContext2D, size: CanvasSize, palette: CanvasPalette) => void,
   dependencies: React.DependencyList,
 ) {
   useEffect(() => {
@@ -45,7 +141,7 @@ function useCanvasDraw(
       frame = 0;
       const size = setupCanvas(canvas);
       const context = canvas.getContext("2d");
-      if (size && context) draw(context, size);
+      if (size && context) draw(context, size, readCanvasPalette(canvas));
     };
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(render);
@@ -53,8 +149,24 @@ function useCanvasDraw(
     render();
     const observer = new ResizeObserver(schedule);
     observer.observe(canvas);
+    const themeObserver = new MutationObserver(schedule);
+    const themeRoot = canvas.closest(".solar-os") ?? document.documentElement;
+    themeObserver.observe(themeRoot, { attributes: true, attributeFilter: ["class", "data-theme", "style"] });
+    if (themeRoot !== document.body) {
+      themeObserver.observe(document.body, { attributes: true, attributeFilter: ["class", "style"] });
+    }
+    let disposed = false;
+    const fontSet = document.fonts;
+    const fontReady = () => schedule();
+    void fontSet.ready.then(() => {
+      if (!disposed) schedule();
+    });
+    fontSet.addEventListener("loadingdone", fontReady);
     return () => {
+      disposed = true;
       observer.disconnect();
+      themeObserver.disconnect();
+      fontSet.removeEventListener("loadingdone", fontReady);
       if (frame) cancelAnimationFrame(frame);
     };
     // The instrument redraw contract is explicitly controlled by callers.
@@ -62,15 +174,17 @@ function useCanvasDraw(
   }, dependencies);
 }
 
-function powerColour(ratio: number): string {
+function powerColour(ratio: number, palette: CanvasPalette): string {
   const t = clamp(ratio, 0, 1);
-  if (t < 0.12) return `rgba(20, 53, 62, ${0.34 + t * 2})`;
+  const low = mixColour(palette.instrument2, palette.forecast, 0.12);
+  const middle = mixColour(palette.instrument2, palette.forecast, 0.72);
+  if (t < 0.12) return mixColour(palette.instrument, low, t / 0.12, 0.34 + t * 2);
   if (t < 0.55) {
     const q = (t - 0.12) / 0.43;
-    return `rgb(${Math.round(24 + q * 56)}, ${Math.round(84 + q * 126)}, ${Math.round(98 + q * 112)})`;
+    return mixColour(low, middle, q);
   }
   const q = (t - 0.55) / 0.45;
-  return `rgb(${Math.round(80 + q * 166)}, ${Math.round(210 - q * 10)}, ${Math.round(210 - q * 115)})`;
+  return mixColour(middle, palette.solar, q);
 }
 
 function dateIndexFromPointer(event: React.PointerEvent<HTMLCanvasElement>, length: number, left = 34, right = 12): number {
@@ -92,7 +206,7 @@ export function AnnualChronology({
     [hours],
   );
 
-  const draw = useCallback((context: CanvasRenderingContext2D, { width, height }: CanvasSize) => {
+  const draw = useCallback((context: CanvasRenderingContext2D, { width, height }: CanvasSize, palette: CanvasPalette) => {
     context.clearRect(0, 0, width, height);
     const left = 34;
     const right = 12;
@@ -104,16 +218,16 @@ export function AnnualChronology({
     const yAt = (value: number) => top + plotHeight - (value / maxPower) * plotHeight;
 
     const fade = context.createLinearGradient(0, top, 0, top + plotHeight);
-    fade.addColorStop(0, "rgba(246, 200, 95, .055)");
-    fade.addColorStop(1, "rgba(103, 220, 230, 0)");
+    fade.addColorStop(0, alphaColour(palette.solar, 0.055));
+    fade.addColorStop(1, alphaColour(palette.forecast, 0));
     context.fillStyle = fade;
     context.fillRect(left, top, plotWidth, plotHeight);
 
-    context.strokeStyle = "rgba(76, 115, 125, .32)";
+    context.strokeStyle = alphaColour(palette.lineBright, 0.52);
     context.lineWidth = 1;
     context.setLineDash([2, 5]);
-    context.font = "9px ui-monospace, SFMono-Regular, Menlo, monospace";
-    context.fillStyle = "rgba(145, 167, 170, .72)";
+    context.font = canvasFont(palette, 9);
+    context.fillStyle = alphaColour(palette.muted, 0.78);
     for (let tick = 0; tick <= 4; tick += 1) {
       const y = top + (plotHeight * tick) / 4;
       context.beginPath();
@@ -126,21 +240,23 @@ export function AnnualChronology({
 
     for (let month = 0; month <= 12; month += 1) {
       const x = left + (plotWidth * month) / 12;
-      context.strokeStyle = month % 3 === 0 ? "rgba(103, 220, 230, .24)" : "rgba(62, 94, 102, .16)";
+      context.strokeStyle = month % 3 === 0
+        ? alphaColour(palette.forecast, 0.24)
+        : alphaColour(palette.lineBright, 0.22);
       context.beginPath();
       context.moveTo(x + 0.5, top);
       context.lineTo(x + 0.5, top + plotHeight);
       context.stroke();
       if (month < 12) {
         const labels = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-        context.fillStyle = "rgba(145, 167, 170, .68)";
+        context.fillStyle = alphaColour(palette.muted, 0.74);
         context.fillText(labels[month], x + 4, height - 7);
       }
     }
 
     if (!hours.length) {
-      context.fillStyle = "rgba(145, 167, 170, .8)";
-      context.font = "11px ui-monospace, SFMono-Regular, Menlo, monospace";
+      context.fillStyle = alphaColour(palette.muted, 0.84);
+      context.font = canvasFont(palette, 11, 500);
       context.fillText("NO HOURLY RECORDS — CHECK PROVIDER SNAPSHOT", left + 12, top + 32);
       return;
     }
@@ -160,8 +276,8 @@ export function AnnualChronology({
     }
     context.closePath();
     const confidence = context.createLinearGradient(0, top, 0, top + plotHeight);
-    confidence.addColorStop(0, "rgba(103, 220, 230, .24)");
-    confidence.addColorStop(1, "rgba(103, 220, 230, .035)");
+    confidence.addColorStop(0, alphaColour(palette.forecast, 0.24));
+    confidence.addColorStop(1, alphaColour(palette.forecast, 0.035));
     context.fillStyle = confidence;
     context.fill();
 
@@ -173,7 +289,7 @@ export function AnnualChronology({
         if (index === 0) context.moveTo(x, y);
         else context.lineTo(x, y);
       }
-      context.strokeStyle = "rgba(110, 168, 254, .5)";
+      context.strokeStyle = alphaColour(palette.historical, 0.55);
       context.lineWidth = 1;
       context.setLineDash([3, 4]);
       context.stroke();
@@ -187,9 +303,9 @@ export function AnnualChronology({
       if (index === 0) context.moveTo(x, y);
       else context.lineTo(x, y);
     }
-    context.strokeStyle = "#f6c85f";
+    context.strokeStyle = palette.solar;
     context.lineWidth = 1.45;
-    context.shadowColor = "rgba(246, 200, 95, .34)";
+    context.shadowColor = alphaColour(palette.solar, 0.34);
     context.shadowBlur = 7;
     context.stroke();
     context.shadowBlur = 0;
@@ -198,7 +314,7 @@ export function AnnualChronology({
     const selected = hours[safeIndex];
     const cursorX = xAt(safeIndex);
     const cursorY = yAt(selected.acKw);
-    context.strokeStyle = "rgba(232, 241, 239, .76)";
+    context.strokeStyle = alphaColour(palette.text, 0.76);
     context.lineWidth = 1;
     context.setLineDash([2, 3]);
     context.beginPath();
@@ -206,11 +322,11 @@ export function AnnualChronology({
     context.lineTo(cursorX + 0.5, top + plotHeight);
     context.stroke();
     context.setLineDash([]);
-    context.fillStyle = "#f6c85f";
+    context.fillStyle = palette.solar;
     context.beginPath();
     context.arc(cursorX, cursorY, 3.2, 0, Math.PI * 2);
     context.fill();
-    context.strokeStyle = "rgba(246, 200, 95, .34)";
+    context.strokeStyle = alphaColour(palette.solar, 0.34);
     context.lineWidth = 5;
     context.stroke();
   }, [baseHours, hours, maxPower, selectedIndex]);
@@ -244,7 +360,7 @@ export function ProductionDNA({ hours, selectedIndex, onSelect }: LinkedInstrume
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const maxPower = useMemo(() => Math.max(1, ...hours.map((item) => item.acKw)), [hours]);
 
-  const draw = useCallback((context: CanvasRenderingContext2D, { width, height }: CanvasSize) => {
+  const draw = useCallback((context: CanvasRenderingContext2D, { width, height }: CanvasSize, palette: CanvasPalette) => {
     context.clearRect(0, 0, width, height);
     const left = 32;
     const right = 8;
@@ -256,19 +372,19 @@ export function ProductionDNA({ hours, selectedIndex, onSelect }: LinkedInstrume
     const cellWidth = plotWidth / columns;
     const cellHeight = plotHeight / 24;
 
-    context.fillStyle = "rgba(7, 16, 22, .92)";
+    context.fillStyle = alphaColour(palette.shell, 0.94);
     context.fillRect(left, top, plotWidth, plotHeight);
     hours.forEach((item, index) => {
       const day = Math.floor(index / 24);
       const hour = index % 24;
       const qualityOpacity = 0.42 + item.quality * 0.58;
       context.globalAlpha = qualityOpacity;
-      context.fillStyle = powerColour(item.acKw / maxPower);
+      context.fillStyle = powerColour(item.acKw / maxPower, palette);
       context.fillRect(left + day * cellWidth, top + hour * cellHeight, Math.max(1, cellWidth + 0.2), Math.max(1, cellHeight + 0.2));
     });
     context.globalAlpha = 1;
 
-    context.strokeStyle = "rgba(103, 220, 230, .18)";
+    context.strokeStyle = alphaColour(palette.forecast, 0.18);
     context.lineWidth = 1;
     for (let month = 0; month <= 12; month += 1) {
       const x = left + (plotWidth * month) / 12;
@@ -283,8 +399,8 @@ export function ProductionDNA({ hours, selectedIndex, onSelect }: LinkedInstrume
       context.moveTo(left, y + 0.5);
       context.lineTo(width - right, y + 0.5);
       context.stroke();
-      context.fillStyle = "rgba(145, 167, 170, .68)";
-      context.font = "9px ui-monospace, SFMono-Regular, Menlo, monospace";
+      context.fillStyle = alphaColour(palette.muted, 0.74);
+      context.font = canvasFont(palette, 9);
       context.fillText(`${String(hour).padStart(2, "0")}`, 6, Math.min(height - 5, y + 3));
     }
 
@@ -292,7 +408,7 @@ export function ProductionDNA({ hours, selectedIndex, onSelect }: LinkedInstrume
       const safeIndex = clamp(selectedIndex, 0, hours.length - 1);
       const day = Math.floor(safeIndex / 24);
       const hour = safeIndex % 24;
-      context.strokeStyle = "rgba(232, 241, 239, .88)";
+      context.strokeStyle = alphaColour(palette.text, 0.88);
       context.lineWidth = 1;
       context.strokeRect(left + day * cellWidth - 0.5, top + hour * cellHeight - 0.5, Math.max(2, cellWidth + 1), Math.max(2, cellHeight + 1));
     }
@@ -346,7 +462,7 @@ export function OrbitalTimeline({ hours, selectedIndex, onSelect }: LinkedInstru
     return days;
   }, [hours]);
 
-  const draw = useCallback((context: CanvasRenderingContext2D, { width, height }: CanvasSize) => {
+  const draw = useCallback((context: CanvasRenderingContext2D, { width, height }: CanvasSize, palette: CanvasPalette) => {
     context.clearRect(0, 0, width, height);
     const left = 8;
     const right = 8;
@@ -358,13 +474,13 @@ export function OrbitalTimeline({ hours, selectedIndex, onSelect }: LinkedInstru
     const maxPoa = Math.max(1, ...daily.map((item) => item.maxPoa));
 
     const atmosphere = context.createLinearGradient(0, top, 0, height - bottom);
-    atmosphere.addColorStop(0, "rgba(103, 220, 230, .07)");
-    atmosphere.addColorStop(0.55, "rgba(246, 200, 95, .04)");
-    atmosphere.addColorStop(1, "rgba(3, 7, 10, 0)");
+    atmosphere.addColorStop(0, alphaColour(palette.forecast, 0.07));
+    atmosphere.addColorStop(0.55, alphaColour(palette.solar, 0.04));
+    atmosphere.addColorStop(1, alphaColour(palette.void, 0));
     context.fillStyle = atmosphere;
     context.fillRect(left, top, plotWidth, plotHeight);
 
-    context.strokeStyle = "rgba(48, 78, 87, .45)";
+    context.strokeStyle = alphaColour(palette.lineBright, 0.58);
     context.beginPath();
     context.moveTo(left, centre + 0.5);
     context.lineTo(width - right, centre + 0.5);
@@ -380,17 +496,17 @@ export function OrbitalTimeline({ hours, selectedIndex, onSelect }: LinkedInstru
         if (index === 0) context.moveTo(x, y);
         else context.lineTo(x, y);
       });
-      context.strokeStyle = "#f6c85f";
+      context.strokeStyle = palette.solar;
       context.lineWidth = 1.3;
       context.shadowBlur = 8;
-      context.shadowColor = "rgba(246, 200, 95, .4)";
+      context.shadowColor = alphaColour(palette.solar, 0.4);
       context.stroke();
       context.shadowBlur = 0;
 
       daily.forEach((day, index) => {
         if (index % 2) return;
         const x = left + (index / Math.max(1, daily.length - 1)) * plotWidth;
-        context.fillStyle = `rgba(103, 220, 230, ${0.02 + day.cloud * 0.14})`;
+        context.fillStyle = alphaColour(palette.forecast, 0.02 + day.cloud * 0.14);
         context.fillRect(x, top, Math.max(1, plotWidth / daily.length * 2), plotHeight * 0.36);
       });
 
@@ -400,18 +516,18 @@ export function OrbitalTimeline({ hours, selectedIndex, onSelect }: LinkedInstru
       const seasonalArc = Math.sin((dayIndex / Math.max(1, daily.length - 1)) * Math.PI);
       const amplitude = 12 + seasonalArc * plotHeight * 0.28;
       const y = centre - amplitude * (selectedDay.maxPoa / maxPoa);
-      context.strokeStyle = "rgba(232, 241, 239, .72)";
+      context.strokeStyle = alphaColour(palette.text, 0.72);
       context.setLineDash([2, 3]);
       context.beginPath();
       context.moveTo(x, top);
       context.lineTo(x, height - bottom);
       context.stroke();
       context.setLineDash([]);
-      context.fillStyle = "#f6c85f";
+      context.fillStyle = palette.solar;
       context.beginPath();
       context.arc(x, y, 4, 0, Math.PI * 2);
       context.fill();
-      context.strokeStyle = "rgba(246, 200, 95, .26)";
+      context.strokeStyle = alphaColour(palette.solar, 0.26);
       context.lineWidth = 8;
       context.stroke();
     }
@@ -445,22 +561,16 @@ export function MicroTrace({
   values: number[];
   compare?: number[];
   label: string;
-  tone?: "forecast" | "solar" | "positive" | "critical" | "model";
+  tone?: CanvasTone;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const draw = useCallback((context: CanvasRenderingContext2D, { width, height }: CanvasSize) => {
+  const draw = useCallback((context: CanvasRenderingContext2D, { width, height }: CanvasSize, palette: CanvasPalette) => {
     context.clearRect(0, 0, width, height);
     const all = [...values, ...(compare ?? [])];
     const max = Math.max(1, ...all);
     const min = Math.min(0, ...all);
     const range = Math.max(1e-6, max - min);
-    const colour = {
-      forecast: "#67dce6",
-      solar: "#f6c85f",
-      positive: "#69d99b",
-      critical: "#ff786b",
-      model: "#bd9cff",
-    }[tone];
+    const colour = palette[tone];
     const line = (data: number[], stroke: string, dash = false) => {
       context.beginPath();
       data.forEach((value, index) => {
@@ -475,7 +585,7 @@ export function MicroTrace({
       context.stroke();
       context.setLineDash([]);
     };
-    if (compare?.length) line(compare, "rgba(110, 168, 254, .55)", true);
+    if (compare?.length) line(compare, alphaColour(palette.historical, 0.55), true);
     line(values, colour);
   }, [compare, tone, values]);
   useCanvasDraw(canvasRef, draw, [draw]);

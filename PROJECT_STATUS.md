@@ -1,6 +1,6 @@
 # Solar Intelligence OS — completion, evidence, and continuity ledger
 
-**Last updated:** 2026-07-22 00:09 BST (Europe/London)
+**Last updated:** 2026-07-22 00:42 BST (Europe/London)
 **Workspace:** `/Users/alrey/Documents/smit final project 2`
 **Private production URL:** https://solar-intelligence-os.vaikartana-revanta.chatgpt.site
 **Source branch:** `main`
@@ -15,7 +15,8 @@ Solar Intelligence Operating System is implemented as a working research and dec
 - tested solar geometry, irradiance, module-temperature, DC/AC, loss-chain, battery, grid, tariff, carbon, representative-year, forecasting, uncertainty, and optimisation calculations;
 - versioned APIs, provider adapters, data-quality/provenance contracts, D1 persistence, migrations, optional immutable R2 snapshots, and a scheduled-ingestion handler;
 - one linked mission-control shell containing all 14 requested workspaces;
-- responsive observatory/daylight visual states, shared timeline/replay, scenario branching, keyboard commands, annotations, saved views, status boundaries, and scientific provenance;
+- a premium obsidian/champagne/mineral visual system using Instrument Sans for editorial interface text and Intel One Mono for scientific telemetry;
+- responsive observatory/daylight visual states, theme-aware scientific canvases, shared timeline/replay, scenario branching, keyboard commands, annotations, saved views, status boundaries, and scientific provenance;
 - research, architecture, provider, provenance, validation, security, deployment, recovery, performance, and limitation documentation;
 - a private production deployment and a credential-free sample mode.
 
@@ -29,8 +30,8 @@ The application never describes simulated sample production as measured truth or
 - Sites project identity is persisted in `.openai/hosting.json`.
 - Logical bindings: D1 `DB` and R2 `SNAPSHOTS`.
 - The deployed archive contains `dist/server/index.js`, hosting metadata, and the complete Drizzle migration tree.
-- `public/og.png` is an inspected 1200×630 original social card; metadata derives its absolute image URL from the incoming request host.
-- The favicon and manifest use the SI·OS observatory visual language; unused starter artwork and example routes were removed.
+- `public/og.png` is an inspected 1200×630 social card aligned with the premium observatory palette; metadata derives its absolute image URL from the incoming request host.
+- The favicon, manifest, browser theme colours, and social preview use the same SI·OS obsidian/champagne/mineral visual language; unused starter artwork and example routes were removed.
 
 ### Access and runtime mode
 
@@ -75,6 +76,20 @@ API/artifact coverage includes:
 
 ## 4. Interaction and visual evidence
 
+### Premium visual-system release — 2026-07-22
+
+- Replaced the high-saturation cyan-heavy scheme with warm obsidian, smoked mineral green, champagne-gold, mineral teal, soft ivory, muted sapphire, sage, coral, and aubergine semantic tokens.
+- Rebuilt the daylight theme as a warm parchment/mineral system with stronger text and accent contrast.
+- Replaced Geist with locally bundled, self-hosted Next font assets: Instrument Sans for brand, headings, and explanatory prose; Intel One Mono for units, timestamps, controls, tables, and numeric telemetry.
+- Added refined layered instrument surfaces, restrained ambient illumination, stronger focus rings, clearer disabled states, tabular numerals, and small-text floors without changing workspace geometry.
+- Made annual chronology, Production DNA, Solar Orbital Timeline, and micro-trace canvases read live theme tokens, use the telemetry font, and redraw after theme or font changes.
+- Kept the Digital Twin, atmosphere field, and regional globe as deliberately dark analytical insets in both themes so their labels remain legible.
+- Recoloured the favicon and manifest and replaced the social preview with one inspected 1200×630 brand asset using the finished palette and typography direction.
+
+Post-change validation passed: strict TypeScript, lint, 10/10 scientific tests, a fresh production build, 5/5 release smoke tests, whitespace/error checks, and a legacy-palette source scan. No scientific model, dataset, provider, API, schema, or lifecycle classification changed in this visual release.
+
+Automated browser inspection was not repeated for this release because the Sites workflow reserves browser automation for an explicit browser-testing request, and the prior browser-control surface was already blocked by its safety policy. The generated social card itself was inspected at full resolution. The manual acceptance checklist below remains the visual sign-off path.
+
 The in-app browser successfully verified the desktop application at 1280×720 before publication:
 
 - all 14 workspace navigation controls produced the correct visible heading;
@@ -115,7 +130,7 @@ After the final code changes, the browser-control surface rejected both local re
 
 Manual acceptance checklist:
 
-1. Open the private production URL while signed into the owner workspace.
+1. Open the private production URL while signed into the owner workspace; confirm the observatory theme uses warm obsidian/ivory/champagne/mineral colours and the daylight theme uses warm parchment with legible accents.
 2. At phone width, confirm the inspector is closed initially, `SCENARIO / INSPECT` opens it, Close returns to the workspace, and the bottom lifecycle strip remains legible.
 3. At tablet width, confirm the inspector behaves as a drawer and the primary stage/orbital deck do not overflow.
 4. Focus `Increase DC CAPACITY`, press Space, and confirm it increments without starting replay.

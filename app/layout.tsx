@@ -1,16 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Instrument_Sans, Intel_One_Mono } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
+  weight: "variable",
+  axes: ["wdth"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const intelOneMono = Intel_One_Mono({
+  variable: "--font-intel-one-mono",
   subsets: ["latin"],
+  weight: "variable",
+  display: "swap",
 });
 
 const title = "Solar Intelligence Operating System";
@@ -78,8 +83,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   colorScheme: "dark light",
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#03070a" },
-    { media: "(prefers-color-scheme: light)", color: "#e8eee9" },
+    { media: "(prefers-color-scheme: dark)", color: "#070907" },
+    { media: "(prefers-color-scheme: light)", color: "#e7e3da" },
   ],
 };
 
@@ -91,7 +96,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${instrumentSans.variable} ${intelOneMono.variable} antialiased`}
       >
         {children}
       </body>

@@ -4,8 +4,8 @@
   "description": "Full-year photovoltaic forecasting, simulation and scientific audit environment.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#03070a",
-  "theme_color": "#03070a",
+  "background_color": "#070907",
+  "theme_color": "#070907",
   "categories": ["science", "energy", "productivity"],
   "orientation": "any",
   "icons": [
