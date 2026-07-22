@@ -1,9 +1,11 @@
 # Solar Intelligence OS — completion, evidence, and continuity ledger
 
-**Last updated:** 2026-07-22 00:42 BST (Europe/London)
+**Last updated:** 2026-07-22 10:10 BST (Europe/London)
 **Workspace:** `/Users/alrey/Documents/smit final project 2`
 **Private production URL:** https://solar-intelligence-os.vaikartana-revanta.chatgpt.site
-**Source branch:** `main`
+**Private GitHub source:** https://github.com/DasadiaSmit/solar-intelligence-operating-system
+**Production source branch:** `main`
+**Department review branch:** `agent/department-operating-model`
 **Purpose:** authoritative restart and handoff record. If a future task resumes this project, read this file before changing code.
 
 ## 1. Current outcome
@@ -18,6 +20,7 @@ Solar Intelligence Operating System is implemented as a working research and dec
 - a premium obsidian/champagne/mineral visual system using Instrument Sans for editorial interface text and Intel One Mono for scientific telemetry;
 - responsive observatory/daylight visual states, theme-aware scientific canvases, shared timeline/replay, scenario branching, keyboard commands, annotations, saved views, status boundaries, and scientific provenance;
 - research, architecture, provider, provenance, validation, security, deployment, recovery, performance, and limitation documentation;
+- a machine-checked 13-department operating model with charters, owned boundaries, workspace accountability, shared contracts, decision records, GitHub issue forms, review template, CI and dependency monitoring;
 - a private production deployment and a credential-free sample mode.
 
 The application never describes simulated sample production as measured truth or guaranteed output.
@@ -42,10 +45,21 @@ The application never describes simulated sample production as measured truth or
 - R2 snapshot writes occur only when the `SNAPSHOTS` binding exists.
 - The Worker scheduled-ingestion hook is implemented, but no production cron trigger is packaged. It remains dormant until a schedule is configured and verified in the Sites/Cloudflare control plane.
 
+### Private source security and department model
+
+- The complete production baseline is backed up in the private GitHub repository `DasadiaSmit/solar-intelligence-operating-system`.
+- `main` is the recoverable production baseline; the department model is isolated on `agent/department-operating-model` for pull-request review.
+- Thirteen departments have stable IDs, charters, exclusive primary-path accountability, shared review paths, first deep-work programmes and evidence gates.
+- Every one of the 14 application workspaces has exactly one accountable domain department and named contributors.
+- PET means **Photovoltaic Evidence & Triage**. The assistant remains explicitly planned; no model, chat API, conversation store or fabricated assistant behavior has been added.
+- GitHub governance now includes CODEOWNERS, private vulnerability reporting, structured issue forms, a pull-request evidence template, Dependabot configuration and four CI gates.
+- GitHub is the source of record, not the only backup; D1, R2, provider snapshots and model artifacts still require the documented recovery process.
+
 ## 3. Final automated evidence
 
 All of the following passed after the last functional and metadata changes:
 
+- `pnpm run test:departments`: PASS, 3/3 registry/governance fitness tests.
 - `pnpm exec tsc --noEmit`: PASS, zero diagnostics.
 - `pnpm run lint`: PASS, zero warnings/errors.
 - `pnpm run test:science`: PASS, 10/10.
@@ -73,6 +87,7 @@ API/artifact coverage includes:
 - all 14 workspace registrations and honest lifecycle/status language;
 - deployable Worker output, hosting bindings, migration, and safeguards;
 - required scientific and continuity documentation.
+- 13 unique department records and charters, 14 accountable workspace mappings, resolvable ownership paths, valid cross-department references, GitHub evidence templates and private security routing.
 
 ## 4. Interaction and visual evidence
 
@@ -213,11 +228,21 @@ All share location, annual dataset, selected hour, configuration, scenario, unce
 - calibrated satellite-cloud product and archived issue-time forecast replay;
 - GIS terrain/horizon meshes and true regional ranking;
 - production Bayesian/robust/scenario-tree solver services;
+- PET Assistant model orchestration, conversation persistence and confirmable tools; the department and safety boundary exist, but no assistant behavior is fabricated;
 - commissioned plant telemetry, IEC-grade electrical design, and bankable certification.
 
 ## 7. Remaining work
 
 No known source-code, test, build, packaging, or deployment blocker remains.
+
+Department-led engineering should proceed in this order:
+
+1. `ARCH + DATA + SOLAR`: freeze canonical weather and simulation contracts, then deliver **Live Weather to Auditable Annual Simulation v1**.
+2. `ARCH + EXPERIENCE + FEATURES + TWIN`: split the four UI merge hotspots behind typed state/workspace/scene contracts without changing behavior.
+3. `QA + RESEARCH + scientific departments`: resolve recorded documentation/code divergence and establish independent reference fixtures.
+4. `PET + ARCH + QA + SECOPS`: build deterministic evidence tools and adversarial evaluations before any remote model integration.
+
+Each department's detailed backlog, boundaries, measures and escalation rules live in `governance/departments/`.
 
 Required before treating results as production/financial truth:
 
@@ -233,6 +258,7 @@ Required before treating results as production/financial truth:
 ```bash
 export PATH="/Users/alrey/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin:/Users/alrey/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:$PATH"
 pnpm install
+pnpm run test:departments
 pnpm run test:science
 pnpm exec tsc --noEmit
 pnpm run lint
@@ -246,6 +272,15 @@ The local URL is `http://localhost:3000`. Do not add private keys to source. Pre
 
 - `README.md`
 - `IMPLEMENTATION_PLAN.md`
+- `GOVERNANCE.md`
+- `CONTRIBUTING.md`
+- `CHANGELOG.md`
+- `governance/README.md`
+- `governance/departments.json`
+- `governance/WORKSPACE_OWNERSHIP.md`
+- `governance/INTERFACE_CONTRACTS.md`
+- `governance/DECISION_PROCESS.md`
+- `governance/departments/*.md` (13 department charters)
 - `docs/ARCHITECTURE.md`
 - `docs/SCIENTIFIC_METHODS.md`
 - `docs/MODEL_VALIDATION.md`
@@ -255,6 +290,9 @@ The local URL is `http://localhost:3000`. Do not add private keys to source. Pre
 - `docs/DEPLOYMENT.md`
 - `docs/BACKUP_RECOVERY.md`
 - `docs/SECURITY.md`
+- `docs/THREAT_MODEL.md`
+- `docs/adr/README.md`
+- `docs/scientific-decisions/README.md`
 - `docs/RESEARCH_ROADMAP.md`
 - `docs/PERFORMANCE.md`
 - `research/README.md`

@@ -1,0 +1,50 @@
+name: Defect report
+description: Report a reproducible non-security defect with redacted evidence.
+title: "[DEFECT] "
+labels:
+  - type:defect
+  - status:triage
+body:
+  - type: markdown
+    attributes:
+      value: Do not report vulnerabilities here. Use the private Security Advisory link.
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: Include workspace, scenario, time, mode and redacted inputs.
+    validations:
+      required: true
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact area
+      options:
+        - Scientific result or units
+        - Data quality or provenance
+        - API or persistence
+        - UI, accessibility or responsive behavior
+        - Performance or reliability
+        - Documentation or lifecycle label
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and environment
+      description: Include commit/version, browser/runtime and logs without secrets or personal data.
+    validations:
+      required: true
+

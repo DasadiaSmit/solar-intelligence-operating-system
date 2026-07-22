@@ -1,0 +1,83 @@
+name: Department work item
+description: Plan one accountable vertical slice of product, science or platform work.
+title: "[DEPARTMENT] "
+labels:
+  - status:triage
+  - type:feature
+body:
+  - type: dropdown
+    id: department
+    attributes:
+      label: Primary department
+      options:
+        - ARCH — Product Architecture & Systems Integration
+        - EXPERIENCE — UI/UX & Design Systems
+        - FEATURES — Workspaces & Product Features
+        - SOLAR — Solar Physics & STAR Engine
+        - ENERGY — Energy Systems & Optimisation
+        - DATA — Weather, Data & Provenance
+        - FORECAST — Forecasting, ML & Representative Year
+        - TWIN — Digital Twin, Maps & Visual Computing
+        - PET — PET Assistant & Solar Copilot
+        - PLATFORM — Platform, API & Persistence
+        - QA — Quality Engineering & Scientific Assurance
+        - SECOPS — Security, Reliability & Release
+        - RESEARCH — Research & Scientific Communication
+    validations:
+      required: true
+  - type: dropdown
+    id: lifecycle
+    attributes:
+      label: Intended lifecycle boundary
+      options:
+        - Implemented
+        - Experimental
+        - Simulated
+        - Planned only
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Accountable outcome
+      description: Describe the user, operational or research outcome—not a list of files.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and interfaces
+      description: List affected workspaces, paths, contracts and contributing departments.
+    validations:
+      required: true
+  - type: textarea
+    id: truth
+    attributes:
+      label: Current truth and gap
+      description: State what works now, what is missing and what must not be claimed.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance and evidence
+      description: Include tests, data/provenance, failure states, documentation and measurable gates.
+    validations:
+      required: true
+  - type: textarea
+    id: risk
+    attributes:
+      label: Scientific, data, security and privacy impact
+      description: Write Not applicable only with a reason.
+    validations:
+      required: true
+  - type: checkboxes
+    id: integrity
+    attributes:
+      label: Integrity agreement
+      options:
+        - label: I will not fabricate data, metrics, provider behavior, model evidence or lifecycle status.
+          required: true
+        - label: I have identified every shared contract and contributing department known at issue creation.
+          required: true
+

@@ -40,6 +40,8 @@ Run validation:
 pnpm test
 ```
 
+The private source of record is [DasadiaSmit/solar-intelligence-operating-system](https://github.com/DasadiaSmit/solar-intelligence-operating-system). Normal development happens through department-labelled issues and checked pull requests rather than directly on `main`.
+
 Create `.env.local` only when enabling optional live-provider or hosted features. Start from `.env.example`; never commit credentials.
 
 ## Workspaces
@@ -73,6 +75,26 @@ The application preserves the Sites Vinext foundation:
 - Deterministic source-controlled sample data for offline reproducibility.
 
 See [Architecture](docs/ARCHITECTURE.md) and the original [Implementation plan](IMPLEMENTATION_PLAN.md).
+
+## Department operating model
+
+The programme is divided into 13 accountable departments so each domain can advance deeply without fragmenting the application or its scientific truth:
+
+- Product Architecture & Systems Integration
+- UI/UX & Design Systems
+- Workspaces & Product Features
+- Solar Physics & STAR Engine
+- Energy Systems & Optimisation
+- Weather, Data & Provenance
+- Forecasting, ML & Representative Year
+- Digital Twin, Maps & Visual Computing
+- PET Assistant & Solar Copilot — **Photovoltaic Evidence & Triage**, currently planned
+- Platform, API & Persistence
+- Quality Engineering & Scientific Assurance
+- Security, Reliability & Release
+- Research & Scientific Communication
+
+Start at the [department operating system](governance/README.md). The [machine-readable registry](governance/departments.json), [workspace ownership matrix](governance/WORKSPACE_OWNERSHIP.md), [shared contracts](governance/INTERFACE_CONTRACTS.md), [contribution guide](CONTRIBUTING.md), issue forms and pull-request gates make ownership executable rather than decorative.
 
 ## Scientific integrity
 

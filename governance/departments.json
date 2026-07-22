@@ -1,0 +1,344 @@
+{
+  "schemaVersion": "1.0.0",
+  "updatedAt": "2026-07-22",
+  "maturityModel": {
+    "M0": "planned only",
+    "M1": "executable prototype",
+    "M2": "deterministic and tested",
+    "M3": "independently validated",
+    "M4": "operationally monitored",
+    "M5": "bankable or externally certified"
+  },
+  "departments": [
+    {
+      "id": "ARCH",
+      "slug": "architecture",
+      "name": "Product Architecture & Systems Integration",
+      "mission": "Own system boundaries, shared contracts, architectural decisions and cross-department integration.",
+      "operatingState": "active",
+      "accountableRole": "Principal software architect",
+      "charter": "governance/departments/ARCH.md",
+      "primaryPaths": [
+        "README.md",
+        "IMPLEMENTATION_PLAN.md",
+        "PROJECT_STATUS.md",
+        "docs/ARCHITECTURE.md",
+        "lib/contracts",
+        "lib/operating-snapshot.ts",
+        "lib/client-snapshot.ts",
+        "governance/README.md",
+        "governance/departments.json",
+        "governance/schemas",
+        "governance/WORKSPACE_OWNERSHIP.md",
+        "governance/INTERFACE_CONTRACTS.md",
+        "governance/DECISION_PROCESS.md"
+      ],
+      "sharedPaths": ["components/solar-os/model.ts", "package.json"],
+      "interfaces": [
+        { "departmentId": "PLATFORM", "contract": "ScientificResult<T> and API compatibility", "artifact": "lib/contracts/index.ts" },
+        { "departmentId": "FEATURES", "contract": "Operating snapshot and UI transport", "artifact": "lib/client-snapshot.ts" },
+        { "departmentId": "QA", "contract": "Architecture fitness evidence", "artifact": "tests/departments.test.mjs" }
+      ],
+      "requiredChecks": ["department-registry", "typecheck", "lint", "science", "build", "smoke"],
+      "labels": ["department:architecture"],
+      "currentObjectives": [
+        "Freeze versioned cross-department contracts before deeper refactors.",
+        "Split the four current UI merge hotspots without changing behaviour.",
+        "Record architecture and scientific decisions before implementation."
+      ]
+    },
+    {
+      "id": "EXPERIENCE",
+      "slug": "experience",
+      "name": "UI/UX & Design Systems",
+      "mission": "Own visual language, accessibility, interaction grammar, responsive behaviour and reusable interface primitives.",
+      "operatingState": "active",
+      "accountableRole": "UX director and product designer",
+      "charter": "governance/departments/EXPERIENCE.md",
+      "primaryPaths": ["app/globals.css", "app/layout.tsx", "app/loading.tsx", "app/error.tsx", "app/not-found.tsx", "public"],
+      "sharedPaths": ["components/solar-os/SolarOperatingSystem.tsx", "components/solar-os/workspaces.tsx", "components/solar-os/instruments.tsx"],
+      "interfaces": [
+        { "departmentId": "FEATURES", "contract": "WorkspaceDefinition and UI command contracts", "artifact": "components/solar-os/workspaces.tsx" },
+        { "departmentId": "TWIN", "contract": "Accessible visualisation containers and fallbacks", "artifact": "components/solar-os/instruments.tsx" },
+        { "departmentId": "QA", "contract": "Accessibility, responsive and regression evidence", "artifact": "tests" }
+      ],
+      "requiredChecks": ["typecheck", "lint", "build", "smoke"],
+      "labels": ["department:experience"],
+      "currentObjectives": [
+        "Extract tokens, primitives and shell styles without pixel drift.",
+        "Add automated accessibility and responsive regression coverage.",
+        "Define versioned dockable layout and multi-monitor behaviour."
+      ]
+    },
+    {
+      "id": "FEATURES",
+      "slug": "features",
+      "name": "Workspaces & Product Features",
+      "mission": "Own the 14 operational workflows, linked application state, commands and feature-level outcomes.",
+      "operatingState": "active",
+      "accountableRole": "Product engineering lead",
+      "charter": "governance/departments/FEATURES.md",
+      "primaryPaths": ["app/page.tsx", "components/solar-os/SolarOperatingSystem.tsx", "components/solar-os/model.ts", "components/solar-os/workspaces.tsx"],
+      "sharedPaths": ["app/api/v1/scenarios", "db/schema.ts", "lib/operating-snapshot.ts"],
+      "interfaces": [
+        { "departmentId": "ARCH", "contract": "OperatingUIStateV1 and WorkspaceDefinitionV2", "artifact": "governance/INTERFACE_CONTRACTS.md" },
+        { "departmentId": "SOLAR", "contract": "Versioned generation and engineering results", "artifact": "lib/solar/index.ts" },
+        { "departmentId": "PLATFORM", "contract": "Saved scenarios, annotations and workspace persistence", "artifact": "app/api/v1/scenarios" }
+      ],
+      "requiredChecks": ["typecheck", "lint", "build", "smoke"],
+      "labels": ["department:features"],
+      "currentObjectives": [
+        "Extract each workspace into an independently testable feature package.",
+        "Introduce a typed reducer and versioned linked-state persistence.",
+        "Replace UI scientific proxies with authoritative server-side results."
+      ]
+    },
+    {
+      "id": "SOLAR",
+      "slug": "solar-engine",
+      "name": "Solar Physics & STAR Engine",
+      "mission": "Own authoritative solar geometry, irradiance, thermal, electrical and annual photovoltaic calculations.",
+      "operatingState": "active",
+      "accountableRole": "Renewable-energy scientist",
+      "charter": "governance/departments/SOLAR.md",
+      "primaryPaths": ["lib/solar"],
+      "sharedPaths": ["lib/contracts/index.ts", "lib/operating-snapshot.ts", "docs/SCIENTIFIC_METHODS.md", "tests/science-core.test.mjs"],
+      "interfaces": [
+        { "departmentId": "DATA", "contract": "Canonical quality-scored WeatherHour", "artifact": "lib/contracts/index.ts" },
+        { "departmentId": "ENERGY", "contract": "Hourly generation and explicit interval duration", "artifact": "lib/solar/simulation.ts" },
+        { "departmentId": "TWIN", "contract": "Authoritative sun and irradiance scene values", "artifact": "lib/contracts/index.ts" }
+      ],
+      "requiredChecks": ["typecheck", "science", "build"],
+      "labels": ["department:solar-engine"],
+      "currentObjectives": [
+        "Publish a versioned SolarSimulationRequest and SolarSimulationResult contract.",
+        "Add independent reference comparison fixtures and irradiance closure tests.",
+        "Replace scalar geometry losses with explicit horizon, shading and tracker models."
+      ]
+    },
+    {
+      "id": "ENERGY",
+      "slug": "energy-optimisation",
+      "name": "Energy Systems & Optimisation",
+      "mission": "Own battery, grid, demand, tariff, carbon, resilience and multi-objective optimisation models.",
+      "operatingState": "active",
+      "accountableRole": "Energy-systems and optimisation lead",
+      "charter": "governance/departments/ENERGY.md",
+      "primaryPaths": ["lib/energy", "lib/optimisation"],
+      "sharedPaths": ["lib/contracts/index.ts", "lib/operating-snapshot.ts", "components/solar-os/workspaces.tsx", "tests/science-core.test.mjs"],
+      "interfaces": [
+        { "departmentId": "SOLAR", "contract": "Interval generation series", "artifact": "lib/solar/simulation.ts" },
+        { "departmentId": "FEATURES", "contract": "Scenario inputs, Pareto outputs and screening notices", "artifact": "components/solar-os/model.ts" },
+        { "departmentId": "RESEARCH", "contract": "Versioned financial and carbon assumptions", "artifact": "docs/LIMITATIONS.md" }
+      ],
+      "requiredChecks": ["typecheck", "science", "build"],
+      "labels": ["department:energy-optimisation"],
+      "currentObjectives": [
+        "Make interval duration explicit throughout energy accounting.",
+        "Add tariff-aware dispatch, degradation and outage constraints.",
+        "Benchmark Bayesian and robust optimisation only after deterministic gates pass."
+      ]
+    },
+    {
+      "id": "DATA",
+      "slug": "data-weather",
+      "name": "Weather, Data & Provenance",
+      "mission": "Deliver quality-controlled, versioned meteorological and production data with complete lineage.",
+      "operatingState": "active",
+      "accountableRole": "Meteorologist and data engineering lead",
+      "charter": "governance/departments/DATA.md",
+      "primaryPaths": ["lib/providers", "lib/sample", "lib/provenance", "docs/DATA_PROVIDERS.md", "docs/DATA_PROVENANCE.md"],
+      "sharedPaths": ["app/api/v1/weather", "db/schema.ts", "worker/index.ts", "lib/contracts/index.ts"],
+      "interfaces": [
+        { "departmentId": "SOLAR", "contract": "CanonicalWeatherHour and quality policy", "artifact": "lib/providers/types.ts" },
+        { "departmentId": "FORECAST", "contract": "Immutable dataset snapshots and issue-time series", "artifact": "lib/provenance/manifest.ts" },
+        { "departmentId": "PLATFORM", "contract": "Scheduled ingestion and snapshot persistence", "artifact": "lib/providers/scheduled-ingestion.ts" }
+      ],
+      "requiredChecks": ["typecheck", "science", "build", "smoke"],
+      "labels": ["department:data-weather"],
+      "currentObjectives": [
+        "Wire live canonical provider records into the annual simulation path.",
+        "Add captured provider fixtures and schema-drift tests.",
+        "Implement class-preserving European reanalysis, forecast and satellite sources."
+      ]
+    },
+    {
+      "id": "FORECAST",
+      "slug": "forecast-ml",
+      "name": "Forecasting, ML & Representative Year",
+      "mission": "Own chronological forecasting, calibration, representative-year construction and model governance.",
+      "operatingState": "active",
+      "accountableRole": "Machine-learning research lead",
+      "charter": "governance/departments/FORECAST.md",
+      "primaryPaths": ["lib/forecasting", "lib/representative-year"],
+      "sharedPaths": ["research", "db/schema.ts", "docs/MODEL_VALIDATION.md", "tests/science-core.test.mjs"],
+      "interfaces": [
+        { "departmentId": "DATA", "contract": "Versioned immutable training and evaluation snapshots", "artifact": "lib/provenance/manifest.ts" },
+        { "departmentId": "SOLAR", "contract": "Physical baseline and residual features", "artifact": "lib/solar/simulation.ts" },
+        { "departmentId": "QA", "contract": "Rolling-origin, holdout and calibration evidence", "artifact": "docs/MODEL_VALIDATION.md" }
+      ],
+      "requiredChecks": ["typecheck", "science", "build"],
+      "labels": ["department:forecast-ml"],
+      "currentObjectives": [
+        "Close the measured-production and archived issue-time data gap.",
+        "Formalise seasonal holdouts, rolling origins and promotion evidence.",
+        "Compare representative-year methods and preserve interval-level lineage."
+      ]
+    },
+    {
+      "id": "TWIN",
+      "slug": "digital-twin",
+      "name": "Digital Twin, Maps & Visual Computing",
+      "mission": "Own Canvas, spatial scenes, geospatial layers, GPU visualisation and accessible analytical equivalents.",
+      "operatingState": "active",
+      "accountableRole": "3D visualisation engineering lead",
+      "charter": "governance/departments/TWIN.md",
+      "primaryPaths": ["components/solar-os/instruments.tsx"],
+      "sharedPaths": ["components/solar-os/workspaces.tsx", "app/globals.css", "lib/contracts/index.ts"],
+      "interfaces": [
+        { "departmentId": "SOLAR", "contract": "SceneFrameV1 sun, array and irradiance values", "artifact": "governance/INTERFACE_CONTRACTS.md" },
+        { "departmentId": "DATA", "contract": "Attributed terrain, weather and regional layers", "artifact": "lib/provenance/manifest.ts" },
+        { "departmentId": "EXPERIENCE", "contract": "Renderer boundary and accessible fallback", "artifact": "components/solar-os/instruments.tsx" }
+      ],
+      "requiredChecks": ["typecheck", "lint", "build", "smoke"],
+      "labels": ["department:digital-twin"],
+      "currentObjectives": [
+        "Freeze SceneFrameV1 coordinate, unit and provenance conventions.",
+        "Extract existing Canvas instruments without rendering drift.",
+        "Add a lazy WebGL renderer only with a complete analytical fallback."
+      ]
+    },
+    {
+      "id": "PET",
+      "slug": "pet-assistant",
+      "name": "PET Assistant & Solar Copilot",
+      "mission": "Provide grounded Photovoltaic Evidence & Triage explanations, evidence tracing and confirmable scenario proposals.",
+      "operatingState": "planned",
+      "accountableRole": "Assistant research and safety lead",
+      "charter": "governance/departments/PET.md",
+      "primaryPaths": [],
+      "reservedPaths": ["features/copilot", "lib/copilot", "app/api/v1/copilot", "tests/copilot", "docs/COPILOT_SAFETY.md", "docs/COPILOT_EVALUATION.md"],
+      "sharedPaths": ["lib/contracts/index.ts", "lib/provenance", "db/schema.ts"],
+      "interfaces": [
+        { "departmentId": "ARCH", "contract": "CopilotContextV1 and evidence references", "artifact": "governance/INTERFACE_CONTRACTS.md" },
+        { "departmentId": "FEATURES", "contract": "Read-only context and explicit proposed actions", "artifact": "components/solar-os/model.ts" },
+        { "departmentId": "SECOPS", "contract": "Prompt injection, retention and secret-exclusion policy", "artifact": "governance/departments/PET.md" }
+      ],
+      "requiredChecks": ["typecheck", "lint", "science", "build", "smoke"],
+      "labels": ["department:pet-assistant"],
+      "currentObjectives": [
+        "Define evidence references and deterministic offline explanation tools.",
+        "Build adversarial and scientific grounding evaluations before model integration.",
+        "Require explicit confirmation for every proposed state change."
+      ]
+    },
+    {
+      "id": "PLATFORM",
+      "slug": "platform",
+      "name": "Platform, API & Persistence",
+      "mission": "Own versioned APIs, D1/R2 persistence, jobs, identity integration and Worker runtime boundaries.",
+      "operatingState": "active",
+      "accountableRole": "Platform engineering lead",
+      "charter": "governance/departments/PLATFORM.md",
+      "primaryPaths": ["app/api", "app/chatgpt-auth.ts", "db", "drizzle", "worker", "build", "vite.config.ts", "next.config.ts", "drizzle.config.ts"],
+      "sharedPaths": ["lib/operating-snapshot.ts", "lib/providers/scheduled-ingestion.ts", ".openai/hosting.json"],
+      "interfaces": [
+        { "departmentId": "ARCH", "contract": "API and persistence compatibility policy", "artifact": "governance/INTERFACE_CONTRACTS.md" },
+        { "departmentId": "DATA", "contract": "Dataset and provider-run persistence", "artifact": "db/schema.ts" },
+        { "departmentId": "SECOPS", "contract": "Trusted identity, authorization and deployment controls", "artifact": "docs/SECURITY.md" }
+      ],
+      "requiredChecks": ["typecheck", "lint", "science", "build", "smoke"],
+      "labels": ["department:platform"],
+      "currentObjectives": [
+        "Implement bounded rate limiting and tenant-aware role authorization.",
+        "Add audit writes for destructive operations and ownership-isolation tests.",
+        "Publish machine-readable API contracts and D1/R2 integration tests."
+      ]
+    },
+    {
+      "id": "QA",
+      "slug": "quality",
+      "name": "Quality Engineering & Scientific Assurance",
+      "mission": "Independently verify scientific, data, API, UI, accessibility, performance and release claims.",
+      "operatingState": "active",
+      "accountableRole": "Scientific QA and test engineering lead",
+      "charter": "governance/departments/QA.md",
+      "primaryPaths": ["tests", "eslint.config.mjs", "tsconfig.json"],
+      "sharedPaths": ["lib/contracts", "docs/MODEL_VALIDATION.md", "docs/SCIENTIFIC_METHODS.md", ".github/workflows"],
+      "interfaces": [
+        { "departmentId": "SOLAR", "contract": "Independent physics comparator and invariant evidence", "artifact": "tests/science-core.test.mjs" },
+        { "departmentId": "FORECAST", "contract": "No-leakage validation and calibration evidence", "artifact": "docs/MODEL_VALIDATION.md" },
+        { "departmentId": "SECOPS", "contract": "Release evidence and required checks", "artifact": ".github/workflows/ci.yml" }
+      ],
+      "requiredChecks": ["department-registry", "typecheck", "lint", "science", "build", "smoke"],
+      "labels": ["department:quality"],
+      "currentObjectives": [
+        "Preserve the current 15-test baseline and add department registry fitness tests.",
+        "Create golden data, property and independent reference suites.",
+        "Add accessibility, visual, performance and persistence integration coverage."
+      ]
+    },
+    {
+      "id": "SECOPS",
+      "slug": "security-release",
+      "name": "Security, Reliability & Release",
+      "mission": "Own threat modelling, dependency security, CI/CD, observability, deployment and recovery evidence.",
+      "operatingState": "active",
+      "accountableRole": "Security and site reliability lead",
+      "charter": "governance/departments/SECOPS.md",
+      "primaryPaths": [".github", ".env.example", ".openai", "docs/SECURITY.md", "docs/DEPLOYMENT.md", "docs/BACKUP_RECOVERY.md", "docs/PERFORMANCE.md"],
+      "sharedPaths": ["worker/index.ts", "app/chatgpt-auth.ts", "db", "drizzle"],
+      "interfaces": [
+        { "departmentId": "PLATFORM", "contract": "Authorization, audit and runtime control evidence", "artifact": "docs/SECURITY.md" },
+        { "departmentId": "QA", "contract": "Required release checks and failure policy", "artifact": ".github/workflows/ci.yml" },
+        { "departmentId": "DATA", "contract": "Retention, licensing, integrity and recovery", "artifact": "docs/BACKUP_RECOVERY.md" }
+      ],
+      "requiredChecks": ["department-registry", "typecheck", "lint", "science", "build", "smoke"],
+      "labels": ["department:security-release"],
+      "currentObjectives": [
+        "Protect the private source of record and automate verified pull-request checks.",
+        "Document and test the trusted hosting-header and authorization boundary.",
+        "Introduce CSP, restore drills, SBOM and release provenance incrementally."
+      ]
+    },
+    {
+      "id": "RESEARCH",
+      "slug": "research",
+      "name": "Research & Scientific Communication",
+      "mission": "Own experiment governance, scientific method records, limitations, publication evidence and research translation.",
+      "operatingState": "active",
+      "accountableRole": "Research programme and publication lead",
+      "charter": "governance/departments/RESEARCH.md",
+      "primaryPaths": ["research", "docs/SCIENTIFIC_METHODS.md", "docs/MODEL_VALIDATION.md", "docs/LIMITATIONS.md", "docs/RESEARCH_ROADMAP.md"],
+      "sharedPaths": ["lib/forecasting", "lib/representative-year", "components/solar-os/workspaces.tsx", "lib/provenance"],
+      "interfaces": [
+        { "departmentId": "FORECAST", "contract": "Experiment manifests and model cards", "artifact": "research/README.md" },
+        { "departmentId": "QA", "contract": "Claim-to-code-to-test traceability", "artifact": "docs/MODEL_VALIDATION.md" },
+        { "departmentId": "DATA", "contract": "Dataset cards, licences and lineage", "artifact": "docs/DATA_PROVENANCE.md" }
+      ],
+      "requiredChecks": ["department-registry", "science", "build", "smoke"],
+      "labels": ["department:research"],
+      "currentObjectives": [
+        "Resolve verified documentation-to-code divergence before new scientific claims.",
+        "Standardise reproducible experiment and publication manifests.",
+        "Maintain explicit implemented, experimental, simulated and planned boundaries."
+      ]
+    }
+  ],
+  "workspaces": [
+    { "id": "DT", "name": "Solar Digital Twin Operations", "primaryDepartment": "TWIN", "contributors": ["EXPERIENCE", "SOLAR", "DATA", "ENERGY", "FEATURES"] },
+    { "id": "AF", "name": "Annual Energy Forecast Observatory", "primaryDepartment": "FORECAST", "contributors": ["DATA", "SOLAR", "RESEARCH", "EXPERIENCE", "FEATURES"] },
+    { "id": "WA", "name": "Weather & Atmosphere Command Centre", "primaryDepartment": "DATA", "contributors": ["FORECAST", "TWIN", "EXPERIENCE", "FEATURES"] },
+    { "id": "ML", "name": "Forecast Model Laboratory", "primaryDepartment": "FORECAST", "contributors": ["DATA", "RESEARCH", "PLATFORM", "FEATURES"] },
+    { "id": "RV", "name": "Forecast Replay & Validation Centre", "primaryDepartment": "FORECAST", "contributors": ["DATA", "RESEARCH", "QA", "FEATURES"] },
+    { "id": "AE", "name": "Solar Array Engineering Studio", "primaryDepartment": "SOLAR", "contributors": ["TWIN", "ENERGY", "EXPERIENCE", "FEATURES"] },
+    { "id": "SR", "name": "Scenario & Resilience Simulator", "primaryDepartment": "ENERGY", "contributors": ["SOLAR", "DATA", "FORECAST", "QA", "FEATURES"] },
+    { "id": "BE", "name": "Battery & Energy-Flow Optimisation", "primaryDepartment": "ENERGY", "contributors": ["SOLAR", "EXPERIENCE", "FEATURES"] },
+    { "id": "RM", "name": "Regional Solar Intelligence Map", "primaryDepartment": "TWIN", "contributors": ["DATA", "SOLAR", "EXPERIENCE", "FEATURES"] },
+    { "id": "CL", "name": "Climate & Long-Horizon Analysis", "primaryDepartment": "RESEARCH", "contributors": ["DATA", "FORECAST", "SOLAR", "FEATURES"] },
+    { "id": "FI", "name": "Financial & Investment Observatory", "primaryDepartment": "ENERGY", "contributors": ["RESEARCH", "QA", "FEATURES", "EXPERIENCE"] },
+    { "id": "PA", "name": "Data Provenance & Scientific Audit", "primaryDepartment": "DATA", "contributors": ["PLATFORM", "RESEARCH", "SECOPS", "QA", "FEATURES"] },
+    { "id": "RP", "name": "Research Publication Studio", "primaryDepartment": "RESEARCH", "contributors": ["DATA", "FORECAST", "EXPERIENCE", "FEATURES"] },
+    { "id": "MC", "name": "Executive Mission Control", "primaryDepartment": "FEATURES", "contributors": ["EXPERIENCE", "SOLAR", "ENERGY", "DATA", "FORECAST", "TWIN", "PLATFORM", "QA", "RESEARCH"] }
+  ]
+}

@@ -1,0 +1,48 @@
+name: Scientific method change
+description: Propose a formula, physical approximation, metric, uncertainty or lifecycle change.
+title: "[SCIENCE] "
+labels:
+  - type:science
+  - needs:validation
+  - status:triage
+body:
+  - type: dropdown
+    id: department
+    attributes:
+      label: Primary scientific department
+      options:
+        - SOLAR — Solar Physics & STAR Engine
+        - ENERGY — Energy Systems & Optimisation
+        - FORECAST — Forecasting, ML & Representative Year
+        - DATA — Weather, Data & Provenance
+        - RESEARCH — Research & Scientific Communication
+    validations:
+      required: true
+  - type: textarea
+    id: method
+    attributes:
+      label: Proposed method
+      description: Give equations/algorithm, constants, units and reference basis.
+    validations:
+      required: true
+  - type: textarea
+    id: assumptions
+    attributes:
+      label: Assumptions, limitations and uncertainty
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Validation design
+      description: Include independent comparator, fixtures/datasets, tolerances, temporal split and metrics.
+    validations:
+      required: true
+  - type: textarea
+    id: versions
+    attributes:
+      label: Version and provenance impact
+      description: State calculation/model/dataset changes and required SDR.
+    validations:
+      required: true
+
