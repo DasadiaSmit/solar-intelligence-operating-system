@@ -28,14 +28,15 @@ export class DeterministicSampleProvider implements WeatherProvider {
     const endMs = Date.parse(query.endUtc);
     const records = [];
     for (let timestampMs = startMs; timestampMs <= endMs; timestampMs += 3_600_000) {
-      const timestamp = new Date(timestampMs);
-      const record = emptyWeatherHour(timestamp.toISOString());
+      const intervalEnd = new Date(timestampMs);
+      const midpoint = new Date(timestampMs - 30 * 60_000);
+      const record = emptyWeatherHour(intervalEnd.toISOString());
       const dayOfYear = Math.floor(
-        (Date.UTC(timestamp.getUTCFullYear(), timestamp.getUTCMonth(), timestamp.getUTCDate()) -
-          Date.UTC(timestamp.getUTCFullYear(), 0, 0)) /
+        (Date.UTC(midpoint.getUTCFullYear(), midpoint.getUTCMonth(), midpoint.getUTCDate()) -
+          Date.UTC(midpoint.getUTCFullYear(), 0, 0)) /
           86_400_000,
       );
-      const hour = timestamp.getUTCHours() + timestamp.getUTCMinutes() / 60;
+      const hour = midpoint.getUTCHours() + midpoint.getUTCMinutes() / 60;
       const seasonalPhase = (2 * Math.PI * (dayOfYear - 172)) / 365.2422;
       const declination = 23.44 * Math.sin((2 * Math.PI * (dayOfYear - 80)) / 365.2422);
       const solarHour = hour + query.longitude / 15;
@@ -94,9 +95,11 @@ export class DeterministicSampleProvider implements WeatherProvider {
         "Deterministic analytic seasonality and cloud regimes are used for interface and pipeline testing.",
         "The series is not calibrated to a measured site and must not be used for investment decisions.",
         "Irradiance is a bounded synthetic clear-sky envelope with deterministic cloud attenuation.",
+        "Each timestamp labels the end of the preceding hourly interval; synthetic conditions are evaluated at its midpoint.",
       ],
       transformations: [
         "UTC hourly grid generation",
+        "preceding-hour interval-end timestamps with midpoint evaluation",
         "deterministic solar-elevation approximation",
         "bounded physical-range validation",
       ],
@@ -129,4 +132,3 @@ function round(value: number, digits: number): number {
   const scale = 10 ** digits;
   return Math.round(value * scale) / scale;
 }
-

@@ -4,17 +4,20 @@ Solar Intelligence Operating System is a research-grade environment for explaini
 
 It is not a short-form solar calculator. The application runs an explainable 8,760-hour physics and energy-flow model, constructs a transparent 2022–2025 short-record representative composite, compares reproducible forecast baselines, quantifies uncertainty, exposes provenance, and links every result across 14 operational workspaces.
 
+The original research objective remains the critical path: a complete-year, time-series-based photovoltaic estimate using 2022–2025 weather and radiation evidence. The implemented annual-study route now acquires each source year through the canonical provider boundary, builds four historical simulations and a representative year, and evaluates models with 2022–2023 training, 2024 calibration and untouched 2025 evidence. Field validation remains pending until measured plant production is attached. See the [full research-spine specification](docs/RESEARCH_SPINE.md).
+
 ## What works
 
 - Full-year hourly solar position, irradiance, module temperature, DC/AC conversion, inverter clipping, and explicit loss chain.
 - Battery dispatch, self-consumption, import/export, curtailment, tariffs, carbon, and reliability accounting.
 - Deterministic 2022–2025 sample weather and production scenarios that work offline without credentials.
 - Open-Meteo and PVGIS/JRC provider adapters with validation, retries, safe fallback, quality scoring, and provenance.
+- A fail-closed Open-Meteo 2022–2025 reanalysis route (ERA5 by default) using the same canonical-to-science boundary as offline sample mode.
 - Short-record representative-year construction without averaging four years into a false “typical” year.
 - Seasonal-naive, moving-average, exponential, regression, hybrid, and probabilistic ensemble methods.
 - Rolling-origin metrics, calibration/coverage, and clear separation of simulated reference agreement from measured validation.
 - Grid search, Pareto filtering, seeded Monte Carlo, sensitivity, and stress scenarios.
-- A responsive observatory interface with linked timeline, Solar Production DNA, confidence bands, replay, scenarios, engineering, battery, model, provenance, financial, regional, publication, and mission-control views.
+- A responsive observatory interface with linked timeline, Solar Production DNA, explicitly labelled model bands, replay, scenarios, engineering, battery, model, provenance, financial, regional, publication, and mission-control views.
 - Versioned APIs, D1 schema/migration, health reporting, optional workspace identity, audit-ready records, and deterministic sample mode.
 
 Advanced deep-learning and large meteorological ingestion pipelines are represented honestly as research extension points; the application does not invent training runs or performance metrics.
@@ -42,7 +45,7 @@ pnpm test
 
 The private source of record is [DasadiaSmit/solar-intelligence-operating-system](https://github.com/DasadiaSmit/solar-intelligence-operating-system). Normal development happens through department-labelled issues and checked pull requests rather than directly on `main`.
 
-Create `.env.local` only when enabling optional live-provider or hosted features. Start from `.env.example`; never commit credentials.
+The no-key Open-Meteo reanalysis study works without `.env.local`. Create one only for documented provider-policy/model/endpoint overrides or optional hosted features. Start from `.env.example`; never commit credentials.
 
 ## Workspaces
 
@@ -110,6 +113,7 @@ Predictions are not guarantees. Read each result with its provider, data class, 
 Key documentation:
 
 - [Scientific methods and formulae](docs/SCIENTIFIC_METHODS.md)
+- [Full-year research spine](docs/RESEARCH_SPINE.md)
 - [Model validation report](docs/MODEL_VALIDATION.md)
 - [Data providers](docs/DATA_PROVIDERS.md)
 - [Data provenance](docs/DATA_PROVENANCE.md)
@@ -124,6 +128,7 @@ The versioned surface includes:
 - `GET /api/v1/weather`
 - `POST /api/v1/simulate`
 - `GET /api/v1/provenance`
+- `GET /api/v1/studies/annual?mode=sample|live`
 - scenario/saved-state routes when D1 and authenticated identity are available
 
 Invalid inputs return structured errors. Provider failure falls back only to a semantically equivalent source; sample mode is explicitly labelled rather than impersonating live data.
@@ -147,7 +152,7 @@ Current implementation, verification evidence, precise remaining work, and resta
 
 Production deployment requires provider licence/capacity review, measured-plant validation, authorization/access-policy review, restore testing, and site/electrical engineering validation.
 
-The final release gate passed 10 scientific/data tests, 5 API/artifact smoke tests, strict TypeScript, lint, and a fresh production build. The precise evidence and remaining operational acceptance items are recorded in [PROJECT_STATUS.md](./PROJECT_STATUS.md).
+The final release gate passed 3 governance tests, 10 scientific-core tests, 11 research-spine tests, 5 API/artifact smoke tests, strict TypeScript, lint, and a fresh production build. The precise evidence and remaining operational acceptance items are recorded in [PROJECT_STATUS.md](./PROJECT_STATUS.md).
 
 ## Research objective
 

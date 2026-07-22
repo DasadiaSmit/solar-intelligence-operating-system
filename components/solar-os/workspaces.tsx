@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import type { AnnualResearchStudy } from "@/lib/research";
 import { AnnualChronology, MicroTrace, ProductionDNA } from "./instruments";
 import type {
   HourDatum,
@@ -30,7 +32,7 @@ export interface WorkspaceDefinition {
 
 export const WORKSPACES: WorkspaceDefinition[] = [
   { id: "DT", glyph: "DT", name: "Solar Digital Twin Operations", shortName: "Digital twin", status: "IMPLEMENTED", description: "Site geometry, sun, weather, telemetry and energy flow in one operational scene." },
-  { id: "AF", glyph: "AF", name: "Annual Energy Forecast Observatory", shortName: "Annual forecast", status: "IMPLEMENTED", description: "Full-year hourly energy, representative-year evidence and calibrated uncertainty." },
+  { id: "AF", glyph: "AF", name: "Annual Energy Forecast Observatory", shortName: "Annual forecast", status: "EXPERIMENTAL", description: "Full-year hourly energy, representative-year evidence and explicitly qualified uncertainty." },
   { id: "WA", glyph: "WA", name: "Weather & Atmosphere Command Centre", shortName: "Atmosphere", status: "IMPLEMENTED", description: "Cloud, radiation, temperature and quality regimes translated into energy effects." },
   { id: "ML", glyph: "ML", name: "Forecast Model Laboratory", shortName: "Model lab", status: "EXPERIMENTAL", description: "Champion/challenger evidence, validation metrics and honest research candidates." },
   { id: "RV", glyph: "RV", name: "Forecast Replay & Validation Centre", shortName: "Replay validation", status: "SIMULATED", description: "Sample mode replays time-linked scenario-to-base deltas; observed-production validation activates only when a measured dataset is attached." },
@@ -118,16 +120,26 @@ function formatCurrency(value: number, config: ScenarioConfig, digits = 0): stri
   }
 }
 
-function annualUncertainty(result: ScenarioResult): number {
+function annualSpread(result: ScenarioResult) {
   const centre = result.summary.p50Kwh || result.summary.annualKwh;
-  return centre > 0 ? ((result.summary.p90Kwh - result.summary.p10Kwh) / (2 * centre)) * 100 : 0;
+  if (centre <= 0) return { lowerDeltaPct: 0, upperDeltaPct: 0, halfRangePct: 0 };
+  return {
+    lowerDeltaPct: ((result.summary.p10Kwh - centre) / centre) * 100,
+    upperDeltaPct: ((result.summary.p90Kwh - centre) / centre) * 100,
+    halfRangePct: ((result.summary.p90Kwh - result.summary.p10Kwh) / (2 * centre)) * 100,
+  };
 }
 
-function AnnualWorkspace({ base, result, selectedIndex, onSelect }: WorkspaceProps) {
+function signedPercent(value: number): string {
+  return `${value >= 0 ? "+" : ""}${formatNumber(value, 1)}%`;
+}
+
+function AnnualWorkspace({ base, result, scenario, selectedIndex, onSelect }: WorkspaceProps) {
   const comparisonsRaw = recordOf(base.representativeYear).comparisons;
   const comparisons = Array.isArray(comparisonsRaw) ? comparisonsRaw.map(recordOf) : [];
   const sourceWeights = recordOf(recordOf(base.representativeYear).sourceYearWeights);
-  const interval = annualUncertainty(result);
+  const spread = annualSpread(result);
+  const location = recordOf(recordOf(base.raw.config as unknown).location);
 
   return (
     <div className="annual-workspace workspace-grid" data-testid="workspace-AF">
@@ -139,7 +151,7 @@ function AnnualWorkspace({ base, result, selectedIndex, onSelect }: WorkspacePro
         <dl>
           <div><dt>HORIZON</dt><dd>8,760 h</dd></div>
           <div><dt>METHOD</dt><dd>{stringOf(recordOf(base.representativeYear), ["method"], "Representative-year synthesis")}</dd></div>
-          <div><dt>INTERVAL</dt><dd>P10—P90 · ±{formatNumber(interval, 1)}%</dd></div>
+          <div><dt>SPREAD VS REP</dt><dd>Q10 {signedPercent(spread.lowerDeltaPct)} · Q90 {signedPercent(spread.upperDeltaPct)}</dd></div>
           <div><dt>VALIDITY</dt><dd>estimate, not guarantee</dd></div>
         </dl>
       </section>
@@ -148,28 +160,28 @@ function AnnualWorkspace({ base, result, selectedIndex, onSelect }: WorkspacePro
         <InstrumentHeader
           code="AF.01"
           title="Annual chronology field"
-          meta="AC POWER · HOURLY · P10—P90 BAND"
+          meta="AC ENERGY · HOURLY · MODELLED BAND"
           status={result.changed ? "SIMULATED" : "IMPLEMENTED"}
         />
         <AnnualChronology hours={result.hours} baseHours={base.hours} selectedIndex={selectedIndex} onSelect={onSelect} />
         <div className="chart-legend" aria-label="Chart legend">
           <span><i className="legend-line solar" />scenario P50</span>
-          <span><i className="legend-area forecast" />confidence envelope</span>
+          <span><i className="legend-area forecast" />modelled uncertainty envelope</span>
           {result.changed && <span><i className="legend-line historical" />base configuration</span>}
         </div>
       </section>
 
       <section className="instrument confidence-panel grid-span-4">
-        <InstrumentHeader code="AF.02" title="Forecast confidence galaxy" meta="UNCERTAINTY FIELD" status="EXPERIMENTAL" />
-        <div className="confidence-galaxy" style={{ "--spread": `${clamp(interval, 5, 34)}%` } as React.CSSProperties}>
+        <InstrumentHeader code="AF.02" title="Interannual uncertainty galaxy" meta="Q10—Q90 SOURCE-YEAR FIELD · N=4" status="EXPERIMENTAL" />
+        <div className="confidence-galaxy" style={{ "--spread": `${clamp(spread.halfRangePct, 5, 34)}%` } as React.CSSProperties}>
           <div className="galaxy-orbit orbit-a" />
           <div className="galaxy-orbit orbit-b" />
-          <div className="galaxy-core"><span>P50</span><strong>{formatCompact(result.summary.p50Kwh || result.summary.annualKwh, " kWh")}</strong></div>
-          <span className="galaxy-node node-p10">P10<br />{formatCompact(result.summary.p10Kwh, "")}</span>
-          <span className="galaxy-node node-p90">P90<br />{formatCompact(result.summary.p90Kwh, "")}</span>
-          <span className="galaxy-node node-q">Q<br />{formatNumber(result.summary.qualityScore)}%</span>
+          <div className="galaxy-core"><span>REP</span><strong>{formatCompact(result.summary.p50Kwh || result.summary.annualKwh, " kWh")}</strong></div>
+          <span className="galaxy-node node-p10">Q10<br />{formatCompact(result.summary.p10Kwh, "")}</span>
+          <span className="galaxy-node node-p90">Q90<br />{formatCompact(result.summary.p90Kwh, "")}</span>
+          <span className="galaxy-node node-q">DQ<br />{formatNumber(result.summary.qualityScore)}%</span>
         </div>
-        <p className="instrument-note">Halo radius encodes the annual P10–P90 span; opacity reflects snapshot quality.</p>
+        <p className="instrument-note">Halo radius encodes four-source-year spread. It is not a calibrated probabilistic forecast interval.</p>
       </section>
 
       <section className="instrument dna-panel grid-span-9">
@@ -179,7 +191,7 @@ function AnnualWorkspace({ base, result, selectedIndex, onSelect }: WorkspacePro
       </section>
 
       <section className="instrument year-panel grid-span-3">
-        <InstrumentHeader code="AF.04" title="Representative year" meta="SOURCE EVIDENCE" status="IMPLEMENTED" />
+        <InstrumentHeader code="AF.04" title="Representative year" meta="SOURCE EVIDENCE" status={String(recordOf(base.representativeYear).status).toUpperCase() === "IMPLEMENTED" ? "IMPLEMENTED" : "EXPERIMENTAL"} />
         <div className="year-comparison">
           {comparisons.length ? comparisons.map((comparison) => {
             const year = stringOf(comparison, ["year"], "—");
@@ -194,10 +206,146 @@ function AnnualWorkspace({ base, result, selectedIndex, onSelect }: WorkspacePro
             );
           }) : <EmptyField title="Source-year evidence unavailable" detail="The representative-year record has no 2022–2025 comparisons." status="PLANNED" />}
         </div>
-        <p className="instrument-note">Weights are constructed by month and weather regime; totals are not simply averaged.</p>
+        <p className="instrument-note">Each calendar month is selected intact using multivariate empirical-CDF, persistence and boundary scores; totals are not simply averaged.</p>
       </section>
+
+      <AnnualResearchEvidencePanel
+        scenario={scenario}
+        location={{
+          name: stringOf(location, ["name"], "Active site"),
+          latitude: numberOf(location, ["latitude"], 0),
+          longitude: numberOf(location, ["longitude"], 0),
+          elevationM: numberOf(location, ["elevationM"], 0),
+        }}
+      />
     </div>
   );
+}
+
+interface AnnualResearchEvidencePanelProps {
+  scenario: ScenarioConfig;
+  location: { name: string; latitude: number; longitude: number; elevationM: number };
+}
+
+function AnnualResearchEvidencePanel({ scenario, location }: AnnualResearchEvidencePanelProps) {
+  const signature = JSON.stringify([
+    location.name,
+    location.latitude,
+    location.longitude,
+    location.elevationM,
+    scenario.capacityKw,
+    scenario.tiltDeg,
+    scenario.azimuthDeg,
+    scenario.systemLossPct,
+  ]);
+  const [studyRecord, setStudyRecord] = useState<{ study: AnnualResearchStudy; signature: string } | null>(null);
+  const [loading, setLoading] = useState<"sample" | "live" | null>(null);
+  const [errorRecord, setErrorRecord] = useState<{ message: string; signature: string } | null>(null);
+  const study = studyRecord?.signature === signature ? studyRecord.study : null;
+  const stale = studyRecord !== null && study === null;
+  const error = errorRecord?.signature === signature ? errorRecord.message : "";
+
+  const runStudy = async (mode: "sample" | "live") => {
+    setLoading(mode);
+    setStudyRecord(null);
+    setErrorRecord(null);
+    try {
+      const parameters = new URLSearchParams({
+        mode,
+        locationName: location.name,
+        latitude: String(location.latitude),
+        longitude: String(location.longitude),
+        elevationM: String(location.elevationM),
+        capacityKwDc: String(scenario.capacityKw),
+        tiltDeg: String(scenario.tiltDeg),
+        azimuthDeg: String(scenario.azimuthDeg),
+        systemLossPct: String(scenario.systemLossPct),
+      });
+      const response = await fetch(`/api/v1/studies/annual?${parameters.toString()}`, {
+        headers: { Accept: "application/json" },
+      });
+      const payload = await response.json() as {
+        data?: AnnualResearchStudy;
+        error?: { message?: string };
+      };
+      if (!response.ok || !payload.data) {
+        throw new Error(payload.error?.message || `Annual study failed with HTTP ${response.status}.`);
+      }
+      setStudyRecord({ study: payload.data, signature });
+    } catch (caught) {
+      setErrorRecord({
+        message: caught instanceof Error ? caught.message : "The annual research study could not be completed.",
+        signature,
+      });
+    } finally {
+      setLoading(null);
+    }
+  };
+
+  const quality = study
+    ? meanValue(study.datasets.map((dataset) => dataset.scienceQualityScore)) * 100
+    : 0;
+  const liveProduct = study?.datasets[0]
+    ? `${study.datasets[0].providerName} / ${study.datasets[0].product}`
+    : "REANALYSIS";
+  return (
+    <section className="instrument research-spine-panel grid-span-full" aria-live="polite">
+      <InstrumentHeader
+        code="AF.05"
+        title="2022–2025 annual research evidence"
+        meta="CANONICAL WEATHER → PHYSICS → REPRESENTATIVE YEAR → UNTOUCHED 2025 EVALUATION"
+        status={study?.sourceMode === "reanalysis" ? "EXPERIMENTAL" : "SIMULATED"}
+        actions={
+          <>
+            <button type="button" disabled={loading !== null} onClick={() => runStudy("sample")}>
+              {loading === "sample" ? "VERIFYING…" : "VERIFY SAMPLE"}
+            </button>
+            <button type="button" disabled={loading !== null} onClick={() => runStudy("live")}>
+              {loading === "live" ? "ACQUIRING 4 YEARS…" : "RUN REANALYSIS"}
+            </button>
+          </>
+        }
+      />
+      {!study && !error && !stale && loading === null && (
+        <div className="research-spine-empty">
+          <strong>Run one complete, provenance-carrying study.</strong>
+          <p>Sample mode proves the pipeline offline. Reanalysis mode requests each year separately and fails closed—simulation data can never masquerade as reanalysis.</p>
+        </div>
+      )}
+      {stale && !loading && <div className="research-spine-error" role="status"><strong>CONFIGURATION CHANGED</strong><p>Capacity, orientation, loss, or site inputs changed. Rerun the study before comparing its evidence with this workspace.</p></div>}
+      {error && <div className="research-spine-error" role="alert"><strong>STUDY NOT ACTIVATED</strong><p>{error}</p></div>}
+      {study && (
+        <div className="research-spine-results">
+          <div className="study-constitution">
+            <span>{study.sourceMode === "reanalysis" ? liveProduct.toUpperCase() : "DETERMINISTIC SAMPLE"}</span>
+            <strong>{formatCompact(study.annualEstimate.centralEstimateKWh, " kWh")}</strong>
+            <small>representative-year central estimate · physics-derived production target</small>
+            <small>{study.configuration.location.name} · {formatNumber(study.configuration.array.capacityKwDc, 1)} kWp · tilt {formatNumber(study.configuration.array.tiltDeg, 1)}° · az {formatNumber(study.configuration.array.azimuthDeg, 1)}° · losses {formatNumber(study.configuration.aggregatePvLossPct, 1)}%</small>
+          </div>
+          <dl className="study-metrics">
+            <div><dt>Q10</dt><dd>{formatCompact(study.annualEstimate.uncertainty.lowerKWh, " kWh")}</dd></div>
+            <div><dt>Q50</dt><dd>{formatCompact(study.annualEstimate.uncertainty.medianKWh, " kWh")}</dd></div>
+            <div><dt>Q90</dt><dd>{formatCompact(study.annualEstimate.uncertainty.upperKWh, " kWh")}</dd></div>
+            <div><dt>DATA QUALITY</dt><dd>{formatNumber(quality, 1)}%</dd></div>
+          </dl>
+          <div className="study-years">
+            {study.historicalYears.map((year) => (
+              <div key={year.year}>
+                <span>{year.year}</span>
+                <strong>{formatCompact(year.generationKWh, " kWh")}</strong>
+                <small>{year.dataClass} · DQ {formatNumber(year.qualityScore * 100, 0)}%</small>
+              </div>
+            ))}
+          </div>
+          <p className="instrument-note">{study.validation.protocol} The main chronology remains the offline snapshot until an immutable research bundle is deliberately promoted.</p>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function meanValue(values: readonly number[]): number {
+  return values.length ? values.reduce((total, value) => total + value, 0) / values.length : 0;
 }
 
 function DigitalTwinWorkspace({ base, result, scenario, selectedIndex }: WorkspaceProps) {
@@ -317,11 +465,11 @@ function WeatherWorkspace({ result, selectedIndex, onSelect }: WorkspaceProps) {
 
 function ModelWorkspace({ base }: WorkspaceProps) {
   const models = base.models;
-  const implemented = models.filter((model) => model.status !== "PLANNED");
+  const calibrated = models.filter((model) => Number.isFinite(model.coverage));
   return (
     <div className="model-workspace workspace-grid" data-testid="workspace-ML">
       <section className="instrument model-ledger grid-span-8">
-        <InstrumentHeader code="ML.01" title="Champion / challenger ledger" meta="ROLLING-ORIGIN EVIDENCE ONLY" status="EXPERIMENTAL" />
+        <InstrumentHeader code="ML.01" title="Model evidence ledger" meta="SAMPLE HOLDOUT EVIDENCE · LIVE STUDY SEPARATE" status="EXPERIMENTAL" />
         {models.length ? (
           <div className="data-table-wrap">
             <table className="science-table">
@@ -340,21 +488,27 @@ function ModelWorkspace({ base }: WorkspaceProps) {
         ) : <EmptyField title="No stored model runs" detail="Metrics appear only after a reproducible evaluation artifact is attached." status="PLANNED" />}
       </section>
       <section className="instrument calibration-field grid-span-4">
-        <InstrumentHeader code="ML.02" title="Calibration field" meta="PREDICTED ↔ OBSERVED" />
-        <div className="calibration-plot" aria-label="Calibration plot">
-          <i className="calibration-diagonal" />
-          {implemented.slice(0, 7).map((model, index) => {
-            const coverage = Number.isFinite(model.coverage) ? model.coverage as number : 50;
-            return <span key={model.name} title={model.name} style={{ left: `${clamp(12 + coverage * .76, 8, 91)}%`, bottom: `${clamp(12 + coverage * .68 + (index % 3) * 4, 9, 91)}%` }} />;
-          })}
-          <b className="axis-y">OBSERVED COVERAGE</b><b className="axis-x">NOMINAL COVERAGE</b>
-        </div>
-        <p className="instrument-note">Only models with stored validation metrics are plotted. Empty metrics are not imputed.</p>
+        <InstrumentHeader code="ML.02" title="Interval coverage ledger" meta="ACHIEVED HOLDOUT COVERAGE" />
+        {calibrated.length ? (
+          <div className="coverage-ledger" aria-label="Achieved prediction interval coverage by model">
+            {calibrated.slice(0, 7).map((model) => {
+              const coverage = clamp(model.coverage as number, 0, 100);
+              return (
+                <div key={model.name}>
+                  <span>{model.name}</span>
+                  <div><i style={{ width: `${coverage}%` }} /></div>
+                  <strong>{formatNumber(coverage, 1)}%</strong>
+                </div>
+              );
+            })}
+          </div>
+        ) : <EmptyField title="Coverage not available" detail="No evaluated model currently carries an achieved interval-coverage metric." status="PLANNED" />}
+        <p className="instrument-note">This is a one-dimensional achieved-coverage record. Nominal coverage is not present in this snapshot, so calibration error is not inferred.</p>
       </section>
       <section className="instrument model-pipeline grid-span-full">
         <InstrumentHeader code="ML.03" title="Research model pipeline" meta="BACKTEST → CALIBRATE → CHALLENGE → PROMOTE" />
         <div className="pipeline-track">
-          {["Seasonal holdout", "Rolling origin", "Error decomposition", "Interval calibration", "Drift gate", "Champion review"].map((step, index) => <div key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong><small>{index < 4 ? "implemented protocol" : "human gate"}</small></div>)}
+          {["Seasonal error slices", "Rolling origin", "Error decomposition", "Interval calibration", "Drift gate", "Champion review"].map((step, index) => <div key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong><small>{index < 4 ? "implemented protocol" : "human gate"}</small></div>)}
         </div>
       </section>
     </div>
@@ -576,18 +730,18 @@ function ClimateWorkspace({ base, result }: WorkspaceProps) {
 }
 
 function FinancialWorkspace({ result, scenario }: WorkspaceProps) {
-  const p10Ratio = result.summary.annualKwh ? result.summary.p10Kwh / result.summary.annualKwh : 0;
-  const p90Ratio = result.summary.annualKwh ? result.summary.p90Kwh / result.summary.annualKwh : 0;
-  const p50Value = result.summary.revenue;
+  const q10Ratio = result.summary.annualKwh ? result.summary.p10Kwh / result.summary.annualKwh : 0;
+  const q90Ratio = result.summary.annualKwh ? result.summary.p90Kwh / result.summary.annualKwh : 0;
+  const representativeValue = result.summary.revenue;
   return (
     <div className="financial-workspace workspace-grid" data-testid="workspace-FI">
       <section className="instrument financial-waterfall grid-span-8">
         <InstrumentHeader code="FI.01" title="Annual energy value observatory" meta="AVOIDED IMPORT + EXPORT REVENUE" status="SIMULATED" />
         <div className="value-tower">
-          {[{ label: "P10", value: p50Value * p10Ratio, tone: "historical" }, { label: "P50", value: p50Value, tone: "solar" }, { label: "P90", value: p50Value * p90Ratio, tone: "positive" }].map((item) => <div key={item.label}><span>{item.label}</span><i className={`tone-${item.tone}`} style={{ height: `${clamp((item.value / Math.max(1, p50Value * p90Ratio)) * 100, 4, 100)}%` }} /><strong>{formatCurrency(item.value, scenario)}</strong></div>)}
+          {[{ label: "E·Q10", value: representativeValue * q10Ratio, tone: "historical" }, { label: "REP", value: representativeValue, tone: "solar" }, { label: "E·Q90", value: representativeValue * q90Ratio, tone: "positive" }].map((item) => <div key={item.label}><span>{item.label}</span><i className={`tone-${item.tone}`} style={{ height: `${clamp((item.value / Math.max(1, representativeValue * q90Ratio)) * 100, 4, 100)}%` }} /><strong>{formatCurrency(item.value, scenario)}</strong></div>)}
           <div className="value-baseline" />
         </div>
-        <p className="instrument-note">Uncertainty translates the generation interval at constant tariff; financing, tax, O&M and capital cost are outside this screening view.</p>
+        <p className="instrument-note">Energy-scaled screens only: four-year generation ratios are applied at constant tariff. They are not financial-value quantiles; financing, tax, O&amp;M and capital cost are outside this view.</p>
       </section>
       <section className="instrument tariff-console grid-span-4">
         <InstrumentHeader code="FI.02" title="Tariff exposure" meta="CURRENT SCENARIO" />
@@ -640,21 +794,21 @@ function PublicationWorkspace({ base, result, scenario }: WorkspaceProps) {
   return (
     <div className="publication-workspace workspace-grid" data-testid="workspace-RP">
       <section className="instrument publication-preview grid-span-8">
-        <InstrumentHeader code="RP.01" title="Publication figure plate" meta="ANNUAL GENERATION + UNCERTAINTY" status="IMPLEMENTED" />
+        <InstrumentHeader code="RP.01" title="Publication figure plate" meta="REPRESENTATIVE + LOWER MODEL TRACE" status="IMPLEMENTED" />
         <div className="paper-preview">
-          <header><span>FIGURE 01</span><strong>Representative-year photovoltaic generation envelope</strong></header>
+          <header><span>FIGURE 01</span><strong>Representative-year photovoltaic generation with lower model trace</strong></header>
           <div className="paper-chart"><MicroTrace values={result.months.map((month) => month.energyKwh)} compare={result.months.map((month) => month.p10Kwh)} label="Monthly representative-year generation figure" tone="solar" /></div>
-          <p>Hourly physics-informed simulation aggregated to calendar month. Shaded interval: P10–P90 input/model uncertainty. Dataset {base.datasetVersion}; calculation {base.calculationVersion}.</p>
+          <p>Hourly physics-informed simulation aggregated to calendar month. The second line is the aggregated lower model trace; this figure does not encode a filled interval. The annual four-year Q10/Q90 spread is separate. Dataset {base.datasetVersion}; calculation {base.calculationVersion}.</p>
         </div>
       </section>
       <section className="instrument export-console grid-span-4">
         <InstrumentHeader code="RP.02" title="Research export" meta="REPRODUCIBLE ARTIFACTS" />
-        <button className="primary-action export-button" onClick={downloadCsv}>EXPORT 8,760-HOUR CSV <kbd>E</kbd></button>
+        <button className="primary-action export-button" onClick={downloadCsv}>EXPORT 8,760-HOUR CSV</button>
         <dl className="audit-list"><div><dt>ROWS</dt><dd>{formatNumber(result.hours.length)}</dd></div><div><dt>DATASET</dt><dd>{base.datasetVersion}</dd></div><div><dt>SCENARIO</dt><dd>{result.changed ? "local simulation branch" : "base snapshot"}</dd></div><div><dt>UNITS</dt><dd>{base.units}</dd></div></dl>
       </section>
       <section className="instrument grid-span-full">
         <InstrumentHeader code="RP.03" title="Methods capsule" meta="COPY-SAFE SCIENTIFIC LANGUAGE" />
-        <p className="methods-capsule">Estimated annual generation: <strong>{formatNumber(result.summary.annualKwh)} kWh</strong> for a <strong>{formatNumber(scenario.capacityKw, 1)} kWp</strong> system. The interval spans <strong>{formatNumber(result.summary.p10Kwh)}–{formatNumber(result.summary.p90Kwh)} kWh</strong>. These are modelled outcomes under documented assumptions, not guaranteed production.</p>
+        <p className="methods-capsule">Representative-year generation: <strong>{formatNumber(result.summary.annualKwh)} kWh</strong> for a <strong>{formatNumber(scenario.capacityKw, 1)} kWp</strong> system. The four-source-year Q10–Q90 spread is <strong>{formatNumber(result.summary.p10Kwh)}–{formatNumber(result.summary.p90Kwh)} kWh</strong>. These are modelled outcomes under documented assumptions, not guaranteed production.</p>
       </section>
     </div>
   );
@@ -662,18 +816,19 @@ function PublicationWorkspace({ base, result, scenario }: WorkspaceProps) {
 
 function MissionControlWorkspace({ result, scenario, selectedIndex }: WorkspaceProps) {
   const hour = result.hours[selectedIndex] ?? result.hours[0];
-  const interval = annualUncertainty(result);
+  const spread = annualSpread(result);
+  const maximumSpread = Math.max(Math.abs(spread.lowerDeltaPct), Math.abs(spread.upperDeltaPct));
   const alerts = [
     ...(hour && hour.quality < .7 ? ["LOW DATA QUALITY AT LINKED HOUR"] : []),
     ...(hour && hour.tempC > 38 ? ["HEAT-STRESS INPUT ACTIVE"] : []),
-    ...(interval > 20 ? ["WIDE ANNUAL UNCERTAINTY ENVELOPE"] : []),
+    ...(maximumSpread > 20 ? ["WIDE FOUR-YEAR ANNUAL SPREAD"] : []),
   ];
   return (
     <div className="mission-workspace workspace-grid" data-testid="workspace-MC">
       <section className="mission-hero grid-span-full">
         <span>ANNUAL SOLAR MISSION STATE</span>
         <strong>{formatCompact(result.summary.annualKwh, " kWh")}</strong>
-        <small>P50 estimated generation · {formatNumber(scenario.capacityKw, 1)} kWp configured</small>
+        <small>representative-year estimate · {formatNumber(scenario.capacityKw, 1)} kWp configured</small>
         <div className="mission-arc" style={{ "--progress": `${clamp(result.summary.qualityScore, 0, 100)}%` } as React.CSSProperties}><i /></div>
       </section>
       <section className="instrument executive-signals grid-span-8">
@@ -683,7 +838,7 @@ function MissionControlWorkspace({ result, scenario, selectedIndex }: WorkspaceP
       <section className="instrument alert-console grid-span-4">
         <InstrumentHeader code="MC.02" title="Critical alert state" meta="LINKED + ANNUAL" />
         {alerts.length ? <ul className="alert-list">{alerts.map((alert) => <li key={alert}><i />{alert}</li>)}</ul> : <div className="all-clear"><i />NO CRITICAL SIGNALS<span>within current rule set</span></div>}
-        <div className="confidence-readout"><span>ANNUAL INTERVAL</span><strong>±{formatNumber(interval, 1)}%</strong><small>P10—P90 half-span</small></div>
+        <div className="confidence-readout"><span>ANNUAL SPREAD VS REP</span><strong>Q10 {signedPercent(spread.lowerDeltaPct)}</strong><strong>Q90 {signedPercent(spread.upperDeltaPct)}</strong><small>four source-year non-exceedance quantiles · n=4</small></div>
       </section>
       <section className="instrument grid-span-full carbon-stream-panel">
         <InstrumentHeader code="MC.03" title="Carbon-avoidance stream" meta="HOURLY DISPLACEMENT PROXY" />

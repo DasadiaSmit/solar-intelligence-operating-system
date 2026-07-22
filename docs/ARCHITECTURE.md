@@ -16,8 +16,8 @@ Vinext React operating-system shell
 Versioned application services (/api/v1)
    ┌───────────────┬─────────────────┬──────────────────┐
    ▼               ▼                 ▼                  ▼
-Providers       Physics +        Forecasting +      Persistence
-and quality     energy balance   representative year  and audit
+Providers       Physics +        Annual research    Persistence
+and quality     energy balance   study + hindcasts  and audit
    │               │                 │                  │
    ▼               └────────────┬────┘                  ▼
 Open-Meteo · PVGIS · sample     ScientificResult      D1 metadata
@@ -26,7 +26,7 @@ Open-Meteo · PVGIS · sample     ScientificResult      D1 metadata
 
 ## Dependency rules
 
-1. Scientific modules contain no React, database, or network imports.
+1. Pure scientific kernels (`solar`, `energy`, `forecasting`, and `representative-year`) contain no React, database, or network imports. `lib/research` is an application-service boundary and may call providers before invoking those kernels.
 2. Providers translate external payloads into canonical weather records before the science layer sees them.
 3. UI components consume typed operating snapshots, never provider-specific payloads.
 4. Persistence stores metadata and lineage; it is not required for anonymous sample mode.
@@ -43,7 +43,8 @@ Open-Meteo · PVGIS · sample     ScientificResult      D1 metadata
 | `lib/solar/` | Solar geometry, irradiance, temperature, DC/AC, and loss chain |
 | `lib/energy/` | Battery dispatch, demand/grid balance, tariffs, carbon, reliability |
 | `lib/forecasting/` | Baselines, hybrid models, uncertainty, evaluation, calibration |
-| `lib/representative-year/` | Short-record representative composite and scenario ensemble |
+| `lib/representative-year/` | Short-record whole-month representative composite and construction record |
+| `lib/research/` | Bounded 2022–2025 acquisition, weather-to-physics adapter, annual study orchestration, and audit IDs |
 | `lib/optimisation/` | Grid search, Pareto filtering, Monte Carlo, sensitivity |
 | `lib/providers/` | Sample, Open-Meteo, PVGIS, fallback, retry, cache, normalization |
 | `db/` + `drizzle/` | D1 schema and deployable migrations |
@@ -53,7 +54,7 @@ Open-Meteo · PVGIS · sample     ScientificResult      D1 metadata
 
 ## Scientific result envelope
 
-Every calculation and API response follows the same conceptual contract:
+Every calculation and API response follows this conceptual evidence contract. Transport shapes may be compact—for example, the annual route embeds ordered dataset lineage inside `data`—but must preserve the same information classes:
 
 ```ts
 type ScientificResult<T> = {
@@ -91,6 +92,34 @@ D1 is used for compact relational metadata and user-owned records:
 - append-only audit events.
 
 Large hourly datasets and model artifacts are intentionally stored as content-addressed R2 objects rather than placed in D1 when the `SNAPSHOTS` binding is available. Their manifests and lineage remain in D1. Sample mode uses immutable checked-in deterministic data so the entire scientific path remains executable without credentials or persistence. The Worker exposes a scheduled-ingestion hook, but production cadence remains a hosting-control-plane concern and is dormant until a trigger is configured.
+
+## Annual research spine
+
+`GET /api/v1/studies/annual` is the executable research boundary for the original full-year objective. It requests each source year independently, normalises records into the canonical weather schema, converts interval semantics at the adapter boundary, runs the same physics engine for each historical year, constructs a whole-month representative composite, and evaluates lightweight forecasting candidates with explicit train, calibration and evaluation windows.
+
+```text
+2022 · 2023 · 2024 · 2025 canonical weather datasets
+                   │ canonical units, UTC, quality, content hashes
+                   ▼
+      weather-to-solar research adapter
+                   │ irradiance closure + explicit derived fields
+                   ▼
+        hourly physics simulations by year
+             ┌─────┴──────────┐
+             ▼                ▼
+ whole-month representative   2022–2025 hindcast study
+ year (8,760 hours)            train 2022–23 · calibrate 2024
+             │                 evaluate untouched 2025
+             └─────┬──────────┘
+                   ▼
+    compact versioned result + lineage + limitations
+```
+
+The live mode is a reanalysis-conditioned hindcast, not an issued forecast and not measured plant production. It pins Open-Meteo's configured archive product and fails closed after the permitted field-specific short-gap policy if required meteorological fields or complete source-hour coverage are unavailable; it does not silently substitute simulated weather. When source snow depth is unavailable, the adapter derives an explicitly flagged and quality-penalised temperature/precipitation balance proxy. Sample and live modes cross the same typed service boundary, which keeps demonstrations reproducible without allowing sample provenance to masquerade as observation.
+
+The present model target is physics-derived AC generation. Accordingly, metrics measure approximation of that target, not real-site predictive accuracy. Live annual results are labelled experimental and offline sample results simulated. Attaching versioned meter or inverter production through a separate canonical production adapter is the next critical validation boundary.
+
+The provider service assigns content-derived snapshot IDs at request time, but annual datasets are not yet promoted into immutable D1/R2 research bundles. Durable bundle persistence and replay remain an explicit extension before production audit claims.
 
 ## Security and authorization
 

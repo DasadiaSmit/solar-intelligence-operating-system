@@ -31,7 +31,8 @@
         "governance/schemas",
         "governance/WORKSPACE_OWNERSHIP.md",
         "governance/INTERFACE_CONTRACTS.md",
-        "governance/DECISION_PROCESS.md"
+        "governance/DECISION_PROCESS.md",
+        "lib/research"
       ],
       "sharedPaths": ["components/solar-os/model.ts", "package.json"],
       "interfaces": [
@@ -102,7 +103,7 @@
       "accountableRole": "Renewable-energy scientist",
       "charter": "governance/departments/SOLAR.md",
       "primaryPaths": ["lib/solar"],
-      "sharedPaths": ["lib/contracts/index.ts", "lib/operating-snapshot.ts", "docs/SCIENTIFIC_METHODS.md", "tests/science-core.test.mjs"],
+      "sharedPaths": ["lib/contracts/index.ts", "lib/operating-snapshot.ts", "lib/research", "docs/SCIENTIFIC_METHODS.md", "tests/science-core.test.mjs", "tests/research-spine.test.mjs"],
       "interfaces": [
         { "departmentId": "DATA", "contract": "Canonical quality-scored WeatherHour", "artifact": "lib/contracts/index.ts" },
         { "departmentId": "ENERGY", "contract": "Hourly generation and explicit interval duration", "artifact": "lib/solar/simulation.ts" },
@@ -112,7 +113,7 @@
       "labels": ["department:solar-engine"],
       "currentObjectives": [
         "Publish a versioned SolarSimulationRequest and SolarSimulationResult contract.",
-        "Add independent reference comparison fixtures and irradiance closure tests.",
+        "Add independent reference comparison fixtures and broaden closure tests across authoritative component products.",
         "Replace scalar geometry losses with explicit horizon, shading and tracker models."
       ]
     },
@@ -148,7 +149,7 @@
       "accountableRole": "Meteorologist and data engineering lead",
       "charter": "governance/departments/DATA.md",
       "primaryPaths": ["lib/providers", "lib/sample", "lib/provenance", "docs/DATA_PROVIDERS.md", "docs/DATA_PROVENANCE.md"],
-      "sharedPaths": ["app/api/v1/weather", "db/schema.ts", "worker/index.ts", "lib/contracts/index.ts"],
+      "sharedPaths": ["app/api/v1/weather", "app/api/v1/studies/annual", "lib/research", "db/schema.ts", "worker/index.ts", "lib/contracts/index.ts", "tests/research-spine.test.mjs"],
       "interfaces": [
         { "departmentId": "SOLAR", "contract": "CanonicalWeatherHour and quality policy", "artifact": "lib/providers/types.ts" },
         { "departmentId": "FORECAST", "contract": "Immutable dataset snapshots and issue-time series", "artifact": "lib/provenance/manifest.ts" },
@@ -157,9 +158,9 @@
       "requiredChecks": ["typecheck", "science", "build", "smoke"],
       "labels": ["department:data-weather"],
       "currentObjectives": [
-        "Wire live canonical provider records into the annual simulation path.",
+        "Persist and replay the live canonical annual-study datasets as immutable research bundles.",
         "Add captured provider fixtures and schema-drift tests.",
-        "Implement class-preserving European reanalysis, forecast and satellite sources."
+        "Add measured-production plus class-preserving European forecast and satellite sources."
       ]
     },
     {
@@ -171,7 +172,7 @@
       "accountableRole": "Machine-learning research lead",
       "charter": "governance/departments/FORECAST.md",
       "primaryPaths": ["lib/forecasting", "lib/representative-year"],
-      "sharedPaths": ["research", "db/schema.ts", "docs/MODEL_VALIDATION.md", "tests/science-core.test.mjs"],
+      "sharedPaths": ["research", "lib/research", "app/api/v1/studies/annual", "db/schema.ts", "docs/MODEL_VALIDATION.md", "tests/science-core.test.mjs", "tests/research-spine.test.mjs"],
       "interfaces": [
         { "departmentId": "DATA", "contract": "Versioned immutable training and evaluation snapshots", "artifact": "lib/provenance/manifest.ts" },
         { "departmentId": "SOLAR", "contract": "Physical baseline and residual features", "artifact": "lib/solar/simulation.ts" },
@@ -180,8 +181,8 @@
       "requiredChecks": ["typecheck", "science", "build"],
       "labels": ["department:forecast-ml"],
       "currentObjectives": [
-        "Close the measured-production and archived issue-time data gap.",
-        "Formalise seasonal holdouts, rolling origins and promotion evidence.",
+        "Close the measured-production and archived issue-time forecast data gap.",
+        "Turn the chronological annual protocol into immutable run, feature and hyperparameter manifests.",
         "Compare representative-year methods and preserve interval-level lineage."
       ]
     },
@@ -264,7 +265,7 @@
       "accountableRole": "Scientific QA and test engineering lead",
       "charter": "governance/departments/QA.md",
       "primaryPaths": ["tests", "eslint.config.mjs", "tsconfig.json"],
-      "sharedPaths": ["lib/contracts", "docs/MODEL_VALIDATION.md", "docs/SCIENTIFIC_METHODS.md", ".github/workflows"],
+      "sharedPaths": ["lib/contracts", "lib/research", "app/api/v1/studies/annual", "docs/MODEL_VALIDATION.md", "docs/SCIENTIFIC_METHODS.md", ".github/workflows"],
       "interfaces": [
         { "departmentId": "SOLAR", "contract": "Independent physics comparator and invariant evidence", "artifact": "tests/science-core.test.mjs" },
         { "departmentId": "FORECAST", "contract": "No-leakage validation and calibration evidence", "artifact": "docs/MODEL_VALIDATION.md" },
@@ -273,7 +274,7 @@
       "requiredChecks": ["department-registry", "typecheck", "lint", "science", "build", "smoke"],
       "labels": ["department:quality"],
       "currentObjectives": [
-        "Preserve the current 15-test baseline and add department registry fitness tests.",
+        "Preserve the governance, scientific-core, research-spine and release-smoke baselines.",
         "Create golden data, property and independent reference suites.",
         "Add accessibility, visual, performance and persistence integration coverage."
       ]
@@ -309,8 +310,8 @@
       "operatingState": "active",
       "accountableRole": "Research programme and publication lead",
       "charter": "governance/departments/RESEARCH.md",
-      "primaryPaths": ["research", "docs/SCIENTIFIC_METHODS.md", "docs/MODEL_VALIDATION.md", "docs/LIMITATIONS.md", "docs/RESEARCH_ROADMAP.md"],
-      "sharedPaths": ["lib/forecasting", "lib/representative-year", "components/solar-os/workspaces.tsx", "lib/provenance"],
+      "primaryPaths": ["research", "docs/SCIENTIFIC_METHODS.md", "docs/MODEL_VALIDATION.md", "docs/LIMITATIONS.md", "docs/RESEARCH_ROADMAP.md", "docs/RESEARCH_SPINE.md"],
+      "sharedPaths": ["lib/forecasting", "lib/representative-year", "lib/research", "components/solar-os/workspaces.tsx", "lib/provenance"],
       "interfaces": [
         { "departmentId": "FORECAST", "contract": "Experiment manifests and model cards", "artifact": "research/README.md" },
         { "departmentId": "QA", "contract": "Claim-to-code-to-test traceability", "artifact": "docs/MODEL_VALIDATION.md" },
@@ -319,7 +320,7 @@
       "requiredChecks": ["department-registry", "science", "build", "smoke"],
       "labels": ["department:research"],
       "currentObjectives": [
-        "Resolve verified documentation-to-code divergence before new scientific claims.",
+        "Keep the annual research-spine claim, method, provenance and limitation records synchronised with executable evidence.",
         "Standardise reproducible experiment and publication manifests.",
         "Maintain explicit implemented, experimental, simulated and planned boundaries."
       ]

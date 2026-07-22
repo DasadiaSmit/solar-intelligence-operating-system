@@ -211,7 +211,11 @@ function normalizeModels(value: unknown): ModelDatum[] {
       status: lifecycle(item.status ?? item.lifecycle, index < 5 ? "IMPLEMENTED" : "PLANNED"),
       mae: numberOf(metrics, ["mae"], numberOf(item, ["mae"], Number.NaN)),
       rmse: numberOf(metrics, ["rmse"], numberOf(item, ["rmse"], Number.NaN)),
-      coverage: numberOf(metrics, ["coverage", "intervalCoverage"], numberOf(item, ["coverage"], Number.NaN)),
+      coverage: numberOf(
+        metrics,
+        ["intervalCoveragePct", "coverage", "intervalCoverage"],
+        numberOf(item, ["intervalCoveragePct", "coverage"], Number.NaN),
+      ),
       note: stringOf(item, ["note", "description", "method"], ""),
     };
   });

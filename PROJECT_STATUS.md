@@ -1,11 +1,11 @@
 # Solar Intelligence OS — completion, evidence, and continuity ledger
 
-**Last updated:** 2026-07-22 10:10 BST (Europe/London)
+**Last updated:** 2026-07-22 11:46 BST (Europe/London)
 **Workspace:** `/Users/alrey/Documents/smit final project 2`
 **Private production URL:** https://solar-intelligence-os.vaikartana-revanta.chatgpt.site
 **Private GitHub source:** https://github.com/DasadiaSmit/solar-intelligence-operating-system
-**Production source branch:** `main`
-**Department review branch:** `agent/department-operating-model`
+**Recoverable baseline branch:** `main`
+**Active release branch:** `agent/research-spine-v1`
 **Purpose:** authoritative restart and handoff record. If a future task resumes this project, read this file before changing code.
 
 ## 1. Current outcome
@@ -25,11 +25,39 @@ Solar Intelligence Operating System is implemented as a working research and dec
 
 The application never describes simulated sample production as measured truth or guaranteed output.
 
+### Original-research critical path — current branch
+
+The department foundation was merged through GitHub PR #1. Work is now isolated on `agent/research-spine-v1` and explicitly re-centred on the original full-year research objective.
+
+Implemented in this branch:
+
+- one canonical provider-to-science boundary for both sample and Open-Meteo ERA5 data;
+- separate 2022, 2023, 2024 and 2025 acquisition with expected source counts `8760 / 8760 / 8784 / 8760`;
+- fail-closed live mode with no simulated substitution;
+- explicit 2024 leap-day removal only at the no-leap research boundary;
+- preceding-hour radiation uses provider interval-end timestamps and geometry 30 minutes earlier at the midpoint;
+- astronomical geometry follows the actual midpoint timestamp after leap-day removal, while the no-leap ordinal is retained only for aligned time-series features;
+- Erbs beam/diffuse decomposition when components are absent;
+- supplied irradiance components are closure-checked, transparently corrected when outside tolerance, flagged, counted and quality-penalised;
+- field-specific missing-data policy: precipitation and snow are never linearly interpolated, while missing snow depth uses a flagged balance proxy;
+- snow-proxy state advances through every validated leap-day interval before the 2024 no-leap research view is formed;
+- Finkelstein–Schafer-inspired whole-month representative-year selection;
+- corrected target timestamp/day-of-year chronology;
+- training on 2022–2023, ensemble calibration on 2024, untouched evaluation on 2025, and expanding annual stability folds;
+- versioned model recipes expose exact feature schemas and hyperparameters;
+- ordered adapted-weather SHA-256 hashes and the adapter version are verified before simulation and bound into representative/study identity;
+- an interactive Annual Forecast control for offline verification or live Open-Meteo reanalysis study;
+- a compact `GET /api/v1/studies/annual?mode=sample|live` evidence route;
+- documentation that distinguishes reanalysis hindcasting, physics-derived production and measured-plant validation.
+
+A fresh live ERA5 provider run completed successfully for the Sheffield reference site after the interval-end, leap-geometry, supplied-component-closure and adapted-content-identity corrections. It returned source counts `8760 / 8760 / 8784 / 8760`, built an 8,760-hour representative year, evaluated untouched 2025, and produced a 49,249 kWh annual central estimate for the configured 48 kWp system. Annual source-year Q10/Q50/Q90 were 46,831 / 50,866 / 52,928 kWh. Provider quality was 0.900 and adapter-adjusted science quality 0.875 because all snow-depth hours used the disclosed proxy. The verified representative-year ID is `representative-2026-972fefef`; the reproducible study ID is `study_22b6b34d1cf9f34dbfbc68ee`. This is reanalysis-conditioned research evidence, not measured-plant accuracy or guaranteed production.
+
 ## 2. Release state
 
 ### Published
 
 - Owner-only production release: https://solar-intelligence-os.vaikartana-revanta.chatgpt.site
+- Each Sites release records its exact pushed source SHA; `main` remains the recoverable baseline until the reviewed research branch is merged.
 - Sites project identity is persisted in `.openai/hosting.json`.
 - Logical bindings: D1 `DB` and R2 `SNAPSHOTS`.
 - The deployed archive contains `dist/server/index.js`, hosting metadata, and the complete Drizzle migration tree.
@@ -41,14 +69,14 @@ The application never describes simulated sample production as measured truth or
 - Deployment is private/owner-only.
 - No private provider credential is embedded in source or deployment metadata.
 - Hosted and local operation default to deterministic `SIMULATED` sample mode.
-- Open-Meteo and PVGIS live paths activate only through documented runtime configuration.
+- The no-key Open-Meteo annual reanalysis path activates only through an explicit `mode=live` request; provider/model policy overrides and other hosted integrations remain environment-configured.
 - R2 snapshot writes occur only when the `SNAPSHOTS` binding exists.
 - The Worker scheduled-ingestion hook is implemented, but no production cron trigger is packaged. It remains dormant until a schedule is configured and verified in the Sites/Cloudflare control plane.
 
 ### Private source security and department model
 
 - The complete production baseline is backed up in the private GitHub repository `DasadiaSmit/solar-intelligence-operating-system`.
-- `main` is the recoverable production baseline; the department model is isolated on `agent/department-operating-model` for pull-request review.
+- `main` is the recoverable production baseline; the department operating model was merged through PR #1, and the research-spine upgrade is isolated on `agent/research-spine-v1` pending its own review.
 - Thirteen departments have stable IDs, charters, exclusive primary-path accountability, shared review paths, first deep-work programmes and evidence gates.
 - Every one of the 14 application workspaces has exactly one accountable domain department and named contributors.
 - PET means **Photovoltaic Evidence & Triage**. The assistant remains explicitly planned; no model, chat API, conversation store or fabricated assistant behavior has been added.
@@ -63,9 +91,10 @@ All of the following passed after the last functional and metadata changes:
 - `pnpm exec tsc --noEmit`: PASS, zero diagnostics.
 - `pnpm run lint`: PASS, zero warnings/errors.
 - `pnpm run test:science`: PASS, 10/10.
+- `pnpm run test:research`: PASS, 11/11.
 - `pnpm run test:smoke`: PASS, 5/5.
-- `pnpm test`: PASS, including a fresh five-environment Vinext production build.
-- Final build includes all seven application/API routes and the Worker entry point.
+- `pnpm test`: PASS, 29/29 tests across governance, science, research, and release smoke suites, including a fresh five-environment Vinext production build.
+- Final build includes all eight application/API routes and the Worker entry point.
 
 Scientific/data coverage includes:
 
@@ -79,6 +108,19 @@ Scientific/data coverage includes:
 8. Pareto filtering and seeded Monte Carlo reproducibility.
 9. Provider units, UTC validation, and explicit fallback semantics.
 10. Integrated auditable annual operating snapshot.
+11. Erbs GHI decomposition and irradiance-component closure, including the DNI-capped near-horizon edge case.
+12. Exact 2022–2025 source grids, interval-end timestamp semantics, leap-day completeness, and one 8,760-hour scientific calendar per year.
+13. Whole-month representative-year selection with internally consistent target chronology.
+14. Separated 2022–2023 training, 2024 calibration, and untouched 2025 evaluation evidence.
+15. Fail-closed rejection of unresolved required meteorological fields.
+16. Explicit, quality-penalised snow-depth proxy handling when the optional ERA5 field is unavailable.
+17. Ordered archive evidence, canonical/adapted dataset identity, counts, data-class correspondence, and reproducible study identity independent of generation time.
+18. Separate provider/science quality plus explicit Erbs, supplied-component closure, snow-proxy, and snow-albedo derivation evidence.
+19. Actual-timestamp leap-year astronomy with no-leap ordinals retained only for model-feature alignment.
+20. Leap-day snow-state evolution before the aligned research view is formed.
+21. Adapted-weather tamper rejection plus changed representative/study identity when revised adapted evidence is deliberately re-hashed.
+22. Versioned model feature schemas and hyperparameters bound into study identity.
+23. Compact annual-study HTTP response metadata, linked aggregate-loss control, custom-location UTC metadata, and structured invalid-mode rejection.
 
 API/artifact coverage includes:
 
@@ -160,7 +202,7 @@ Manual acceptance checklist:
 
 - `lib/solar/`: solar position; clear-sky irradiance; POA direct/diffuse/reflected/rear components; tracking and bifacial approximations; AOI; Faiman temperature; explicit losses; degradation; inverter/clipping; annual simulation.
 - `lib/energy/`: demand, battery dispatch, self-consumption, grid import/export, curtailment, tariffs, carbon, reliability, unit helpers.
-- `lib/representative-year/`: whole-day multivariate 2022–2025 selection with monthly construction records, continuity penalty, and source-year weights. It does not average four annual totals and call the result typical.
+- `lib/representative-year/`: Finkelstein–Schafer-inspired whole-month 2022–2025 selection with empirical-CDF, persistence, continuity, source-year weights and corrected target chronology. It does not average four annual totals and call the result typical.
 - `lib/forecasting/`: seasonal naive, moving average, exponential smoothing, ridge meteorological regression, physical/hybrid probabilistic ensemble, metrics, interval calibration, rolling-origin evaluation, registry/version status.
 - `lib/optimisation/`: executable grid search, Pareto filtering, seeded Monte Carlo, sensitivity and stress methods.
 - `lib/operating-snapshot.ts`: typed integration boundary used by the UI and `/api/v1/simulate`.
@@ -168,6 +210,7 @@ Manual acceptance checklist:
 ### Data platform
 
 - `lib/providers/`: deterministic sample, Open-Meteo, and PVGIS adapters; validation; UTC/unit normalization; missing/outlier handling; quality; bounded retry/backoff; cache; semantic fallback; scheduled ingestion.
+- `lib/research/`: strict 2022–2025 archive eligibility, provider-to-science conversion, representative-year study orchestration, chronological model evidence, annual uncertainty and reproducible study identity.
 - `lib/provenance/`: canonical hashes, manifests, lineage, content-addressed optional R2 storage.
 - `db/schema.ts` plus `drizzle/`: 12-table D1 operational schema and generated migration.
 - `.env.example`: safe optional provider/runtime settings; no secrets.
@@ -179,6 +222,7 @@ Manual acceptance checklist:
 - `GET /api/v1/weather`
 - `POST /api/v1/simulate`
 - `GET /api/v1/provenance`
+- `GET /api/v1/studies/annual?mode=sample|live`
 - `GET|POST /api/v1/scenarios`
 - `GET|PUT|DELETE /api/v1/scenarios/:id`
 
@@ -206,6 +250,7 @@ All share location, annual dataset, selected hour, configuration, scenario, unce
 ### Implemented and executable
 
 - deterministic annual sample simulation;
+- on-demand four-year Open-Meteo reanalysis acquisition through the same annual-study boundary, without simulated fallback;
 - physics, loss-chain, battery/grid, revenue and carbon calculations;
 - representative-year construction and four-year comparison;
 - baseline/ridge/physical/hybrid evaluation and intervals;
@@ -215,7 +260,7 @@ All share location, annual dataset, selected hour, configuration, scenario, unce
 
 ### Experimental or simulated
 
-- proving weather/production until measured/reanalysis snapshots are ingested;
+- reanalysis-conditioned and sample-mode production remain physics-derived estimates until measured plant data are attached;
 - generic electrical and loss coefficients;
 - client-side scenario screening surrogate;
 - empirical proving intervals;
@@ -237,10 +282,11 @@ No known source-code, test, build, packaging, or deployment blocker remains.
 
 Department-led engineering should proceed in this order:
 
-1. `ARCH + DATA + SOLAR`: freeze canonical weather and simulation contracts, then deliver **Live Weather to Auditable Annual Simulation v1**.
-2. `ARCH + EXPERIENCE + FEATURES + TWIN`: split the four UI merge hotspots behind typed state/workspace/scene contracts without changing behavior.
-3. `QA + RESEARCH + scientific departments`: resolve recorded documentation/code divergence and establish independent reference fixtures.
-4. `PET + ARCH + QA + SECOPS`: build deterministic evidence tools and adversarial evaluations before any remote model integration.
+1. `DATA + RESEARCH + FORECAST + QA`: add a versioned production-meter/inverter adapter, align availability/outage evidence, and run external validation against the physics-derived and statistical targets.
+2. `DATA + ARCH + SECOPS`: persist immutable annual snapshots, configure scheduled ingestion, and verify recovery plus provider-capacity behavior.
+3. `FORECAST + RESEARCH + QA`: add archived issue-time weather forecasts and run genuine forecast backtests before promoting any model to champion.
+4. `ARCH + EXPERIENCE + FEATURES + TWIN`: split the four UI merge hotspots behind typed state/workspace/scene contracts without changing behavior.
+5. `PET + ARCH + QA + SECOPS`: build deterministic evidence tools and adversarial evaluations before any remote model integration.
 
 Each department's detailed backlog, boundaries, measures and escalation rules live in `governance/departments/`.
 
@@ -260,6 +306,7 @@ export PATH="/Users/alrey/.cache/codex-runtimes/codex-primary-runtime/dependenci
 pnpm install
 pnpm run test:departments
 pnpm run test:science
+pnpm run test:research
 pnpm exec tsc --noEmit
 pnpm run lint
 pnpm test
@@ -294,6 +341,7 @@ The local URL is `http://localhost:3000`. Do not add private keys to source. Pre
 - `docs/adr/README.md`
 - `docs/scientific-decisions/README.md`
 - `docs/RESEARCH_ROADMAP.md`
+- `docs/RESEARCH_SPINE.md`
 - `docs/PERFORMANCE.md`
 - `research/README.md`
 

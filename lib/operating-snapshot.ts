@@ -289,11 +289,11 @@ function buildProvenance(config: SystemConfig, qualityScore: number): Provenance
       ...common,
       id: "transform-representative-year",
       kind: "transformation",
-      name: "Representative-year whole-day selector",
+      name: "Representative-year whole-month selector",
       version: CALCULATION_VERSION,
       status: "experimental",
       provider: "S-IOS scientific core",
-      assumptions: ["Monthly multivariate quantile targets; whole-day resampling; continuity penalty."],
+      assumptions: ["Finkelstein–Schafer-inspired multivariate CDF score; whole-month selection; persistence and continuity penalties."],
       uncertainty: "Source-year spread and construction deviation are retained in the audit record.",
       parentIds: ["dataset-2022-2025"],
     },
@@ -420,10 +420,7 @@ export function buildOperatingSnapshot(configPatch: Partial<SystemConfig> = {}):
     };
   });
   const optimization = optimiseSystem(representative.weather, config);
-  const generationBounds = [
-    solar.annualAcKWh,
-    ...SAMPLE_YEARS.map((year) => historicalSolar[year].annualAcKWh),
-  ];
+  const generationBounds = SAMPLE_YEARS.map((year) => historicalSolar[year].annualAcKWh);
   const summary = buildSummary(
     config,
     solar,
@@ -451,11 +448,11 @@ export function buildOperatingSnapshot(configPatch: Partial<SystemConfig> = {}):
         { id: "physics", label: "Solar physics and loss engine", status: "implemented", detail: CALCULATION_VERSION },
         { id: "annual", label: "8760-hour annual simulation", status: "implemented", detail: "Representative no-leap year" },
         { id: "energy-flow", label: "Battery, tariff, grid and carbon dispatch", status: "implemented", detail: "Hourly greedy self-consumption" },
-        { id: "representative-year", label: "Representative-year construction", status: "experimental", detail: "Whole-day multivariate distribution matching" },
+        { id: "representative-year", label: "Representative-year construction", status: "experimental", detail: "Finkelstein–Schafer-inspired whole-month selection from four source years" },
         { id: "forecasting", label: "Forecast validation and ensemble", status: "experimental", detail: "Sample-mode rolling and holdout evaluation" },
         { id: "optimisation", label: "Grid, Pareto, Monte Carlo and stress analysis", status: "experimental", detail: `${optimization.evaluatedCandidates} evaluated configurations` },
         { id: "deep-learning", label: "TCN, LSTM and transformer training", status: "planned", detail: "Interfaces only; no fabricated model artifacts" },
-        { id: "live-data", label: "Operational provider observations", status: "planned", detail: "Offline snapshot uses the explicitly simulated provider" },
+        { id: "live-data", label: "2022–2025 reanalysis research path", status: "experimental", detail: "Open-Meteo annual-study endpoint uses the configured archive product and is fail-closed; the initial page remains explicitly simulated" },
       ],
       warnings: [
         "Offline sample weather is simulated and must not be represented as an observation.",

@@ -88,7 +88,7 @@ test("sample provider and representative-year construction are deterministic 876
   const weight = Object.values(representative.record.sourceYearWeights)
     .reduce((total, value) => total + value, 0);
   assert.ok(Math.abs(weight - 1) < 1e-12);
-  assert.ok(representative.weather.every((hour) => hour.quality.flags.includes("representative-day-selection")));
+  assert.ok(representative.weather.every((hour) => hour.quality.flags.includes("representative-month-selection")));
 });
 
 test("battery dispatch conserves solar energy and respects state limits", () => {
