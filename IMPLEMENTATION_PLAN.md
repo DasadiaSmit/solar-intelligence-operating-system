@@ -34,6 +34,8 @@ All 14 requested workspaces will exist inside one shared operating-system shell.
 - `lib/representative-year`: transparent weighted-regime/percentile-matched representative-year construction and year-by-year comparison.
 - `lib/optimisation`: grid search, Pareto filtering, Monte Carlo sensitivity, and stress scenarios.
 - `lib/providers`: provider interface, Open-Meteo and PVGIS adapters, deterministic sample provider, fallback registry, retry/backoff, validation, conversion, quality, and provenance.
+- `lib/mission-intelligence`: pure evidence contracts, fourteen-specialist routing, deterministic orchestration, confidence policy, artifact-continuity checks, and scientific working memory.
+- `features/mission-intelligence`: registered operating-state evidence adapter and native Mission Intelligence console.
 
 All scientific modules remain UI-independent and testable with deterministic fixtures.
 
@@ -102,10 +104,10 @@ The first release will implement deterministic grid search over tilt, azimuth, D
 
 The interface will use a continuous observatory instrument field rather than repeated rounded dashboard cards:
 
-- Mission header, workspace rail, linked scientific stage, inspector, orbital timeline, and system ledger.
+- Mission header, workspace rail, linked scientific stage, Mission Intelligence console, orbital timeline, and system ledger.
 - Observatory and daylight themes, reduced-motion handling, and sun/cloud/extreme-weather atmosphere states.
 - Two-letter framed workspace glyphs, coordinate ticks, scientific legends, crosshairs, quality textures, and confidence bands.
-- Command palette, shortcut map, replay controls, timeline scrubber, annotations, inspector tabs, fullscreen/focus mode, and responsive field mode.
+- Command palette, shortcut map, replay controls, timeline scrubber, annotations, Mission/Scenario/Evidence/Memory modes, fullscreen/focus mode, and responsive field mode.
 
 Signature connected instruments:
 
@@ -165,6 +167,17 @@ All workspaces will be reachable from the shell. The Annual Forecast, Digital Tw
 2. Versioned API routes, health, rate limiting, audit helpers, error envelopes, and optional auth attribution.
 3. README, architecture, provider, provenance, deployment, backup/recovery, validation, limitations, and research-roadmap documentation.
 4. Final build, automated test suite, console review, interaction checks, responsive visual review, and defect fixes.
+
+### Slice E — Mission Intelligence Core
+
+1. Give the initial operating snapshot a reproducible result identity and register exact, unit-bearing evidence references.
+2. Implement fourteen automatically routed domain specialists with object expertise overriding workspace defaults.
+3. Compile evidence-gated scientific dossiers through legitimate context, validation, measurement, support, continuity and assembly operations.
+4. Replace the scientific inspector with native Mission, Scenario, Evidence and Memory console modes; add semantic object selection to every workspace.
+5. Persist schema-versioned device-local scientific state, register base/annual-study artifacts and flag dependency drift without storing conversation history.
+6. Validate routing, units, evidence resolution, unsupported/stale/planned/duplicate behavior, confidence policy, memory round-trip and real snapshot integration.
+
+This slice is implemented on `agent/mission-intelligence-core`. It contains no chat UI, language-model provider, generated free-form answer or assistant persona.
 
 ## 8. Delivery status convention
 

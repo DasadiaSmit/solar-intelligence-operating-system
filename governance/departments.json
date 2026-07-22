@@ -210,27 +210,27 @@
       ]
     },
     {
-      "id": "PET",
-      "slug": "pet-assistant",
-      "name": "PET Assistant & Solar Copilot",
-      "mission": "Provide grounded Photovoltaic Evidence & Triage explanations, evidence tracing and confirmable scenario proposals.",
-      "operatingState": "planned",
-      "accountableRole": "Assistant research and safety lead",
-      "charter": "governance/departments/PET.md",
-      "primaryPaths": [],
-      "reservedPaths": ["features/copilot", "lib/copilot", "app/api/v1/copilot", "tests/copilot", "docs/COPILOT_SAFETY.md", "docs/COPILOT_EVALUATION.md"],
-      "sharedPaths": ["lib/contracts/index.ts", "lib/provenance", "db/schema.ts"],
+      "id": "MI",
+      "slug": "mission-intelligence",
+      "name": "Mission Intelligence Core",
+      "mission": "Provide the deterministic, evidence-gated cognitive layer that understands linked operating state, coordinates domain specialists and preserves scientific continuity across every workspace.",
+      "operatingState": "active",
+      "accountableRole": "Mission intelligence and scientific orchestration lead",
+      "charter": "governance/departments/MI.md",
+      "primaryPaths": ["lib/mission-intelligence", "features/mission-intelligence", "tests/mission-intelligence.test.mjs", "docs/MISSION_INTELLIGENCE.md"],
+      "reservedPaths": ["app/api/v1/mission", "docs/MISSION_INTELLIGENCE_SAFETY.md", "docs/MISSION_INTELLIGENCE_EVALUATION.md"],
+      "sharedPaths": ["lib/contracts/index.ts", "lib/provenance", "db/schema.ts", "components/solar-os/model.ts", "components/solar-os/SolarOperatingSystem.tsx", "components/solar-os/workspaces.tsx"],
       "interfaces": [
-        { "departmentId": "ARCH", "contract": "CopilotContextV1 and evidence references", "artifact": "governance/INTERFACE_CONTRACTS.md" },
-        { "departmentId": "FEATURES", "contract": "Read-only context and explicit proposed actions", "artifact": "components/solar-os/model.ts" },
-        { "departmentId": "SECOPS", "contract": "Prompt injection, retention and secret-exclusion policy", "artifact": "governance/departments/PET.md" }
+        { "departmentId": "ARCH", "contract": "MissionContextV1, EvidenceRefV1 and MissionFindingV1", "artifact": "governance/INTERFACE_CONTRACTS.md" },
+        { "departmentId": "FEATURES", "contract": "Typed workspace, object-selection and objective events", "artifact": "components/solar-os/model.ts" },
+        { "departmentId": "SECOPS", "contract": "Evidence injection, scientific-memory retention and secret-exclusion policy", "artifact": "governance/departments/MI.md" }
       ],
       "requiredChecks": ["typecheck", "lint", "science", "build", "smoke"],
-      "labels": ["department:pet-assistant"],
+      "labels": ["department:mission-intelligence"],
       "currentObjectives": [
-        "Define evidence references and deterministic offline explanation tools.",
-        "Build adversarial and scientific grounding evaluations before model integration.",
-        "Require explicit confirmation for every proposed state change."
+        "Freeze deterministic context, evidence, specialist and finding contracts.",
+        "Build evidence-gated specialist orchestration and scientific-memory evaluations without chat or language-model inference.",
+        "Require explicit confirmation and immutable audit evidence for every proposed state change."
       ]
     },
     {

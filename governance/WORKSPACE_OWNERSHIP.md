@@ -27,7 +27,6 @@ Every workspace has one accountable domain department. `FEATURES` owns the share
 - `QA` can block a claim or release when evidence is incomplete.
 - `ARCH` resolves contract conflicts and breaking-boundary decisions.
 - `SECOPS` can block a release for unresolved critical security or recovery risk.
-- The PET Assistant is not a fifteenth workspace. It is a planned cross-cutting interface over approved, evidence-carrying tools.
+- Mission Intelligence Core is not a fifteenth workspace. It is the cross-cutting cognitive subsystem over approved evidence-carrying tools, linked object state and scientific memory; domain departments retain authority over their calculations.
 
 The JSON registry is canonical when this table and machine-readable data disagree.
-

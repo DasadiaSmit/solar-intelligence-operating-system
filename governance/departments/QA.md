@@ -33,7 +33,7 @@ Domain departments remain responsible for writing and maintaining tests alongsid
 - **DATA and PLATFORM:** provider fixtures, retries, cache/fallback semantics, D1/R2 and API contract tests.
 - **EXPERIENCE and FEATURES:** keyboard, responsive, linked-view, empty/error/offline and reduced-motion behavior.
 - **TWIN:** deterministic rendering hooks and GPU/canvas fallback behavior.
-- **PET:** grounded-answer, provenance, refusal and prompt-injection test sets when the assistant becomes executable.
+- **MI:** evidence-reference resolution, specialist routing, unsupported/conflict/stale findings, confidence-policy, evidence-injection and confirmed-action tests.
 - **SECOPS:** security checks, release gates, incident regressions and supply-chain verification.
 
 ## Decision authority

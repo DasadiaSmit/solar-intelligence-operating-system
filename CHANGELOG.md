@@ -16,6 +16,9 @@ All notable programme releases are recorded here. Scientific, dataset, model and
 - Interactive Annual Forecast research-evidence console and eleven dedicated research-spine tests, including the worker-independent HTTP contract.
 - Adapted-science SHA-256 evidence, pre-simulation tamper checks, adapter/model-recipe provenance, and model feature/hyperparameter disclosure.
 - Supplied GHI/DNI/DHI closure reconciliation with explicit flags, derivation counts, imputation state, and quality penalty.
+- Mission Intelligence Core with fourteen deterministic domain specialists, object-aware routing, strict evidence gating, traceable workflow, multidimensional evidence support and scientific working memory.
+- Native Mission/Scenario/Evidence/Memory console, semantic scientific-object targets across all workspaces, reproducible initial result identity and artifact-continuity warnings.
+- Fifteen Mission Intelligence contract/integration tests and a complete scientific architecture and limitations record.
 
 ### Changed
 
@@ -27,6 +30,7 @@ All notable programme releases are recorded here. Scientific, dataset, model and
 - Corrected post-leap-day astronomy to use actual UTC midpoints while retaining no-leap ordinals only for model alignment; snow state now evolves through excluded leap-day intervals.
 - Linked the annual research console to active site, capacity, orientation, and aggregate-loss inputs with stale-result invalidation and truthful server-returned configuration.
 - Replaced pseudo-calibration coordinates, symmetric annual-spread claims, and financial pseudo-quantile labels with evidence-supported displays.
+- Retired the planned PET/Copilot/assistant direction in favour of a native, non-conversational Mission Intelligence operating subsystem.
 
 ## 1.0.0 — 2026-07-22
 

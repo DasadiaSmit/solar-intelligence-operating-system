@@ -34,7 +34,7 @@ Until the monolith is split, changes to `app/globals.css`, `components/solar-os/
 - Render workspaces registered through `WorkspaceDefinitionV2`; do not hard-code scientific capabilities into navigation.
 - Dispatch typed `UiCommandV1` actions for navigation, replay, layout and proposed scenario operations.
 - Host Digital Twin renderers through a stable renderer boundary with a complete non-WebGL fallback.
-- Host PET through a dock/panel contract; PET citations and proposed actions must use the same status and confirmation primitives as the rest of the OS.
+- Render Mission Intelligence as a native console and workflow surface, never a chat panel; its findings, evidence links, pipeline stages and proposed actions must use the same status and confirmation primitives as the rest of the OS.
 
 ## Decision authority
 

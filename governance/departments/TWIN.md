@@ -32,7 +32,7 @@ It does not own solar-position calculations, irradiance formulae, provider inges
 - Publish and version `SceneFrameV1` with UTC timestamp, ENU coordinate frame, site origin, array geometry, sun vector, irradiance components, cloud/weather state, energy vectors, quality and provenance references.
 - Expose renderers through a stable boundary supporting lazy loading, context-loss recovery, reduced motion and a complete non-WebGL fallback.
 - Emit typed selection events as `UiCommandV1` so spatial selection updates the global cursor instead of private renderer state.
-- Provide PET with structured scene facts and selected-object identifiers, never screenshots as the sole source of truth.
+- Provide Mission Intelligence with structured scene facts, stable selected-object identifiers and evidence paths, never screenshots as the sole source of truth.
 
 ## Decision authority
 

@@ -1,12 +1,13 @@
 # Solar Intelligence OS — completion, evidence, and continuity ledger
 
-**Last updated:** 2026-07-22 11:51 BST (Europe/London)
+**Last updated:** 2026-07-22 12:46 BST (Europe/London)
 **Workspace:** `/Users/alrey/Documents/smit final project 2`
 **Private production URL:** https://solar-intelligence-os.vaikartana-revanta.chatgpt.site
 **Private GitHub source:** https://github.com/DasadiaSmit/solar-intelligence-operating-system
 **Recoverable baseline branch:** `main`
-**Active release branch:** `agent/research-spine-v1`
-**Draft review:** https://github.com/DasadiaSmit/solar-intelligence-operating-system/pull/15
+**Active release branch:** `agent/mission-intelligence-core`
+**Parent research review:** https://github.com/DasadiaSmit/solar-intelligence-operating-system/pull/15
+**Mission Intelligence release:** source validated and frozen on `agent/mission-intelligence-core`; the private Sites version records the exact deployed source SHA and is the authoritative release record
 **Purpose:** authoritative restart and handoff record. If a future task resumes this project, read this file before changing code.
 
 ## 1. Current outcome
@@ -25,6 +26,37 @@ Solar Intelligence Operating System is implemented as a working research and dec
 - a private production deployment and a credential-free sample mode.
 
 The application never describes simulated sample production as measured truth or guaranteed output.
+
+### Mission Intelligence Core — current branch
+
+The planned PET/Copilot boundary has been retired. This branch implements Mission Intelligence as a native deterministic operating subsystem, not an AI assistant, chatbot, avatar, prompt surface or language-model integration.
+
+Implemented in this branch:
+
+- a pure `lib/mission-intelligence/` core with strict contracts, evidence validation, specialist routing, orchestration, confidence assessment, continuity detection and scientific-memory functions;
+- exactly fourteen bounded specialists covering meteorology, solar physics, PV engineering, forecasting, machine learning, batteries, grid, finance, climate, provenance, methodology, visualisation, publication and validation;
+- automatic object-over-workspace specialist routing with no user-facing specialist picker;
+- semantic object targets in every workspace, including linked weather, annual uncertainty, representative-year construction, model rows, replay validation, array configuration, scenario branches, battery intervals, regional site, climate series, financial values, provenance nodes, publication figures and mission outcomes;
+- a registered operating-state adapter that binds unit-bearing facts to an immutable result ID, exact locator, provider/model/version, timestamp/range, data class, quality and provenance;
+- a native Mission Intelligence console with Mission, Scenario, Evidence and Memory modes; no messages, bubbles, greeting, typing indicator or unrestricted prompt field;
+- a seven-step legitimate evidence pipeline with explicit completed/blocked/skipped status and no artificial thinking delay or hidden reasoning exposure;
+- fail-closed grounding for missing, stale, conflicted, planned, duplicated, unresolvable, non-finite or unitless evidence, using the exact boundary `No supporting evidence currently exists.`;
+- a measured evidence-support index separated from data quality, calibration and uncertainty; it is never presented as AI certainty or guaranteed correctness;
+- schema-versioned device-local scientific working memory for scenario revisions, selected datasets/models, artifacts, investigations and continuity events—not conversation history;
+- base-result and annual-study artifact registration plus dependency-fingerprint warnings after relevant configuration changes;
+- reproducible initial-page result identity using the same construction as `/api/v1/simulate`;
+- updated governance, threat model, department ownership and scientific documentation that replace PET/Copilot with active Mission Intelligence Core;
+- focused Mission Intelligence tests plus a real operating-snapshot adapter integration test.
+
+Important boundaries:
+
+- findings are deterministic renderings of supplied evidence, not generated prose;
+- sample-mode weather, production, storage, grid, finance and carbon remain simulated;
+- the current four-year record does not establish climate trend;
+- the current financial engine is tariff-screened energy value, not NPV/IRR/bankability;
+- scientific memory is local to one browser profile until authenticated project-scoped persistence is implemented;
+- client scenario screening remains `SIMULATED` and requires authoritative server recalculation before engineering or financial reliance;
+- no measured-plant performance or equipment diagnosis is available without measured telemetry.
 
 ### Original-research critical path — current branch
 
@@ -81,7 +113,7 @@ A fresh live ERA5 provider run completed successfully for the Sheffield referenc
 - `main` is the recoverable production baseline; the department operating model was merged through PR #1, and the research-spine upgrade is isolated on `agent/research-spine-v1` in labelled draft PR #15 pending review.
 - Thirteen departments have stable IDs, charters, exclusive primary-path accountability, shared review paths, first deep-work programmes and evidence gates.
 - Every one of the 14 application workspaces has exactly one accountable domain department and named contributors.
-- PET means **Photovoltaic Evidence & Triage**. The assistant remains explicitly planned; no model, chat API, conversation store or fabricated assistant behavior has been added.
+- Mission Intelligence Core is the active cognitive department. It is deterministic and evidence-gated; no chat API, language-model provider or conversation store exists.
 - GitHub governance now includes CODEOWNERS, private vulnerability reporting, structured issue forms, a pull-request evidence template, Dependabot configuration and four CI gates.
 - The 2026-07-22 branch push reported 17 Dependabot alerts on the default branch (7 high, 7 moderate, 3 low). These are a declared security backlog requiring package-path/exploitability triage and compatible upgrades; a green application test suite does not silently waive them.
 - GitHub is the source of record, not the only backup; D1, R2, provider snapshots and model artifacts still require the documented recovery process.
@@ -95,8 +127,9 @@ All of the following passed after the last functional and metadata changes:
 - `pnpm run lint`: PASS, zero warnings/errors.
 - `pnpm run test:science`: PASS, 10/10.
 - `pnpm run test:research`: PASS, 11/11.
+- `pnpm run test:mission`: PASS, 15/15 specialist, grounding, confidence, continuity, memory, and real-snapshot integration tests.
 - `pnpm run test:smoke`: PASS, 5/5.
-- `pnpm test`: PASS, 29/29 tests across governance, science, research, and release smoke suites, including a fresh five-environment Vinext production build.
+- `pnpm test`: PASS, 44/44 tests across governance, science, research, Mission Intelligence, and release smoke suites, including a fresh five-environment Vinext production build.
 - Final build includes all eight application/API routes and the Worker entry point.
 
 Scientific/data coverage includes:
@@ -124,6 +157,12 @@ Scientific/data coverage includes:
 21. Adapted-weather tamper rejection plus changed representative/study identity when revised adapted evidence is deliberately re-hashed.
 22. Versioned model feature schemas and hyperparameters bound into study identity.
 23. Compact annual-study HTTP response metadata, linked aggregate-loss control, custom-location UTC metadata, and structured invalid-mode rejection.
+24. Exactly fourteen deterministic specialist definitions and all fourteen workspace-default routes.
+25. Object expertise deterministically overriding workspace defaults without a specialist picker.
+26. Resolvable unit-bearing numerical findings and fail-closed missing/stale/planned/unitless/duplicate evidence behavior.
+27. Evidence-support dimensions explicitly separated from probability, model confidence and production guarantee.
+28. Artifact dependency drift, scientific-memory serialization and absence of conversation/message state.
+29. Real annual operating-snapshot adaptation into a supported Forecast Scientist dossier tied to one reproducible result ID.
 
 API/artifact coverage includes:
 
@@ -135,6 +174,24 @@ API/artifact coverage includes:
 - 13 unique department records and charters, 14 accountable workspace mappings, resolvable ownership paths, valid cross-department references, GitHub evidence templates and private security routing.
 
 ## 4. Interaction and visual evidence
+
+### Mission Intelligence release — 2026-07-22
+
+- Converted the former scientific inspector into one continuous Mission Intelligence ledger with Mission, Scenario, Evidence and Memory modes.
+- Added a persistent active-specialist signal, selected-object/objective context, legitimate workflow status, grounded findings, evidence registry, evidence-support dimensions, assumptions/uncertainty/limitations and typed next operations.
+- Added semantic pointer and keyboard targets across all fourteen workspaces. Hover/focus previews context; click/Enter/Space commits it; preview does not reroute or recompute the active mission.
+- Added responsive desktop rail, tablet sheet and mobile bottom-sheet behavior, minimum touch targets for Mission controls, reduced-motion compliance and a compact focus-mode status ribbon.
+- The rebuilt application started through `pnpm dev` and returned HTTP 200 with a 759,010-byte server response containing `MISSION INTELLIGENCE` and `Forecast Scientist`; the server logged a clean 200 request.
+- Browser screenshot/DOM automation was not performed because the Sites workflow requires an explicit browser-testing request. Source, TypeScript, lint, SSR smoke, live HTTP and production-build evidence are complete; manual visual acceptance remains listed below.
+
+Mission Intelligence manual acceptance additions:
+
+1. Open each workspace and confirm the specialist changes automatically without a specialist picker.
+2. Select a cloud interval, forecast model, array, battery interval, financial value and provenance node; confirm the object label, specialist and evidence references change together.
+3. Change panel tilt; confirm Scientific Continuity identifies the earlier base or annual-study artifact and offers a recomputation operation rather than using it silently.
+4. Open Memory; confirm it describes device-local scientific working memory and contains scenario/artifact/investigation events rather than messages.
+5. At tablet and phone widths, confirm `MISSION / CONTEXT` opens the side/bottom sheet and all four console modes remain keyboard and touch accessible.
+6. Confirm the interface contains no chat bubbles, assistant avatar, greeting, typing indicator or unrestricted prompt field.
 
 ### Premium visual-system release — 2026-07-22
 
@@ -276,7 +333,7 @@ All share location, annual dataset, selected hour, configuration, scenario, unce
 - calibrated satellite-cloud product and archived issue-time forecast replay;
 - GIS terrain/horizon meshes and true regional ranking;
 - production Bayesian/robust/scenario-tree solver services;
-- PET Assistant model orchestration, conversation persistence and confirmable tools; the department and safety boundary exist, but no assistant behavior is fabricated;
+- authenticated project-scoped Mission Intelligence memory, immutable finding persistence and authoritative recalculation registration; current memory is explicitly device-local;
 - commissioned plant telemetry, IEC-grade electrical design, and bankable certification.
 
 ## 7. Remaining work
@@ -289,7 +346,7 @@ Department-led engineering should proceed in this order:
 2. `DATA + ARCH + SECOPS`: persist immutable annual snapshots, configure scheduled ingestion, and verify recovery plus provider-capacity behavior.
 3. `FORECAST + RESEARCH + QA`: add archived issue-time weather forecasts and run genuine forecast backtests before promoting any model to champion.
 4. `ARCH + EXPERIENCE + FEATURES + TWIN`: split the four UI merge hotspots behind typed state/workspace/scene contracts without changing behavior.
-5. `PET + ARCH + QA + SECOPS`: build deterministic evidence tools and adversarial evaluations before any remote model integration.
+5. `MI + ARCH + QA + SECOPS`: persist project-scoped scientific memory and expand adversarial evidence/staleness tests without introducing chat or bypassing deterministic grounding.
 
 Each department's detailed backlog, boundaries, measures and escalation rules live in `governance/departments/`.
 
@@ -311,6 +368,7 @@ pnpm install
 pnpm run test:departments
 pnpm run test:science
 pnpm run test:research
+pnpm run test:mission
 pnpm exec tsc --noEmit
 pnpm run lint
 pnpm test
@@ -333,6 +391,7 @@ The local URL is `http://localhost:3000`. Do not add private keys to source. Pre
 - `governance/DECISION_PROCESS.md`
 - `governance/departments/*.md` (13 department charters)
 - `docs/ARCHITECTURE.md`
+- `docs/MISSION_INTELLIGENCE.md`
 - `docs/SCIENTIFIC_METHODS.md`
 - `docs/MODEL_VALIDATION.md`
 - `docs/DATA_PROVIDERS.md`
