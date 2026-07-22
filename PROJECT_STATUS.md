@@ -1,11 +1,12 @@
 # Solar Intelligence OS — completion, evidence, and continuity ledger
 
-**Last updated:** 2026-07-22 11:48 BST (Europe/London)
+**Last updated:** 2026-07-22 11:51 BST (Europe/London)
 **Workspace:** `/Users/alrey/Documents/smit final project 2`
 **Private production URL:** https://solar-intelligence-os.vaikartana-revanta.chatgpt.site
 **Private GitHub source:** https://github.com/DasadiaSmit/solar-intelligence-operating-system
 **Recoverable baseline branch:** `main`
 **Active release branch:** `agent/research-spine-v1`
+**Draft review:** https://github.com/DasadiaSmit/solar-intelligence-operating-system/pull/15
 **Purpose:** authoritative restart and handoff record. If a future task resumes this project, read this file before changing code.
 
 ## 1. Current outcome
@@ -57,6 +58,7 @@ A fresh live ERA5 provider run completed successfully for the Sheffield referenc
 ### Published
 
 - Owner-only production release: https://solar-intelligence-os.vaikartana-revanta.chatgpt.site
+- The research-spine branch has been saved and deployed privately after the full validation gate; Sites retains the exact source commit on every saved version.
 - Each Sites release records its exact pushed source SHA; `main` remains the recoverable baseline until the reviewed research branch is merged.
 - Sites project identity is persisted in `.openai/hosting.json`.
 - Logical bindings: D1 `DB` and R2 `SNAPSHOTS`.
@@ -76,7 +78,7 @@ A fresh live ERA5 provider run completed successfully for the Sheffield referenc
 ### Private source security and department model
 
 - The complete production baseline is backed up in the private GitHub repository `DasadiaSmit/solar-intelligence-operating-system`.
-- `main` is the recoverable production baseline; the department operating model was merged through PR #1, and the research-spine upgrade is isolated on `agent/research-spine-v1` pending its own review.
+- `main` is the recoverable production baseline; the department operating model was merged through PR #1, and the research-spine upgrade is isolated on `agent/research-spine-v1` in labelled draft PR #15 pending review.
 - Thirteen departments have stable IDs, charters, exclusive primary-path accountability, shared review paths, first deep-work programmes and evidence gates.
 - Every one of the 14 application workspaces has exactly one accountable domain department and named contributors.
 - PET means **Photovoltaic Evidence & Triage**. The assistant remains explicitly planned; no model, chat API, conversation store or fabricated assistant behavior has been added.
@@ -279,7 +281,7 @@ All share location, annual dataset, selected hour, configuration, scenario, unce
 
 ## 7. Remaining work
 
-No known source-code, test, or build blocker remains. Dependency-alert triage, final private deployment of this branch, and the manual visual acceptance list remain explicit release/operations work rather than hidden blockers.
+No known source-code, test, build, packaging, GitHub-backup, or private-deployment blocker remains. Dependency-alert triage and the manual visual acceptance list remain explicit release/operations work rather than hidden blockers.
 
 Department-led engineering should proceed in this order:
 
