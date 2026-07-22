@@ -1,6 +1,6 @@
 # Solar Intelligence OS — completion, evidence, and continuity ledger
 
-**Last updated:** 2026-07-22 11:46 BST (Europe/London)
+**Last updated:** 2026-07-22 11:48 BST (Europe/London)
 **Workspace:** `/Users/alrey/Documents/smit final project 2`
 **Private production URL:** https://solar-intelligence-os.vaikartana-revanta.chatgpt.site
 **Private GitHub source:** https://github.com/DasadiaSmit/solar-intelligence-operating-system
@@ -81,6 +81,7 @@ A fresh live ERA5 provider run completed successfully for the Sheffield referenc
 - Every one of the 14 application workspaces has exactly one accountable domain department and named contributors.
 - PET means **Photovoltaic Evidence & Triage**. The assistant remains explicitly planned; no model, chat API, conversation store or fabricated assistant behavior has been added.
 - GitHub governance now includes CODEOWNERS, private vulnerability reporting, structured issue forms, a pull-request evidence template, Dependabot configuration and four CI gates.
+- The 2026-07-22 branch push reported 17 Dependabot alerts on the default branch (7 high, 7 moderate, 3 low). These are a declared security backlog requiring package-path/exploitability triage and compatible upgrades; a green application test suite does not silently waive them.
 - GitHub is the source of record, not the only backup; D1, R2, provider snapshots and model artifacts still require the documented recovery process.
 
 ## 3. Final automated evidence
@@ -278,7 +279,7 @@ All share location, annual dataset, selected hour, configuration, scenario, unce
 
 ## 7. Remaining work
 
-No known source-code, test, build, packaging, or deployment blocker remains.
+No known source-code, test, or build blocker remains. Dependency-alert triage, final private deployment of this branch, and the manual visual acceptance list remain explicit release/operations work rather than hidden blockers.
 
 Department-led engineering should proceed in this order:
 
@@ -298,6 +299,7 @@ Required before treating results as production/financial truth:
 4. Run an archived issue-time forecast backtest against observations.
 5. Complete provider licence/capacity review, tenant/security review, restore exercise, load/failover testing, and site/electrical engineering validation.
 6. Train/version the planned statistical and deep-learning challengers only when genuine datasets and reproducible evaluation artifacts exist.
+7. Triage the 17 default-branch Dependabot alerts, document direct versus transitive reachability, and apply compatible upgrades with the full scientific/regression gate before closing them.
 
 ## 8. Restart commands
 
