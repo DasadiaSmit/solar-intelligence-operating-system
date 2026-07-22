@@ -9,5 +9,4 @@ The first planned records should cover:
 1. Versioned scientific result and browser transport boundaries.
 2. Behavior-preserving extraction of the operating shell and workspace packages.
 3. Live provider snapshot integration with annual simulation.
-4. PET Assistant evidence/tool boundary before model integration.
-
+4. Mission Intelligence context, specialist, evidence-gate and scientific-memory boundaries.

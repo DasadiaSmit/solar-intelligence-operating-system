@@ -18,6 +18,7 @@ The original research objective remains the critical path: a complete-year, time
 - Rolling-origin metrics, calibration/coverage, and clear separation of simulated reference agreement from measured validation.
 - Grid search, Pareto filtering, seeded Monte Carlo, sensitivity, and stress scenarios.
 - A responsive observatory interface with linked timeline, Solar Production DNA, explicitly labelled model bands, replay, scenarios, engineering, battery, model, provenance, financial, regional, publication, and mission-control views.
+- Mission Intelligence Core: a deterministic, evidence-gated cognitive layer with fourteen automatically routed domain specialists, object-aware scientific context, traceable workflow, structured working memory, and no chat or language-model dependency.
 - Versioned APIs, D1 schema/migration, health reporting, optional workspace identity, audit-ready records, and deterministic sample mode.
 
 Advanced deep-learning and large meteorological ingestion pipelines are represented honestly as research extension points; the application does not invent training runs or performance metrics.
@@ -91,7 +92,7 @@ The programme is divided into 13 accountable departments so each domain can adva
 - Weather, Data & Provenance
 - Forecasting, ML & Representative Year
 - Digital Twin, Maps & Visual Computing
-- PET Assistant & Solar Copilot — **Photovoltaic Evidence & Triage**, currently planned
+- Mission Intelligence Core — active deterministic specialist federation, grounding, orchestration, and scientific continuity
 - Platform, API & Persistence
 - Quality Engineering & Scientific Assurance
 - Security, Reliability & Release
@@ -114,6 +115,7 @@ Key documentation:
 
 - [Scientific methods and formulae](docs/SCIENTIFIC_METHODS.md)
 - [Full-year research spine](docs/RESEARCH_SPINE.md)
+- [Mission Intelligence Core](docs/MISSION_INTELLIGENCE.md)
 - [Model validation report](docs/MODEL_VALIDATION.md)
 - [Data providers](docs/DATA_PROVIDERS.md)
 - [Data provenance](docs/DATA_PROVENANCE.md)
@@ -152,7 +154,7 @@ Current implementation, verification evidence, precise remaining work, and resta
 
 Production deployment requires provider licence/capacity review, measured-plant validation, authorization/access-policy review, restore testing, and site/electrical engineering validation.
 
-The final release gate passed 3 governance tests, 10 scientific-core tests, 11 research-spine tests, 5 API/artifact smoke tests, strict TypeScript, lint, and a fresh production build. The precise evidence and remaining operational acceptance items are recorded in [PROJECT_STATUS.md](./PROJECT_STATUS.md).
+The current release gate passes 3 governance tests, 10 scientific-core tests, 11 research-spine tests, 15 Mission Intelligence tests, 5 API/artifact smoke tests, strict TypeScript, lint, and a fresh production build. The precise evidence and remaining operational acceptance items are recorded in [PROJECT_STATUS.md](./PROJECT_STATUS.md).
 
 ## Research objective
 

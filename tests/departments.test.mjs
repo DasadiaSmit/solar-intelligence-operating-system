@@ -10,7 +10,7 @@ const readJson = async (path) => JSON.parse(await readText(path));
 
 const expectedDepartments = [
   "ARCH", "EXPERIENCE", "FEATURES", "SOLAR", "ENERGY", "DATA", "FORECAST",
-  "TWIN", "PET", "PLATFORM", "QA", "SECOPS", "RESEARCH",
+  "TWIN", "MI", "PLATFORM", "QA", "SECOPS", "RESEARCH",
 ];
 const expectedWorkspaces = ["DT", "AF", "WA", "ML", "RV", "AE", "SR", "BE", "RM", "CL", "FI", "PA", "RP", "MC"];
 const expectedHeadings = [
@@ -62,10 +62,10 @@ test("department registry has unique, resolvable and accountable departments", a
     }
   }
 
-  const pet = registry.departments.find((department) => department.id === "PET");
-  assert.equal(pet.operatingState, "planned");
-  assert.equal(pet.primaryPaths.length, 0);
-  assert.ok(pet.reservedPaths.length >= 4);
+  const missionIntelligence = registry.departments.find((department) => department.id === "MI");
+  assert.equal(missionIntelligence.operatingState, "active");
+  assert.ok(missionIntelligence.primaryPaths.includes("lib/mission-intelligence"));
+  assert.ok(missionIntelligence.primaryPaths.includes("features/mission-intelligence"));
 });
 
 test("all 14 workspaces have exactly one valid accountable department", async () => {
@@ -115,4 +115,3 @@ test("GitHub collaboration files cover departments, evidence and private securit
   assert.match(dependabot, /package-ecosystem: github-actions/);
   assert.equal(schema.title, "Solar Intelligence OS department registry");
 });
-

@@ -11,7 +11,10 @@ Browser / field device
         │
         ▼
 Vinext React operating-system shell
-        │ linked location · cursor · scenario · model · provenance
+        │ linked location · cursor · object · scenario · model · provenance
+        ▼
+Mission Intelligence Core
+        │ specialist routing · evidence gate · continuity · working memory
         ▼
 Versioned application services (/api/v1)
    ┌───────────────┬─────────────────┬──────────────────┐
@@ -32,6 +35,7 @@ Open-Meteo · PVGIS · sample     ScientificResult      D1 metadata
 4. Persistence stores metadata and lineage; it is not required for anonymous sample mode.
 5. A provider fallback must preserve semantic data class. Reanalysis cannot silently replace an issued forecast.
 6. Every user-visible result carries calculation status and provenance.
+7. Mission Intelligence consumes registered evidence references, never provider payloads or free-form instructions. It may explain and route but cannot manufacture or override scientific results.
 
 ## Runtime surfaces
 
@@ -45,6 +49,8 @@ Open-Meteo · PVGIS · sample     ScientificResult      D1 metadata
 | `lib/forecasting/` | Baselines, hybrid models, uncertainty, evaluation, calibration |
 | `lib/representative-year/` | Short-record whole-month representative composite and construction record |
 | `lib/research/` | Bounded 2022–2025 acquisition, weather-to-physics adapter, annual study orchestration, and audit IDs |
+| `lib/mission-intelligence/` | Pure specialist routing, evidence validation, orchestration, confidence and scientific-memory rules |
+| `features/mission-intelligence/` | Operating-state evidence adapter and native Mission Intelligence console |
 | `lib/optimisation/` | Grid search, Pareto filtering, Monte Carlo, sensitivity |
 | `lib/providers/` | Sample, Open-Meteo, PVGIS, fallback, retry, cache, normalization |
 | `db/` + `drizzle/` | D1 schema and deployable migrations |
@@ -92,6 +98,12 @@ D1 is used for compact relational metadata and user-owned records:
 - append-only audit events.
 
 Large hourly datasets and model artifacts are intentionally stored as content-addressed R2 objects rather than placed in D1 when the `SNAPSHOTS` binding is available. Their manifests and lineage remain in D1. Sample mode uses immutable checked-in deterministic data so the entire scientific path remains executable without credentials or persistence. The Worker exposes a scheduled-ingestion hook, but production cadence remains a hosting-control-plane concern and is dormant until a trigger is configured.
+
+## Mission Intelligence boundary
+
+Mission Intelligence is a deterministic operating subsystem, not a language-model or chat boundary. The initial browser transport carries the reproducible simulation result ID. The registered adapter maps exact snapshot facts into unit-bearing `EvidenceRefV1` records. Object selection overrides workspace routing, after which the pure orchestrator verifies eligibility, extracts referenced measurements, calculates measurable evidence-support dimensions, checks artifact dependency fingerprints and returns a `MissionDossierV1`.
+
+The scientific-memory v1 browser store persists scenario revisions, selected datasets/models, artifacts, investigations and events. It stores no dialogue. It is device-local and fail-closed; authenticated project-scoped D1 persistence is future work. See [`docs/MISSION_INTELLIGENCE.md`](MISSION_INTELLIGENCE.md) for contracts, status and limitations.
 
 ## Annual research spine
 

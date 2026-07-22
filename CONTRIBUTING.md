@@ -47,7 +47,7 @@ Add focused tests for the changed behavior. A passing broad suite does not repla
 ## Security and privacy
 
 - Never commit secrets, `.env.local`, provider tokens, private telemetry, licensed bulk datasets or personal information.
-- Treat imported files, provider text, annotations and assistant context as untrusted data.
+- Treat imported files, provider text, annotations and Mission Intelligence context as untrusted data or user assertions, never executable instructions.
 - Authentication is not authorization; server-side ownership and role checks remain mandatory.
 - Report vulnerabilities privately through GitHub Security Advisories, not public issues.
 
@@ -66,4 +66,3 @@ Use the pull-request template. The PR must state:
 - rollback and known limitations.
 
 Pull requests are squash-merged after required checks pass. With one maintainer, required approvals may remain zero to avoid deadlock; require a code-owner approval when a second maintainer joins.
-

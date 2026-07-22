@@ -57,6 +57,9 @@ test("application source contains the complete mission shell and honest status b
   assert.match(page, /buildOperatingSnapshot/);
   assert.match(layout, /Solar Intelligence Operating System/);
   assert.match(shell, /SOLAR INTELLIGENCE/);
+  assert.match(shell, /MISSION INTELLIGENCE/);
+  assert.match(shell, /MissionLedger/);
+  assert.doesNotMatch(shell, /chat bubble|typing indicator|prompt the assistant/i);
   assert.match(shell, /ESTIMATES ARE NOT GUARANTEED PRODUCTION/);
   assert.match(shell, /OFFLINE \/ SAMPLE ACTIVE/);
   assert.match(shell, /aria-label="Solar operating system workspaces"/);
@@ -68,6 +71,7 @@ test("application source contains the complete mission shell and honest status b
   assert.match(workspaces, /IMPLEMENTED|implemented/);
   assert.match(workspaces, /EXPERIMENTAL|experimental/);
   assert.match(workspaces, /PLANNED|planned/);
+  assert.match(workspaces, /MissionObjectTarget/);
   assert.match(manifest, /Solar Intelligence Operating System/);
 });
 
@@ -98,7 +102,7 @@ test("continuity and scientific documentation are deliverable artifacts", async 
     "README.md", "IMPLEMENTATION_PLAN.md", "PROJECT_STATUS.md", ".env.example",
     "GOVERNANCE.md", "CONTRIBUTING.md", "CHANGELOG.md",
     "governance/README.md", "governance/departments.json", "governance/WORKSPACE_OWNERSHIP.md",
-    "docs/ARCHITECTURE.md", "docs/SCIENTIFIC_METHODS.md", "docs/MODEL_VALIDATION.md",
+    "docs/ARCHITECTURE.md", "docs/MISSION_INTELLIGENCE.md", "docs/SCIENTIFIC_METHODS.md", "docs/MODEL_VALIDATION.md",
     "docs/DATA_PROVIDERS.md", "docs/DATA_PROVENANCE.md", "docs/RESEARCH_SPINE.md", "docs/LIMITATIONS.md",
     "docs/DEPLOYMENT.md", "docs/BACKUP_RECOVERY.md", "docs/SECURITY.md", "docs/THREAT_MODEL.md",
     ".github/CODEOWNERS", ".github/SECURITY.md", ".github/workflows/ci.yml",

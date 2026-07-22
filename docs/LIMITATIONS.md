@@ -48,6 +48,16 @@ It is not a certified yield assessment, a market settlement system, a protection
 - Content-addressed R2 snapshot storage is implemented and active when the optional `SNAPSHOTS` binding exists; it remains unavailable, by design, in credential-free sample deployments without that binding.
 - Multi-monitor synchronization uses browser capabilities and may be constrained by popup policy.
 
+## Mission Intelligence limitations
+
+- Mission Intelligence v1 is deterministic and template-driven. It does not accept arbitrary natural-language research questions or generate free-form scientific prose.
+- Its findings are only as complete as the registered evidence adapter. Missing evidence returns an explicit unsupported result rather than an inferred explanation.
+- Device-local scientific memory is tied to one browser profile. Authenticated cross-device project persistence, retention, deletion and tenant-isolation controls remain future work.
+- The initial operating snapshot and deliberately activated annual studies can be registered as artifacts. Not every legacy visual artifact or export yet carries a durable dependency fingerprint.
+- Client scenario branches are screening calculations. Mission Intelligence flags their simulated status and staleness but does not silently promote them to authoritative STAR Engine results.
+- Cloud movement, equipment failure, battery degradation, live grid events, full investment metrics and future climate risk remain unsupported without the corresponding spatial, telemetry, settlement, cost or climate-scenario evidence.
+- The evidence-support index measures quality, completeness, provenance coverage and temporal alignment. It is not a probability of correctness, model confidence, bankability score or guarantee.
+
 ## Status rules
 
 | Label | Meaning |

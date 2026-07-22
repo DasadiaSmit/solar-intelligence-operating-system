@@ -86,6 +86,7 @@ export interface ProvenanceDatum {
 
 export interface NormalizedSnapshot {
   raw: OperatingSnapshotInput;
+  resultId: string;
   mode: string;
   hours: HourDatum[];
   months: MonthDatum[];
@@ -387,6 +388,7 @@ export function normalizeSnapshot(snapshot: OperatingSnapshotInput): NormalizedS
 
   return {
     raw: snapshot,
+    resultId: stringOf(transport, ["resultId"], "unidentified-result"),
     mode,
     hours,
     months: deriveMonths(hours),

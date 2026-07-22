@@ -1,7 +1,27 @@
 "use client";
 
 import type { OperatingSnapshotInput } from "./model";
+import type { AnnualResearchStudy } from "@/lib/research";
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
+import {
+  compileMissionDossier,
+  type MissionSelectionV1,
+  type MissionSuggestionV1,
+  type WorkspaceId,
+} from "@/lib/mission-intelligence";
+import {
+  buildMissionContext,
+  arrayConfigurationHash,
+  defaultSelectionForWorkspace,
+  objectiveForWorkspace,
+  operatingSnapshotArtifact,
+  scenarioHash,
+} from "@/features/mission-intelligence/context-adapter";
+import {
+  MissionLedger,
+  ScientificMemoryLedger,
+} from "@/features/mission-intelligence/MissionIntelligenceConsole";
+import { useScientificMemory } from "@/features/mission-intelligence/useScientificMemory";
 import { OrbitalTimeline } from "./instruments";
 import {
   clamp,
@@ -21,10 +41,10 @@ import {
   WorkspaceStage,
 } from "./workspaces";
 
-type InspectorTab = "inspect" | "compare" | "losses" | "provenance";
+type ConsoleTab = "mission" | "scenario" | "evidence" | "memory";
 type ThemeMode = "observatory" | "daylight";
 
-const INSPECTOR_TABS: InspectorTab[] = ["inspect", "compare", "losses", "provenance"];
+const CONSOLE_TABS: ConsoleTab[] = ["mission", "scenario", "evidence", "memory"];
 
 function validSavedNumber(record: Record<string, unknown>, key: keyof ScenarioConfig, fallback: number, min: number, max: number): number {
   const value = record[key];
@@ -96,14 +116,17 @@ function useDialogFocus(containerRef: RefObject<HTMLElement | null>) {
 
 export function SolarOperatingSystem({ snapshot }: { snapshot: OperatingSnapshotInput }) {
   const base = useMemo(() => normalizeSnapshot(snapshot), [snapshot]);
-  const [workspaceId, setWorkspaceId] = useState("AF");
+  const [workspaceId, setWorkspaceId] = useState<WorkspaceId>("AF");
   const [scenario, setScenario] = useState<ScenarioConfig>(() => base.config);
   const [selectedIndex, setSelectedIndex] = useState(() => clamp(171 * 24 + 12, 0, Math.max(0, base.hours.length - 1)));
   const [theme, setTheme] = useState<ThemeMode>("observatory");
   // Begin closed so the server-rendered tree can never cover a compact viewport.
   // The mount effect opens it for desktop viewports after matchMedia resolves.
   const [inspectorOpen, setInspectorOpen] = useState(false);
-  const [inspectorTab, setInspectorTab] = useState<InspectorTab>("inspect");
+  const [inspectorTab, setInspectorTab] = useState<ConsoleTab>("mission");
+  const [activeSelection, setActiveSelection] = useState<MissionSelectionV1>(() => defaultSelectionForWorkspace("AF"));
+  const [previewSelection, setPreviewSelection] = useState<MissionSelectionV1 | null>(null);
+  const [activeStudyRecord, setActiveStudyRecord] = useState<{ study: AnnualResearchStudy; arrayHash: string } | null>(null);
   const [focusMode, setFocusMode] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [replayStep, setReplayStep] = useState(3);
@@ -125,6 +148,34 @@ export function SolarOperatingSystem({ snapshot }: { snapshot: OperatingSnapshot
   const isClouded = (current?.cloud ?? 0) > 0.72;
   const isExtreme = (current?.tempC ?? 0) >= 38 || ((current?.cloud ?? 0) > .96 && (current?.quality ?? 1) < .75);
   const lowConfidence = current ? (current.p90Kw - current.p10Kw) / Math.max(.1, current.acKw) > .75 : false;
+  const missionObjective = useMemo(() => objectiveForWorkspace(workspaceId), [workspaceId]);
+  const baseArtifact = useMemo(() => operatingSnapshotArtifact(base), [base]);
+  const activeScenarioHash = useMemo(() => scenarioHash(scenario), [scenario]);
+  const activeStudy = activeStudyRecord?.arrayHash === arrayConfigurationHash(scenario)
+    ? activeStudyRecord.study
+    : null;
+  const { memory, openInvestigation, registerArtifact, recordAnnotation } = useScientificMemory({
+    projectId: "solar-intelligence-operating-system",
+    initialTimestampUtc: base.issueTime,
+    scenarioHash: activeScenarioHash,
+    datasetId: base.datasetVersion,
+    modelId: base.models[0]?.name ?? null,
+    baseArtifact,
+  });
+  const missionContext = useMemo(() => buildMissionContext({
+    workspaceId,
+    selection: activeSelection,
+    objective: missionObjective,
+    base,
+    result,
+    scenario,
+    selectedIndex,
+    artifacts: memory.artifacts,
+    activeStudy,
+  }), [activeSelection, activeStudy, base, memory.artifacts, missionObjective, result, scenario, selectedIndex, workspaceId]);
+  const missionDossier = useMemo(() => compileMissionDossier(missionContext, {
+    generatedAtUtc: Number.isFinite(Date.parse(base.issueTime)) ? base.issueTime : "1970-01-01T00:00:00.000Z",
+  }), [base.issueTime, missionContext]);
 
   useEffect(() => {
     let active = true;
@@ -145,14 +196,21 @@ export function SolarOperatingSystem({ snapshot }: { snapshot: OperatingSnapshot
         try {
           const saved = recordOf(JSON.parse(savedView));
           if (typeof saved.workspaceId === "string" && WORKSPACES.some((workspace) => workspace.id === saved.workspaceId)) {
-            setWorkspaceId(saved.workspaceId);
+            const restoredWorkspace = saved.workspaceId as WorkspaceId;
+            setWorkspaceId(restoredWorkspace);
+            setActiveSelection(defaultSelectionForWorkspace(restoredWorkspace));
           }
           setScenario(restoreScenario(saved.scenario, base.config));
           if (typeof saved.selectedIndex === "number" && Number.isFinite(saved.selectedIndex)) {
             setSelectedIndex(clamp(Math.trunc(saved.selectedIndex), 0, Math.max(0, base.hours.length - 1)));
           }
-          if (typeof saved.inspectorTab === "string" && INSPECTOR_TABS.includes(saved.inspectorTab as InspectorTab)) {
-            setInspectorTab(saved.inspectorTab as InspectorTab);
+          if (typeof saved.inspectorTab === "string") {
+            const migratedTab = saved.inspectorTab === "inspect" || saved.inspectorTab === "compare"
+              ? "scenario"
+              : saved.inspectorTab === "losses" || saved.inspectorTab === "provenance"
+                ? "evidence"
+                : saved.inspectorTab;
+            if (CONSOLE_TABS.includes(migratedTab as ConsoleTab)) setInspectorTab(migratedTab as ConsoleTab);
           }
         } catch { /* ignore invalid device-local state */ }
       }
@@ -228,9 +286,27 @@ export function SolarOperatingSystem({ snapshot }: { snapshot: OperatingSnapshot
     return () => window.removeEventListener("keydown", handleKey);
   }, [result.hours.length]);
 
-  const chooseWorkspace = (id: string) => {
+  const chooseWorkspace = (id: WorkspaceId) => {
     setWorkspaceId(id);
+    setActiveSelection(defaultSelectionForWorkspace(id));
+    setPreviewSelection(null);
+    setInspectorTab("mission");
     setPaletteOpen(false);
+  };
+
+  const commitMissionSelection = (selection: MissionSelectionV1) => {
+    setActiveSelection(selection);
+    setPreviewSelection(null);
+    setInspectorTab("mission");
+    setInspectorOpen(true);
+  };
+
+  const handleMissionSuggestion = (suggestion: MissionSuggestionV1) => {
+    if (suggestion.availability === "blocked") return;
+    openInvestigation(missionObjective, suggestion.evidenceRefIds);
+    chooseWorkspace(suggestion.targetWorkspaceId);
+    setInspectorOpen(true);
+    setToast(`Investigation opened · ${suggestion.label}`);
   };
 
   const saveView = () => {
@@ -243,20 +319,21 @@ export function SolarOperatingSystem({ snapshot }: { snapshot: OperatingSnapshot
     const next = [...annotations, { index: selectedIndex, note: note.trim() }];
     setAnnotations(next);
     window.localStorage.setItem("sios.annotations", JSON.stringify(next));
+    recordAnnotation(current?.timestamp ?? `hour-index:${selectedIndex}`, note.trim(), activeSelection.evidenceRefIds);
     setAnnotationOpen(false);
     setToast("Annotation attached to linked hour");
   };
 
-  const handleInspectorTabKey = (event: React.KeyboardEvent<HTMLButtonElement>, tab: InspectorTab) => {
+  const handleInspectorTabKey = (event: React.KeyboardEvent<HTMLButtonElement>, tab: ConsoleTab) => {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
     event.preventDefault();
-    const currentIndex = INSPECTOR_TABS.indexOf(tab);
+    const currentIndex = CONSOLE_TABS.indexOf(tab);
     const nextIndex = event.key === "Home"
       ? 0
       : event.key === "End"
-        ? INSPECTOR_TABS.length - 1
-        : (currentIndex + (event.key === "ArrowRight" ? 1 : -1) + INSPECTOR_TABS.length) % INSPECTOR_TABS.length;
-    const nextTab = INSPECTOR_TABS[nextIndex];
+        ? CONSOLE_TABS.length - 1
+        : (currentIndex + (event.key === "ArrowRight" ? 1 : -1) + CONSOLE_TABS.length) % CONSOLE_TABS.length;
+    const nextTab = CONSOLE_TABS[nextIndex];
     setInspectorTab(nextTab);
     event.currentTarget.parentElement?.querySelector<HTMLElement>(`#inspector-tab-${nextTab}`)?.focus();
   };
@@ -281,6 +358,7 @@ export function SolarOperatingSystem({ snapshot }: { snapshot: OperatingSnapshot
           <small>{formatCoordinate(numberOf(location, ["latitude"], 0), "N", "S")}&nbsp; {formatCoordinate(numberOf(location, ["longitude"], 0), "E", "W")}</small>
         </div>
         <div className="header-telemetry" aria-label="Linked telemetry">
+          <span className="mi-header-specialist"><i className="signal-dot forecast" />MI <b>{missionDossier.activeSpecialist.label}</b></span>
           <span><i className="signal-dot solar" />POA <b>{formatNumber(current?.poa ?? 0)}</b> W/m²</span>
           <span><i className="signal-dot forecast" />AC <b>{formatNumber(current?.acKw ?? 0, 2)}</b> kW</span>
           <span><i className="signal-dot cloud" />CLOUD <b>{formatNumber((current?.cloud ?? 0) * 100)}</b>%</span>
@@ -329,7 +407,7 @@ export function SolarOperatingSystem({ snapshot }: { snapshot: OperatingSnapshot
             {simulatedSample && <span className="sample-marker">SAMPLE / OFFLINE-CAPABLE</span>}
             {lowConfidence && <span className="confidence-warning">LOW CONFIDENCE HOUR</span>}
           </div>
-          <button className="mobile-inspector-trigger" onClick={() => setInspectorOpen(true)}>SCENARIO / INSPECT</button>
+          <button className="mobile-inspector-trigger" onClick={() => setInspectorOpen(true)}>MISSION / CONTEXT</button>
         </header>
         <div className="stage-scroll">
           {result.hours.length ? (
@@ -341,28 +419,35 @@ export function SolarOperatingSystem({ snapshot }: { snapshot: OperatingSnapshot
               setScenario={setScenario}
               selectedIndex={selectedIndex}
               onSelect={setSelectedIndex}
+              activeSelection={activeSelection}
+              onObjectSelect={commitMissionSelection}
+              onObjectPreview={setPreviewSelection}
+              onArtifactRegister={registerArtifact}
+              onStudyActivate={(study, arrayHash) => setActiveStudyRecord({ study, arrayHash })}
             />
           ) : (
-            <section className="fatal-empty" role="alert"><span>NO ANNUAL RECORDS</span><h2>The operating snapshot contains no hourly data.</h2><p>Provider, model and provenance remain visible in the inspector. Rebuild or reconnect the dataset to activate analytical instruments.</p></section>
+            <section className="fatal-empty" role="alert"><span>NO ANNUAL RECORDS</span><h2>The operating snapshot contains no hourly data.</h2><p>Provider, model and provenance remain visible in Mission Intelligence. Rebuild or reconnect the dataset to activate analytical instruments.</p></section>
           )}
         </div>
       </main>
 
-      {!focusMode && inspectorOpen && <aside className="scientific-inspector" aria-label="Scientific scenario inspector">
-        <header className="inspector-title">
-          <div><span>INSPECTOR / {workspaceId}</span><strong>Linked scientific state</strong></div>
-          <button onClick={() => setInspectorOpen(false)} aria-label="Close inspector">×</button>
+      {!focusMode && inspectorOpen && <aside className="mission-intelligence-console" aria-label="Mission Intelligence Core">
+        <header className="mi-console-title">
+          <div><span>MI.00 / MISSION INTELLIGENCE</span><strong>{missionDossier.activeSpecialist.label} · evidence-gated</strong></div>
+          <button onClick={() => setInspectorOpen(false)} aria-label="Close Mission Intelligence">×</button>
         </header>
-        <div className="inspector-tabs" role="tablist" aria-label="Inspector views">
-          {INSPECTOR_TABS.map((tab) => <button key={tab} id={`inspector-tab-${tab}`} role="tab" aria-selected={inspectorTab === tab} aria-controls={`inspector-panel-${tab}`} tabIndex={inspectorTab === tab ? 0 : -1} onKeyDown={(event) => handleInspectorTabKey(event, tab)} onClick={() => setInspectorTab(tab)}>{tab}</button>)}
+        <div className="mi-console-tabs" role="tablist" aria-label="Mission Intelligence console modes">
+          {CONSOLE_TABS.map((tab) => <button key={tab} id={`inspector-tab-${tab}`} role="tab" aria-selected={inspectorTab === tab} aria-controls={`inspector-panel-${tab}`} tabIndex={inspectorTab === tab ? 0 : -1} onKeyDown={(event) => handleInspectorTabKey(event, tab)} onClick={() => setInspectorTab(tab)}>{tab}</button>)}
         </div>
-        <div className="inspector-body" id={`inspector-panel-${inspectorTab}`} role="tabpanel" aria-labelledby={`inspector-tab-${inspectorTab}`} tabIndex={0}>
-          {inspectorTab === "inspect" && <InspectTab base={base} result={result} scenario={scenario} setScenario={setScenario} selectedIndex={selectedIndex} current={current} annotations={annotations.filter((item) => item.index === selectedIndex)} />}
-          {inspectorTab === "compare" && <CompareTab base={base} result={result} scenario={scenario} />}
-          {inspectorTab === "losses" && <LossesTab base={base} result={result} />}
-          {inspectorTab === "provenance" && <ProvenanceTab base={base} />}
+        <div className="mi-console-body" id={`inspector-panel-${inspectorTab}`} role="tabpanel" aria-labelledby={`inspector-tab-${inspectorTab}`} tabIndex={0}>
+          {inspectorTab === "mission" && <MissionLedger dossier={missionDossier} previewSelection={previewSelection} onSuggestion={handleMissionSuggestion} />}
+          {inspectorTab === "scenario" && <><InspectTab base={base} result={result} scenario={scenario} setScenario={setScenario} selectedIndex={selectedIndex} current={current} annotations={annotations.filter((item) => item.index === selectedIndex)} /><CompareTab base={base} result={result} scenario={scenario} /></>}
+          {inspectorTab === "evidence" && <><LossesTab base={base} result={result} /><ProvenanceTab base={base} /></>}
+          {inspectorTab === "memory" && <ScientificMemoryLedger memory={memory} />}
         </div>
       </aside>}
+
+      {focusMode && <div className="mi-focus-ribbon" role="status"><span>MISSION INTELLIGENCE</span><strong>{missionDossier.activeSpecialist.label}</strong><small>{missionDossier.objective.label}</small></div>}
 
       <section className="orbital-deck" aria-label="Solar orbital timeline and replay controls">
         <div className="replay-console">
@@ -380,11 +465,11 @@ export function SolarOperatingSystem({ snapshot }: { snapshot: OperatingSnapshot
 
       <footer className="system-ledger" aria-label="System status and legend">
         <span><i className="status-implemented" />IMPLEMENTED</span><span><i className="status-experimental" />EXPERIMENTAL</span><span><i className="status-simulated" />SIMULATED</span><span><i className="status-planned" />PLANNED</span>
-        <b>PROVIDER {base.provider}</b><b>MODEL {base.modelName}</b><b>RES {base.resolution}</b><b>DQ {formatNumber(result.summary.qualityScore)}%</b><b>CALC {base.calculationVersion}</b><b className={online ? "connection-online" : "connection-offline"}>{online ? "NETWORK ONLINE" : "OFFLINE / SAMPLE ACTIVE"}</b>
+        <b>PROVIDER {base.provider}</b><b>MODEL {base.modelName}</b><b>MI {missionDossier.activeSpecialist.label}</b><b>RES {base.resolution}</b><b>DQ {formatNumber(result.summary.qualityScore)}%</b><b>CALC {base.calculationVersion}</b><b className={online ? "connection-online" : "connection-offline"}>{online ? "NETWORK ONLINE" : "OFFLINE / SAMPLE ACTIVE"}</b>
         <em>ESTIMATES ARE NOT GUARANTEED PRODUCTION</em>
       </footer>
 
-      {!focusMode && !inspectorOpen && <button className="inspector-reopen" onClick={() => setInspectorOpen(true)}>OPEN INSPECTOR <kbd>P</kbd></button>}
+      {!focusMode && !inspectorOpen && <button className="inspector-reopen" onClick={() => setInspectorOpen(true)}>OPEN MISSION INTELLIGENCE <kbd>P</kbd></button>}
       {paletteOpen && <CommandPalette onClose={() => setPaletteOpen(false)} onChooseWorkspace={chooseWorkspace} setTheme={setTheme} setFocusMode={setFocusMode} setInspectorOpen={setInspectorOpen} openAnnotation={() => setAnnotationOpen(true)} saveView={saveView} />}
       {helpOpen && <ShortcutDialog onClose={() => setHelpOpen(false)} />}
       {annotationOpen && <AnnotationDialog timestamp={current?.timestamp ?? ""} onClose={() => setAnnotationOpen(false)} onSave={addAnnotation} />}
@@ -455,18 +540,18 @@ function ProvenanceTab({ base }: { base: ReturnType<typeof normalizeSnapshot> })
   return <><section className="inspector-section"><header><span>PV.01</span><h3>Result provenance</h3></header><dl className="provenance-list">{base.provenance.map((row, index) => <div key={`${row.key}-${index}`}><dt>{row.key}</dt><dd>{row.value}</dd>{row.status && <small>{row.status}</small>}</div>)}</dl></section><section className="inspector-section"><header><span>AS.02</span><h3>Assumptions</h3></header>{base.assumptions.length ? <ol className="assumption-list">{base.assumptions.map((assumption, index) => <li key={index}>{assumption}</li>)}</ol> : <p className="inspector-footnote">See the calculation documentation for base assumptions. Local scenario assumptions appear whenever controls change.</p>}</section></>;
 }
 
-function CommandPalette({ onClose, onChooseWorkspace, setTheme, setFocusMode, setInspectorOpen, openAnnotation, saveView }: { onClose: () => void; onChooseWorkspace: (id: string) => void; setTheme: React.Dispatch<React.SetStateAction<ThemeMode>>; setFocusMode: React.Dispatch<React.SetStateAction<boolean>>; setInspectorOpen: React.Dispatch<React.SetStateAction<boolean>>; openAnnotation: () => void; saveView: () => void }) {
+function CommandPalette({ onClose, onChooseWorkspace, setTheme, setFocusMode, setInspectorOpen, openAnnotation, saveView }: { onClose: () => void; onChooseWorkspace: (id: WorkspaceId) => void; setTheme: React.Dispatch<React.SetStateAction<ThemeMode>>; setFocusMode: React.Dispatch<React.SetStateAction<boolean>>; setInspectorOpen: React.Dispatch<React.SetStateAction<boolean>>; openAnnotation: () => void; saveView: () => void }) {
   const [query, setQuery] = useState("");
   const dialogRef = useRef<HTMLDivElement>(null);
   useDialogFocus(dialogRef);
   const matches = WORKSPACES.filter((workspace) => `${workspace.id} ${workspace.name} ${workspace.shortName}`.toLowerCase().includes(query.toLowerCase()));
-  return <div className="modal-backdrop" onMouseDown={onClose}><div ref={dialogRef} className="command-palette" role="dialog" aria-modal="true" aria-label="Command palette" tabIndex={-1} onMouseDown={(event) => event.stopPropagation()}><header><span>COMMAND / GLOBAL</span><button type="button" onClick={onClose} aria-label="Close command palette">ESC</button></header><input data-autofocus value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Navigate or execute…" aria-label="Search commands" /><div className="command-results"><small>WORKSPACES</small>{matches.map((workspace) => <button type="button" key={workspace.id} onClick={() => onChooseWorkspace(workspace.id)}><i>{workspace.glyph}</i><span>{workspace.name}<small>{workspace.status}</small></span><kbd>↵</kbd></button>)}{!query && <><small>ACTIONS</small><button type="button" onClick={() => { setTheme((value) => value === "observatory" ? "daylight" : "observatory"); onClose(); }}><i>TH</i><span>Toggle visual atmosphere<small>Observatory / daylight</small></span><kbd>T</kbd></button><button type="button" onClick={() => { setFocusMode((value) => !value); onClose(); }}><i>FC</i><span>Toggle focus mode<small>Expand primary instrument field</small></span><kbd>F</kbd></button><button type="button" onClick={() => { setInspectorOpen((value) => !value); onClose(); }}><i>IN</i><span>Toggle inspector<small>Scenario and scientific context</small></span><kbd>P</kbd></button><button type="button" onClick={() => { openAnnotation(); onClose(); }}><i>AN</i><span>Annotate linked hour<small>Attach a device-local scientific note</small></span><kbd>N</kbd></button><button type="button" onClick={() => { saveView(); onClose(); }}><i>SV</i><span>Save workspace locally<small>Device-local preference only</small></span><kbd>⌘S</kbd></button></>}</div></div></div>;
+  return <div className="modal-backdrop" onMouseDown={onClose}><div ref={dialogRef} className="command-palette" role="dialog" aria-modal="true" aria-label="Command palette" tabIndex={-1} onMouseDown={(event) => event.stopPropagation()}><header><span>COMMAND / VERIFIED OPERATIONS</span><button type="button" onClick={onClose} aria-label="Close command palette">ESC</button></header><input data-autofocus value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search workspace or verified action…" aria-label="Search workspaces and verified actions" /><div className="command-results"><small>WORKSPACES</small>{matches.map((workspace) => <button type="button" key={workspace.id} onClick={() => onChooseWorkspace(workspace.id)}><i>{workspace.glyph}</i><span>{workspace.name}<small>{workspace.status}</small></span><kbd>↵</kbd></button>)}{!query && <><small>OPERATING ACTIONS</small><button type="button" onClick={() => { setTheme((value) => value === "observatory" ? "daylight" : "observatory"); onClose(); }}><i>TH</i><span>Toggle visual atmosphere<small>Observatory / daylight</small></span><kbd>T</kbd></button><button type="button" onClick={() => { setFocusMode((value) => !value); onClose(); }}><i>FC</i><span>Toggle focus mode<small>Expand primary instrument field</small></span><kbd>F</kbd></button><button type="button" onClick={() => { setInspectorOpen((value) => !value); onClose(); }}><i>MI</i><span>Toggle Mission Intelligence<small>Specialist, evidence, memory, and context</small></span><kbd>P</kbd></button><button type="button" onClick={() => { openAnnotation(); onClose(); }}><i>AN</i><span>Annotate linked hour<small>Attach a device-local scientific note</small></span><kbd>N</kbd></button><button type="button" onClick={() => { saveView(); onClose(); }}><i>SV</i><span>Save workspace locally<small>Device-local preference only</small></span><kbd>⌘S</kbd></button></>}</div></div></div>;
 }
 
 function ShortcutDialog({ onClose }: { onClose: () => void }) {
   const dialogRef = useRef<HTMLDivElement>(null);
   useDialogFocus(dialogRef);
-  const shortcuts = [["⌘ / CTRL + K", "Command palette"], ["?", "Shortcut map"], ["SPACE", "Play / pause replay"], ["[ / ]", "Previous / next day"], ["F", "Focus mode"], ["P", "Inspector"], ["T", "Theme"], ["ESC", "Close overlay"]];
+  const shortcuts = [["⌘ / CTRL + K", "Command palette"], ["?", "Shortcut map"], ["SPACE", "Play / pause replay"], ["[ / ]", "Previous / next day"], ["F", "Focus mode"], ["P", "Mission Intelligence"], ["T", "Theme"], ["ESC", "Close overlay"]];
   return <div className="modal-backdrop" onMouseDown={onClose}><div ref={dialogRef} className="shortcut-dialog" role="dialog" aria-modal="true" aria-label="Keyboard shortcut map" tabIndex={-1} onMouseDown={(event) => event.stopPropagation()}><header><span>KEYBOARD / FLIGHT DECK</span><button type="button" onClick={onClose} aria-label="Close keyboard shortcut map">×</button></header><h2>Operational shortcuts</h2><div>{shortcuts.map(([keys, action]) => <p key={keys}><kbd>{keys}</kbd><span>{action}</span></p>)}</div></div></div>;
 }
 

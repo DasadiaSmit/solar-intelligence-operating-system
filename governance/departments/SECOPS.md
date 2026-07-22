@@ -35,7 +35,7 @@ SECOPS does not own scientific acceptance, provider licensing, product prioritie
 - **DATA and RESEARCH:** licences, retention, sensitive datasets, manifest integrity and reproducible artifact custody.
 - **ARCH:** threat boundaries, dependency policy and release-compatible architecture.
 - **QA:** CodeQL/dependency checks, security regression tests and release evidence.
-- **FEATURES, EXPERIENCE and PET:** secure user flows, safe rendering/export and assistant abuse controls.
+- **FEATURES, EXPERIENCE and MI:** secure user flows, safe rendering/export, evidence-injection controls and confirmed-action boundaries.
 - **All departments:** vulnerability remediation, dependency ownership and rollback readiness.
 
 ## Decision authority
@@ -47,7 +47,7 @@ SECOPS controls release security gates, vulnerability severity, secret response,
 1. Verify the repository is private and configure a protected `main` ruleset with required checks, resolved conversations, blocked force-push/deletion and least-privilege bypass.
 2. Enable and record the status of vulnerability alerts, Dependabot security updates, secret scanning, push protection and private vulnerability reporting where the account supports them.
 3. Add a private vulnerability-reporting policy; public issues must not be used for undisclosed vulnerabilities.
-4. Build a threat model covering hosting-injected identity, scenario ownership, provider SSRF boundaries, D1/R2, exports, assistant behavior and scientific-integrity attacks.
+4. Build a threat model covering hosting-injected identity, scenario ownership, provider SSRF boundaries, D1/R2, exports, Mission Intelligence evidence routing, scientific memory and scientific-integrity attacks.
 5. Implement and test application rate limiting and tenant/RBAC enforcement with PLATFORM before those controls are marked implemented.
 6. Deploy CSP in report-only mode, resolve violations and enforce it only after exact production-build testing.
 7. Add dependency review, CodeQL or equivalent static analysis, secret checks and lockfile-based builds to CI.
