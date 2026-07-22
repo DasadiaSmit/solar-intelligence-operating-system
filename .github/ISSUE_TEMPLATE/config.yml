@@ -1,0 +1,6 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private security report
+    url: https://github.com/DasadiaSmit/solar-intelligence-operating-system/security/advisories/new
+    about: Report vulnerabilities privately; never open a public security issue.
+

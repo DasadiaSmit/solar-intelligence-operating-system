@@ -1,0 +1,53 @@
+name: Data provider integration
+description: Propose a weather, radiation, production, terrain or climate source.
+title: "[DATA] "
+labels:
+  - type:data
+  - needs:provenance
+  - status:triage
+body:
+  - type: input
+    id: provider
+    attributes:
+      label: Provider and product
+    validations:
+      required: true
+  - type: dropdown
+    id: class
+    attributes:
+      label: Data class
+      options:
+        - Observation
+        - Reanalysis
+        - Issued forecast
+        - Climate scenario
+        - Simulation/reference product
+    validations:
+      required: true
+  - type: textarea
+    id: contract
+    attributes:
+      label: Temporal and unit contract
+      description: Issue/valid time, resolution, timezone, variables, units, coverage and calendar behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: quality
+    attributes:
+      label: Schema, quality and missing-data policy
+    validations:
+      required: true
+  - type: textarea
+    id: operations
+    attributes:
+      label: Licence, rate limit, retention and fallback
+      description: Include attribution and whether a fallback preserves the same semantic class.
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: Snapshot and provenance plan
+    validations:
+      required: true
+

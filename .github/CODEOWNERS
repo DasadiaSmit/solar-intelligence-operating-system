@@ -1,0 +1,14 @@
+# Bootstrap ownership. Replace or extend with department teams as maintainers join.
+* @DasadiaSmit
+
+# High-risk shared boundaries always require repository-owner visibility.
+/lib/contracts/ @DasadiaSmit
+/db/ @DasadiaSmit
+/drizzle/ @DasadiaSmit
+/.github/ @DasadiaSmit
+/.openai/ @DasadiaSmit
+/governance/ @DasadiaSmit
+/docs/SCIENTIFIC_METHODS.md @DasadiaSmit
+/docs/MODEL_VALIDATION.md @DasadiaSmit
+/docs/SECURITY.md @DasadiaSmit
+

@@ -121,3 +121,14 @@ The health endpoint reports build version, calculation version, active provider 
 - New model artifacts implement the forecast-model registry contract and must bring a real versioned validation run.
 - New workspaces register through a typed workspace definition and inherit global linked state.
 - Offline research outputs can be uploaded as immutable artifacts with hashes, training windows, feature schema, and calibration metadata.
+
+## Department boundaries
+
+The runtime dependency rules above remain authoritative. The department model adds accountable ownership without changing imports, deployment topology or scientific meaning.
+
+- [`governance/departments.json`](../governance/departments.json) is the machine-readable ownership registry.
+- [`governance/INTERFACE_CONTRACTS.md`](../governance/INTERFACE_CONTRACTS.md) identifies shared contracts that must be frozen before deep refactors.
+- [`governance/WORKSPACE_OWNERSHIP.md`](../governance/WORKSPACE_OWNERSHIP.md) assigns one accountable domain department to every workspace.
+- Architecture decisions use ADRs; formula, data, model and uncertainty decisions use Scientific Decision Records.
+
+The first modularisation must be behavior-preserving. `SolarOperatingSystem.tsx`, `workspaces.tsx`, `instruments.tsx` and `globals.css` are current collaboration hotspots; they will be split behind typed contracts before departments independently deepen their features. Moving code is not permission to change lifecycle status or scientific claims.

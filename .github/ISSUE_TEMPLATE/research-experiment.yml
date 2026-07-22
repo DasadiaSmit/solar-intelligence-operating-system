@@ -1,0 +1,42 @@
+name: Research experiment
+description: Register a reproducible model, representative-year or optimisation experiment.
+title: "[EXPERIMENT] "
+labels:
+  - type:research
+  - maturity:planned
+  - status:triage
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Research question and hypothesis
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: Dataset snapshots and lineage
+      description: List immutable snapshot IDs, date coverage, quality and exclusions.
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: Experimental design
+      description: Temporal splits, holdout, rolling origins, baseline, features, seed and hyperparameters.
+    validations:
+      required: true
+  - type: textarea
+    id: metrics
+    attributes:
+      label: Metrics, units and promotion gate
+    validations:
+      required: true
+  - type: textarea
+    id: reproducibility
+    attributes:
+      label: Reproducibility record
+      description: Environment lock, code commit, artifact hashes, calibration, limitations and planned decision.
+    validations:
+      required: true
+

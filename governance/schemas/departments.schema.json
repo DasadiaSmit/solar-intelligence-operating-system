@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://solar-intelligence-os.local/schemas/departments.schema.json",
+  "title": "Solar Intelligence OS department registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "updatedAt", "maturityModel", "departments", "workspaces"],
+  "properties": {
+    "schemaVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "updatedAt": { "type": "string", "format": "date" },
+    "maturityModel": {
+      "type": "object",
+      "required": ["M0", "M1", "M2", "M3", "M4", "M5"],
+      "additionalProperties": { "type": "string" }
+    },
+    "departments": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/department" }
+    },
+    "workspaces": {
+      "type": "array",
+      "minItems": 14,
+      "items": { "$ref": "#/$defs/workspace" }
+    }
+  },
+  "$defs": {
+    "stringList": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+    "interface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["departmentId", "contract", "artifact"],
+      "properties": {
+        "departmentId": { "type": "string", "minLength": 2 },
+        "contract": { "type": "string", "minLength": 3 },
+        "artifact": { "type": "string", "minLength": 1 }
+      }
+    },
+    "department": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "slug", "name", "mission", "operatingState", "accountableRole", "charter", "primaryPaths", "sharedPaths", "interfaces", "requiredChecks", "labels", "currentObjectives"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Z][A-Z0-9_-]+$" },
+        "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "name": { "type": "string", "minLength": 4 },
+        "mission": { "type": "string", "minLength": 20 },
+        "operatingState": { "enum": ["active", "forming", "planned"] },
+        "accountableRole": { "type": "string", "minLength": 3 },
+        "charter": { "type": "string", "pattern": "^governance/departments/.+\\.md$" },
+        "primaryPaths": { "$ref": "#/$defs/stringList" },
+        "reservedPaths": { "$ref": "#/$defs/stringList" },
+        "sharedPaths": { "$ref": "#/$defs/stringList" },
+        "interfaces": { "type": "array", "items": { "$ref": "#/$defs/interface" }, "minItems": 1 },
+        "requiredChecks": { "$ref": "#/$defs/stringList" },
+        "labels": { "$ref": "#/$defs/stringList" },
+        "currentObjectives": { "type": "array", "items": { "type": "string", "minLength": 10 }, "minItems": 1, "uniqueItems": true }
+      }
+    },
+    "workspace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "primaryDepartment", "contributors"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "name": { "type": "string", "minLength": 4 },
+        "primaryDepartment": { "type": "string", "minLength": 2 },
+        "contributors": { "$ref": "#/$defs/stringList" }
+      }
+    }
+  }
+}
