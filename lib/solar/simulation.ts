@@ -44,11 +44,11 @@ export function simulateSolarYear(
   for (let index = 0; index < weather.length; index += 1) {
     const weatherHour = weather[index];
     if (!weatherHour) continue;
-    const position = calculateSolarPosition(
-      weatherHour.timestamp,
-      location,
-      weatherHour.dayOfYear,
-    );
+    // Geometry follows the actual UTC midpoint timestamp. `dayOfYear` remains
+    // the no-leap modelling ordinal used to align time-series features; using
+    // it as an astronomical override would shift every post-February hour in a
+    // leap source year by one day.
+    const position = calculateSolarPosition(weatherHour.timestamp, location);
     const poa = transposeToPlaneOfArray(weatherHour, position, array);
     const generation = calculateGenerationHour(weatherHour, poa, array, losses);
     annualAcKWh += generation.acKWh;

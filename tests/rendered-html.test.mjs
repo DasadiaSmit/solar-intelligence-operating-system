@@ -99,7 +99,7 @@ test("continuity and scientific documentation are deliverable artifacts", async 
     "GOVERNANCE.md", "CONTRIBUTING.md", "CHANGELOG.md",
     "governance/README.md", "governance/departments.json", "governance/WORKSPACE_OWNERSHIP.md",
     "docs/ARCHITECTURE.md", "docs/SCIENTIFIC_METHODS.md", "docs/MODEL_VALIDATION.md",
-    "docs/DATA_PROVIDERS.md", "docs/DATA_PROVENANCE.md", "docs/LIMITATIONS.md",
+    "docs/DATA_PROVIDERS.md", "docs/DATA_PROVENANCE.md", "docs/RESEARCH_SPINE.md", "docs/LIMITATIONS.md",
     "docs/DEPLOYMENT.md", "docs/BACKUP_RECOVERY.md", "docs/SECURITY.md", "docs/THREAT_MODEL.md",
     ".github/CODEOWNERS", ".github/SECURITY.md", ".github/workflows/ci.yml",
   ];

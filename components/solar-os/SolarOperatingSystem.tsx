@@ -284,7 +284,7 @@ export function SolarOperatingSystem({ snapshot }: { snapshot: OperatingSnapshot
           <span><i className="signal-dot solar" />POA <b>{formatNumber(current?.poa ?? 0)}</b> W/m²</span>
           <span><i className="signal-dot forecast" />AC <b>{formatNumber(current?.acKw ?? 0, 2)}</b> kW</span>
           <span><i className="signal-dot cloud" />CLOUD <b>{formatNumber((current?.cloud ?? 0) * 100)}</b>%</span>
-          <span><i className="signal-dot positive" />Q <b>{formatNumber((current?.quality ?? 0) * 100)}</b>%</span>
+          <span><i className="signal-dot positive" />DQ <b>{formatNumber((current?.quality ?? 0) * 100)}</b>%</span>
         </div>
         <div className="mission-actions">
           <button onClick={saveView} aria-label="Save current workspace locally" title="Save workspace">SAVE</button>
@@ -380,7 +380,7 @@ export function SolarOperatingSystem({ snapshot }: { snapshot: OperatingSnapshot
 
       <footer className="system-ledger" aria-label="System status and legend">
         <span><i className="status-implemented" />IMPLEMENTED</span><span><i className="status-experimental" />EXPERIMENTAL</span><span><i className="status-simulated" />SIMULATED</span><span><i className="status-planned" />PLANNED</span>
-        <b>PROVIDER {base.provider}</b><b>MODEL {base.modelName}</b><b>RES {base.resolution}</b><b>Q {formatNumber(result.summary.qualityScore)}%</b><b>CALC {base.calculationVersion}</b><b className={online ? "connection-online" : "connection-offline"}>{online ? "NETWORK ONLINE" : "OFFLINE / SAMPLE ACTIVE"}</b>
+        <b>PROVIDER {base.provider}</b><b>MODEL {base.modelName}</b><b>RES {base.resolution}</b><b>DQ {formatNumber(result.summary.qualityScore)}%</b><b>CALC {base.calculationVersion}</b><b className={online ? "connection-online" : "connection-offline"}>{online ? "NETWORK ONLINE" : "OFFLINE / SAMPLE ACTIVE"}</b>
         <em>ESTIMATES ARE NOT GUARANTEED PRODUCTION</em>
       </footer>
 

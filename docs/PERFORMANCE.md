@@ -31,7 +31,7 @@ After this change, clean development document requests completed in approximatel
 
 ## Built asset budget
 
-The production smoke test enforces a 250 kB uncompressed budget for the workspace-specific client module. The final measured module is **85,211 bytes uncompressed**; the complete `dist` tree is **2.5 MB** after the final transport and scenario-control edits.
+The production smoke test enforces a 250 kB uncompressed budget for the workspace-specific client module. After the research-spine and linked annual-study release, the measured `SolarOperatingSystem` module is **96,890 bytes uncompressed**; the complete `dist` tree is **3,829,622 bytes (3.65 MiB)**. These values were measured from a fresh production build on 2026-07-22 and should be refreshed whenever the shell or build toolchain changes.
 
 ## Rendering strategy
 

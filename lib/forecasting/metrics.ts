@@ -5,6 +5,7 @@ export interface MetricOptions {
   lower?: readonly number[];
   upper?: readonly number[];
   mapeFloor?: number;
+  normalizationValue?: number;
   nominalCoveragePct?: number;
 }
 
@@ -38,7 +39,7 @@ export function calculateValidationMetrics(
       mapePct: null,
       normalizedMaePct: 0,
       bias: 0,
-      rSquared: 0,
+      rSquared: null,
       seasonalMae: { winter: 0, spring: 0, summer: 0, autumn: 0 },
       annualGenerationErrorPct: 0,
       peakOutputErrorPct: 0,
@@ -113,11 +114,11 @@ export function calculateValidationMetrics(
     mapePct: mapeCount >= Math.min(24, Math.ceil(pairs.length * 0.02))
       ? mapeTotal / mapeCount * 100
       : null,
-    normalizedMaePct: Math.abs(meanActual) > Number.EPSILON
-      ? absoluteError / pairs.length / Math.abs(meanActual) * 100
+    normalizedMaePct: Math.abs(options.normalizationValue ?? meanActual) > Number.EPSILON
+      ? absoluteError / pairs.length / Math.abs(options.normalizationValue ?? meanActual) * 100
       : 0,
     bias: signedError / pairs.length,
-    rSquared: totalVariance > Number.EPSILON ? 1 - squaredError / totalVariance : 0,
+    rSquared: totalVariance > Number.EPSILON ? 1 - squaredError / totalVariance : null,
     seasonalMae: seasonalTotals,
     annualGenerationErrorPct: Math.abs(actualTotal) > Number.EPSILON
       ? (predictedTotal - actualTotal) / actualTotal * 100

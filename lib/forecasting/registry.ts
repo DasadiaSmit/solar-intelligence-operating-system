@@ -78,11 +78,14 @@ export function buildModelRegistry(metrics: ImplementedModelMetrics): ModelRecor
       family: "hybrid",
       version: MODEL_VERSION,
       status: "experimental",
-      role: "champion",
+      role: "research-candidate",
       trainedThrough: "2024-12-31",
       metrics: metrics.hybrid,
-      description: "Inverse-error blend of physical, meteorological and seasonal estimates with residual intervals.",
-      limitations: ["Intervals describe proving-data uncertainty and are not contractual guarantees."],
+      description: "Inverse-error blend of physical, meteorological and seasonal proving estimates with residual intervals.",
+      limitations: [
+        "The bundled ledger uses simulated reference production and cannot support champion promotion.",
+        "Intervals describe proving-data uncertainty and are not contractual guarantees.",
+      ],
     },
   ];
   const plannedNames: Array<[string, string, ModelRecord["family"]]> = [

@@ -19,6 +19,8 @@ Objects are serialised with recursively sorted keys and encoded as UTF-8 canonic
 
 The dataset snapshot ID combines provider ID/version, actual data class, query hash, canonical content hash, schema version and calculation version. Therefore the same canonical dataset under the same scientific contract resolves to the same ID. Retrieval runs remain separate D1 records because issue/retrieval time, attempts and upstream status can differ.
 
+The annual research boundary adds a second, deliberately distinct adapted-science hash for each source year. It covers the exact `WeatherHour[]` consumed by the physics and forecasting engines after interval-midpoint conversion, field derivation, quality propagation and no-leap alignment. Before a study runs, each hash is recalculated and checked together with `sios-weather-science-adapter-1.0.0`. The four ordered adapted hashes and adapter version feed representative-year identity and the final study ID alongside canonical snapshot IDs/hashes, complete system configuration, model recipes, calculation version and model version. This closes the otherwise dangerous gap where canonical provenance could stay unchanged while a mutable derived array changed.
+
 Canonical JSON is an application contract, not an interchangeable implementation of RFC 8785. Cross-language pipelines must reproduce the documented sort/null/number behaviour or publish their own hash scheme version.
 
 ## Snapshot manifest
@@ -81,9 +83,10 @@ Quality is not uncertainty. The provider layer currently states that calibrated 
 2. Verify canonical/raw object SHA-256 hashes when objects are persisted.
 3. Confirm provider product, requested/actual class, query, valid window and units.
 4. Apply transformations in the recorded order using the declared schema/calculation versions.
-5. Resolve the system-configuration hash and scenario branch.
-6. Resolve model/code version, dataset parents, training/evaluation window and random seed.
-7. Re-run and compare content/result hashes plus tolerance-aware numerical checks.
+5. Recalculate and verify each ordered adapted-science hash and its adapter version before annual simulation.
+6. Resolve the system-configuration hash and scenario branch.
+7. Resolve model/code version, versioned feature schema/hyperparameters, dataset parents, training/evaluation window and random seed.
+8. Re-run and compare representative/study/result hashes plus tolerance-aware numerical checks.
 
 A matching dataset hash proves byte-level canonical equality, not correctness of the source product. Scientific reproduction still requires the same algorithms, floating-point/runtime assumptions and documented tolerances.
 
@@ -113,4 +116,3 @@ A matching dataset hash proves byte-level canonical equality, not correctness of
 - reproducible offline training environments with locked containers;
 - measured-site calibration lineage and forecast-run-level ensemble ancestry;
 - W3C PROV-compatible export after the internal contract stabilises.
-

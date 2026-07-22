@@ -120,7 +120,7 @@ export class OpenMeteoProvider implements WeatherProvider {
         "provider units to canonical SI units",
         "GMT timestamp to ISO-8601 UTC",
         "physical-bound outlier rejection",
-        "linear interpolation for interior gaps of no more than two hours",
+        "field-specific linear interpolation for eligible interior gaps of no more than two hours",
       ],
       warnings: forecast
         ? ["Exact upstream model issue time is unavailable in the best-match response and is not inferred."]
@@ -151,8 +151,12 @@ function validatePayload(value: unknown): OpenMeteoPayload {
   }
   if (!payload.hourly || typeof payload.hourly !== "object") invalid("Missing hourly object.");
   const times = payload.hourly.time;
-  if (!Array.isArray(times) || times.length === 0 || times.length > 8_784) {
-    invalid("Hourly time must be a non-empty array of at most 8,784 values.");
+  // A complete preceding-hour calendar year can require requesting the final
+  // interval end at 00:00 on 1 January of the following year. Open-Meteo's
+  // date-granular transport then includes one boundary day that is filtered
+  // against the exact query range below.
+  if (!Array.isArray(times) || times.length === 0 || times.length > 8_808) {
+    invalid("Hourly time must be a non-empty array of at most 8,808 values.");
   }
   return payload;
 }

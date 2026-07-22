@@ -6,8 +6,8 @@ Turn scientific, product and operational claims into repeatable evidence. QA own
 
 ## Current truth
 
-- The repository currently has 3 governance fitness tests, 10 scientific/data tests and 5 API/artifact smoke tests using Node's built-in test runner.
-- Existing tests cover core solar vectors, energy conservation, representative-year determinism, regression/rolling-origin behavior, optimisation determinism, provider semantics, annual integration, API bounds, workspace presence, documentation and production artifacts.
+- The repository has separately runnable governance, scientific-core, dedicated research-spine and API/artifact smoke suites using Node's built-in test runner. Exact release counts and the last verified command evidence are recorded in `PROJECT_STATUS.md` so this charter does not become a stale counter.
+- Existing tests cover core solar vectors, energy conservation, representative-year determinism, regression/rolling-origin behavior, optimisation determinism, provider semantics, exact 2022–2025 grids, adapter derivations, chronological research partitions, study identity, annual-study HTTP behavior, API bounds, workspace presence, documentation and production artifacts.
 - Strict TypeScript, ESLint and a production build can be run locally, and the package test command builds before smoke testing.
 - A four-gate pull-request CI workflow is defined in source for governance, type/lint, scientific and production-build/smoke checks. It is not treated as operational evidence until a GitHub run completes successfully.
 - There are no browser-driven end-to-end, automated accessibility, visual-regression, load, penetration or D1/R2 integration suites yet.
@@ -43,7 +43,7 @@ QA defines required test evidence, fixture controls, regression severity and rel
 ## First deep-work programme
 
 1. Create mandatory CI gates for dependency installation from the lockfile, type checking, linting, scientific tests, production build and smoke tests.
-2. Split the growing suite into unit, contract, integration, end-to-end, accessibility, visual, performance, security and governance layers while preserving the current passing baseline.
+2. Continue splitting the governance, scientific-core, research-spine and smoke suites into unit, contract, integration, end-to-end, accessibility, visual, performance and security layers while preserving equivalent evidence.
 3. Establish deterministic, versioned fixtures for weather providers, D1, R2, issued forecasts, reanalysis, missing data and extreme conditions.
 4. Add API route matrices for valid, invalid, oversized, unauthorized, rate-limited, unavailable and partial-failure states.
 5. Add browser coverage for all 14 workspaces, linked time, replay, scenario changes, saved views, keyboard navigation, mobile, daylight, night, reduced motion, offline and low-confidence states.
@@ -65,7 +65,7 @@ QA defines required test evidence, fixture controls, regression severity and rel
 
 ## Measures
 
-- Current baseline remains at least 3 governance, 10 scientific/data and 5 smoke tests until replaced by stronger equivalent coverage.
+- Governance, scientific-core, research-spine and release-smoke suites remain required until replaced by stronger equivalent coverage; a count change alone is never evidence loss or gain.
 - Required-check pass rate and flaky-test rate are tracked separately.
 - Escaped defects are classified by department, severity and missing test layer.
 - Coverage is reported by risk area; initial target floors are 90% for solar/energy/contracts, 85% for forecasting/providers and 75% repository-wide after meaningful branch coverage is measurable.

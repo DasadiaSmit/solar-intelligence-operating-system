@@ -15,6 +15,7 @@ It is not a certified yield assessment, a market settlement system, a protection
 - ECMWF Open Data is a short rolling archive of recent runs, not a historical 2022–2025 replay source.
 - Copernicus CDS/ERA5 extraction requires an async credentialled ingestion pipeline for production scale.
 - Missing data may be imputed only under disclosed rules and carries flags; long irradiance gaps degrade quality.
+- The annual research route fails on missing required hours/fields. ERA5 snow depth can be unavailable; a flagged temperature/precipitation balance proxy is then used and reduces quality.
 - Spatial grid resolution cannot resolve site-specific obstructions, urban microclimates, or all complex terrain effects.
 
 ## Physics limitations
@@ -33,8 +34,9 @@ It is not a certified yield assessment, a market settlement system, a protection
 - Four years are insufficient for a climate normal or standards-grade TMY.
 - A representative composite may contain discontinuities at source-month seams.
 - Model-to-model agreement does not establish accuracy against a real plant.
+- Current live model metrics use physics-derived generation as their target. They are reanalysis-conditioned hindcast/reference evidence, not measured-plant validation or issued year-ahead forecast skill.
 - MAPE is invalid near zero and is therefore guarded.
-- Empirical intervals assume residual behavior is sufficiently exchangeable within calibration blocks.
+- The empirical hourly interval assumes 2024 absolute-residual behavior is sufficiently representative of 2025; no block-bootstrap or structural-error interval is implemented.
 - Extreme-event probabilities from short records are highly uncertain.
 - A Pareto optimum depends on selected objectives, bounds, prices, demand, and risk preferences.
 
