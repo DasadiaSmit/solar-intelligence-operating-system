@@ -1,0 +1,8 @@
+{
+  "schema": "sios-frozen-baseline-1",
+  "startedAt": "2026-10-25T14:48:23.549Z",
+  "mode": "live",
+  "sourceCommit": "5bbb7e389a5288b7d5a27f5cd23e3c55a81ff387",
+  "protocolSha256": "ce4e11cbd2d123b5d17d77efcc18f91623a2b5bf817fa73562d459edccb0d02d",
+  "attribution": "Open-Meteo / ECMWF ERA5; see https://open-meteo.com/en/docs/historical-weather-api and source provenance. Sample mode is simulated proving data."
+}

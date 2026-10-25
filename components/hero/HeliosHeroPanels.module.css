@@ -1,0 +1,221 @@
+.statusPanel {
+  position: relative;
+  z-index: 4;
+  grid-column: 2;
+  grid-row: 2;
+  width: min(100%, 520px);
+  max-height: 30dvh;
+  overflow: auto;
+  justify-self: end;
+  padding: 17px 19px;
+  border: 1px solid var(--hero-line);
+  background: rgba(8, 12, 10, 0.78);
+  backdrop-filter: blur(8px);
+}
+
+.statusPanel h2,
+.overviewPanel h2 {
+  margin: 4px 0 12px;
+  font-size: 0.92rem;
+  font-weight: 580;
+  letter-spacing: 0.01em;
+}
+
+.panelKicker {
+  margin: 0;
+  color: var(--hero-solar);
+  font-family:
+    var(--font-intel-one-mono),
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+}
+
+.statusPanel dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.statusPanel dl div {
+  min-width: 0;
+  padding: 8px 10px 8px 0;
+  border-top: 1px solid var(--hero-line);
+}
+
+.statusPanel dt {
+  color: var(--hero-dim);
+  font-size: 0.62rem;
+  line-height: 1.3;
+}
+
+.statusPanel dd {
+  margin: 3px 0 0;
+  overflow-wrap: anywhere;
+  color: var(--hero-text);
+  font-family:
+    var(--font-intel-one-mono),
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+  font-size: 0.65rem;
+  line-height: 1.35;
+}
+
+.overviewPanel {
+  position: absolute;
+  right: clamp(24px, 5vw, 76px);
+  bottom: clamp(55px, 8vh, 90px);
+  z-index: 8;
+  width: min(500px, calc(100vw - 48px));
+  max-height: min(68dvh, 650px);
+  overflow: auto;
+  padding: 20px;
+  border: 1px solid var(--hero-line-strong);
+  background: rgba(7, 10, 9, 0.96);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.48);
+}
+
+.overviewPanel[hidden] {
+  display: none;
+}
+
+.overviewHeading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.closeOverview {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 9px;
+  flex: none;
+  color: var(--hero-muted);
+  border: 1px solid var(--hero-line);
+  border-radius: 0;
+  background: transparent;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.closeOverview:focus-visible {
+  outline: 2px solid var(--hero-focus);
+  outline-offset: 4px;
+}
+
+.overviewPanel > p {
+  color: var(--hero-muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.subsystemList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  padding: 1px;
+  margin: 16px 0;
+  list-style: none;
+  background: var(--hero-line);
+}
+
+.subsystemList li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 38px;
+  padding: 8px 10px;
+  background: var(--hero-surface);
+  font-size: 0.75rem;
+}
+
+.subsystemList li span {
+  color: var(--hero-solar);
+  font-family:
+    var(--font-intel-one-mono),
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+  font-size: 0.58rem;
+}
+
+.limitation {
+  padding-top: 13px;
+  border-top: 1px solid var(--hero-line);
+}
+
+@media (max-width: 1024px) {
+  .statusPanel {
+    grid-column: 1;
+    grid-row: 3;
+    width: 100%;
+    max-height: none;
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 640px) {
+  .statusPanel {
+    padding: 12px 13px;
+  }
+
+  .statusPanel h2 {
+    margin-bottom: 8px;
+  }
+
+  .statusPanel dl {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .statusPanel dl div {
+    padding: 6px 7px 6px 0;
+  }
+
+  .statusPanel dt,
+  .statusPanel dd {
+    font-size: 0.57rem;
+  }
+
+  .overviewPanel {
+    right: 12px;
+    bottom: 46px;
+    width: calc(100vw - 24px);
+    max-height: 76dvh;
+    padding: 15px;
+  }
+
+  .overviewHeading {
+    gap: 10px;
+  }
+
+  .subsystemList {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .closeOverview {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .overviewPanel,
+  .statusPanel {
+    color: CanvasText;
+    border-color: CanvasText;
+    background: Canvas;
+  }
+
+  .closeOverview {
+    border-color: CanvasText;
+  }
+}

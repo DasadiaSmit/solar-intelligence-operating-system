@@ -6,13 +6,46 @@ Turn scientific, product and operational claims into repeatable evidence. QA own
 
 ## Current truth
 
-- The repository currently has 3 governance fitness tests, 10 scientific/data tests and 5 API/artifact smoke tests using Node's built-in test runner.
-- Existing tests cover core solar vectors, energy conservation, representative-year determinism, regression/rolling-origin behavior, optimisation determinism, provider semantics, annual integration, API bounds, workspace presence, documentation and production artifacts.
+- The repository has separately runnable governance, scientific-core, dedicated research-spine and API/artifact smoke suites using Node's built-in test runner. Exact release counts and the last verified command evidence are recorded in `PROJECT_STATUS.md` so this charter does not become a stale counter.
+- Existing tests cover core solar vectors, energy conservation, representative-year determinism, regression/rolling-origin behavior, optimisation determinism, provider semantics, exact 2022–2025 grids, adapter derivations, chronological research partitions, study identity, annual-study HTTP behavior, API bounds, workspace presence, documentation and production artifacts.
+- Deterministic source/model contracts exist for the Observatory, Solar Digital
+  Twin, bounded Atmospheric Observation frame/view and exact 8,760-hour Annual
+  Energy frame/view plus the canonically reconciled Array Engineering
+  frame/view and configured-baseline-versus-four-stress Scenario Comparison
+  frame/view, and the canonical Battery Energy-Flow frame/view with dispatch
+  replay, exact linked-hour/day and annual ledger reconciliation. These cover
+  exact semantic HTML facts and provenance, explicit
+  unavailable layers, no-causality,
+  no-forecast-promotion, no-Sun-mutation semantics, mounted-instrument
+  activation, typed same-index `SR` and acknowledged exact-index `BE` handoffs,
+  and single-frame/canvas ownership across six mounted instruments.
+- Fresh Instrument 06 automated evidence passes 135/135: 4 governance,
+  11 scientific-core, 11 research-spine, 15 mission-intelligence, 88 visual/model
+  and 6 production smoke checks. Strict TypeScript, ESLint and all five
+  production build environments pass. The former Instrument 05 result of
+  103/103 overall and 58/58 visual tests is historical evidence.
+- The current I06 initial spatial closure is 1,263,187 bytes raw / 381,161
+  bytes gzip; the complete initial closure is 1,453,688 bytes raw / 440,465
+  bytes gzip. The unchanged raw gates are 1,265,000 and 1,465,000 bytes.
+  Instrument 06 stays outside that initial closure and measures 15,823 bytes
+  raw / 4,967 bytes gzip, below its separate 20,000-byte raw gate. Instrument
+  05's unique closure in this build is 9,596 bytes raw / 3,790 bytes gzip,
+  below its 15,000-byte gate. The former I05 measurements of 1,262,543 /
+  382,126 bytes incremental, 1,453,044 / 441,466 bytes complete, and 9,596 /
+  3,799 bytes for its unique module are historical raw/gzip pairs.
+- Browser checks confirm Begin Observation settles into the observatory
+  after the scroll-threshold correction. Keyboard activation opens `BE` at
+  the exact linked canonical interval and focuses its selected control;
+  ArrowRight, Home and End keep one roving tab stop. Pointer activation from
+  Instrument 06 opens the same interval and focuses it at desktop 1280×902
+  and compact 390×844 viewports. The compact page has no horizontal overflow;
+  browser error logs are empty. Manual screen-reader validation and
+  reference-device FPS are not measured.
 - Strict TypeScript, ESLint and a production build can be run locally, and the package test command builds before smoke testing.
-- A four-gate pull-request CI workflow is defined in source for governance, type/lint, scientific and production-build/smoke checks. It is not treated as operational evidence until a GitHub run completes successfully.
+- A five-gate pull-request CI workflow is defined in source for governance, dependency security, type/lint, scientific and production-build/smoke checks. It is not treated as operational evidence until a GitHub run completes successfully.
 - There are no browser-driven end-to-end, automated accessibility, visual-regression, load, penetration or D1/R2 integration suites yet.
-- Current UI smoke checks inspect source and rendered artifacts; they do not prove interaction behavior in a browser.
-- Coverage thresholds, flaky-test policy, fixture governance and measured performance budgets are not established yet.
+- Current UI smoke checks inspect source and rendered artifacts; the bounded browser observations above are separate evidence and do not constitute an automated end-to-end suite.
+- Coverage thresholds, flaky-test policy and fixture governance are not established yet. Raw client-asset gates are enforced; runtime/FPS budgets still require reference-device measurements.
 
 ## Ownership boundary
 
@@ -33,7 +66,7 @@ Domain departments remain responsible for writing and maintaining tests alongsid
 - **DATA and PLATFORM:** provider fixtures, retries, cache/fallback semantics, D1/R2 and API contract tests.
 - **EXPERIENCE and FEATURES:** keyboard, responsive, linked-view, empty/error/offline and reduced-motion behavior.
 - **TWIN:** deterministic rendering hooks and GPU/canvas fallback behavior.
-- **PET:** grounded-answer, provenance, refusal and prompt-injection test sets when the assistant becomes executable.
+- **MI:** evidence-reference resolution, specialist routing, unsupported/conflict/stale findings, confidence-policy, evidence-injection and confirmed-action tests.
 - **SECOPS:** security checks, release gates, incident regressions and supply-chain verification.
 
 ## Decision authority
@@ -43,7 +76,7 @@ QA defines required test evidence, fixture controls, regression severity and rel
 ## First deep-work programme
 
 1. Create mandatory CI gates for dependency installation from the lockfile, type checking, linting, scientific tests, production build and smoke tests.
-2. Split the growing suite into unit, contract, integration, end-to-end, accessibility, visual, performance, security and governance layers while preserving the current passing baseline.
+2. Continue splitting the governance, scientific-core, research-spine and smoke suites into unit, contract, integration, end-to-end, accessibility, visual, performance and security layers while preserving equivalent evidence.
 3. Establish deterministic, versioned fixtures for weather providers, D1, R2, issued forecasts, reanalysis, missing data and extreme conditions.
 4. Add API route matrices for valid, invalid, oversized, unauthorized, rate-limited, unavailable and partial-failure states.
 5. Add browser coverage for all 14 workspaces, linked time, replay, scenario changes, saved views, keyboard navigation, mobile, daylight, night, reduced motion, offline and low-confidence states.
@@ -65,7 +98,7 @@ QA defines required test evidence, fixture controls, regression severity and rel
 
 ## Measures
 
-- Current baseline remains at least 3 governance, 10 scientific/data and 5 smoke tests until replaced by stronger equivalent coverage.
+- Governance, scientific-core, research-spine and release-smoke suites remain required until replaced by stronger equivalent coverage; a count change alone is never evidence loss or gain.
 - Required-check pass rate and flaky-test rate are tracked separately.
 - Escaped defects are classified by department, severity and missing test layer.
 - Coverage is reported by risk area; initial target floors are 90% for solar/energy/contracts, 85% for forecasting/providers and 75% repository-wide after meaningful branch coverage is measurable.

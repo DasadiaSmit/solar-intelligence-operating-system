@@ -1,0 +1,34 @@
+{
+  "id": "appgdep_6ade338e824c8191b353a2732effd7ea",
+  "project_id": "appgprj_6a5ff79402588191953a5c8ab221b264",
+  "title": "Solar Intelligence Operating System",
+  "version_id": "appgprj_6a5ff79402588191953a5c8ab221b264~appgver_bb2ee085fcc081918bec76dfed273fb8",
+  "type": "publish",
+  "status": "succeeded",
+  "url": "https://solar-intelligence-os.vaikartana-revanta.chatgpt.site",
+  "has_mcp": false,
+  "screenshot_asset_pointer": null,
+  "provider_deployment_id": "vaikartana-revanta--solar-intelligence-os",
+  "failure_message": null,
+  "env_set_revision": 0,
+  "updated_at": "2026-10-25T16:51:42.147804+00:00",
+  "version_number": 20,
+  "source_commit": "869cb1310894ba6d1827b2e6ff4a557f5c5a800f",
+  "access": {
+    "mode": "custom",
+    "ownerOnly": true,
+    "externalVisitors": 0
+  },
+  "tests": {
+    "departments": 4,
+    "science": 11,
+    "research": 11,
+    "assessment": 86,
+    "mission": 15,
+    "visual": 96,
+    "renderedSmoke": 8,
+    "total": 231
+  },
+  "typecheck": "passed",
+  "scopedLint": "passed"
+}

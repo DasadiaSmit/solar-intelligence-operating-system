@@ -1,0 +1,3233 @@
+{
+  "schema": "sios-pvlib-comparison-1",
+  "protocolId": "independent-component-comparison-02",
+  "referenceVersion": "0.13.1",
+  "differenceSign": "component differences=pvlib minus project; solar angles=project minus SPA; energy deltas=listed stage minus preceding/native stage",
+  "spaConditions": {
+    "pressurePa": 101325.0,
+    "temperatureC": 12.0,
+    "deltaTSeconds": 67.0,
+    "altitudeM": 95,
+    "method": "numpy"
+  },
+  "cases": [
+    {
+      "id": "2022",
+      "rows": 8760,
+      "originalScenarioAnnualKWh": 52169.7437610365,
+      "geometry": {
+        "all": {
+          "elevationDegrees": {
+            "n": 8760,
+            "mae": 0.24304410481247363,
+            "rmse": 0.2707796408230302,
+            "bias": 0.004825781928248057,
+            "maxAbs": 0.4389400402089123
+          },
+          "azimuthDegrees": {
+            "n": 8760,
+            "mae": 0.152924491258711,
+            "rmse": 0.17990338288188318,
+            "bias": 0.003663517228479575,
+            "maxAbs": 0.40272066533663065
+          },
+          "apparentElevationDegrees": {
+            "n": 8760,
+            "mae": 0.2446355008472659,
+            "rmse": 0.27400734668570587,
+            "bias": 0.018097932392396054,
+            "maxAbs": 0.9178655200391198
+          }
+        },
+        "daylightAbove5Degrees": {
+          "elevationDegrees": {
+            "n": 3948,
+            "mae": 0.24540592800263555,
+            "rmse": 0.27268509639906585,
+            "bias": 0.005680815251806396,
+            "maxAbs": 0.4387811974301137
+          },
+          "azimuthDegrees": {
+            "n": 3948,
+            "mae": 0.15350206153150844,
+            "rmse": 0.17821351617503006,
+            "bias": 0.005808733625786655,
+            "maxAbs": 0.3842662600826543
+          },
+          "apparentElevationDegrees": {
+            "n": 3948,
+            "mae": 0.24454111211037863,
+            "rmse": 0.27180404397661223,
+            "bias": 0.004485890478670896,
+            "maxAbs": 0.43942975101667514
+          }
+        },
+        "nearHorizonWithin5Degrees": {
+          "elevationDegrees": {
+            "n": 917,
+            "mae": 0.22506571776450265,
+            "rmse": 0.24798848389055808,
+            "bias": 0.003373700765365181,
+            "maxAbs": 0.42853822110567197
+          },
+          "azimuthDegrees": {
+            "n": 917,
+            "mae": 0.15941431673324208,
+            "rmse": 0.18364476228962992,
+            "bias": 0.004975997254050283,
+            "maxAbs": 0.38631046131325775
+          },
+          "apparentElevationDegrees": {
+            "n": 917,
+            "mae": 0.23528745930934294,
+            "rmse": 0.2764096769910999,
+            "bias": 0.06018907393253065,
+            "maxAbs": 0.9178655200391198
+          }
+        },
+        "daylightElevationDifferenceAboveHalfDegreeFraction": 0.0,
+        "monthlyDaylightElevationMaeDegrees": [
+          0.1937932782605443,
+          0.3328490287363825,
+          0.3601118474450399,
+          0.3253045364354394,
+          0.2070078248846059,
+          0.07057012590974442,
+          0.15911957428927243,
+          0.2939719580705691,
+          0.37344106071419086,
+          0.36038697412620957,
+          0.2341846328738122,
+          0.06482245664950291
+        ],
+        "differentPositiveElevationGateHours": 18
+      },
+      "components": {
+        "directWm2": {
+          "n": 8760,
+          "mae": 4.255458872141644e-15,
+          "rmse": 1.6576109926583792e-14,
+          "bias": -6.673790135441513e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "diffuseWm2": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "reflectedWm2": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "frontWm2": {
+          "n": 8760,
+          "mae": 4.277248266377795e-15,
+          "rmse": 1.8218485828183985e-14,
+          "bias": -7.809075557683065e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "faimanTemperatureC": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "temperatureCappedDcKw": {
+          "n": 8760,
+          "mae": 5.915003076381027e-16,
+          "rmse": 1.6180054960597584e-15,
+          "bias": 1.6589738841924866e-16,
+          "maxAbs": 1.4210854715202004e-14
+        },
+        "linearDcVersusCappedProjectKw": {
+          "n": 8760,
+          "mae": 2.8886585432745234e-05,
+          "rmse": 0.000695326715813297,
+          "bias": 2.8886585432320037e-05,
+          "maxAbs": 0.0324028587664813
+        }
+      },
+      "controlledComponents": {
+        "controlledFrontWm2": {
+          "n": 8760,
+          "mae": 4.277248266377795e-15,
+          "rmse": 1.8218485828183985e-14,
+          "bias": -7.809075557683065e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "controlledTemperatureC": {
+          "n": 8760,
+          "mae": 8.127694357215901e-17,
+          "rmse": 5.529515000888613e-16,
+          "bias": -2.0341415005974616e-17,
+          "maxAbs": 7.105427357601002e-15
+        },
+        "controlledDcKw": {
+          "n": 8760,
+          "mae": 6.74713963036181e-16,
+          "rmse": 1.7496503800695646e-15,
+          "bias": 1.0302673224949743e-16,
+          "maxAbs": 1.4210854715202004e-14
+        },
+        "controlledAcKw": {
+          "n": 8760,
+          "mae": 6.467936282958931e-16,
+          "rmse": 1.7283511795025583e-15,
+          "bias": 9.364179903334529e-17,
+          "maxAbs": 2.1316282072803006e-14
+        }
+      },
+      "parity": {
+        "directWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "diffuseWm2": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "reflectedWm2": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "frontWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "faimanTemperatureC": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-10,
+          "passes": true
+        },
+        "temperatureCappedDcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        },
+        "controlledFrontWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "controlledTemperatureC": {
+          "maximumAbsoluteDifference": 7.105427357601002e-15,
+          "tolerance": 1e-10,
+          "passes": true
+        },
+        "controlledDcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        },
+        "controlledAcKw": {
+          "maximumAbsoluteDifference": 2.1316282072803006e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        }
+      },
+      "allParityChecksPass": true,
+      "stages": [
+        {
+          "id": "project",
+          "annualKWh": 54663.58783429478,
+          "monthlyKWh": [
+            2296.1182990246084,
+            2627.0709914459103,
+            5220.535847279662,
+            6439.951739283392,
+            6103.313849814895,
+            7126.92810948268,
+            6333.537957466251,
+            6772.711522493791,
+            4846.620388962367,
+            3489.0746324912097,
+            1764.4288312411763,
+            1643.29566530884
+          ],
+          "deltaFromPreviousKWh": null,
+          "deltaFromPreviousPct": null,
+          "deltaFromProjectKWh": 0.0,
+          "deltaFromProjectPct": 0.0
+        },
+        {
+          "id": "matched-primitives",
+          "annualKWh": 54663.58783429478,
+          "monthlyKWh": [
+            2296.1182990246084,
+            2627.0709914459103,
+            5220.535847279662,
+            6439.951739283391,
+            6103.313849814895,
+            7126.92810948268,
+            6333.537957466251,
+            6772.711522493791,
+            4846.620388962367,
+            3489.0746324912097,
+            1764.4288312411763,
+            1643.29566530884
+          ],
+          "deltaFromPreviousKWh": 0.0,
+          "deltaFromPreviousPct": 0.0,
+          "deltaFromProjectKWh": 0.0,
+          "deltaFromProjectPct": 0.0
+        },
+        {
+          "id": "spa-geometry",
+          "annualKWh": 54669.42833021541,
+          "monthlyKWh": [
+            2303.474235752785,
+            2637.974634120324,
+            5236.88420736109,
+            6450.005360967369,
+            6106.634702294968,
+            7126.234390939628,
+            6331.6508987138905,
+            6764.331616156889,
+            4835.228639180012,
+            3475.9068661260153,
+            1759.3892369637995,
+            1641.7135416386366
+          ],
+          "deltaFromPreviousKWh": 5.840495920623653,
+          "deltaFromPreviousPct": 0.010684435749674925,
+          "deltaFromProjectKWh": 5.840495920623653,
+          "deltaFromProjectPct": 0.010684435749674925
+        },
+        {
+          "id": "linear-temperature",
+          "annualKWh": 54669.66604400695,
+          "monthlyKWh": [
+            2303.478504674422,
+            2637.974634120324,
+            5236.8877720223645,
+            6450.008341664527,
+            6106.634702294968,
+            7126.234390939628,
+            6331.6508987138905,
+            6764.331616156889,
+            4835.228639180012,
+            3475.9068661260153,
+            1759.3892369637995,
+            1641.9404411501237
+          ],
+          "deltaFromPreviousKWh": 0.2377137915464118,
+          "deltaFromPreviousPct": 0.00043482033524888664,
+          "deltaFromProjectKWh": 6.0782097121700644,
+          "deltaFromProjectPct": 0.011119302543027842
+        },
+        {
+          "id": "pvwatts-inverter",
+          "annualKWh": 55628.09358083618,
+          "monthlyKWh": [
+            2356.9019103781634,
+            2688.996181069517,
+            5321.681819732201,
+            6552.564585419521,
+            6221.738247763971,
+            7245.360580675353,
+            6432.13614792884,
+            6875.322653604927,
+            4924.472048861038,
+            3544.3678814722803,
+            1795.172567941232,
+            1669.3789559891434
+          ],
+          "deltaFromPreviousKWh": 958.4275368292292,
+          "deltaFromPreviousPct": 1.7531249158495577,
+          "deltaFromProjectKWh": 964.5057465413993,
+          "deltaFromProjectPct": 1.764439153655939
+        }
+      ],
+      "temperatureCap": {
+        "positiveIrradianceHoursAffected": 34,
+        "upperCapHours": 34,
+        "lowerCapHours": 0,
+        "originalPreLossCappedMinusLinearDcKWh": -0.25304648838567023
+      },
+      "controlledClipping": {
+        "project": 32,
+        "matched-primitives": 32,
+        "spa-geometry": 33,
+        "linear-temperature": 33,
+        "pvwatts-inverter": 33
+      }
+    },
+    {
+      "id": "2023",
+      "rows": 8760,
+      "originalScenarioAnnualKWh": 49563.10073967555,
+      "geometry": {
+        "all": {
+          "elevationDegrees": {
+            "n": 8760,
+            "mae": 0.18766968748524318,
+            "rmse": 0.20972056950422682,
+            "bias": 0.004959745739082678,
+            "maxAbs": 0.34609460737978637
+          },
+          "azimuthDegrees": {
+            "n": 8760,
+            "mae": 0.12409449957850276,
+            "rmse": 0.14701732470938547,
+            "bias": 0.002381992433820336,
+            "maxAbs": 0.336955817031253
+          },
+          "apparentElevationDegrees": {
+            "n": 8760,
+            "mae": 0.18963844556858345,
+            "rmse": 0.21351418814463138,
+            "bias": 0.018303779740531267,
+            "maxAbs": 0.8533422620814337
+          }
+        },
+        "daylightAbove5Degrees": {
+          "elevationDegrees": {
+            "n": 3945,
+            "mae": 0.18998999503095104,
+            "rmse": 0.2111467150431703,
+            "bias": 0.0059363974568765535,
+            "maxAbs": 0.3457374261318833
+          },
+          "azimuthDegrees": {
+            "n": 3945,
+            "mae": 0.12543918351868102,
+            "rmse": 0.1455743612134489,
+            "bias": 0.006378353319338835,
+            "maxAbs": 0.3176482108436858
+          },
+          "apparentElevationDegrees": {
+            "n": 3945,
+            "mae": 0.18931054590869767,
+            "rmse": 0.21045773944538745,
+            "bias": 0.004735756302872173,
+            "maxAbs": 0.34636451905488386
+          }
+        },
+        "nearHorizonWithin5Degrees": {
+          "elevationDegrees": {
+            "n": 918,
+            "mae": 0.17411906039652972,
+            "rmse": 0.1930911200628157,
+            "bias": 0.00478030567977512,
+            "maxAbs": 0.34300608197671695
+          },
+          "azimuthDegrees": {
+            "n": 918,
+            "mae": 0.12586577496920906,
+            "rmse": 0.1467430227457469,
+            "bias": 0.003800533690317086,
+            "maxAbs": 0.31888480348447956
+          },
+          "apparentElevationDegrees": {
+            "n": 918,
+            "mae": 0.18612522325664999,
+            "rmse": 0.22431960534571585,
+            "bias": 0.06212294924177929,
+            "maxAbs": 0.8533422620814337
+          }
+        },
+        "daylightElevationDifferenceAboveHalfDegreeFraction": 0.0,
+        "monthlyDaylightElevationMaeDegrees": [
+          0.14892558323114144,
+          0.2549323484175365,
+          0.27384269298245795,
+          0.25062430715543016,
+          0.1604750234187875,
+          0.0593468604041768,
+          0.12616704844196708,
+          0.22839280564630296,
+          0.290453266531525,
+          0.2785148224763956,
+          0.17630899819085838,
+          0.04969162116567593
+        ],
+        "differentPositiveElevationGateHours": 12
+      },
+      "components": {
+        "directWm2": {
+          "n": 8760,
+          "mae": 3.8756352262427005e-15,
+          "rmse": 1.508778797541493e-14,
+          "bias": -4.839419073493069e-16,
+          "maxAbs": 1.9895196601282805e-13
+        },
+        "diffuseWm2": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "reflectedWm2": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "frontWm2": {
+          "n": 8760,
+          "mae": 3.839343860591854e-15,
+          "rmse": 1.6588267632694496e-14,
+          "bias": -5.995204332975846e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "faimanTemperatureC": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "temperatureCappedDcKw": {
+          "n": 8760,
+          "mae": 5.91817944219777e-16,
+          "rmse": 1.6609015968804217e-15,
+          "bias": 1.327831806963215e-16,
+          "maxAbs": 1.4210854715202004e-14
+        },
+        "linearDcVersusCappedProjectKw": {
+          "n": 8760,
+          "mae": 2.0722145638851174e-05,
+          "rmse": 0.0006666857795874806,
+          "bias": 2.0722145638392465e-05,
+          "maxAbs": 0.04653789556966359
+        }
+      },
+      "controlledComponents": {
+        "controlledFrontWm2": {
+          "n": 8760,
+          "mae": 3.839343860591854e-15,
+          "rmse": 1.6588267632694496e-14,
+          "bias": -5.995204332975846e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "controlledTemperatureC": {
+          "n": 8760,
+          "mae": 7.771561172376095e-17,
+          "rmse": 5.055609100966523e-16,
+          "bias": -9.58137678786094e-18,
+          "maxAbs": 7.105427357601002e-15
+        },
+        "controlledDcKw": {
+          "n": 8760,
+          "mae": 6.276150324966464e-16,
+          "rmse": 1.6318254438540771e-15,
+          "bias": 8.755046408802033e-17,
+          "maxAbs": 1.4210854715202004e-14
+        },
+        "controlledAcKw": {
+          "n": 8760,
+          "mae": 5.968375527436424e-16,
+          "rmse": 1.6189644314546553e-15,
+          "bias": 8.941588590807759e-17,
+          "maxAbs": 1.4210854715202004e-14
+        }
+      },
+      "parity": {
+        "directWm2": {
+          "maximumAbsoluteDifference": 1.9895196601282805e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "diffuseWm2": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "reflectedWm2": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "frontWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "faimanTemperatureC": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-10,
+          "passes": true
+        },
+        "temperatureCappedDcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        },
+        "controlledFrontWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "controlledTemperatureC": {
+          "maximumAbsoluteDifference": 7.105427357601002e-15,
+          "tolerance": 1e-10,
+          "passes": true
+        },
+        "controlledDcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        },
+        "controlledAcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        }
+      },
+      "allParityChecksPass": true,
+      "stages": [
+        {
+          "id": "project",
+          "annualKWh": 52536.766535964314,
+          "monthlyKWh": [
+            2095.865721654368,
+            2850.8257092714066,
+            3999.8887298885284,
+            5628.46464792137,
+            7228.6758158106295,
+            7832.269373113004,
+            6434.633266605939,
+            5796.396797328996,
+            4561.631635743346,
+            2790.5767561639504,
+            2154.3442070752662,
+            1163.1938753875104
+          ],
+          "deltaFromPreviousKWh": null,
+          "deltaFromPreviousPct": null,
+          "deltaFromProjectKWh": 0.0,
+          "deltaFromProjectPct": 0.0
+        },
+        {
+          "id": "matched-primitives",
+          "annualKWh": 52536.766535964314,
+          "monthlyKWh": [
+            2095.8657216543684,
+            2850.8257092714066,
+            3999.8887298885284,
+            5628.46464792137,
+            7228.6758158106295,
+            7832.269373113004,
+            6434.633266605939,
+            5796.396797328996,
+            4561.631635743347,
+            2790.5767561639504,
+            2154.3442070752662,
+            1163.1938753875104
+          ],
+          "deltaFromPreviousKWh": 0.0,
+          "deltaFromPreviousPct": 0.0,
+          "deltaFromProjectKWh": 0.0,
+          "deltaFromProjectPct": 0.0
+        },
+        {
+          "id": "spa-geometry",
+          "annualKWh": 52540.688748332585,
+          "monthlyKWh": [
+            2101.455211071501,
+            2858.8951300678136,
+            4007.818900876602,
+            5635.004871017692,
+            7231.865448859101,
+            7833.470491445937,
+            6432.602908142202,
+            5790.8090443649835,
+            4552.844526265952,
+            2784.0275595970497,
+            2149.5360583441825,
+            1162.358598279573
+          ],
+          "deltaFromPreviousKWh": 3.922212368270266,
+          "deltaFromPreviousPct": 0.007465652393334743,
+          "deltaFromProjectKWh": 3.922212368270266,
+          "deltaFromProjectPct": 0.007465652393334743
+        },
+        {
+          "id": "linear-temperature",
+          "annualKWh": 52540.85478244054,
+          "monthlyKWh": [
+            2101.503236372482,
+            2858.8951300678136,
+            4007.8958476512285,
+            5635.004871017692,
+            7231.865448859101,
+            7833.470491445937,
+            6432.602908142202,
+            5790.8090443649835,
+            4552.844526265952,
+            2784.0275595970497,
+            2149.5360583441825,
+            1162.3996603119149
+          ],
+          "deltaFromPreviousKWh": 0.16603410795505624,
+          "deltaFromPreviousPct": 0.0003160105280564096,
+          "deltaFromProjectKWh": 4.088246476225322,
+          "deltaFromProjectPct": 0.007781686513630426
+        },
+        {
+          "id": "pvwatts-inverter",
+          "annualKWh": 53449.76077447243,
+          "monthlyKWh": [
+            2149.055366402961,
+            2922.9254936436664,
+            4088.2935354782676,
+            5727.86892967289,
+            7343.829158822688,
+            7931.326125066942,
+            6539.420504539303,
+            5903.551557761688,
+            4635.296590688161,
+            2838.2329456252346,
+            2194.371572429358,
+            1175.5889943412794
+          ],
+          "deltaFromPreviousKWh": 908.9059920318905,
+          "deltaFromPreviousPct": 1.7299033215113502,
+          "deltaFromProjectKWh": 912.9942385081158,
+          "deltaFromProjectPct": 1.7378196236784493
+        }
+      ],
+      "temperatureCap": {
+        "positiveIrradianceHoursAffected": 17,
+        "upperCapHours": 17,
+        "lowerCapHours": 0,
+        "originalPreLossCappedMinusLinearDcKWh": -0.1815259957911548
+      },
+      "controlledClipping": {
+        "project": 52,
+        "matched-primitives": 52,
+        "spa-geometry": 52,
+        "linear-temperature": 52,
+        "pvwatts-inverter": 52
+      }
+    },
+    {
+      "id": "2024",
+      "rows": 8760,
+      "originalScenarioAnnualKWh": 45660.769309873904,
+      "geometry": {
+        "all": {
+          "elevationDegrees": {
+            "n": 8760,
+            "mae": 0.13258457053082187,
+            "rmse": 0.1494762958612544,
+            "bias": 0.005129563973236672,
+            "maxAbs": 0.25597509991415635
+          },
+          "azimuthDegrees": {
+            "n": 8760,
+            "mae": 0.09844366200400516,
+            "rmse": 0.1169771698188783,
+            "bias": 0.002163174157213395,
+            "maxAbs": 0.292687501058424
+          },
+          "apparentElevationDegrees": {
+            "n": 8760,
+            "mae": 0.13540538966839974,
+            "rmse": 0.1543979861559824,
+            "bias": 0.0181930955265539,
+            "maxAbs": 0.6064335540082586
+          }
+        },
+        "daylightAbove5Degrees": {
+          "elevationDegrees": {
+            "n": 3945,
+            "mae": 0.13473978050393243,
+            "rmse": 0.1502417870569505,
+            "bias": 0.006337591170793878,
+            "maxAbs": 0.2559268025590775
+          },
+          "azimuthDegrees": {
+            "n": 3945,
+            "mae": 0.0987770611990999,
+            "rmse": 0.11463450248117649,
+            "bias": 0.00748227167879748,
+            "maxAbs": 0.24826550230170596
+          },
+          "apparentElevationDegrees": {
+            "n": 3945,
+            "mae": 0.13422313979785894,
+            "rmse": 0.1497255454199381,
+            "bias": 0.005131788797044819,
+            "maxAbs": 0.2562583779676544
+          }
+        },
+        "nearHorizonWithin5Degrees": {
+          "elevationDegrees": {
+            "n": 915,
+            "mae": 0.12256908569193456,
+            "rmse": 0.13852054107373557,
+            "bias": 0.004702229839142492,
+            "maxAbs": 0.2558636894560069
+          },
+          "azimuthDegrees": {
+            "n": 915,
+            "mae": 0.09490170082693598,
+            "rmse": 0.111812139193949,
+            "bias": 0.0031565289675732607,
+            "maxAbs": 0.2467980160386105
+          },
+          "apparentElevationDegrees": {
+            "n": 915,
+            "mae": 0.14014748318775533,
+            "rmse": 0.17560970557934677,
+            "bias": 0.0595643714099893,
+            "maxAbs": 0.6064335540082586
+          }
+        },
+        "daylightElevationDifferenceAboveHalfDegreeFraction": 0.0,
+        "monthlyDaylightElevationMaeDegrees": [
+          0.105658058517992,
+          0.17968193921258996,
+          0.18896237252923237,
+          0.17505223585031027,
+          0.11038867742130999,
+          0.04734136342508343,
+          0.0961082562057835,
+          0.16487758719874723,
+          0.20888723451548555,
+          0.19484882535559955,
+          0.11501419343137301,
+          0.03273726117356654
+        ],
+        "differentPositiveElevationGateHours": 10
+      },
+      "components": {
+        "directWm2": {
+          "n": 8760,
+          "mae": 3.4491308845052792e-15,
+          "rmse": 1.4061149140440323e-14,
+          "bias": -5.23027841229946e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "diffuseWm2": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "reflectedWm2": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "frontWm2": {
+          "n": 8760,
+          "mae": 3.586273845115654e-15,
+          "rmse": 1.6204659613644075e-14,
+          "bias": -5.409168800342657e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "faimanTemperatureC": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "temperatureCappedDcKw": {
+          "n": 8760,
+          "mae": 5.294257232004778e-16,
+          "rmse": 1.5448977017696912e-15,
+          "bias": 1.388784761975277e-16,
+          "maxAbs": 1.4210854715202004e-14
+        },
+        "linearDcVersusCappedProjectKw": {
+          "n": 8760,
+          "mae": 8.585111298149294e-06,
+          "rmse": 0.00042887791410806266,
+          "bias": 8.585111297759154e-06,
+          "maxAbs": 0.03121430543712611
+        }
+      },
+      "controlledComponents": {
+        "controlledFrontWm2": {
+          "n": 8760,
+          "mae": 3.586273845115654e-15,
+          "rmse": 1.6204659613644075e-14,
+          "bias": -5.409168800342657e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "controlledTemperatureC": {
+          "n": 8760,
+          "mae": 6.401525681942541e-17,
+          "rmse": 4.659051476873685e-16,
+          "bias": -8.453410472887893e-18,
+          "maxAbs": 7.105427357601002e-15
+        },
+        "controlledDcKw": {
+          "n": 8760,
+          "mae": 6.093346907712615e-16,
+          "rmse": 1.6155125318734368e-15,
+          "bias": 7.124089496913336e-17,
+          "maxAbs": 1.4210854715202004e-14
+        },
+        "controlledAcKw": {
+          "n": 8760,
+          "mae": 5.763480129477099e-16,
+          "rmse": 1.5885248336313426e-15,
+          "bias": 5.662485954505846e-17,
+          "maxAbs": 1.4210854715202004e-14
+        }
+      },
+      "parity": {
+        "directWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "diffuseWm2": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "reflectedWm2": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "frontWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "faimanTemperatureC": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-10,
+          "passes": true
+        },
+        "temperatureCappedDcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        },
+        "controlledFrontWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "controlledTemperatureC": {
+          "maximumAbsoluteDifference": 7.105427357601002e-15,
+          "tolerance": 1e-10,
+          "passes": true
+        },
+        "controlledDcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        },
+        "controlledAcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        }
+      },
+      "allParityChecksPass": true,
+      "stages": [
+        {
+          "id": "project",
+          "annualKWh": 47889.389274885514,
+          "monthlyKWh": [
+            1979.049098349311,
+            1864.0171569121667,
+            3701.5254713146105,
+            5258.6191818972275,
+            5700.778422803266,
+            6854.612749794946,
+            6096.249346835126,
+            6040.802855832242,
+            4153.795682008165,
+            3096.3731963406635,
+            1948.7710173440914,
+            1194.7950954537037
+          ],
+          "deltaFromPreviousKWh": null,
+          "deltaFromPreviousPct": null,
+          "deltaFromProjectKWh": 0.0,
+          "deltaFromProjectPct": 0.0
+        },
+        {
+          "id": "matched-primitives",
+          "annualKWh": 47889.389274885514,
+          "monthlyKWh": [
+            1979.0490983493112,
+            1864.0171569121667,
+            3701.5254713146105,
+            5258.6191818972275,
+            5700.778422803266,
+            6854.612749794946,
+            6096.249346835126,
+            6040.802855832242,
+            4153.795682008165,
+            3096.373196340664,
+            1948.7710173440914,
+            1194.7950954537037
+          ],
+          "deltaFromPreviousKWh": 0.0,
+          "deltaFromPreviousPct": 0.0,
+          "deltaFromProjectKWh": 0.0,
+          "deltaFromProjectPct": 0.0
+        },
+        {
+          "id": "spa-geometry",
+          "annualKWh": 47885.41310354737,
+          "monthlyKWh": [
+            1981.9814924142652,
+            1867.5742847391518,
+            3706.439487027027,
+            5262.643842645255,
+            5702.224620700479,
+            6854.674196449048,
+            6094.452042890074,
+            6036.652172583519,
+            4147.851629668834,
+            3090.242788487232,
+            1946.3103767479206,
+            1194.3661691945579
+          ],
+          "deltaFromPreviousKWh": -3.9761713381449226,
+          "deltaFromPreviousPct": -0.00830282323150966,
+          "deltaFromProjectKWh": -3.9761713381449226,
+          "deltaFromProjectPct": -0.00830282323150966
+        },
+        {
+          "id": "linear-temperature",
+          "annualKWh": 47885.48271209667,
+          "monthlyKWh": [
+            1982.0455570799354,
+            1867.5789628387756,
+            3706.439487027027,
+            5262.643842645255,
+            5702.224620700479,
+            6854.674196449048,
+            6094.452042890074,
+            6036.652172583519,
+            4147.851629668834,
+            3090.242788487232,
+            1946.311242531931,
+            1194.3661691945579
+          ],
+          "deltaFromPreviousKWh": 0.06960854930366622,
+          "deltaFromPreviousPct": 0.00014536482990656907,
+          "deltaFromProjectKWh": -3.9065627888412564,
+          "deltaFromProjectPct": -0.008157470471004125
+        },
+        {
+          "id": "pvwatts-inverter",
+          "annualKWh": 48746.32088791269,
+          "monthlyKWh": [
+            2025.7065058480598,
+            1898.373021414843,
+            3778.5328132032787,
+            5360.272517329029,
+            5795.319943930778,
+            6972.147548394198,
+            6197.326465444476,
+            6144.667850795242,
+            4221.219366999934,
+            3153.859161514627,
+            1988.5635029493494,
+            1210.332190088881
+          ],
+          "deltaFromPreviousKWh": 860.8381758160176,
+          "deltaFromPreviousPct": 1.7977017815433927,
+          "deltaFromProjectKWh": 856.9316130271764,
+          "deltaFromProjectPct": 1.7893976640804166
+        }
+      ],
+      "temperatureCap": {
+        "positiveIrradianceHoursAffected": 9,
+        "upperCapHours": 9,
+        "lowerCapHours": 0,
+        "originalPreLossCappedMinusLinearDcKWh": -0.0752055749671536
+      },
+      "controlledClipping": {
+        "project": 29,
+        "matched-primitives": 29,
+        "spa-geometry": 29,
+        "linear-temperature": 29,
+        "pvwatts-inverter": 29
+      }
+    },
+    {
+      "id": "2025",
+      "rows": 8760,
+      "originalScenarioAnnualKWh": 53252.29667801031,
+      "geometry": {
+        "all": {
+          "elevationDegrees": {
+            "n": 8760,
+            "mae": 0.3059649091655707,
+            "rmse": 0.34035717699981416,
+            "bias": 0.005461418006247121,
+            "maxAbs": 0.5472283367415116
+          },
+          "azimuthDegrees": {
+            "n": 8760,
+            "mae": 0.18720079546234203,
+            "rmse": 0.21913036943803177,
+            "bias": 0.00223812111029191,
+            "maxAbs": 0.47879817433101834
+          },
+          "apparentElevationDegrees": {
+            "n": 8760,
+            "mae": 0.30727705044791687,
+            "rmse": 0.34305893576891106,
+            "bias": 0.01838007335270446,
+            "maxAbs": 1.0170097913429081
+          }
+        },
+        "daylightAbove5Degrees": {
+          "elevationDegrees": {
+            "n": 3946,
+            "mae": 0.30796726706244293,
+            "rmse": 0.34250441493788636,
+            "bias": 0.005804753525525013,
+            "maxAbs": 0.5459828909706381
+          },
+          "azimuthDegrees": {
+            "n": 3946,
+            "mae": 0.185901026739967,
+            "rmse": 0.21611985745260504,
+            "bias": 0.0009850514880797607,
+            "maxAbs": 0.4675139314340413
+          },
+          "apparentElevationDegrees": {
+            "n": 3946,
+            "mae": 0.3069019140642988,
+            "rmse": 0.34140876517150476,
+            "bias": 0.0046188681110750345,
+            "maxAbs": 0.5464633154760499
+          }
+        },
+        "nearHorizonWithin5Degrees": {
+          "elevationDegrees": {
+            "n": 917,
+            "mae": 0.28383341559435327,
+            "rmse": 0.31144675158695057,
+            "bias": 0.005480103083625218,
+            "maxAbs": 0.5291971944109002
+          },
+          "azimuthDegrees": {
+            "n": 917,
+            "mae": 0.19885542279197607,
+            "rmse": 0.22704288838517722,
+            "bias": 0.004036056368298497,
+            "maxAbs": 0.469762871790806
+          },
+          "apparentElevationDegrees": {
+            "n": 917,
+            "mae": 0.2934521819495717,
+            "rmse": 0.3368601874096359,
+            "bias": 0.058725652571290435,
+            "maxAbs": 1.0170097913429081
+          }
+        },
+        "daylightElevationDifferenceAboveHalfDegreeFraction": 0.08768373035985809,
+        "monthlyDaylightElevationMaeDegrees": [
+          0.24500798089268327,
+          0.4206967809027547,
+          0.45686582471553633,
+          0.4083940300879487,
+          0.2588181390683569,
+          0.08184702996538287,
+          0.19648870727962117,
+          0.36895467378348484,
+          0.46882948391923535,
+          0.4549808521412771,
+          0.3015769848348253,
+          0.08324258563930169
+        ],
+        "differentPositiveElevationGateHours": 23
+      },
+      "components": {
+        "directWm2": {
+          "n": 8760,
+          "mae": 4.547114207235096e-15,
+          "rmse": 1.7367365791955203e-14,
+          "bias": -6.890638491050376e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "diffuseWm2": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "reflectedWm2": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "frontWm2": {
+          "n": 8760,
+          "mae": 4.625625098579808e-15,
+          "rmse": 1.9099528157342348e-14,
+          "bias": -7.223040025049877e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "faimanTemperatureC": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "temperatureCappedDcKw": {
+          "n": 8760,
+          "mae": 5.971171679888569e-16,
+          "rmse": 1.661964367159443e-15,
+          "bias": 1.6090629589772816e-16,
+          "maxAbs": 1.4210854715202004e-14
+        },
+        "linearDcVersusCappedProjectKw": {
+          "n": 8760,
+          "mae": 1.6177966041877048e-05,
+          "rmse": 0.0005502697481008573,
+          "bias": 1.617796604144132e-05,
+          "maxAbs": 0.03546318459533837
+        }
+      },
+      "controlledComponents": {
+        "controlledFrontWm2": {
+          "n": 8760,
+          "mae": 4.625625098579808e-15,
+          "rmse": 1.9099528157342348e-14,
+          "bias": -7.223040025049877e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "controlledTemperatureC": {
+          "n": 8760,
+          "mae": 9.578525187626457e-17,
+          "rmse": 5.834652398628481e-16,
+          "bias": -1.1802456526052249e-17,
+          "maxAbs": 7.105427357601002e-15
+        },
+        "controlledDcKw": {
+          "n": 8760,
+          "mae": 7.041329721219247e-16,
+          "rmse": 1.820705077741254e-15,
+          "bias": 9.517057360349837e-17,
+          "maxAbs": 1.4210854715202004e-14
+        },
+        "controlledAcKw": {
+          "n": 8760,
+          "mae": 6.644901840843853e-16,
+          "rmse": 1.7889561192540075e-15,
+          "bias": 7.982975645315917e-17,
+          "maxAbs": 1.7763568394002505e-14
+        }
+      },
+      "parity": {
+        "directWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "diffuseWm2": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "reflectedWm2": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "frontWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "faimanTemperatureC": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-10,
+          "passes": true
+        },
+        "temperatureCappedDcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        },
+        "controlledFrontWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "controlledTemperatureC": {
+          "maximumAbsoluteDifference": 7.105427357601002e-15,
+          "tolerance": 1e-10,
+          "passes": true
+        },
+        "controlledDcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        },
+        "controlledAcKw": {
+          "maximumAbsoluteDifference": 1.7763568394002505e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        }
+      },
+      "allParityChecksPass": true,
+      "stages": [
+        {
+          "id": "project",
+          "annualKWh": 56528.48625865343,
+          "monthlyKWh": [
+            2050.6632599955583,
+            2499.619075647583,
+            5719.69606932626,
+            7405.807840383346,
+            7771.560463640393,
+            7330.309147965159,
+            6377.48940162728,
+            6301.368788738277,
+            4802.335799396218,
+            2884.5454438827846,
+            1929.848250824202,
+            1455.2427172263674
+          ],
+          "deltaFromPreviousKWh": null,
+          "deltaFromPreviousPct": null,
+          "deltaFromProjectKWh": 0.0,
+          "deltaFromProjectPct": 0.0
+        },
+        {
+          "id": "matched-primitives",
+          "annualKWh": 56528.48625865343,
+          "monthlyKWh": [
+            2050.6632599955587,
+            2499.6190756475835,
+            5719.69606932626,
+            7405.807840383346,
+            7771.560463640393,
+            7330.309147965159,
+            6377.48940162728,
+            6301.368788738277,
+            4802.335799396218,
+            2884.5454438827846,
+            1929.8482508242018,
+            1455.2427172263674
+          ],
+          "deltaFromPreviousKWh": 0.0,
+          "deltaFromPreviousPct": 0.0,
+          "deltaFromProjectKWh": 0.0,
+          "deltaFromProjectPct": 0.0
+        },
+        {
+          "id": "spa-geometry",
+          "annualKWh": 56543.896990962916,
+          "monthlyKWh": [
+            2057.761276223863,
+            2511.082270065477,
+            5742.046472820612,
+            7421.490573897018,
+            7778.583885532727,
+            7331.334208983366,
+            6374.198154404596,
+            6291.467760872912,
+            4787.038437632949,
+            2872.397250568966,
+            1922.4473829775004,
+            1454.049316982931
+          ],
+          "deltaFromPreviousKWh": 15.410732309486775,
+          "deltaFromPreviousPct": 0.027261887464979928,
+          "deltaFromProjectKWh": 15.410732309486775,
+          "deltaFromProjectPct": 0.027261887464979928
+        },
+        {
+          "id": "linear-temperature",
+          "annualKWh": 56544.033431848744,
+          "monthlyKWh": [
+            2057.8797163632107,
+            2511.089647779855,
+            5742.055378052102,
+            7421.490573897018,
+            7778.583885532727,
+            7331.334208983366,
+            6374.198154404596,
+            6291.467760872912,
+            4787.038437632949,
+            2872.397250568966,
+            1922.4473829775004,
+            1454.0510347835384
+          ],
+          "deltaFromPreviousKWh": 0.13644088582805125,
+          "deltaFromPreviousPct": 0.00024130081774931256,
+          "deltaFromProjectKWh": 15.547173195314826,
+          "deltaFromProjectPct": 0.02750325406588594
+        },
+        {
+          "id": "pvwatts-inverter",
+          "annualKWh": 57491.38479022187,
+          "monthlyKWh": [
+            2100.146210167688,
+            2563.743950622609,
+            5838.282296148833,
+            7510.313376672163,
+            7879.1807235699525,
+            7451.233831661617,
+            6488.429989389835,
+            6406.273453442402,
+            4878.3457184100835,
+            2939.1033444117793,
+            1959.8808961548525,
+            1476.4509995700523
+          ],
+          "deltaFromPreviousKWh": 947.3513583731255,
+          "deltaFromPreviousPct": 1.6754223228785836,
+          "deltaFromProjectKWh": 962.8985315684404,
+          "deltaFromProjectPct": 1.703386372602611
+        }
+      ],
+      "temperatureCap": {
+        "positiveIrradianceHoursAffected": 22,
+        "upperCapHours": 22,
+        "lowerCapHours": 0,
+        "originalPreLossCappedMinusLinearDcKWh": -0.14171898252161644
+      },
+      "controlledClipping": {
+        "project": 85,
+        "matched-primitives": 85,
+        "spa-geometry": 86,
+        "linear-temperature": 86,
+        "pvwatts-inverter": 86
+      }
+    },
+    {
+      "id": "representative-2026",
+      "rows": 8760,
+      "originalScenarioAnnualKWh": 49248.55942623277,
+      "geometry": {
+        "all": {
+          "elevationDegrees": {
+            "n": 8760,
+            "mae": 0.25081604002675,
+            "rmse": 0.27947421615636275,
+            "bias": 0.005423453942958565,
+            "maxAbs": 0.45301557178245133
+          },
+          "azimuthDegrees": {
+            "n": 8760,
+            "mae": 0.1566281636257916,
+            "rmse": 0.1845269190489426,
+            "bias": 0.0016405700373998354,
+            "maxAbs": 0.4113897472626604
+          },
+          "apparentElevationDegrees": {
+            "n": 8760,
+            "mae": 0.2523760512842385,
+            "rmse": 0.28269310231554423,
+            "bias": 0.018621747203617017,
+            "maxAbs": 0.9314871690913625
+          }
+        },
+        "daylightAbove5Degrees": {
+          "elevationDegrees": {
+            "n": 3949,
+            "mae": 0.25298011718080016,
+            "rmse": 0.2813134471340652,
+            "bias": 0.0063087509400938414,
+            "maxAbs": 0.45301101808602695
+          },
+          "azimuthDegrees": {
+            "n": 3949,
+            "mae": 0.1566257124039437,
+            "rmse": 0.18223806611054735,
+            "bias": 0.002549151979575424,
+            "maxAbs": 0.3980511644535909
+          },
+          "apparentElevationDegrees": {
+            "n": 3949,
+            "mae": 0.2520914990207653,
+            "rmse": 0.28040141582460615,
+            "bias": 0.005112100137006724,
+            "maxAbs": 0.45363718026512245
+          }
+        },
+        "nearHorizonWithin5Degrees": {
+          "elevationDegrees": {
+            "n": 916,
+            "mae": 0.2324102934949042,
+            "rmse": 0.25595853708934435,
+            "bias": 0.0038960324187500887,
+            "maxAbs": 0.4429790644256686
+          },
+          "azimuthDegrees": {
+            "n": 916,
+            "mae": 0.16390280170714588,
+            "rmse": 0.1889909250147186,
+            "bias": 0.0032659087432192896,
+            "maxAbs": 0.4003491413881193
+          },
+          "apparentElevationDegrees": {
+            "n": 916,
+            "mae": 0.24279161725590287,
+            "rmse": 0.2845121083560159,
+            "bias": 0.060075856773307866,
+            "maxAbs": 0.9314871690913625
+          }
+        },
+        "daylightElevationDifferenceAboveHalfDegreeFraction": 0.0,
+        "monthlyDaylightElevationMaeDegrees": [
+          0.2003565454403608,
+          0.3437780471768523,
+          0.37144734473906843,
+          0.3344481685889549,
+          0.21253189656287255,
+          0.07039481422613994,
+          0.16383043083113213,
+          0.3038055051439434,
+          0.38649445724594805,
+          0.37327888469404097,
+          0.24316318274388707,
+          0.06713306631135084
+        ],
+        "differentPositiveElevationGateHours": 18
+      },
+      "components": {
+        "directWm2": {
+          "n": 8760,
+          "mae": 4.0166278471696266e-15,
+          "rmse": 1.6083471835644588e-14,
+          "bias": -6.485394413283374e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "diffuseWm2": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "reflectedWm2": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "frontWm2": {
+          "n": 8760,
+          "mae": 4.073149732261773e-15,
+          "rmse": 1.7436372412999004e-14,
+          "bias": -6.857021292730533e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "faimanTemperatureC": {
+          "n": 8760,
+          "mae": 0.0,
+          "rmse": 0.0,
+          "bias": 0.0,
+          "maxAbs": 0.0
+        },
+        "temperatureCappedDcKw": {
+          "n": 8760,
+          "mae": 5.775963801614722e-16,
+          "rmse": 1.6034205448449222e-15,
+          "bias": 1.7066193714436303e-16,
+          "maxAbs": 1.4210854715202004e-14
+        },
+        "linearDcVersusCappedProjectKw": {
+          "n": 8760,
+          "mae": 1.909288715178385e-05,
+          "rmse": 0.0006987428258636644,
+          "bias": 1.90928871513773e-05,
+          "maxAbs": 0.04653789556966359
+        }
+      },
+      "controlledComponents": {
+        "controlledFrontWm2": {
+          "n": 8760,
+          "mae": 4.073149732261773e-15,
+          "rmse": 1.7436372412999004e-14,
+          "bias": -6.857021292730533e-16,
+          "maxAbs": 2.2737367544323206e-13
+        },
+        "controlledTemperatureC": {
+          "n": 8760,
+          "mae": 8.535156346276389e-17,
+          "rmse": 5.432660003262977e-16,
+          "bias": -1.4074231379523247e-17,
+          "maxAbs": 7.105427357601002e-15
+        },
+        "controlledDcKw": {
+          "n": 8760,
+          "mae": 6.317387632801784e-16,
+          "rmse": 1.6326300958873794e-15,
+          "bias": 8.030581527008249e-17,
+          "maxAbs": 1.4210854715202004e-14
+        },
+        "controlledAcKw": {
+          "n": 8760,
+          "mae": 6.043483509167985e-16,
+          "rmse": 1.6195110147893406e-15,
+          "bias": 7.238232717410258e-17,
+          "maxAbs": 1.4210854715202004e-14
+        }
+      },
+      "parity": {
+        "directWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "diffuseWm2": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "reflectedWm2": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "frontWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "faimanTemperatureC": {
+          "maximumAbsoluteDifference": 0.0,
+          "tolerance": 1e-10,
+          "passes": true
+        },
+        "temperatureCappedDcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        },
+        "controlledFrontWm2": {
+          "maximumAbsoluteDifference": 2.2737367544323206e-13,
+          "tolerance": 1e-08,
+          "passes": true
+        },
+        "controlledTemperatureC": {
+          "maximumAbsoluteDifference": 7.105427357601002e-15,
+          "tolerance": 1e-10,
+          "passes": true
+        },
+        "controlledDcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        },
+        "controlledAcKw": {
+          "maximumAbsoluteDifference": 1.4210854715202004e-14,
+          "tolerance": 1e-09,
+          "passes": true
+        }
+      },
+      "allParityChecksPass": true,
+      "stages": [
+        {
+          "id": "project",
+          "annualKWh": 52169.504434634204,
+          "monthlyKWh": [
+            1979.049098349311,
+            2499.619075647583,
+            3999.8887298885284,
+            5628.46464792137,
+            7228.6758158106295,
+            7126.92810948268,
+            6333.537957466251,
+            6301.368788738277,
+            4802.335799396218,
+            2884.5454438827846,
+            1929.848250824202,
+            1455.2427172263674
+          ],
+          "deltaFromPreviousKWh": null,
+          "deltaFromPreviousPct": null,
+          "deltaFromProjectKWh": 0.0,
+          "deltaFromProjectPct": 0.0
+        },
+        {
+          "id": "matched-primitives",
+          "annualKWh": 52169.5044346342,
+          "monthlyKWh": [
+            1979.0490983493112,
+            2499.6190756475835,
+            3999.8887298885284,
+            5628.46464792137,
+            7228.6758158106295,
+            7126.92810948268,
+            6333.537957466251,
+            6301.368788738277,
+            4802.335799396218,
+            2884.5454438827846,
+            1929.8482508242018,
+            1455.2427172263674
+          ],
+          "deltaFromPreviousKWh": -7.275957614183426e-12,
+          "deltaFromPreviousPct": -1.1102230246251565e-14,
+          "deltaFromProjectKWh": -7.275957614183426e-12,
+          "deltaFromProjectPct": -1.1102230246251565e-14
+        },
+        {
+          "id": "spa-geometry",
+          "annualKWh": 52168.10817565333,
+          "monthlyKWh": [
+            1985.484167087367,
+            2509.0517741804533,
+            4010.48337578717,
+            5637.17090192972,
+            7232.748659380153,
+            7126.283700523361,
+            6331.558771944016,
+            6293.098357144056,
+            4789.572503136126,
+            2874.443289652164,
+            1923.97549088111,
+            1454.237184007635
+          ],
+          "deltaFromPreviousKWh": -1.396258980865241,
+          "deltaFromPreviousPct": -0.0026763891970871256,
+          "deltaFromProjectKWh": -1.396258980872517,
+          "deltaFromProjectPct": -0.00267638919710933
+        },
+        {
+          "id": "linear-temperature",
+          "annualKWh": 52168.25832810423,
+          "monthlyKWh": [
+            1985.5482746751215,
+            2509.0591381332606,
+            4010.560338325141,
+            5637.17090192972,
+            7232.748659380153,
+            7126.283700523361,
+            6331.558771944016,
+            6293.098357144056,
+            4789.572503136126,
+            2874.443289652164,
+            1923.97549088111,
+            1454.2389023800165
+          ],
+          "deltaFromPreviousKWh": 0.15015245090035023,
+          "deltaFromPreviousPct": 0.0002878242208792514,
+          "deltaFromProjectKWh": -1.2461065299721668,
+          "deltaFromProjectPct": -0.0023885726795347395
+        },
+        {
+          "id": "pvwatts-inverter",
+          "annualKWh": 53102.00695646962,
+          "monthlyKWh": [
+            2029.0971658144065,
+            2561.7343515414714,
+            4090.973298459556,
+            5730.046492175588,
+            7344.7198486202515,
+            7245.408597945396,
+            6432.041242345176,
+            6407.919720672215,
+            4880.896435121624,
+            2941.181585550955,
+            1961.3468686132596,
+            1476.6413496097152
+          ],
+          "deltaFromPreviousKWh": 933.7486283653852,
+          "deltaFromPreviousPct": 1.7898788617644046,
+          "deltaFromProjectKWh": 932.5025218354131,
+          "deltaFromProjectPct": 1.7874475365273756
+        }
+      ],
+      "temperatureCap": {
+        "positiveIrradianceHoursAffected": 16,
+        "upperCapHours": 16,
+        "lowerCapHours": 0,
+        "originalPreLossCappedMinusLinearDcKWh": -0.16725369144457014
+      },
+      "controlledClipping": {
+        "project": 39,
+        "matched-primitives": 39,
+        "spa-geometry": 40,
+        "linear-temperature": 40,
+        "pvwatts-inverter": 40
+      }
+    }
+  ],
+  "arrays": {
+    "rows": [
+      {
+        "year": 2022,
+        "candidate": "tilt-22_azimuth-162",
+        "tiltDeg": 22,
+        "azimuthDeg": 162,
+        "projectAnnualKWh": 52989.525470037785,
+        "pvlibAnnualKWh": 53957.64528020884,
+        "projectMonthlyKWh": [
+          1909.3899686566172,
+          2329.054454133261,
+          4877.30176097628,
+          6348.557718304645,
+          6218.818132588192,
+          7405.118558346853,
+          6434.569779658151,
+          6749.017655719422,
+          4661.066253126741,
+          3169.3927826567515,
+          1539.1511714650937,
+          1348.0872344056334
+        ],
+        "pvlibMonthlyKWh": [
+          1963.8376866387348,
+          2390.5268850500693,
+          4987.161825937537,
+          6473.237759749292,
+          6346.78275713897,
+          7529.102741754872,
+          6535.319423570354,
+          6848.286834121127,
+          4735.165211707197,
+          3218.3118348347816,
+          1563.0628159602359,
+          1366.849503745664
+        ]
+      },
+      {
+        "year": 2022,
+        "candidate": "tilt-22_azimuth-180",
+        "tiltDeg": 22,
+        "azimuthDeg": 180,
+        "projectAnnualKWh": 53158.567031009676,
+        "pvlibAnnualKWh": 54132.60827035395,
+        "projectMonthlyKWh": [
+          1957.1631661788088,
+          2361.409208760312,
+          4901.1729993661065,
+          6351.7167156208725,
+          6220.448757720719,
+          7326.7295640020275,
+          6477.732121400834,
+          6751.962048200243,
+          4658.36212679653,
+          3200.6183299725617,
+          1568.5056277793099,
+          1382.746365211225
+        ],
+        "pvlibMonthlyKWh": [
+          2012.3603944141169,
+          2423.7721112388417,
+          5012.91222786642,
+          6475.160217453473,
+          6347.357038525313,
+          7450.445073259968,
+          6578.123932094635,
+          6851.890414107825,
+          4733.138686095545,
+          3251.177788835178,
+          1593.6174945619805,
+          1402.6528919006578
+        ]
+      },
+      {
+        "year": 2022,
+        "candidate": "tilt-22_azimuth-198",
+        "tiltDeg": 22,
+        "azimuthDeg": 198,
+        "projectAnnualKWh": 52569.340648293604,
+        "pvlibAnnualKWh": 53547.14428973171,
+        "projectMonthlyKWh": [
+          1910.0703386555474,
+          2309.90251504414,
+          4808.153689392809,
+          6281.653492973855,
+          6225.048985752824,
+          7237.478222111973,
+          6504.871543116535,
+          6703.946033986213,
+          4568.115382676691,
+          3135.233684106673,
+          1538.713603885521,
+          1346.1531565908292
+        ],
+        "pvlibMonthlyKWh": [
+          1963.247722665736,
+          2371.864217104541,
+          4921.895852135505,
+          6406.70453028046,
+          6353.02028184664,
+          7362.502770719134,
+          6606.337128496736,
+          6805.057431676421,
+          4643.33219947622,
+          3185.286838186629,
+          1562.9656923452944,
+          1364.929624798397
+        ]
+      },
+      {
+        "year": 2022,
+        "candidate": "tilt-32_azimuth-162",
+        "tiltDeg": 32,
+        "azimuthDeg": 162,
+        "projectAnnualKWh": 54466.79664384786,
+        "pvlibAnnualKWh": 55421.856089424284,
+        "projectMonthlyKWh": [
+          2228.5228386389867,
+          2581.1348938159545,
+          5193.305002439397,
+          6434.556301744138,
+          6099.306716906104,
+          7250.430571052019,
+          6290.502942163938,
+          6772.191846410216,
+          4854.82104227882,
+          3444.8396272055106,
+          1722.9117371713915,
+          1594.273124021429
+        ],
+        "pvlibMonthlyKWh": [
+          2288.6664523103727,
+          2641.7787786532526,
+          5292.009368148332,
+          6547.353313663638,
+          6219.870198303843,
+          7369.699771488085,
+          6389.621745152018,
+          6872.485404014606,
+          4931.475221554215,
+          3497.661501699794,
+          1752.1530651551673,
+          1619.081269280964
+        ]
+      },
+      {
+        "year": 2022,
+        "candidate": "tilt-32_azimuth-180",
+        "tiltDeg": 32,
+        "azimuthDeg": 180,
+        "projectAnnualKWh": 54663.58783429485,
+        "pvlibAnnualKWh": 55628.09358083618,
+        "projectMonthlyKWh": [
+          2296.1182990246084,
+          2627.0709914459085,
+          5220.535847279661,
+          6439.951739283391,
+          6103.3138498148965,
+          7126.928109482681,
+          6333.537957466249,
+          6772.711522493787,
+          4846.6203889623675,
+          3489.0746324912047,
+          1764.4288312411766,
+          1643.2956653088395
+        ],
+        "pvlibMonthlyKWh": [
+          2356.9019103781634,
+          2688.996181069517,
+          5321.681819732201,
+          6552.564585419521,
+          6221.738247763971,
+          7245.360580675353,
+          6432.13614792884,
+          6875.322653604927,
+          4924.472048861038,
+          3544.3678814722803,
+          1795.172567941232,
+          1669.3789559891434
+        ]
+      },
+      {
+        "year": 2022,
+        "candidate": "tilt-32_azimuth-198",
+        "tiltDeg": 32,
+        "azimuthDeg": 198,
+        "projectAnnualKWh": 53873.85859199232,
+        "pvlibAnnualKWh": 54843.087377220734,
+        "projectMonthlyKWh": [
+          2229.5108690428115,
+          2554.1153164981365,
+          5090.621214378694,
+          6351.031917498734,
+          6105.605148282155,
+          7019.493680498652,
+          6374.370726664543,
+          6712.792286070197,
+          4726.05715344605,
+          3396.4396007818514,
+          1722.2694459242498,
+          1591.551232906484
+        ],
+        "pvlibMonthlyKWh": [
+          2287.856977863382,
+          2615.6810462282847,
+          5194.9707416481815,
+          6464.9085596905725,
+          6225.7529684455585,
+          7139.268320185236,
+          6473.863960449811,
+          6816.71738483467,
+          4804.574837079768,
+          3451.1949481771967,
+          1751.9496598620499,
+          1616.3479727560205
+        ]
+      },
+      {
+        "year": 2022,
+        "candidate": "tilt-42_azimuth-162",
+        "tiltDeg": 42,
+        "azimuthDeg": 162,
+        "projectAnnualKWh": 54730.75601012718,
+        "pvlibAnnualKWh": 55667.60767899566,
+        "projectMonthlyKWh": [
+          2487.319356276694,
+          2767.1644698875725,
+          5372.618545773801,
+          6392.156606938961,
+          5873.268492391778,
+          6944.801505927686,
+          6017.030674761101,
+          6650.463551211305,
+          4931.257368884887,
+          3633.5291876469505,
+          1864.0384864358302,
+          1797.1077639907114
+        ],
+        "pvlibMonthlyKWh": [
+          2549.8291097525193,
+          2824.9921211090655,
+          5460.442670725027,
+          6495.940212195209,
+          5986.042711108051,
+          7059.551587034666,
+          6114.304637891382,
+          6754.494209938308,
+          5010.692372711996,
+          3689.083014929266,
+          1896.8318538395717,
+          1825.4031777605999
+        ]
+      },
+      {
+        "year": 2022,
+        "candidate": "tilt-42_azimuth-180",
+        "tiltDeg": 42,
+        "azimuthDeg": 180,
+        "projectAnnualKWh": 54969.560417728855,
+        "pvlibAnnualKWh": 55920.781754632786,
+        "projectMonthlyKWh": [
+          2572.664494166619,
+          2824.4728096395247,
+          5398.3621788575065,
+          6384.987141510405,
+          5877.123605924168,
+          6806.898432489216,
+          6078.727548389191,
+          6644.927545475371,
+          4916.55586165768,
+          3689.4111401345203,
+          1916.446313974296,
+          1858.9833455105213
+        ],
+        "pvlibMonthlyKWh": [
+          2635.5850990683884,
+          2883.918031158044,
+          5489.123632961249,
+          6488.110681451398,
+          5988.881054619527,
+          6922.05651860132,
+          6176.560322921431,
+          6750.998669505918,
+          4997.77915529564,
+          3748.25522414874,
+          1950.9592706039948,
+          1888.554094297134
+        ]
+      },
+      {
+        "year": 2022,
+        "candidate": "tilt-42_azimuth-198",
+        "tiltDeg": 42,
+        "azimuthDeg": 198,
+        "projectAnnualKWh": 54045.37373065216,
+        "pvlibAnnualKWh": 55004.770327943595,
+        "projectMonthlyKWh": [
+          2488.591655172217,
+          2733.1050786193855,
+          5239.809799773685,
+          6290.977165504129,
+          5888.156025051465,
+          6683.026716531104,
+          6138.654363906291,
+          6584.169728565136,
+          4769.62007619798,
+          3572.4094987880344,
+          1863.2033073294617,
+          1793.6503152132402
+        ],
+        "pvlibMonthlyKWh": [
+          2548.8300493650413,
+          2792.200359694183,
+          5334.622577417162,
+          6396.109772911372,
+          6001.578485098324,
+          6800.208438380232,
+          6238.352625729665,
+          6692.031094777749,
+          4851.649523282944,
+          3630.671220825501,
+          1896.5369229738944,
+          1821.9792574875296
+        ]
+      },
+      {
+        "year": 2023,
+        "candidate": "tilt-22_azimuth-162",
+        "tiltDeg": 22,
+        "azimuthDeg": 162,
+        "projectAnnualKWh": 50957.1327035856,
+        "pvlibAnnualKWh": 51865.91948326198,
+        "projectMonthlyKWh": [
+          1739.2868554810746,
+          2513.275825200044,
+          3783.6677796418853,
+          5534.844297484185,
+          7317.218387355559,
+          7998.24752787361,
+          6577.5269632019545,
+          5771.309871616417,
+          4362.50572047426,
+          2550.4951109813137,
+          1834.1383587163966,
+          974.6160055588963
+        ],
+        "pvlibMonthlyKWh": [
+          1785.3655692722982,
+          2583.426117003843,
+          3874.7715892360943,
+          5642.76344756898,
+          7441.7801022576205,
+          8103.578257195796,
+          6684.784038169803,
+          5876.271554230405,
+          4433.031359009054,
+          2592.9885206457748,
+          1866.9847076256738,
+          980.1742210466437
+        ]
+      },
+      {
+        "year": 2023,
+        "candidate": "tilt-22_azimuth-180",
+        "tiltDeg": 22,
+        "azimuthDeg": 180,
+        "projectAnnualKWh": 51297.98032600872,
+        "pvlibAnnualKWh": 52216.33571075978,
+        "projectMonthlyKWh": [
+          1795.009050775566,
+          2553.9266602507764,
+          3806.8127585368065,
+          5558.2130368389835,
+          7326.841761260402,
+          8033.494129754768,
+          6563.721773836278,
+          5785.262129357533,
+          4398.220753257245,
+          2602.259115950561,
+          1873.9461172239771,
+          1000.2730389658743
+        ],
+        "pvlibMonthlyKWh": [
+          1842.2821099645978,
+          2625.6265149479323,
+          3899.42078489816,
+          5666.095700216034,
+          7450.401507556784,
+          8138.502485835536,
+          6670.502704652854,
+          5891.315507058999,
+          4469.9006802412705,
+          2646.658791272452,
+          1908.472625907021,
+          1007.1562982081336
+        ]
+      },
+      {
+        "year": 2023,
+        "candidate": "tilt-22_azimuth-198",
+        "tiltDeg": 22,
+        "azimuthDeg": 198,
+        "projectAnnualKWh": 50950.995008982216,
+        "pvlibAnnualKWh": 51874.65564622658,
+        "projectMonthlyKWh": [
+          1766.09660958119,
+          2501.868708260839,
+          3754.689944273587,
+          5518.265593305229,
+          7319.610737475484,
+          8047.599430847984,
+          6530.755248435225,
+          5759.33468020662,
+          4354.035291075918,
+          2585.6386013422116,
+          1832.334628772144,
+          980.7655354056373
+        ],
+        "pvlibMonthlyKWh": [
+          1811.8871483521893,
+          2573.2275524255347,
+          3848.168714126177,
+          5627.526764935421,
+          7444.810182320851,
+          8153.559685079292,
+          6638.736787575026,
+          5866.753610084177,
+          4426.280046600805,
+          2630.3647813350062,
+          1866.2320809252801,
+          987.1082924668283
+        ]
+      },
+      {
+        "year": 2023,
+        "candidate": "tilt-32_azimuth-162",
+        "tiltDeg": 32,
+        "azimuthDeg": 162,
+        "projectAnnualKWh": 52096.67475384484,
+        "pvlibAnnualKWh": 52997.18910171481,
+        "projectMonthlyKWh": [
+          2017.005529386672,
+          2793.203886031203,
+          3971.3034895038913,
+          5591.911021151137,
+          7213.8346628710915,
+          7808.629591930901,
+          6463.151348561008,
+          5778.3914944821845,
+          4517.144060347204,
+          2717.189595111399,
+          2098.041221332532,
+          1126.868853135511
+        ],
+        "pvlibMonthlyKWh": [
+          2069.0341882117455,
+          2863.1836032225947,
+          4057.7182813582276,
+          5690.6305225263895,
+          7330.970333824517,
+          7909.369663482065,
+          6568.324956994165,
+          5882.900360363212,
+          4589.338326316768,
+          2762.172388391734,
+          2135.9934961380504,
+          1137.55298088534
+        ]
+      },
+      {
+        "year": 2023,
+        "candidate": "tilt-32_azimuth-180",
+        "tiltDeg": 32,
+        "azimuthDeg": 180,
+        "projectAnnualKWh": 52536.76653596422,
+        "pvlibAnnualKWh": 53449.76077447243,
+        "projectMonthlyKWh": [
+          2095.8657216543684,
+          2850.8257092714075,
+          3999.888729888527,
+          5628.464647921368,
+          7228.675815810633,
+          7832.269373113,
+          6434.63326660594,
+          5796.396797328996,
+          4561.631635743348,
+          2790.5767561639527,
+          2154.3442070752662,
+          1163.1938753875104
+        ],
+        "pvlibMonthlyKWh": [
+          2149.055366402961,
+          2922.9254936436664,
+          4088.2935354782676,
+          5727.86892967289,
+          7343.829158822688,
+          7931.326125066942,
+          6539.420504539303,
+          5903.551557761688,
+          4635.296590688161,
+          2838.2329456252346,
+          2194.371572429358,
+          1175.5889943412794
+        ]
+      },
+      {
+        "year": 2023,
+        "candidate": "tilt-32_azimuth-198",
+        "tiltDeg": 32,
+        "azimuthDeg": 198,
+        "projectAnnualKWh": 52088.24752165666,
+        "pvlibAnnualKWh": 53008.908264743324,
+        "projectMonthlyKWh": [
+          2054.951672307364,
+          2777.258629014064,
+          3927.333353415632,
+          5583.027590653767,
+          7214.677698561424,
+          7867.7203108100075,
+          6392.667856641521,
+          5765.886421844251,
+          4506.390562851724,
+          2767.1993339717587,
+          2095.526290155122,
+          1135.607801429898
+        ],
+        "pvlibMonthlyKWh": [
+          2106.2220665676296,
+          2849.310101686089,
+          4017.171659503152,
+          5683.805560983121,
+          7332.143062148323,
+          7968.420538825144,
+          6498.384651165812,
+          5874.7545432388,
+          4580.820158899108,
+          2815.42154977064,
+          2135.0545218809903,
+          1147.399850074517
+        ]
+      },
+      {
+        "year": 2023,
+        "candidate": "tilt-42_azimuth-162",
+        "tiltDeg": 42,
+        "azimuthDeg": 162,
+        "projectAnnualKWh": 52131.06620262774,
+        "pvlibAnnualKWh": 53016.510800975026,
+        "projectMonthlyKWh": [
+          2241.0024178060803,
+          3001.781589185495,
+          4071.8355090046643,
+          5550.741699416247,
+          6976.4776067497205,
+          7470.878032929784,
+          6205.980357472282,
+          5665.655760235801,
+          4568.215179216695,
+          2820.8539871630583,
+          2306.608666830523,
+          1251.0353966174587
+        ],
+        "pvlibMonthlyKWh": [
+          2296.0433894264843,
+          3069.2373721852127,
+          4152.707162873225,
+          5642.344795113904,
+          7086.839697377571,
+          7567.03912920672,
+          6309.490849157202,
+          5771.251758226623,
+          4641.972154588006,
+          2867.1683274965994,
+          2347.323237594286,
+          1265.092927729199
+        ]
+      },
+      {
+        "year": 2023,
+        "candidate": "tilt-42_azimuth-180",
+        "tiltDeg": 42,
+        "azimuthDeg": 180,
+        "projectAnnualKWh": 52672.43233704873,
+        "pvlibAnnualKWh": 53577.037363125324,
+        "projectMonthlyKWh": [
+          2340.58369588511,
+          3074.621216434821,
+          4103.867929475098,
+          5577.864499311204,
+          6995.444163503599,
+          7514.280146244782,
+          6181.698975024508,
+          5679.845130282715,
+          4615.976383544534,
+          2913.646845633423,
+          2377.6675293472294,
+          1296.9358223617019
+        ],
+        "pvlibMonthlyKWh": [
+          2396.585201668554,
+          3144.7349743178634,
+          4187.380572000061,
+          5669.791936479588,
+          7105.138569002127,
+          7610.702781967757,
+          6285.738254707105,
+          5788.1204642769735,
+          4691.731417590692,
+          2963.3919912867386,
+          2420.7347036179744,
+          1312.9864962098964
+        ]
+      },
+      {
+        "year": 2023,
+        "candidate": "tilt-42_azimuth-198",
+        "tiltDeg": 42,
+        "azimuthDeg": 198,
+        "projectAnnualKWh": 52145.04776172754,
+        "pvlibAnnualKWh": 53060.800267904306,
+        "projectMonthlyKWh": [
+          2288.91309755494,
+          2981.832944105139,
+          4011.4489400506595,
+          5532.071125596244,
+          6981.840212687691,
+          7550.66393217497,
+          6143.595036515614,
+          5653.425621517216,
+          4551.388040154402,
+          2884.266019689895,
+          2303.4792632613794,
+          1262.1235284194995
+        ],
+        "pvlibMonthlyKWh": [
+          2342.6538607872576,
+          3052.232029400092,
+          4096.8082001626135,
+          5625.864575881832,
+          7093.738774185256,
+          7649.53076086416,
+          6249.2669399831275,
+          5764.0241007475015,
+          4628.0579299532465,
+          2934.738448513268,
+          2346.267569180266,
+          1277.617078245686
+        ]
+      },
+      {
+        "year": 2024,
+        "candidate": "tilt-22_azimuth-162",
+        "tiltDeg": 22,
+        "azimuthDeg": 162,
+        "projectAnnualKWh": 46786.18876071398,
+        "pvlibAnnualKWh": 47640.88365163113,
+        "projectMonthlyKWh": [
+          1661.741840776553,
+          1690.2050756994793,
+          3536.549501585452,
+          5243.655384160779,
+          5798.247989026462,
+          7070.327394255963,
+          6296.778859900359,
+          6029.119443501357,
+          3927.503725142246,
+          2831.318731375915,
+          1684.651736802989,
+          1016.0890784862463
+        ],
+        "pvlibMonthlyKWh": [
+          1701.8438279579932,
+          1723.1174847308282,
+          3614.54368147057,
+          5351.569215580122,
+          5899.728687519582,
+          7193.857666286259,
+          6401.011440527029,
+          6133.808279638819,
+          3993.8029186095246,
+          2884.2348542891664,
+          1718.224330948307,
+          1025.1412640729332
+        ]
+      },
+      {
+        "year": 2024,
+        "candidate": "tilt-22_azimuth-180",
+        "tiltDeg": 22,
+        "azimuthDeg": 180,
+        "projectAnnualKWh": 46881.36649224806,
+        "pvlibAnnualKWh": 47742.34471661771,
+        "projectMonthlyKWh": [
+          1698.4466179070744,
+          1712.1175721080115,
+          3553.6464805238124,
+          5220.317361487169,
+          5783.709052968187,
+          7053.943602161008,
+          6224.125535828954,
+          6027.898415858269,
+          4003.555959186479,
+          2858.7065248014355,
+          1711.8060753913023,
+          1033.0932940263406
+        ],
+        "pvlibMonthlyKWh": [
+          1739.1547393616272,
+          1745.4987302002583,
+          3633.4572014749815,
+          5327.754084556921,
+          5884.82317296613,
+          7177.176782357299,
+          6328.320959006679,
+          6132.582459140837,
+          4071.0767797350145,
+          2912.9016914043946,
+          1746.7261497902384,
+          1042.8719666233328
+        ]
+      },
+      {
+        "year": 2024,
+        "candidate": "tilt-22_azimuth-198",
+        "tiltDeg": 22,
+        "azimuthDeg": 198,
+        "projectAnnualKWh": 46383.95812990861,
+        "pvlibAnnualKWh": 47246.771273197075,
+        "projectMonthlyKWh": [
+          1656.1426866884574,
+          1682.988517194654,
+          3507.1634220227384,
+          5148.525781276168,
+          5761.914367572361,
+          7023.868328975431,
+          6136.407499222996,
+          5980.043757226202,
+          4007.925391163542,
+          2804.0733584676373,
+          1670.321726895783,
+          1004.5832932026535
+        ],
+        "pvlibMonthlyKWh": [
+          1694.8749288750414,
+          1715.8232988140949,
+          3588.043052178969,
+          5256.826740389819,
+          5865.1053559469965,
+          7147.927104758994,
+          6241.829381937366,
+          6085.018110917637,
+          4076.2055856744264,
+          2857.38314677178,
+          1704.5696860517846,
+          1013.1648808801606
+        ]
+      },
+      {
+        "year": 2024,
+        "candidate": "tilt-32_azimuth-162",
+        "tiltDeg": 32,
+        "azimuthDeg": 162,
+        "projectAnnualKWh": 47792.90541139188,
+        "pvlibAnnualKWh": 48641.50687196538,
+        "projectMonthlyKWh": [
+          1927.132888957371,
+          1832.9070216551384,
+          3680.9902546148114,
+          5290.95379798657,
+          5717.268644476768,
+          6904.226029037568,
+          6203.315899484479,
+          6044.217184373642,
+          4053.311859214078,
+          3057.551161503998,
+          1910.3191922579012,
+          1170.711477829654
+        ],
+        "pvlibMonthlyKWh": [
+          1973.212080526349,
+          1866.6003790070658,
+          3755.490742488993,
+          5392.270995065664,
+          5812.322784560042,
+          7023.461276567335,
+          6304.531445641283,
+          6147.361326842841,
+          4119.327985539301,
+          3113.1685551851356,
+          1948.4010927726458,
+          1185.3582077687236
+        ]
+      },
+      {
+        "year": 2024,
+        "candidate": "tilt-32_azimuth-180",
+        "tiltDeg": 32,
+        "azimuthDeg": 180,
+        "projectAnnualKWh": 47889.38927488549,
+        "pvlibAnnualKWh": 48746.32088791269,
+        "projectMonthlyKWh": [
+          1979.0490983493112,
+          1864.017156912166,
+          3701.5254713146105,
+          5258.619181897219,
+          5700.778422803264,
+          6854.612749794936,
+          6096.249346835123,
+          6040.80285583224,
+          4153.795682008158,
+          3096.3731963406626,
+          1948.7710173440912,
+          1194.7950954537037
+        ],
+        "pvlibMonthlyKWh": [
+          2025.7065058480598,
+          1898.373021414843,
+          3778.5328132032787,
+          5360.272517329029,
+          5795.319943930778,
+          6972.147548394198,
+          6197.326465444476,
+          6144.667850795242,
+          4221.219366999934,
+          3153.859161514627,
+          1988.5635029493494,
+          1210.332190088881
+        ]
+      },
+      {
+        "year": 2024,
+        "candidate": "tilt-32_azimuth-198",
+        "tiltDeg": 32,
+        "azimuthDeg": 198,
+        "projectAnnualKWh": 47221.497969784374,
+        "pvlibAnnualKWh": 48080.50785500632,
+        "projectMonthlyKWh": [
+          1919.1586152441691,
+          1822.8889172495396,
+          3637.6499091437636,
+          5163.724274735892,
+          5665.709820352098,
+          6824.862683286823,
+          5976.671700500425,
+          5981.796536362213,
+          4165.44832946164,
+          3019.026273831291,
+          1890.1343487844986,
+          1154.4265608320027
+        ],
+        "pvlibMonthlyKWh": [
+          1963.3861250603034,
+          1856.5873059649032,
+          3716.443569913793,
+          5265.895963807454,
+          5762.826351184731,
+          6943.5526646930375,
+          6078.693709967021,
+          6086.105816195858,
+          4233.661366763178,
+          3075.6204091839018,
+          1929.292535915602,
+          1168.4420363565343
+        ]
+      },
+      {
+        "year": 2024,
+        "candidate": "tilt-42_azimuth-162",
+        "tiltDeg": 42,
+        "azimuthDeg": 162,
+        "projectAnnualKWh": 47796.249857620875,
+        "pvlibAnnualKWh": 48630.80866378068,
+        "projectMonthlyKWh": [
+          2141.6198614940363,
+          1932.6254948847666,
+          3743.9720149109567,
+          5238.298193941496,
+          5535.678873865615,
+          6603.202476679711,
+          5982.859224973387,
+          5937.383435517041,
+          4086.036664716365,
+          3209.3903303249754,
+          2089.2617013709905,
+          1295.921584941455
+        ],
+        "pvlibMonthlyKWh": [
+          2190.853682679027,
+          1965.6810271139948,
+          3814.2609406715965,
+          5334.037244039946,
+          5624.553040709302,
+          6717.855948638102,
+          6081.232794647673,
+          6040.508463981103,
+          4151.630596072529,
+          3266.29101210694,
+          2129.575784600021,
+          1314.3281285204484
+        ]
+      },
+      {
+        "year": 2024,
+        "candidate": "tilt-42_azimuth-180",
+        "tiltDeg": 42,
+        "azimuthDeg": 180,
+        "projectAnnualKWh": 47903.88574321257,
+        "pvlibAnnualKWh": 48750.97099952661,
+        "projectMonthlyKWh": [
+          2207.152525692958,
+          1972.0021944622304,
+          3766.032293877654,
+          5184.607870997687,
+          5514.071206224871,
+          6550.436966713351,
+          5856.277517216808,
+          5924.687334644023,
+          4205.95170342204,
+          3258.477418789251,
+          2137.834215367404,
+          1326.3544958043578
+        ],
+        "pvlibMonthlyKWh": [
+          2256.8537579273207,
+          2005.8933888364124,
+          3839.455242073222,
+          5280.6076156576,
+          5603.321952035274,
+          6664.13138126211,
+          5955.159655427576,
+          6028.31423342621,
+          4273.430062746075,
+          3317.906311159298,
+          2180.143383517083,
+          1345.7540154584267
+        ]
+      },
+      {
+        "year": 2024,
+        "candidate": "tilt-42_azimuth-198",
+        "tiltDeg": 42,
+        "azimuthDeg": 198,
+        "projectAnnualKWh": 47124.38149788187,
+        "pvlibAnnualKWh": 47976.11656620114,
+        "projectMonthlyKWh": [
+          2131.493304970973,
+          1920.1555366605317,
+          3686.8176875377044,
+          5081.249195781172,
+          5472.990431678928,
+          6513.514112280278,
+          5729.0866273378115,
+          5863.795419891872,
+          4225.220403792732,
+          3160.8180585630034,
+          2063.8853146721767,
+          1275.3554047148114
+        ],
+        "pvlibMonthlyKWh": [
+          2178.479014526207,
+          1953.3172862715328,
+          3762.5741420574404,
+          5178.3693619758415,
+          5565.102063096019,
+          6628.901825374335,
+          5829.781593176213,
+          5968.125381642986,
+          4293.419691608246,
+          3219.29728724303,
+          2105.698741885056,
+          1293.0501773442431
+        ]
+      },
+      {
+        "year": 2025,
+        "candidate": "tilt-22_azimuth-162",
+        "tiltDeg": 22,
+        "azimuthDeg": 162,
+        "projectAnnualKWh": 54792.43198628477,
+        "pvlibAnnualKWh": 55771.169220489086,
+        "projectMonthlyKWh": [
+          1715.7502395577326,
+          2229.0080466325257,
+          5299.38161960086,
+          7236.459997234447,
+          7860.809355728547,
+          7514.987964143031,
+          6523.328416997375,
+          6282.933701101448,
+          4628.854779553222,
+          2648.8911854871453,
+          1651.7834538827628,
+          1200.2432263656708
+        ],
+        "pvlibMonthlyKWh": [
+          1761.0947831917933,
+          2292.004247256498,
+          5430.023953124399,
+          7359.9080973637165,
+          7982.550159798731,
+          7642.124012025684,
+          6635.510592408671,
+          6382.967970114782,
+          4699.754681170736,
+          2696.6281952328945,
+          1674.5486081123968,
+          1214.0539206887836
+        ]
+      },
+      {
+        "year": 2025,
+        "candidate": "tilt-22_azimuth-180",
+        "tiltDeg": 22,
+        "azimuthDeg": 180,
+        "projectAnnualKWh": 55070.66105782062,
+        "pvlibAnnualKWh": 56052.91444962956,
+        "projectMonthlyKWh": [
+          1760.1553710395983,
+          2268.588463717184,
+          5351.306626010162,
+          7258.975391034985,
+          7867.620538373473,
+          7525.452826836989,
+          6537.5454133624335,
+          6301.871347526961,
+          4608.085495527038,
+          2680.327534698853,
+          1680.6927642849864,
+          1230.0392854079894
+        ],
+        "pvlibMonthlyKWh": [
+          1805.8330874718395,
+          2333.0927570586027,
+          5483.499986980958,
+          7380.81440777172,
+          7987.779766510084,
+          7652.170266109277,
+          6649.5566278952065,
+          6402.528184174805,
+          4679.268998465914,
+          2728.8957154729505,
+          1704.567272691023,
+          1244.9073790271784
+        ]
+      },
+      {
+        "year": 2025,
+        "candidate": "tilt-22_azimuth-198",
+        "tiltDeg": 22,
+        "azimuthDeg": 198,
+        "projectAnnualKWh": 54583.96332999518,
+        "pvlibAnnualKWh": 55568.75072108486,
+        "projectMonthlyKWh": [
+          1724.620722105725,
+          2233.8868412147267,
+          5268.906708288251,
+          7180.733549767265,
+          7864.259393602666,
+          7516.382173531771,
+          6541.324936183941,
+          6278.271195047178,
+          4500.309292309143,
+          2640.0730631965976,
+          1637.199223003267,
+          1197.9962317445916
+        ],
+        "pvlibMonthlyKWh": [
+          1768.5643859272147,
+          2298.4640824808057,
+          5402.725243023416,
+          7304.934964925374,
+          7986.561262686401,
+          7643.5822315953765,
+          6654.442588110331,
+          6379.532073785696,
+          4571.432507070165,
+          2686.906534737481,
+          1659.8818236362997,
+          1211.723023106304
+        ]
+      },
+      {
+        "year": 2025,
+        "candidate": "tilt-32_azimuth-162",
+        "tiltDeg": 32,
+        "azimuthDeg": 162,
+        "projectAnnualKWh": 56189.70280441798,
+        "pvlibAnnualKWh": 57145.25542565573,
+        "projectMonthlyKWh": [
+          1987.8662554101497,
+          2443.4665592004726,
+          5651.793783729928,
+          7378.223150944229,
+          7754.0735797261295,
+          7337.671282716784,
+          6378.65246480402,
+          6279.2478513320075,
+          4836.564553569423,
+          2840.1327389869152,
+          1888.9656193821834,
+          1413.0449646157006
+        ],
+        "pvlibMonthlyKWh": [
+          2037.2128182982524,
+          2505.4970124459805,
+          5768.5732211129925,
+          7482.142345161255,
+          7864.13802863128,
+          7460.110651773616,
+          6489.710369900296,
+          6381.705077794544,
+          4911.951766071496,
+          2893.6073043679703,
+          1917.647987520876,
+          1432.958842577175
+        ]
+      },
+      {
+        "year": 2025,
+        "candidate": "tilt-32_azimuth-180",
+        "tiltDeg": 32,
+        "azimuthDeg": 180,
+        "projectAnnualKWh": 56528.48625865331,
+        "pvlibAnnualKWh": 57491.38479022187,
+        "projectMonthlyKWh": [
+          2050.663259995558,
+          2499.619075647584,
+          5719.696069326259,
+          7405.807840383346,
+          7771.560463640399,
+          7330.3091479651575,
+          6377.489401627281,
+          6301.368788738274,
+          4802.335799396214,
+          2884.5454438827865,
+          1929.8482508242014,
+          1455.242717226367
+        ],
+        "pvlibMonthlyKWh": [
+          2100.146210167688,
+          2563.743950622609,
+          5838.282296148833,
+          7510.313376672163,
+          7879.1807235699525,
+          7451.233831661617,
+          6488.429989389835,
+          6406.273453442402,
+          4878.3457184100835,
+          2939.1033444117793,
+          1959.8808961548525,
+          1476.4509995700523
+        ]
+      },
+      {
+        "year": 2025,
+        "candidate": "tilt-32_azimuth-198",
+        "tiltDeg": 32,
+        "azimuthDeg": 198,
+        "projectAnnualKWh": 55881.60595489536,
+        "pvlibAnnualKWh": 56846.54127351462,
+        "projectMonthlyKWh": [
+          2000.4550604846916,
+          2450.3873041329657,
+          5605.495553986695,
+          7306.229804638605,
+          7758.15865718096,
+          7331.598140841511,
+          6386.035586813689,
+          6277.837138097888,
+          4659.8466128138125,
+          2827.364415327815,
+          1868.307416113139,
+          1409.8902644635218
+        ],
+        "pvlibMonthlyKWh": [
+          2047.770477662686,
+          2514.78099532539,
+          5726.6611063328655,
+          7412.334484433888,
+          7868.302084350602,
+          7453.202652099533,
+          6497.7606429772495,
+          6383.572181268104,
+          4735.886622427984,
+          2879.4294193822598,
+          1897.0074603376445,
+          1429.8331469164098
+        ]
+      },
+      {
+        "year": 2025,
+        "candidate": "tilt-42_azimuth-162",
+        "tiltDeg": 42,
+        "azimuthDeg": 162,
+        "projectAnnualKWh": 56374.346165742536,
+        "pvlibAnnualKWh": 57305.343858412634,
+        "projectMonthlyKWh": [
+          2210.8659078845526,
+          2597.5842040850034,
+          5856.951532804512,
+          7370.738179902657,
+          7523.516125840134,
+          7007.796919270464,
+          6103.005346577738,
+          6146.855971935317,
+          4927.159266255062,
+          2965.272693988295,
+          2076.6715086483036,
+          1587.9285085506203
+        ],
+        "pvlibMonthlyKWh": [
+          2261.401722745801,
+          2656.6166224096564,
+          5960.004594717161,
+          7461.605161366075,
+          7622.657108622501,
+          7125.2424678860225,
+          6212.670935100886,
+          6254.093160242886,
+          5007.216539151521,
+          3022.9748071461563,
+          2109.1595293828573,
+          1611.7012096411113
+        ]
+      },
+      {
+        "year": 2025,
+        "candidate": "tilt-42_azimuth-180",
+        "tiltDeg": 42,
+        "azimuthDeg": 180,
+        "projectAnnualKWh": 56771.95495089133,
+        "pvlibAnnualKWh": 57715.95088961544,
+        "projectMonthlyKWh": [
+          2290.1264797729714,
+          2668.9428906372455,
+          5935.539918997051,
+          7383.28038954773,
+          7539.597477052397,
+          7010.288248986124,
+          6109.852297272339,
+          6166.508917436023,
+          4877.013613671863,
+          3021.2859531441554,
+          2128.271020518047,
+          1641.2477438554392
+        ],
+        "pvlibMonthlyKWh": [
+          2340.4764700703067,
+          2730.696650442155,
+          6040.607695214645,
+          7474.330405231123,
+          7638.349672053402,
+          7127.709418991104,
+          6220.51950773397,
+          6275.487464452743,
+          4958.765317630926,
+          3080.3219715444106,
+          2162.2636266648556,
+          1666.4226895857987
+        ]
+      },
+      {
+        "year": 2025,
+        "candidate": "tilt-42_azimuth-198",
+        "tiltDeg": 42,
+        "azimuthDeg": 198,
+        "projectAnnualKWh": 56022.085194252686,
+        "pvlibAnnualKWh": 56969.97298605515,
+        "projectMonthlyKWh": [
+          2226.7766264165957,
+          2606.736969163114,
+          5795.625665969077,
+          7275.856825326095,
+          7531.699939125867,
+          7014.014428209595,
+          6129.789433006605,
+          6151.513641396722,
+          4706.605808181425,
+          2948.927108751826,
+          2050.5596627316886,
+          1583.979085974051
+        ],
+        "pvlibMonthlyKWh": [
+          2274.6903320058177,
+          2668.899624593887,
+          5904.136371848574,
+          7369.670384633,
+          7632.441097324501,
+          7132.769474088605,
+          6241.858558894532,
+          6261.795976036959,
+          4787.859753374923,
+          3004.75037876661,
+          2083.206880802379,
+          1607.8941536853647
+        ]
+      }
+    ],
+    "decisions": [
+      {
+        "year": 2022,
+        "projectWinnerIds": [
+          "tilt-42_azimuth-180"
+        ],
+        "pvlibWinnerIds": [
+          "tilt-42_azimuth-180"
+        ],
+        "sameWinners": true,
+        "reversedPairs": [],
+        "projectRanking": [
+          "tilt-42_azimuth-180",
+          "tilt-42_azimuth-162",
+          "tilt-32_azimuth-180",
+          "tilt-32_azimuth-162",
+          "tilt-42_azimuth-198",
+          "tilt-32_azimuth-198",
+          "tilt-22_azimuth-180",
+          "tilt-22_azimuth-162",
+          "tilt-22_azimuth-198"
+        ],
+        "pvlibRanking": [
+          "tilt-42_azimuth-180",
+          "tilt-42_azimuth-162",
+          "tilt-32_azimuth-180",
+          "tilt-32_azimuth-162",
+          "tilt-42_azimuth-198",
+          "tilt-32_azimuth-198",
+          "tilt-22_azimuth-180",
+          "tilt-22_azimuth-162",
+          "tilt-22_azimuth-198"
+        ]
+      },
+      {
+        "year": 2023,
+        "projectWinnerIds": [
+          "tilt-42_azimuth-180"
+        ],
+        "pvlibWinnerIds": [
+          "tilt-42_azimuth-180"
+        ],
+        "sameWinners": true,
+        "reversedPairs": [
+          [
+            "tilt-22_azimuth-162",
+            "tilt-22_azimuth-198"
+          ],
+          [
+            "tilt-32_azimuth-162",
+            "tilt-32_azimuth-198"
+          ]
+        ],
+        "projectRanking": [
+          "tilt-42_azimuth-180",
+          "tilt-32_azimuth-180",
+          "tilt-42_azimuth-198",
+          "tilt-42_azimuth-162",
+          "tilt-32_azimuth-162",
+          "tilt-32_azimuth-198",
+          "tilt-22_azimuth-180",
+          "tilt-22_azimuth-162",
+          "tilt-22_azimuth-198"
+        ],
+        "pvlibRanking": [
+          "tilt-42_azimuth-180",
+          "tilt-32_azimuth-180",
+          "tilt-42_azimuth-198",
+          "tilt-42_azimuth-162",
+          "tilt-32_azimuth-198",
+          "tilt-32_azimuth-162",
+          "tilt-22_azimuth-180",
+          "tilt-22_azimuth-198",
+          "tilt-22_azimuth-162"
+        ]
+      },
+      {
+        "year": 2024,
+        "projectWinnerIds": [
+          "tilt-42_azimuth-180"
+        ],
+        "pvlibWinnerIds": [
+          "tilt-42_azimuth-180"
+        ],
+        "sameWinners": true,
+        "reversedPairs": [
+          [
+            "tilt-32_azimuth-162",
+            "tilt-42_azimuth-162"
+          ]
+        ],
+        "projectRanking": [
+          "tilt-42_azimuth-180",
+          "tilt-32_azimuth-180",
+          "tilt-42_azimuth-162",
+          "tilt-32_azimuth-162",
+          "tilt-32_azimuth-198",
+          "tilt-42_azimuth-198",
+          "tilt-22_azimuth-180",
+          "tilt-22_azimuth-162",
+          "tilt-22_azimuth-198"
+        ],
+        "pvlibRanking": [
+          "tilt-42_azimuth-180",
+          "tilt-32_azimuth-180",
+          "tilt-32_azimuth-162",
+          "tilt-42_azimuth-162",
+          "tilt-32_azimuth-198",
+          "tilt-42_azimuth-198",
+          "tilt-22_azimuth-180",
+          "tilt-22_azimuth-162",
+          "tilt-22_azimuth-198"
+        ]
+      },
+      {
+        "year": 2025,
+        "projectWinnerIds": [
+          "tilt-42_azimuth-180"
+        ],
+        "pvlibWinnerIds": [
+          "tilt-42_azimuth-180"
+        ],
+        "sameWinners": true,
+        "reversedPairs": [],
+        "projectRanking": [
+          "tilt-42_azimuth-180",
+          "tilt-32_azimuth-180",
+          "tilt-42_azimuth-162",
+          "tilt-32_azimuth-162",
+          "tilt-42_azimuth-198",
+          "tilt-32_azimuth-198",
+          "tilt-22_azimuth-180",
+          "tilt-22_azimuth-162",
+          "tilt-22_azimuth-198"
+        ],
+        "pvlibRanking": [
+          "tilt-42_azimuth-180",
+          "tilt-32_azimuth-180",
+          "tilt-42_azimuth-162",
+          "tilt-32_azimuth-162",
+          "tilt-42_azimuth-198",
+          "tilt-32_azimuth-198",
+          "tilt-22_azimuth-180",
+          "tilt-22_azimuth-162",
+          "tilt-22_azimuth-198"
+        ]
+      }
+    ],
+    "tieToleranceKWh": 1e-06,
+    "interpretation": "Controlled monofacial model comparison; does not independently validate the original bifacial winner."
+  },
+  "allParityChecksPass": true,
+  "limitations": [
+    "Frozen ERA5 inputs and original adaptation are shared, not independently validated.",
+    "Generic Faiman coefficients use unadjusted10m wind rather than calibrated module-height wind.",
+    "Thermal calculations use post-IAM effective irradiance, shared with application; physical adequacy is not established.",
+    "Isotropic sky and generic ASHRAE coefficient remain shared modelling assumptions.",
+    "Protocol01 results were already inspected; this is a predeclared new retrospective diagnostic, not a fresh untouched holdout.",
+    "Measured production validation",
+    "Independent bifacial rear irradiance validation",
+    "Site geometry, module or inverter calibration",
+    "Weather-provider validation",
+    "App scientific corrections, UI changes or deployment"
+  ]
+}

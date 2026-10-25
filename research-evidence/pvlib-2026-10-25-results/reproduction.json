@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "0dde63d2643514127e4383bfd6da9e69f91a03b4",
+  "inputSourceCommit": "0dde63d2643514127e4383bfd6da9e69f91a03b4",
+  "inputManifestSha256": "2ea3bb79c52f5dd19619e7d7c266db03a095210611ee1e6c45503ffea33ac517",
+  "protocolSha256": "fd505e4bcf69eeeed94675f66aa47c0c58d763991df9be96d22ea8c0f31a781b",
+  "inputDirectory": "/Users/alrey/Documents/smit final project 2/ULTIMATE_PROJECT_KNOWLEDGE/05_Working_Evidence/experiments/pvlib-2026-10-25-inputs",
+  "networkDisabled": true,
+  "scriptSha256": "021d5d6984e6e8dc7ad9c04c960269e28faeab36ef6e5940edae9bf3684ca647",
+  "runtime": {
+    "python": "3.12.14",
+    "pvlib": "0.13.1",
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "scipy": "1.16.3",
+    "matplotlib": "3.10.7",
+    "Markdown": "3.9"
+  },
+  "outputHours": 43800,
+  "sourceClean": true
+}

@@ -86,6 +86,7 @@ export interface ProvenanceDatum {
 
 export interface NormalizedSnapshot {
   raw: OperatingSnapshotInput;
+  resultId: string;
   mode: string;
   hours: HourDatum[];
   months: MonthDatum[];
@@ -211,7 +212,11 @@ function normalizeModels(value: unknown): ModelDatum[] {
       status: lifecycle(item.status ?? item.lifecycle, index < 5 ? "IMPLEMENTED" : "PLANNED"),
       mae: numberOf(metrics, ["mae"], numberOf(item, ["mae"], Number.NaN)),
       rmse: numberOf(metrics, ["rmse"], numberOf(item, ["rmse"], Number.NaN)),
-      coverage: numberOf(metrics, ["coverage", "intervalCoverage"], numberOf(item, ["coverage"], Number.NaN)),
+      coverage: numberOf(
+        metrics,
+        ["intervalCoveragePct", "coverage", "intervalCoverage"],
+        numberOf(item, ["intervalCoveragePct", "coverage"], Number.NaN),
+      ),
       note: stringOf(item, ["note", "description", "method"], ""),
     };
   });
@@ -383,6 +388,7 @@ export function normalizeSnapshot(snapshot: OperatingSnapshotInput): NormalizedS
 
   return {
     raw: snapshot,
+    resultId: stringOf(transport, ["resultId"], "unidentified-result"),
     mode,
     hours,
     months: deriveMonths(hours),
@@ -422,7 +428,8 @@ export function scenarioEquals(a: ScenarioConfig, b: ScenarioConfig): boolean {
     && Math.abs(a.batteryKwh - b.batteryKwh) < 0.001
     && Math.abs(a.importPrice - b.importPrice) < 0.0001
     && Math.abs(a.exportPrice - b.exportPrice) < 0.0001
-    && Math.abs(a.carbonKgPerKwh - b.carbonKgPerKwh) < 0.0001;
+    && Math.abs(a.carbonKgPerKwh - b.carbonKgPerKwh) < 0.0001
+    && a.currency === b.currency;
 }
 
 export function orientationScreeningScore(tiltDeg: number, azimuthDeg: number): number {
@@ -516,6 +523,28 @@ export function deriveScenario(base: NormalizedSnapshot, scenario: ScenarioConfi
       "Tilt and azimuth response uses a bounded orientation proxy normalized to the recorded base orientation.",
     ],
   };
+}
+
+/**
+ * Preserve the transported scientific base exactly until a user changes a
+ * scenario input. The client-side derivation is an explicitly disclosed
+ * screening approximation and must not replace the canonical base dispatch.
+ */
+export function resultForScenario(
+  base: NormalizedSnapshot,
+  scenario: ScenarioConfig,
+): ScenarioResult {
+  if (scenarioEquals(base.config, scenario)) {
+    return {
+      hours: base.hours,
+      months: base.months,
+      summary: base.summary,
+      productionFactor: 1,
+      changed: false,
+      notes: [],
+    };
+  }
+  return deriveScenario(base, scenario);
 }
 
 export function formatNumber(value: number, maximumFractionDigits = 0): string {

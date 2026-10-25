@@ -10,9 +10,18 @@ import { simulateSolarYear } from "../solar/simulation";
 import { clamp } from "../solar/math";
 import { paretoFront } from "./grid";
 import { runYieldMonteCarlo } from "./monte-carlo";
+import {
+  DETERMINISTIC_STRESS_SCENARIO_CATALOG,
+} from "./stress-scenario-catalog";
 
 interface EvaluatedCandidate extends OptimisationCandidate {
   localSupplyPct: number;
+}
+
+export interface ConfiguredStressComparison {
+  baseline: OptimisationCandidate;
+  baselineLocalSupplyPct: number;
+  stressScenarios: StressScenarioResult[];
 }
 
 function unique(values: readonly number[]): number[] {
@@ -87,6 +96,13 @@ function normalise(value: number, values: readonly number[]): number {
   return maximum > minimum ? (value - minimum) / (maximum - minimum) : 0.5;
 }
 
+function toContractCandidate(
+  { localSupplyPct, ...candidate }: EvaluatedCandidate,
+): OptimisationCandidate {
+  void localSupplyPct;
+  return candidate;
+}
+
 function transformedWeather(
   weather: readonly WeatherHour[],
   transform: (hour: WeatherHour) => WeatherHour,
@@ -101,17 +117,20 @@ function evaluateStressScenarios(
   baseline: EvaluatedCandidate,
   baselineBill: number,
 ): StressScenarioResult[] {
+  const heatwave = DETERMINISTIC_STRESS_SCENARIO_CATALOG[0];
+  const storm = DETERMINISTIC_STRESS_SCENARIO_CATALOG[1];
+  const snow = DETERMINISTIC_STRESS_SCENARIO_CATALOG[2];
+  const outage = DETERMINISTIC_STRESS_SCENARIO_CATALOG[3];
   const scenarios: Array<{
     id: string;
     label: string;
+    status: StressScenarioResult["status"];
     explanation: string;
     weather: WeatherHour[];
     outage?: [number, number];
   }> = [
     {
-      id: "summer-heatwave",
-      label: "Extended summer heatwave",
-      explanation: "June–August ambient temperature +6 °C and irradiance +2%; thermal derating is resolved hourly.",
+      ...heatwave,
       weather: transformedWeather(weather, (hour) => hour.month >= 6 && hour.month <= 8
         ? {
             ...hour,
@@ -123,9 +142,7 @@ function evaluateStressScenarios(
         : hour),
     },
     {
-      id: "atlantic-storm-week",
-      label: "Atlantic storm week",
-      explanation: "Seven autumn days receive 72% radiation attenuation and elevated wind.",
+      ...storm,
       weather: transformedWeather(weather, (hour) => hour.dayOfYear >= 280 && hour.dayOfYear < 287
         ? {
             ...hour,
@@ -138,17 +155,13 @@ function evaluateStressScenarios(
         : hour),
     },
     {
-      id: "snow-cover",
-      label: "Persistent snow cover",
-      explanation: "Eight winter days impose at least 6 cm snow depth, activating the snow-loss model.",
+      ...snow,
       weather: transformedWeather(weather, (hour) => hour.dayOfYear >= 15 && hour.dayOfYear < 23
         ? { ...hour, snowDepthCm: Math.max(6, hour.snowDepthCm), temperatureC: Math.min(-1, hour.temperatureC) }
         : hour),
     },
     {
-      id: "inverter-outage",
-      label: "Seven-day inverter outage",
-      explanation: "AC production is set to zero for seven July days after physical simulation.",
+      ...outage,
       weather: [...weather],
       outage: [190, 197],
     },
@@ -187,7 +200,7 @@ function evaluateStressScenarios(
     return {
       id: scenario.id,
       label: scenario.label,
-      status: "simulated" as const,
+      status: scenario.status,
       generationDeltaPct: baseline.annualGenerationKWh > 0
         ? (annualGeneration - baseline.annualGenerationKWh) / baseline.annualGenerationKWh * 100
         : 0,
@@ -198,6 +211,40 @@ function evaluateStressScenarios(
       explanation: scenario.explanation,
     };
   });
+}
+
+/**
+ * Replays only the configured baseline and the named deterministic stress
+ * cases. Presentation adapters use this narrow canonical path to reconcile a
+ * stored optimisation record without rerunning the full optimisation search.
+ */
+export function evaluateConfiguredStressComparison(
+  weather: readonly WeatherHour[],
+  config: SystemConfig,
+): ConfiguredStressComparison {
+  const demand = buildDemandProfile(weather, config.demand);
+  const baselineBill = annualBaselineBill(demand, weather, config);
+  const baseline = evaluateCandidate(
+    weather,
+    demand,
+    config,
+    baselineBill,
+    config.array.tiltDeg,
+    config.array.azimuthDeg,
+    config.array.dcAcRatio,
+    config.battery.enabled ? config.battery.capacityKWh : 0,
+  );
+  return {
+    baseline: toContractCandidate(baseline),
+    baselineLocalSupplyPct: baseline.localSupplyPct,
+    stressScenarios: evaluateStressScenarios(
+      weather,
+      demand,
+      config,
+      baseline,
+      baselineBill,
+    ),
+  };
 }
 
 /** Full deterministic system grid search plus Pareto, uncertainty and stress products. */
@@ -266,19 +313,17 @@ export function optimiseSystem(
   );
   baseline.paretoOptimal = frontIds.has(baseline.id);
   const recommended = candidates[0] ?? baseline;
-  const toContract = ({ localSupplyPct, ...candidate }: EvaluatedCandidate): OptimisationCandidate => {
-    void localSupplyPct;
-    return candidate;
-  };
   return {
     status: "experimental",
     method: "Deterministic grid search, five-objective Pareto dominance and seeded Monte Carlo",
     objective: "Balance generation, self-consumption, energy value and carbon while penalising storage capacity",
     evaluatedCandidates: candidates.length,
-    baseline: toContract(baseline),
-    recommended: toContract(recommended),
-    paretoFront: candidates.filter((candidate) => candidate.paretoOptimal).map(toContract),
-    terrain: candidates.map(toContract),
+    baseline: toContractCandidate(baseline),
+    recommended: toContractCandidate(recommended),
+    paretoFront: candidates
+      .filter((candidate) => candidate.paretoOptimal)
+      .map(toContractCandidate),
+    terrain: candidates.map(toContractCandidate),
     monteCarlo: runYieldMonteCarlo({
       trials: 240,
       seed: config.seed ^ 0x51a2f00d,

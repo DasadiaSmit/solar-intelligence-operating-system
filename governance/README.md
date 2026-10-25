@@ -32,7 +32,7 @@ Scientific maturity uses an additional evidence scale:
 | [DATA](departments/DATA.md) | Weather, Data & Provenance | Active | Providers, quality, snapshots and lineage |
 | [FORECAST](departments/FORECAST.md) | Forecasting, ML & Representative Year | Active | Models, backtesting, calibration and typical-year science |
 | [TWIN](departments/TWIN.md) | Digital Twin, Maps & Visual Computing | Active | Canvas, 3D, spatial and geospatial rendering |
-| [PET](departments/PET.md) | PET Assistant & Solar Copilot | Planned | Photovoltaic Evidence & Triage |
+| [MI](departments/MI.md) | Mission Intelligence Core | Active | Evidence-gated specialist orchestration and scientific continuity |
 | [PLATFORM](departments/PLATFORM.md) | Platform, API & Persistence | Active | APIs, D1/R2, jobs and Worker runtime |
 | [QA](departments/QA.md) | Quality Engineering & Scientific Assurance | Active | Independent verification and release evidence |
 | [SECOPS](departments/SECOPS.md) | Security, Reliability & Release | Active | Threats, dependencies, deployment and recovery |
@@ -66,5 +66,4 @@ No department may bypass the shared contracts, silently reinterpret units, relab
 1. **Live Weather to Auditable Annual Simulation v1** — connect canonical provider snapshots to the scientific annual path without semantic substitution.
 2. **Modular Operating Shell v1** — split the four current UI merge hotspots without changing behaviour or pixels.
 3. **Scientific conformance v1** — resolve verified formula/documentation drift before making new model claims.
-4. **PET evidence foundation v1** — define deterministic evidence tools and adversarial evaluations before connecting a language model.
-
+4. **Mission Intelligence Core v1** — connect typed workspace and object context to deterministic evidence tools, specialist routing and scientific working memory without chat or language-model inference.

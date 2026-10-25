@@ -23,7 +23,7 @@ An estimate is never a production guarantee. A gridded product does not resolve 
 
 Status: **simulated**.
 
-The sample provider generates a deterministic UTC series from bounded seasonal, diurnal and synoptic functions. It has no network or credential dependency and is intended for UI operation, automated tests, education and pipeline verification. It is not calibrated to a measured site, observation, reanalysis or issued forecast. Every record carries `synthetic:deterministic_sample`, and every response calls the data class `simulation`.
+The sample provider generates a deterministic UTC series from bounded seasonal, diurnal and synoptic functions. Its timestamp is the end of the preceding hour and synthetic conditions are evaluated at the interval midpoint, matching the research adapter's radiation convention. It has no network or credential dependency and is intended for UI operation, automated tests, education and pipeline verification. It is not calibrated to a measured site, observation, reanalysis or issued forecast. Every record carries `synthetic:deterministic_sample`, and every response calls the data class `simulation`.
 
 The same query and provider/calculation versions produce the same canonical content hash. Retrieval time may differ, while the content-addressed dataset ID remains reproducible.
 
@@ -44,7 +44,7 @@ Important limits:
 
 - historical results are gridded model/reanalysis estimates, not direct station observations;
 - the best-match response does not expose one authoritative issue time, so `issueTimeUtc` is `null` rather than inferred;
-- forecast requests are bounded to 16 days and all requests to 366 days/8,784 records;
+- forecast requests are bounded to 16 days and exact query ranges to 366 days; one date-granular boundary day may produce up to 8,808 transport values before exact interval filtering;
 - default ERA5 availability has an upstream publication delay;
 - the adapter does not yet expose ensemble members or calibrated predictive intervals.
 
@@ -75,7 +75,7 @@ Fallback is fail-closed in `live` mode. In `auto` mode a failed public provider 
 3. Convert provider units to canonical units.
 4. Reject non-finite values and values outside broad physical bounds.
 5. Flag irradiance component inconsistencies.
-6. Linearly interpolate only interior gaps of one or two hours with valid adjacent hours.
+6. Linearly interpolate only eligible state fields—temperature, humidity, cloud, pressure, wind and GHI—across interior gaps of one or two hours with valid adjacent hours. Precipitation, snow, DNI and DHI are not linearly bridged.
 7. Preserve longer gaps as `null`.
 8. Score per-hour completeness, imputation and outlier flags; aggregate a dataset score and level.
 
@@ -109,6 +109,20 @@ Endpoint overrides are accepted only from environment configuration, never reque
 
 Scheduled ingestion defaults to the deterministic sample provider. Enabling live ingestion requires an operational review of provider terms, capacity, attribution, retention, failure alerts and data protection.
 
+## Annual research acquisition
+
+`GET /api/v1/studies/annual` connects the provider layer to the annual scientific engine. It requests 2022, 2023, 2024 and 2025 separately, preserves 8,784 source hours for leap-year evidence, removes 29 February only at the declared no-leap science boundary, and refuses incomplete or semantically substituted years.
+
+- `mode=sample` verifies the complete pipeline without credentials.
+- `mode=live` pins the configured Open-Meteo reanalysis product (ERA5 by default) and disables sample fallback.
+- Radiation timestamps identify the interval end; geometry is evaluated 30 minutes earlier at the preceding-hour midpoint.
+- Required unresolved gaps fail the study.
+- Missing snow depth uses a flagged balance proxy rather than silent zero filling.
+- Evidence exposes provider quality separately from adapter-adjusted science quality and counts Erbs decomposition, supplied-component closure correction, snow-proxy and snow-albedo derivations.
+- Dataset snapshot IDs, canonical content hashes, adapted-science hashes, adapter version and model recipes are parents of the final study ID; adapted hashes are verified before simulation.
+
+The route returns compact annual evidence rather than 35,000+ raw records. It never relabels reanalysis as observation or issued forecast, and it does not claim validation against measured production.
+
 ## Planned provider work
 
 - Copernicus Climate Data Store/ERA5 acquisition jobs with licence-aware immutable GRIB/NetCDF snapshots.
@@ -117,5 +131,4 @@ Scheduled ingestion defaults to the deterministic sample provider. Enabling live
 - Measured inverter/meter telemetry and station-observation adapters.
 - A second live provider for class-preserving automatic failover.
 
-These are planned interfaces; no result or metric in the application claims they are already connected.
-
+These remain planned beyond the implemented configurable Open-Meteo annual-reanalysis path. No result or metric claims that the remaining providers or measured-production sources are connected.

@@ -1,0 +1,117 @@
+/* Shared control feedback. Geometry, charts and ordinary links stay stationary.
+   Button-like links can opt in with data-bubble; data-bubble="off" opts out. */
+body[data-interaction-feedback="glass"] {
+  --bubble-scale: 1.035;
+  --bubble-lift: -1px;
+  --bubble-duration: 210ms;
+  --bubble-ease: cubic-bezier(.2, .75, .25, 1);
+}
+
+html body[data-interaction-feedback="glass"] :is(
+  button,
+  input[type="button"], input[type="submit"], input[type="reset"],
+  select:not([multiple]), summary,
+  a[role="button"], a[data-bubble], [role="tab"]
+):not(:disabled, [aria-disabled="true"], [data-bubble="off"], .workspace-menu-scrim):not(:has(canvas)) {
+  cursor: pointer;
+  touch-action: manipulation;
+  scale: 1;
+  translate: 0;
+  transition:
+    scale var(--bubble-duration) var(--bubble-ease),
+    translate var(--bubble-duration) var(--bubble-ease),
+    filter var(--bubble-duration) ease,
+    box-shadow var(--bubble-duration) ease,
+    background-color var(--bubble-duration) ease,
+    border-color var(--bubble-duration) ease,
+    color var(--bubble-duration) ease,
+    opacity var(--bubble-duration) ease;
+}
+
+/* Replace the introductory controls' old directional nudge with the shared lift.
+   Leave the legacy dial's positioning transforms untouched. */
+html body[data-interaction-feedback="glass"]
+  :is(section[data-mode][data-motion], dialog) button:hover {
+  transform: none;
+}
+
+/* Native hover only: touch screens receive press feedback without a stuck hover. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html body[data-interaction-feedback="glass"]:not(:has([data-motion="reduced"])) :is(
+    button,
+    input[type="button"], input[type="submit"], input[type="reset"],
+    select:not([multiple]), summary,
+    a[role="button"], a[data-bubble], [role="tab"]
+  ):not(:disabled, [aria-disabled="true"], [data-bubble="off"], .workspace-menu-scrim):not(:has(canvas)):hover {
+    scale: var(--bubble-scale);
+    translate: 0 var(--bubble-lift);
+    filter: brightness(1.07) drop-shadow(0 4px 8px rgb(7 32 54 / 13%));
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html body[data-interaction-feedback="glass"]:not(:has([data-motion="reduced"])) :is(
+    button,
+    input[type="button"], input[type="submit"], input[type="reset"],
+    select:not([multiple]), summary,
+    a[role="button"], a[data-bubble], [role="tab"]
+  ):not(:disabled, [aria-disabled="true"], [data-bubble="off"], .workspace-menu-scrim):not(:has(canvas)):active {
+    scale: .975;
+    translate: 0;
+    filter: brightness(1.02);
+    transition-duration: 90ms;
+  }
+}
+
+/* Focus does not depend on animation or color changes alone. */
+html body[data-interaction-feedback="glass"] :is(
+  button, input, select, textarea, summary, a[href],
+  [role="button"], [role="tab"], canvas[tabindex]
+):not(:disabled, [aria-disabled="true"]):focus-visible {
+  outline: 3px solid var(--bubble-focus-color, var(--forecast, #8acded));
+  outline-offset: 3px;
+}
+
+html body[data-interaction-feedback="glass"] :is(
+  input[type="checkbox"], input[type="radio"], input[type="range"],
+  [role="button"], a[href]
+):not(:disabled, [aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+html body[data-interaction-feedback="glass"] :is(
+  button, input, select, textarea, [role="button"], [role="tab"], a
+):is(:disabled, [aria-disabled="true"]) {
+  cursor: not-allowed;
+  scale: none;
+  translate: none;
+  filter: none;
+}
+
+/* The app preference also reaches sibling dialogs and the analytical workspace. */
+html body[data-interaction-feedback="glass"]:has([data-motion="reduced"]) :is(
+  button, input, select, summary,
+  a[role="button"], a[data-bubble], [role="tab"]
+) {
+  scale: none !important;
+  translate: none !important;
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body[data-interaction-feedback="glass"] :is(
+    button, input, select, summary,
+    a[role="button"], a[data-bubble], [role="tab"]
+  ) {
+    scale: none !important;
+    translate: none !important;
+    transition: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  body[data-interaction-feedback="glass"] { --bubble-focus-color: Highlight; }
+  html body[data-interaction-feedback="glass"] :is(button, select, summary, a[role="button"], [role="tab"]):hover {
+    filter: none;
+  }
+}

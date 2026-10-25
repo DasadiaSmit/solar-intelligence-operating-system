@@ -1,0 +1,1061 @@
+{
+  "studyId": "study_22b6b34d1cf9f34dbfbc68ee",
+  "version": "sios-annual-study-1.0.0",
+  "generatedAtUtc": "2026-10-25T14:48:23.549Z",
+  "researchQuestion": "What hourly photovoltaic electricity generation should be expected over a complete representative year using 2022–2025 weather and solar-radiation evidence?",
+  "sourceMode": "reanalysis",
+  "productionTarget": "physics-derived-generation",
+  "sourceYears": [
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "configuration": {
+    "location": {
+      "id": "sheffield-research-array",
+      "name": "Sheffield Solar Research Array",
+      "latitude": 53.3811,
+      "longitude": -1.4701,
+      "elevationM": 95,
+      "timezone": "Europe/London",
+      "standardUtcOffsetMinutes": 0
+    },
+    "array": {
+      "capacityKwDc": 48,
+      "tiltDeg": 32,
+      "azimuthDeg": 180,
+      "tracking": "fixed",
+      "maxTrackerTiltDeg": 60,
+      "panelTechnology": "bifacial-mono-n",
+      "bifaciality": 0.72,
+      "temperatureCoefficientPerC": -0.0034,
+      "degradationPerYear": 0.004,
+      "systemAgeYears": 2,
+      "dcAcRatio": 1.2,
+      "inverterEfficiency": 0.975
+    },
+    "losses": {
+      "horizon": 0.012,
+      "shading": 0.018,
+      "soiling": 0.022,
+      "dust": 0.006,
+      "snow": 0.002,
+      "mismatch": 0.012,
+      "wiring": 0.015,
+      "strings": 0.007,
+      "availability": 0.012,
+      "curtailment": 0
+    },
+    "aggregatePvLossPct": 10.128170830605265,
+    "calculationVersion": "sios-physics-1.0.0",
+    "modelVersion": "sios-request-models-1.0.0"
+  },
+  "datasets": [
+    {
+      "year": 2022,
+      "snapshotId": "dsv_3db08eb3080ccdd12bef39b5",
+      "contentHash": "c01a61127197eed7b82b9354cbc030dbdc441376f052358fb3bf94d0ed521360",
+      "scienceContentHash": "592e04c344c30f656494c7dfba78f3853234cf7d3f9678652fd50e893d7cc24b",
+      "providerId": "open-meteo",
+      "providerName": "Open-Meteo",
+      "product": "Historical Weather API (era5)",
+      "requestedDataClass": "reanalysis",
+      "actualDataClass": "reanalysis",
+      "validRangeUtc": [
+        "2022-01-01T01:00:00.000Z",
+        "2023-01-01T00:00:00.000Z"
+      ],
+      "sourceRecordCount": 8760,
+      "simulationRecordCount": 8760,
+      "leapHoursRemoved": 0,
+      "providerQualityScore": 0.8999999999998586,
+      "providerCompleteness": 0.9,
+      "scienceQualityScore": 0.8749999999999535,
+      "scienceCompleteness": 1,
+      "derivationCounts": {
+        "erbsIrradianceHours": 0,
+        "suppliedIrradianceClosureHours": 0,
+        "snowDepthProxySourceHours": 8760,
+        "snowDepthProxyHours": 8760,
+        "snowAlbedoHours": 5
+      },
+      "schemaVersion": "canonical-weather-hour-v1",
+      "calculationVersion": "sios-provider-normalisation-1.0.0",
+      "scienceAdapterVersion": "sios-weather-science-adapter-1.0.0",
+      "transformations": [
+        "Open-Meteo JSON schema guard",
+        "provider units to canonical SI units",
+        "GMT timestamp to ISO-8601 UTC",
+        "physical-bound outlier rejection",
+        "field-specific linear interpolation for eligible interior gaps of no more than two hours",
+        "preceding-hour radiation evaluated at interval midpoint (provider timestamp minus 30 minutes)",
+        "snow depth derived with a temperature/precipitation balance proxy",
+        "surface albedo derived from snow-depth and precipitation rules"
+      ],
+      "warnings": [
+        "Reanalysis represents a gridded model estimate and may not resolve local terrain or shading.",
+        "Source snow depth was unavailable; a simplified balance proxy was used and science quality was reduced."
+      ]
+    },
+    {
+      "year": 2023,
+      "snapshotId": "dsv_4fc4781c7d2c114039d69518",
+      "contentHash": "1f9d4acff7dff2493e65c99cb77cd957f72e5682abfcff8061a9a704c6e42839",
+      "scienceContentHash": "4544f8039fcf30e219a8a8b802eabe2e1673be8e9d7e01bfb4e269aaea90af9e",
+      "providerId": "open-meteo",
+      "providerName": "Open-Meteo",
+      "product": "Historical Weather API (era5)",
+      "requestedDataClass": "reanalysis",
+      "actualDataClass": "reanalysis",
+      "validRangeUtc": [
+        "2023-01-01T01:00:00.000Z",
+        "2024-01-01T00:00:00.000Z"
+      ],
+      "sourceRecordCount": 8760,
+      "simulationRecordCount": 8760,
+      "leapHoursRemoved": 0,
+      "providerQualityScore": 0.8999999999998586,
+      "providerCompleteness": 0.9,
+      "scienceQualityScore": 0.8749999999999535,
+      "scienceCompleteness": 1,
+      "derivationCounts": {
+        "erbsIrradianceHours": 0,
+        "suppliedIrradianceClosureHours": 0,
+        "snowDepthProxySourceHours": 8760,
+        "snowDepthProxyHours": 8760,
+        "snowAlbedoHours": 256
+      },
+      "schemaVersion": "canonical-weather-hour-v1",
+      "calculationVersion": "sios-provider-normalisation-1.0.0",
+      "scienceAdapterVersion": "sios-weather-science-adapter-1.0.0",
+      "transformations": [
+        "Open-Meteo JSON schema guard",
+        "provider units to canonical SI units",
+        "GMT timestamp to ISO-8601 UTC",
+        "physical-bound outlier rejection",
+        "field-specific linear interpolation for eligible interior gaps of no more than two hours",
+        "preceding-hour radiation evaluated at interval midpoint (provider timestamp minus 30 minutes)",
+        "snow depth derived with a temperature/precipitation balance proxy",
+        "surface albedo derived from snow-depth and precipitation rules"
+      ],
+      "warnings": [
+        "Reanalysis represents a gridded model estimate and may not resolve local terrain or shading.",
+        "Source snow depth was unavailable; a simplified balance proxy was used and science quality was reduced."
+      ]
+    },
+    {
+      "year": 2024,
+      "snapshotId": "dsv_65dd51ef9aad6ac9f970be51",
+      "contentHash": "e39bc729a0375cfe046f4ae76a747c44ebc2d73b2a2f5f5388f7a933cc1ea72f",
+      "scienceContentHash": "87e464afa2fc27d8953d3e799cbf926d6c5f054fdcb9059cf69c08ff40e1ceb7",
+      "providerId": "open-meteo",
+      "providerName": "Open-Meteo",
+      "product": "Historical Weather API (era5)",
+      "requestedDataClass": "reanalysis",
+      "actualDataClass": "reanalysis",
+      "validRangeUtc": [
+        "2024-01-01T01:00:00.000Z",
+        "2025-01-01T00:00:00.000Z"
+      ],
+      "sourceRecordCount": 8784,
+      "simulationRecordCount": 8760,
+      "leapHoursRemoved": 24,
+      "providerQualityScore": 0.899999999999858,
+      "providerCompleteness": 0.9,
+      "scienceQualityScore": 0.8749999999999535,
+      "scienceCompleteness": 1,
+      "derivationCounts": {
+        "erbsIrradianceHours": 0,
+        "suppliedIrradianceClosureHours": 0,
+        "snowDepthProxySourceHours": 8784,
+        "snowDepthProxyHours": 8760,
+        "snowAlbedoHours": 116
+      },
+      "schemaVersion": "canonical-weather-hour-v1",
+      "calculationVersion": "sios-provider-normalisation-1.0.0",
+      "scienceAdapterVersion": "sios-weather-science-adapter-1.0.0",
+      "transformations": [
+        "Open-Meteo JSON schema guard",
+        "provider units to canonical SI units",
+        "GMT timestamp to ISO-8601 UTC",
+        "physical-bound outlier rejection",
+        "field-specific linear interpolation for eligible interior gaps of no more than two hours",
+        "preceding-hour radiation evaluated at interval midpoint (provider timestamp minus 30 minutes)",
+        "snow depth derived with a temperature/precipitation balance proxy",
+        "surface albedo derived from snow-depth and precipitation rules",
+        "29 February excluded from the output calendar after stateful snow evolution"
+      ],
+      "warnings": [
+        "Reanalysis represents a gridded model estimate and may not resolve local terrain or shading.",
+        "Source snow depth was unavailable; a simplified balance proxy was used and science quality was reduced."
+      ]
+    },
+    {
+      "year": 2025,
+      "snapshotId": "dsv_6f4c3efbedf7e7b17b5a95da",
+      "contentHash": "87a09b1158608761a10ae56c47caa915d70a887953d15768acbcc921baaae40d",
+      "scienceContentHash": "90c790f445bd8507a6d9c9019714f7b8ea703aa6ad1330816268d5efcccebcb4",
+      "providerId": "open-meteo",
+      "providerName": "Open-Meteo",
+      "product": "Historical Weather API (era5)",
+      "requestedDataClass": "reanalysis",
+      "actualDataClass": "reanalysis",
+      "validRangeUtc": [
+        "2025-01-01T01:00:00.000Z",
+        "2026-01-01T00:00:00.000Z"
+      ],
+      "sourceRecordCount": 8760,
+      "simulationRecordCount": 8760,
+      "leapHoursRemoved": 0,
+      "providerQualityScore": 0.8999999999998586,
+      "providerCompleteness": 0.9,
+      "scienceQualityScore": 0.8749999999999535,
+      "scienceCompleteness": 1,
+      "derivationCounts": {
+        "erbsIrradianceHours": 0,
+        "suppliedIrradianceClosureHours": 0,
+        "snowDepthProxySourceHours": 8760,
+        "snowDepthProxyHours": 8760,
+        "snowAlbedoHours": 385
+      },
+      "schemaVersion": "canonical-weather-hour-v1",
+      "calculationVersion": "sios-provider-normalisation-1.0.0",
+      "scienceAdapterVersion": "sios-weather-science-adapter-1.0.0",
+      "transformations": [
+        "Open-Meteo JSON schema guard",
+        "provider units to canonical SI units",
+        "GMT timestamp to ISO-8601 UTC",
+        "physical-bound outlier rejection",
+        "field-specific linear interpolation for eligible interior gaps of no more than two hours",
+        "preceding-hour radiation evaluated at interval midpoint (provider timestamp minus 30 minutes)",
+        "snow depth derived with a temperature/precipitation balance proxy",
+        "surface albedo derived from snow-depth and precipitation rules"
+      ],
+      "warnings": [
+        "Reanalysis represents a gridded model estimate and may not resolve local terrain or shading.",
+        "Source snow depth was unavailable; a simplified balance proxy was used and science quality was reduced."
+      ]
+    }
+  ],
+  "historicalYears": [
+    {
+      "year": 2022,
+      "generationKWh": 52169.7437610365,
+      "specificYieldKWhPerKwp": 1086.8696616882605,
+      "monthlyGenerationKWh": [
+        2132.3479795368153,
+        2467.780707037773,
+        4933.201481279954,
+        6175.618634242177,
+        5913.744920922731,
+        6886.113301819684,
+        6120.087388049706,
+        6477.609712541901,
+        4607.076813864076,
+        3285.5888343633774,
+        1656.4092434951435,
+        1514.1647438830294
+      ],
+      "qualityScore": 0.8749999999999535,
+      "datasetSnapshotId": "dsv_3db08eb3080ccdd12bef39b5",
+      "contentHash": "c01a61127197eed7b82b9354cbc030dbdc441376f052358fb3bf94d0ed521360",
+      "scienceContentHash": "592e04c344c30f656494c7dfba78f3853234cf7d3f9678652fd50e893d7cc24b",
+      "dataClass": "reanalysis",
+      "provider": "Open-Meteo / Historical Weather API (era5)"
+    },
+    {
+      "year": 2023,
+      "generationKWh": 49563.10073967555,
+      "specificYieldKWhPerKwp": 1032.5645987432406,
+      "monthlyGenerationKWh": [
+        1949.5533370784203,
+        2674.7587977704293,
+        3168.9139641905913,
+        5409.01365108287,
+        6971.094828615733,
+        7571.409373363708,
+        6209.292900701658,
+        5562.165345297097,
+        4338.1880853896755,
+        2645.406166145216,
+        2008.611785733892,
+        1054.6925043062765
+      ],
+      "qualityScore": 0.8749999999999535,
+      "datasetSnapshotId": "dsv_4fc4781c7d2c114039d69518",
+      "contentHash": "1f9d4acff7dff2493e65c99cb77cd957f72e5682abfcff8061a9a704c6e42839",
+      "scienceContentHash": "4544f8039fcf30e219a8a8b802eabe2e1673be8e9d7e01bfb4e269aaea90af9e",
+      "dataClass": "reanalysis",
+      "provider": "Open-Meteo / Historical Weather API (era5)"
+    },
+    {
+      "year": 2024,
+      "generationKWh": 45660.769309873904,
+      "specificYieldKWhPerKwp": 951.2660272890397,
+      "monthlyGenerationKWh": [
+        1842.2455417474446,
+        1763.6523561562262,
+        3533.8453572278886,
+        5057.595069883171,
+        5513.898684434762,
+        6640.411857853825,
+        5891.822310713236,
+        5800.079215848491,
+        3956.5159999179295,
+        2924.5334674281676,
+        1619.181179156243,
+        1116.9882695065237
+      ],
+      "qualityScore": 0.8749999999999535,
+      "datasetSnapshotId": "dsv_65dd51ef9aad6ac9f970be51",
+      "contentHash": "e39bc729a0375cfe046f4ae76a747c44ebc2d73b2a2f5f5388f7a933cc1ea72f",
+      "scienceContentHash": "87e464afa2fc27d8953d3e799cbf926d6c5f054fdcb9059cf69c08ff40e1ceb7",
+      "dataClass": "reanalysis",
+      "provider": "Open-Meteo / Historical Weather API (era5)"
+    },
+    {
+      "year": 2025,
+      "generationKWh": 53252.29667801031,
+      "specificYieldKWhPerKwp": 1109.4228474585482,
+      "monthlyGenerationKWh": [
+        1147.0477036019597,
+        2355.4509642692374,
+        5400.842657980254,
+        7092.438394264086,
+        7510.865879684424,
+        7080.2329398854945,
+        6169.778351867402,
+        6048.364752386685,
+        4562.613423119531,
+        2733.74914919798,
+        1800.4019227568008,
+        1350.5105389963448
+      ],
+      "qualityScore": 0.8749999999999535,
+      "datasetSnapshotId": "dsv_6f4c3efbedf7e7b17b5a95da",
+      "contentHash": "87a09b1158608761a10ae56c47caa915d70a887953d15768acbcc921baaae40d",
+      "scienceContentHash": "90c790f445bd8507a6d9c9019714f7b8ea703aa6ad1330816268d5efcccebcb4",
+      "dataClass": "reanalysis",
+      "provider": "Open-Meteo / Historical Weather API (era5)"
+    }
+  ],
+  "representativeYear": {
+    "id": "representative-2026-972fefef",
+    "method": "Finkelstein–Schafer-inspired multivariate whole-month selection",
+    "status": "experimental",
+    "hours": 8760,
+    "annualGenerationKWh": 49248.55942623277,
+    "specificYieldKWhPerKwp": 1026.0116547131827,
+    "sourceYearWeights": {
+      "2022": 0.16712328767123288,
+      "2023": 0.25205479452054796,
+      "2024": 0.08493150684931507,
+      "2025": 0.4958904109589041
+    },
+    "monthlyConstruction": [
+      {
+        "month": 1,
+        "sourceYearWeights": {
+          "2022": 0,
+          "2023": 0,
+          "2024": 1,
+          "2025": 0
+        },
+        "irradiancePercentileDeviation": 0.03570418311370886,
+        "temperatureDeviationC": 0.2870967741935475,
+        "continuityPenalty": 0,
+        "regimeCounts": {
+          "wet": 7,
+          "overcast": 10,
+          "variable-cloud": 11,
+          "clear": 3
+        }
+      },
+      {
+        "month": 2,
+        "sourceYearWeights": {
+          "2022": 0,
+          "2023": 0,
+          "2024": 0,
+          "2025": 1
+        },
+        "irradiancePercentileDeviation": 0.03235532946082155,
+        "temperatureDeviationC": -1.4912946428571416,
+        "continuityPenalty": 0.22999999999999998,
+        "regimeCounts": {
+          "overcast": 13,
+          "variable-cloud": 11,
+          "wet": 4
+        }
+      },
+      {
+        "month": 3,
+        "sourceYearWeights": {
+          "2022": 0,
+          "2023": 1,
+          "2024": 0,
+          "2025": 0
+        },
+        "irradiancePercentileDeviation": 0.11500683875173534,
+        "temperatureDeviationC": -0.794119623655912,
+        "continuityPenalty": 0.15000000000000002,
+        "regimeCounts": {
+          "wet": 11,
+          "variable-cloud": 5,
+          "overcast": 8,
+          "snow": 7
+        }
+      },
+      {
+        "month": 4,
+        "sourceYearWeights": {
+          "2022": 0,
+          "2023": 1,
+          "2024": 0,
+          "2025": 0
+        },
+        "irradiancePercentileDeviation": 0.09287579658083711,
+        "temperatureDeviationC": -0.8640972222222238,
+        "continuityPenalty": 0.005999999999999996,
+        "regimeCounts": {
+          "overcast": 8,
+          "variable-cloud": 7,
+          "clear": 4,
+          "wet": 11
+        }
+      },
+      {
+        "month": 5,
+        "sourceYearWeights": {
+          "2022": 0,
+          "2023": 1,
+          "2024": 0,
+          "2025": 0
+        },
+        "irradiancePercentileDeviation": 0.16252463087676824,
+        "temperatureDeviationC": -0.4928427419354815,
+        "continuityPenalty": 0.024,
+        "regimeCounts": {
+          "overcast": 14,
+          "wet": 6,
+          "variable-cloud": 10,
+          "clear": 1
+        }
+      },
+      {
+        "month": 6,
+        "sourceYearWeights": {
+          "2022": 1,
+          "2023": 0,
+          "2024": 0,
+          "2025": 0
+        },
+        "irradiancePercentileDeviation": 0.0515200050147552,
+        "temperatureDeviationC": -0.5986111111111097,
+        "continuityPenalty": 0.18200000000000002,
+        "regimeCounts": {
+          "variable-cloud": 17,
+          "overcast": 5,
+          "wet": 7,
+          "clear": 1
+        }
+      },
+      {
+        "month": 7,
+        "sourceYearWeights": {
+          "2022": 1,
+          "2023": 0,
+          "2024": 0,
+          "2025": 0
+        },
+        "irradiancePercentileDeviation": 0.06951901106897669,
+        "temperatureDeviationC": 1.0862567204301037,
+        "continuityPenalty": 0.09,
+        "regimeCounts": {
+          "wet": 7,
+          "variable-cloud": 12,
+          "overcast": 11,
+          "clear": 1
+        }
+      },
+      {
+        "month": 8,
+        "sourceYearWeights": {
+          "2022": 0,
+          "2023": 0,
+          "2024": 0,
+          "2025": 1
+        },
+        "irradiancePercentileDeviation": 0.04233207923111906,
+        "temperatureDeviationC": 0.33867607526881827,
+        "continuityPenalty": 0.09199999999999997,
+        "regimeCounts": {
+          "overcast": 13,
+          "variable-cloud": 12,
+          "wet": 3,
+          "clear": 3
+        }
+      },
+      {
+        "month": 9,
+        "sourceYearWeights": {
+          "2022": 0,
+          "2023": 0,
+          "2024": 0,
+          "2025": 1
+        },
+        "irradiancePercentileDeviation": 0.10520956784030197,
+        "temperatureDeviationC": -0.6893055555555527,
+        "continuityPenalty": 0.02000000000000002,
+        "regimeCounts": {
+          "variable-cloud": 13,
+          "wet": 11,
+          "overcast": 4,
+          "clear": 2
+        }
+      },
+      {
+        "month": 10,
+        "sourceYearWeights": {
+          "2022": 0,
+          "2023": 0,
+          "2024": 0,
+          "2025": 1
+        },
+        "irradiancePercentileDeviation": 0.1266551576125664,
+        "temperatureDeviationC": -0.3279905913978478,
+        "continuityPenalty": 0.004000000000000021,
+        "regimeCounts": {
+          "overcast": 12,
+          "wet": 8,
+          "variable-cloud": 11
+        }
+      },
+      {
+        "month": 11,
+        "sourceYearWeights": {
+          "2022": 0,
+          "2023": 0,
+          "2024": 0,
+          "2025": 1
+        },
+        "irradiancePercentileDeviation": 0.10239961389291105,
+        "temperatureDeviationC": 0.2185416666666633,
+        "continuityPenalty": 0.11,
+        "regimeCounts": {
+          "variable-cloud": 8,
+          "wet": 14,
+          "overcast": 5,
+          "clear": 3
+        }
+      },
+      {
+        "month": 12,
+        "sourceYearWeights": {
+          "2022": 0,
+          "2023": 0,
+          "2024": 0,
+          "2025": 1
+        },
+        "irradiancePercentileDeviation": 0.11524907500682717,
+        "temperatureDeviationC": 0.6832661290322601,
+        "continuityPenalty": 0.005999999999999996,
+        "regimeCounts": {
+          "wet": 12,
+          "variable-cloud": 12,
+          "overcast": 5,
+          "clear": 2
+        }
+      }
+    ],
+    "assumptions": [
+      "Source months are weather-model reanalysis and are not direct station observations.",
+      "Each selected month comes intact from one source year; 29 February is excluded for a 365-day comparison calendar.",
+      "Candidate ranking uses multivariate empirical-CDF, weather-persistence and month-boundary continuity scores.",
+      "Only four source years are available, so this is an experimental representative year rather than a standards-compliant long-term TMY.",
+      "Method version: sios-fs-month-selection-1.0.0."
+    ]
+  },
+  "annualEstimate": {
+    "centralEstimateKWh": 49248.55942623277,
+    "uncertainty": {
+      "kind": "interannual-non-exceedance-quantiles",
+      "lowerLabel": "Q10",
+      "medianLabel": "Q50",
+      "upperLabel": "Q90",
+      "lowerKWh": 46831.468738814394,
+      "medianKWh": 50866.42225035603,
+      "upperKWh": 52927.53080291817,
+      "sampleSize": 4,
+      "nominalCoveragePct": null,
+      "achievedCoveragePct": null,
+      "method": "Empirical non-exceedance quantiles of four weather-conditioned historical-year simulations.",
+      "limitations": [
+        "Four source years are too few for a calibrated probabilistic annual interval.",
+        "The bounds describe interannual weather spread under one configured system, not contractual P-values."
+      ]
+    }
+  },
+  "validation": {
+    "protocol": "Train on 2022–2023, calibrate ensemble weights/interval width on 2024, evaluate once on untouched 2025; expanding annual folds report stability separately.",
+    "trainingYears": [
+      2022,
+      2023
+    ],
+    "calibrationYear": 2024,
+    "untouchedEvaluationYear": 2025,
+    "modelRecipes": [
+      {
+        "modelId": "seasonal-naive",
+        "version": "sios-annual-model-recipe-1.0.0",
+        "featureSchema": [
+          "prior source year's same no-leap hour index"
+        ],
+        "hyperparameters": {
+          "seasonLengthHours": 8760
+        }
+      },
+      {
+        "modelId": "hourly-climatology",
+        "version": "sios-annual-model-recipe-1.0.0",
+        "featureSchema": [
+          "no-leap hour-of-year index"
+        ],
+        "hyperparameters": {
+          "sourceYearCount": 2,
+          "aggregation": "arithmetic mean"
+        }
+      },
+      {
+        "modelId": "meteo-ridge",
+        "version": "sios-annual-model-recipe-1.0.0",
+        "featureSchema": [
+          "ghiWm2 / 1000",
+          "dniWm2 / 1000",
+          "dhiWm2 / 1000",
+          "temperatureC / 25",
+          "windSpeedMps / 10",
+          "cloudCoverPct / 100",
+          "sin(2π × hour / 24)",
+          "cos(2π × hour / 24)",
+          "sin(2π × noLeapDayOfYear / 365)",
+          "cos(2π × noLeapDayOfYear / 365)"
+        ],
+        "hyperparameters": {
+          "regularization": 0.015,
+          "scaling": "train-only z-score",
+          "outputConstraint": "non-negative clamp"
+        }
+      },
+      {
+        "modelId": "hybrid-probabilistic",
+        "version": "sios-annual-model-recipe-1.0.0",
+        "featureSchema": [
+          "seasonal-naive",
+          "hourly-climatology",
+          "meteo-ridge"
+        ],
+        "hyperparameters": {
+          "weighting": "inverse 2024 calibration MAE",
+          "nominalCoveragePct": 80,
+          "intervalHalfWidth": "max(2024 absolute-residual quantile, component spread)",
+          "lowerBound": 0
+        }
+      },
+      {
+        "modelId": "physics-reference",
+        "version": "sios-annual-model-recipe-1.0.0",
+        "featureSchema": [
+          "canonical weather",
+          "location",
+          "array",
+          "loss configuration"
+        ],
+        "hyperparameters": {
+          "competitiveScoring": false
+        }
+      }
+    ],
+    "modelEvidence": [
+      {
+        "target": "physics-derived-generation",
+        "evaluationRangeUtc": [
+          "2025-01-01T00:00:00.000Z",
+          "2025-12-31T23:59:59.999Z"
+        ],
+        "horizonHours": 8760,
+        "id": "seasonal-naive",
+        "name": "Prior-year seasonal naive",
+        "family": "baseline",
+        "role": "reference",
+        "status": "implemented",
+        "task": "full-year-seasonal-holdout",
+        "trainingRangeUtc": [
+          "2024-01-01T00:00:00.000Z",
+          "2024-12-31T23:59:59.999Z"
+        ],
+        "calibrationRangeUtc": null,
+        "metrics": {
+          "sampleCount": 8760,
+          "mae": 3.270984990019531,
+          "rmse": 6.6996118795245705,
+          "mapePct": 94.9250123706251,
+          "normalizedMaePct": 8.177462475048827,
+          "bias": -0.8666127132575658,
+          "rSquared": 0.5135531416005036,
+          "seasonalMae": {
+            "winter": 2.0725229895950914,
+            "spring": 4.52811733049085,
+            "summer": 3.777934686941293,
+            "autumn": 2.6728095240638745
+          },
+          "annualGenerationErrorPct": -14.255774570697916,
+          "peakOutputErrorPct": 0,
+          "intervalCoveragePct": null,
+          "calibrationErrorPct": null
+        },
+        "annualErrorPct": -14.255774570697916,
+        "limitations": [
+          "Assumes the previous no-leap year repeats hour-for-hour."
+        ]
+      },
+      {
+        "target": "physics-derived-generation",
+        "evaluationRangeUtc": [
+          "2025-01-01T00:00:00.000Z",
+          "2025-12-31T23:59:59.999Z"
+        ],
+        "horizonHours": 8760,
+        "id": "hourly-climatology",
+        "name": "2022–2023 hourly climatology",
+        "family": "statistical",
+        "role": "reference",
+        "status": "implemented",
+        "task": "full-year-seasonal-holdout",
+        "trainingRangeUtc": [
+          "2022-01-01T00:00:00.000Z",
+          "2023-12-31T23:59:59.999Z"
+        ],
+        "calibrationRangeUtc": null,
+        "metrics": {
+          "sampleCount": 8760,
+          "mae": 2.716681613304817,
+          "rmse": 5.4631626773134645,
+          "mapePct": 88.9592416368145,
+          "normalizedMaePct": 6.791704033262043,
+          "bias": -0.27236009448107695,
+          "rSquared": 0.6765371710428887,
+          "seasonalMae": {
+            "winter": 1.8742084683122322,
+            "spring": 3.75694590156905,
+            "summer": 2.8920526959530664,
+            "autumn": 2.320902810287103
+          },
+          "annualGenerationErrorPct": -4.480322120340672,
+          "peakOutputErrorPct": -7.292607922209822,
+          "intervalCoveragePct": null,
+          "calibrationErrorPct": null
+        },
+        "annualErrorPct": -4.480322120340672,
+        "limitations": [
+          "Averages only two source years and cannot respond to evaluation-year weather."
+        ]
+      },
+      {
+        "target": "physics-derived-generation",
+        "evaluationRangeUtc": [
+          "2025-01-01T00:00:00.000Z",
+          "2025-12-31T23:59:59.999Z"
+        ],
+        "horizonHours": 8760,
+        "id": "meteo-ridge",
+        "name": "Meteorological ridge regression",
+        "family": "machine-learning",
+        "role": "challenger",
+        "status": "implemented",
+        "task": "weather-conditioned-hindcast",
+        "trainingRangeUtc": [
+          "2022-01-01T00:00:00.000Z",
+          "2023-12-31T23:59:59.999Z"
+        ],
+        "calibrationRangeUtc": null,
+        "metrics": {
+          "sampleCount": 8760,
+          "mae": 0.9841305831268355,
+          "rmse": 1.8311734947678562,
+          "mapePct": 48.355373671800294,
+          "normalizedMaePct": 2.460326457817089,
+          "bias": 0.30346949301519127,
+          "rSquared": 0.9636591482439087,
+          "seasonalMae": {
+            "winter": 1.1143635171763095,
+            "spring": 1.0931041646500628,
+            "summer": 1.0248136423779852,
+            "autumn": 0.7040275609763392
+          },
+          "annualGenerationErrorPct": 4.9920715624474985,
+          "peakOutputErrorPct": 2.704848570570153,
+          "intervalCoveragePct": null,
+          "calibrationErrorPct": null
+        },
+        "annualErrorPct": 4.9920715624474985,
+        "limitations": [
+          "Uses realised 2025 reanalysis or sample meteorology; this is a hindcast, not an issued year-ahead forecast.",
+          "Linear features cannot represent every nonlinear system response."
+        ]
+      },
+      {
+        "target": "physics-derived-generation",
+        "evaluationRangeUtc": [
+          "2025-01-01T00:00:00.000Z",
+          "2025-12-31T23:59:59.999Z"
+        ],
+        "horizonHours": 8760,
+        "id": "hybrid-probabilistic",
+        "name": "Calibrated research ensemble",
+        "family": "hybrid",
+        "role": "research-candidate",
+        "status": "experimental",
+        "task": "weather-conditioned-hindcast",
+        "trainingRangeUtc": [
+          "2022-01-01T00:00:00.000Z",
+          "2023-12-31T23:59:59.999Z"
+        ],
+        "calibrationRangeUtc": [
+          "2024-01-01T00:00:00.000Z",
+          "2024-12-31T23:59:59.999Z"
+        ],
+        "metrics": {
+          "sampleCount": 8760,
+          "mae": 1.3709643418443853,
+          "rmse": 2.5226915808039223,
+          "mapePct": 55.315288008739884,
+          "normalizedMaePct": 3.4274108546109634,
+          "bias": 0.005931548965834756,
+          "rSquared": 0.9310293322673434,
+          "seasonalMae": {
+            "winter": 1.3240942144537282,
+            "spring": 1.7364378013944801,
+            "summer": 1.301265492579701,
+            "autumn": 1.1182945321620024
+          },
+          "annualGenerationErrorPct": 0.09757394926008571,
+          "peakOutputErrorPct": -5.506810430366631,
+          "intervalCoveragePct": 91.62100456621005,
+          "calibrationErrorPct": 11.621004566210047
+        },
+        "annualErrorPct": 0.09757394926008571,
+        "limitations": [
+          "Weights and interval width are selected on 2024 and evaluated once on untouched 2025.",
+          "The target is physics-derived; champion promotion requires measured production evidence."
+        ]
+      },
+      {
+        "target": "physics-derived-generation",
+        "evaluationRangeUtc": [
+          "2025-01-01T00:00:00.000Z",
+          "2025-12-31T23:59:59.999Z"
+        ],
+        "horizonHours": 8760,
+        "id": "physics-reference",
+        "name": "Physical generation target",
+        "family": "physical",
+        "role": "reference",
+        "status": "implemented",
+        "task": "target-definition",
+        "trainingRangeUtc": null,
+        "calibrationRangeUtc": null,
+        "metrics": null,
+        "annualErrorPct": null,
+        "limitations": [
+          "Defines the current target and therefore is not scored against itself as a competitive forecast."
+        ]
+      }
+    ],
+    "rollingOrigin": [
+      {
+        "evaluationYear": 2023,
+        "trainedThroughYear": 2022,
+        "modelId": "seasonal-naive",
+        "metrics": {
+          "sampleCount": 8760,
+          "mae": 2.941039882828915,
+          "rmse": 6.0558255271568,
+          "mapePct": 97.57710358926794,
+          "normalizedMaePct": 7.352599707072287,
+          "bias": 0.2975619887398204,
+          "rSquared": 0.5514867192300668,
+          "seasonalMae": {
+            "winter": 1.6437013955713584,
+            "spring": 3.8160986057787696,
+            "summer": 3.597783021065215,
+            "autumn": 2.675487054521826
+          },
+          "annualGenerationErrorPct": 5.259241214652892,
+          "peakOutputErrorPct": 0,
+          "intervalCoveragePct": null,
+          "calibrationErrorPct": null
+        }
+      },
+      {
+        "evaluationYear": 2023,
+        "trainedThroughYear": 2022,
+        "modelId": "meteo-ridge",
+        "metrics": {
+          "sampleCount": 8760,
+          "mae": 0.8992784460413626,
+          "rmse": 1.8388510150202966,
+          "mapePct": 42.976072269055095,
+          "normalizedMaePct": 2.2481961151034064,
+          "bias": 0.3523849255193068,
+          "rSquared": 0.9586456036024494,
+          "seasonalMae": {
+            "winter": 0.8952849974897834,
+            "spring": 0.9807402914758351,
+            "summer": 1.0522852002135306,
+            "autumn": 0.666182832918637
+          },
+          "annualGenerationErrorPct": 6.228205865816289,
+          "peakOutputErrorPct": 2.7424396203446832,
+          "intervalCoveragePct": null,
+          "calibrationErrorPct": null
+        }
+      },
+      {
+        "evaluationYear": 2024,
+        "trainedThroughYear": 2023,
+        "modelId": "seasonal-naive",
+        "metrics": {
+          "sampleCount": 8760,
+          "mae": 3.002755479353564,
+          "rmse": 6.249616729071517,
+          "mapePct": 104.26303224326871,
+          "normalizedMaePct": 7.50688869838391,
+          "bias": 0.4454716244065804,
+          "rSquared": 0.4516178482633857,
+          "seasonalMae": {
+            "winter": 1.7935894942581772,
+            "spring": 3.7270751711451933,
+            "summer": 3.7317324115418553,
+            "autumn": 2.7293670096001086
+          },
+          "annualGenerationErrorPct": 8.546354975578105,
+          "peakOutputErrorPct": 0,
+          "intervalCoveragePct": null,
+          "calibrationErrorPct": null
+        }
+      },
+      {
+        "evaluationYear": 2024,
+        "trainedThroughYear": 2023,
+        "modelId": "meteo-ridge",
+        "metrics": {
+          "sampleCount": 8760,
+          "mae": 0.7536925009421244,
+          "rmse": 1.3685404888233352,
+          "mapePct": 29.99809022823401,
+          "normalizedMaePct": 1.884231252355311,
+          "bias": 0.2213359180208202,
+          "rSquared": 0.9737038696143532,
+          "seasonalMae": {
+            "winter": 0.7736508821057515,
+            "spring": 0.6427250117477635,
+            "summer": 0.9146167676172741,
+            "autumn": 0.6834476895909303
+          },
+          "annualGenerationErrorPct": 4.246320574898959,
+          "peakOutputErrorPct": -0.7700171918958532,
+          "intervalCoveragePct": null,
+          "calibrationErrorPct": null
+        }
+      },
+      {
+        "evaluationYear": 2025,
+        "trainedThroughYear": 2024,
+        "modelId": "seasonal-naive",
+        "metrics": {
+          "sampleCount": 8760,
+          "mae": 3.270984990019531,
+          "rmse": 6.6996118795245705,
+          "mapePct": 94.9250123706251,
+          "normalizedMaePct": 8.177462475048827,
+          "bias": -0.8666127132575658,
+          "rSquared": 0.5135531416005036,
+          "seasonalMae": {
+            "winter": 2.0725229895950914,
+            "spring": 4.52811733049085,
+            "summer": 3.777934686941293,
+            "autumn": 2.6728095240638745
+          },
+          "annualGenerationErrorPct": -14.255774570697916,
+          "peakOutputErrorPct": 0,
+          "intervalCoveragePct": null,
+          "calibrationErrorPct": null
+        }
+      },
+      {
+        "evaluationYear": 2025,
+        "trainedThroughYear": 2024,
+        "modelId": "meteo-ridge",
+        "metrics": {
+          "sampleCount": 8760,
+          "mae": 0.9762774542925322,
+          "rmse": 1.8304687467274185,
+          "mapePct": 47.57637491690598,
+          "normalizedMaePct": 2.4406936357313302,
+          "bias": 0.29300014315515843,
+          "rSquared": 0.963687115245141,
+          "seasonalMae": {
+            "winter": 1.0976082644793488,
+            "spring": 1.0882526608403178,
+            "summer": 1.025265334554171,
+            "autumn": 0.6935480377729591
+          },
+          "annualGenerationErrorPct": 4.8198508123673225,
+          "peakOutputErrorPct": 2.930436958234761,
+          "intervalCoveragePct": null,
+          "calibrationErrorPct": null
+        }
+      }
+    ],
+    "ensembleWeights": {
+      "seasonal-naive": 0.16371189702659594,
+      "hourly-climatology": 0.184050227158681,
+      "meteo-ridge": 0.6522378758147231
+    },
+    "intervalNominalCoveragePct": 80,
+    "intervalAchievedCoveragePct": 91.62100456621005
+  },
+  "provenance": {
+    "orderedDatasetSnapshotIds": [
+      "dsv_3db08eb3080ccdd12bef39b5",
+      "dsv_4fc4781c7d2c114039d69518",
+      "dsv_65dd51ef9aad6ac9f970be51",
+      "dsv_6f4c3efbedf7e7b17b5a95da"
+    ],
+    "orderedContentHashes": [
+      "c01a61127197eed7b82b9354cbc030dbdc441376f052358fb3bf94d0ed521360",
+      "1f9d4acff7dff2493e65c99cb77cd957f72e5682abfcff8061a9a704c6e42839",
+      "e39bc729a0375cfe046f4ae76a747c44ebc2d73b2a2f5f5388f7a933cc1ea72f",
+      "87a09b1158608761a10ae56c47caa915d70a887953d15768acbcc921baaae40d"
+    ],
+    "orderedScienceContentHashes": [
+      "592e04c344c30f656494c7dfba78f3853234cf7d3f9678652fd50e893d7cc24b",
+      "4544f8039fcf30e219a8a8b802eabe2e1673be8e9d7e01bfb4e269aaea90af9e",
+      "87e464afa2fc27d8953d3e799cbf926d6c5f054fdcb9059cf69c08ff40e1ceb7",
+      "90c790f445bd8507a6d9c9019714f7b8ea703aa6ad1330816268d5efcccebcb4"
+    ],
+    "scienceAdapterVersion": "sios-weather-science-adapter-1.0.0",
+    "representativeYearId": "representative-2026-972fefef",
+    "calculationVersion": "sios-physics-1.0.0",
+    "modelVersion": "sios-request-models-1.0.0"
+  },
+  "limitations": [
+    "Open-Meteo archive values are gridded reanalysis, not direct observations or an issued year-ahead forecast; the selected product is retained per dataset.",
+    "No site meter or inverter production series is attached; accuracy metrics measure agreement with a physics-derived generation target, not field accuracy.",
+    "The representative-year method has only four source years and remains experimental.",
+    "Local horizon, shading, module, inverter, soiling and availability parameters require site-specific calibration."
+  ],
+  "guaranteeNotice": "All energy values are uncertain estimates and are not guaranteed production."
+}

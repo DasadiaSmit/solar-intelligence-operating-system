@@ -1,0 +1,213 @@
+.visualLayer {
+  position: absolute;
+  inset: 0 0 0 34%;
+  z-index: 1;
+  min-width: 0;
+  pointer-events: none;
+  transition: left 720ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.visualLayer[data-visual-phase="observatory"],
+.visualLayer[data-visual-phase="handoff"] {
+  left: 0;
+}
+
+.canvas,
+.canvas :global(.helios-canvas-fallback),
+.canvas :global(.helios-canvas-surface) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.canvas {
+  overflow: hidden;
+}
+
+.canvas :global(.helios-canvas-fallback) {
+  z-index: 1;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 320ms ease,
+    visibility 320ms ease;
+}
+
+.canvas :global(.helios-canvas-surface) {
+  z-index: 2;
+}
+
+.canvas[data-renderer-ready="true"] :global(.helios-canvas-fallback) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.canvas :global(.helios-canvas-recovery) {
+  position: absolute;
+  right: clamp(18px, 4vw, 52px);
+  bottom: clamp(52px, 8vh, 86px);
+  z-index: 7;
+  max-width: 34rem;
+  padding: 14px 16px;
+  border: 1px solid rgba(231, 196, 106, 0.48);
+  color: var(--hero-text);
+  background: rgba(7, 10, 9, 0.96);
+  pointer-events: auto;
+}
+
+.canvas :global(.helios-canvas-recovery button) {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--hero-line-strong);
+  color: var(--hero-text);
+  background: transparent;
+}
+
+.canvas :global(.helios-canvas-recovery button:focus-visible) {
+  outline: 2px solid var(--hero-focus);
+  outline-offset: 3px;
+}
+
+.visualFallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+}
+
+.fallbackCore {
+  position: relative;
+  width: min(53vw, 680px);
+  aspect-ratio: 1;
+  transform:
+    translate3d(var(--hero-core-shift, 0), 0, 0)
+    scale(var(--hero-core-scale, 1));
+  filter: drop-shadow(0 0 70px rgba(231, 196, 106, 0.08));
+}
+
+.fallbackRing,
+.fallbackSun {
+  position: absolute;
+  inset: 50%;
+  display: block;
+  transform-origin: center;
+}
+
+.fallbackRing {
+  border: 1px solid rgba(195, 204, 196, 0.27);
+  border-radius: 50%;
+}
+
+.fallbackRing::before,
+.fallbackRing::after {
+  position: absolute;
+  content: "";
+  background: var(--hero-solar);
+  box-shadow: 0 0 12px rgba(231, 196, 106, 0.42);
+}
+
+.fallbackRing::before {
+  top: -2px;
+  left: 17%;
+  width: 24px;
+  height: 3px;
+}
+
+.fallbackRing::after {
+  right: -2px;
+  bottom: 22%;
+  width: 3px;
+  height: 18px;
+}
+
+.ringPrimary {
+  width: 78%;
+  height: 78%;
+  transform:
+    translate(-50%, -50%)
+    rotate(var(--hero-ring-primary, 0deg));
+}
+
+.ringSecondary {
+  width: 62%;
+  height: 62%;
+  border-color: rgba(231, 196, 106, 0.34);
+  transform:
+    translate(-50%, -50%)
+    rotateX(66deg)
+    rotateZ(var(--hero-ring-secondary, 0deg));
+}
+
+.ringTertiary {
+  width: 90%;
+  height: 42%;
+  border-style: dashed;
+  opacity: 0.58;
+  transform: translate(-50%, -50%) rotate(42deg);
+}
+
+.fallbackSun {
+  width: 30%;
+  height: 30%;
+  border: 1px solid rgba(255, 240, 196, 0.72);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 36% 30%, #fff8df 0 3%, transparent 12%),
+    radial-gradient(circle at 54% 58%, #f5c25e, #d77926 56%, #7e3012 88%);
+  box-shadow:
+    0 0 26px rgba(245, 194, 94, 0.32),
+    0 0 90px rgba(215, 121, 38, 0.16);
+  transform: translate(-50%, -50%);
+}
+
+.screenReaderOnly {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (max-width: 1024px) {
+  .visualLayer {
+    position: relative;
+    inset: auto;
+    left: auto;
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 38dvh;
+  }
+
+  .fallbackCore {
+    width: min(62vw, 520px);
+  }
+}
+
+@media (max-width: 640px) {
+  .visualLayer {
+    min-height: 31dvh;
+  }
+
+  .fallbackCore {
+    width: min(88vw, 390px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visualLayer,
+  .canvas :global(.helios-canvas-fallback) {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .visualLayer {
+    display: none;
+  }
+}

@@ -1,0 +1,782 @@
+{
+  "id": "report-information-evaluation-03",
+  "version": "1.0.0",
+  "fixedDate": "2026-10-25",
+  "question": "Which decision facts are stated correctly, merely derivable or unavailable in nominal summaries, equal-information tables and the existing evidence report; how safely are incomplete/conflicting inputs handled?",
+  "comparisonBaselineCommit": "0dde63d2643514127e4383bfd6da9e69f91a03b4",
+  "design": "Deterministic known-answer functional benchmark. Cases and answers are designed with knowledge of the existing code; this is neither blinded nor a human decision study.",
+  "conditions": [
+    {
+      "id": "point",
+      "definition": "Nominal yields and all nominal winners, common provenance/scope and scenario-count context. No unsupported robust or uncertainty claim."
+    },
+    {
+      "id": "tables",
+      "definition": "Same raw nominal, four-scenario and omission evidence as the full report. Tables without derived decision narrative. Arithmetic extraction allowed in separately reported derivable coverage."
+    },
+    {
+      "id": "evidence-v1",
+      "definition": "Existing buildDecisionReport via normal compareEnergyChoices producer for valid inputs. Renderer source unchanged. Actual generated Markdown assessed; complete audit adapters are synthetic test objects."
+    }
+  ],
+  "primaryCases": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06"
+  ],
+  "incompleteCases": [
+    "C07",
+    "C08"
+  ],
+  "directRendererStressCases": [
+    "S01"
+  ],
+  "questions": [
+    {
+      "id": "Q1",
+      "fact": "Nominal winner set with all ties and maximum nominal energy."
+    },
+    {
+      "id": "Q2",
+      "fact": "Minimax-regret winner set with all ties and minimum worst regret."
+    },
+    {
+      "id": "Q3",
+      "fact": "Omission sensitivity minimum/maximum and correct sensitivity, not probability, classification."
+    },
+    {
+      "id": "Q4",
+      "fact": "Count of option pairs reversing order across historical scenarios."
+    },
+    {
+      "id": "Q5",
+      "fact": "Worst-regret reduction minimum/maximum across all nominal ties, including explicit zero benefit."
+    },
+    {
+      "id": "Q6",
+      "fact": "Nominal yield sacrificed by every robust winner; do not infer sacrifice from regret gain."
+    },
+    {
+      "id": "Q7",
+      "fact": "Available versus expected historical scenario count (4), with missing cells identified when relevant."
+    },
+    {
+      "id": "Q8",
+      "fact": "Finite-case/modelled-evidence scope; no measured output, future probability or human improvement claim."
+    }
+  ],
+  "extractionPolicy": "Parse rendered Markdown only, not hidden model assertions. A direct named value or lookup in a labelled candidate table counts explicit. Min/max, ranking, regret and subtraction from displayed inputs count derivable. Omission is not an incorrect assertion. Common fixture/provenance wrapper is identical across conditions; its text alone does not supply numerical answers.",
+  "classification": [
+    "explicit-correct",
+    "derivable-correct",
+    "omitted",
+    "incorrect",
+    "unavailable-or-withheld",
+    "generation-rejected"
+  ],
+  "derivationRules": [
+    "From nominal table: max and all equal winners.",
+    "From full finite historical matrix: per-row best minus each candidate, maximum regret, minimax ties, pairwise ordering reversals, regret-reduction range across nominal ties.",
+    "From nominal yields and explicit robust winner set: sacrifice=max nominal minus each robust yield.",
+    "From complete four-row omission table: minimum/maximum sensitivity range.",
+    "From explicit candidate regret table: minimum regrets and gain can be derived if all relevant candidate rows exist."
+  ],
+  "scoring": "Report counts per question and condition over six complete cases (48 fact opportunities). Count direct and derivable coverage separately; show incorrect claims and operational failures. Incomplete/direct-contract cases are separate diagnostics, excluded from the48-denominator. No weighted usefulness score, significance test, user-time or human-performance claim.",
+  "numericTolerance": 0.011,
+  "tieToleranceKWh": 1e-06,
+  "limits": [
+    "Synthetic arithmetic fixtures, not new PV/weather experiments.",
+    "Displayed2decimal numbers assessed within0.011kWh to accommodate current formatting; no near-tolerance cases.",
+    "Raw tables may retain identical derivable information to a narrative report; no numerical superiority over that control is assumed.",
+    "Report length is descriptive only, not reading time or cognitive load.",
+    "The existing renderer normally receives complete producer output; incomplete and stale-cache cases are contract stress tests."
+  ],
+  "realCase": "One separately labelled previously inspected Sheffield transfer example from study01. It is not a new independent replication and is excluded from synthetic benchmark percentages.",
+  "iterationPolicy": "Preserve primary current-renderer outputs before changes. If defects/gaps are addressed, add a separately versioned report path and an explicitly exploratory rerun of the same known cases. Such a rerun is regression/development evidence, not independent generalisation.",
+  "fixtureAnnotation": "Every synthetic example is explicitly labelled a hand-defined arithmetic fixture, not physics-generated research data. Verbatim production renderer wording is test output, not fixture provenance.",
+  "cases": [
+    {
+      "id": "C01",
+      "title": "Dominant option; zero benefit",
+      "stratum": "complete",
+      "candidateIds": [
+        "A",
+        "B"
+      ],
+      "nominalKWh": [
+        100,
+        90
+      ],
+      "historicalCases": [
+        {
+          "id": "2022",
+          "annualKWh": [
+            100,
+            90
+          ]
+        },
+        {
+          "id": "2023",
+          "annualKWh": [
+            80,
+            70
+          ]
+        },
+        {
+          "id": "2024",
+          "annualKWh": [
+            110,
+            100
+          ]
+        },
+        {
+          "id": "2025",
+          "annualKWh": [
+            90,
+            80
+          ]
+        }
+      ],
+      "omittedAnnualKWh": [
+        95,
+        98,
+        102,
+        105
+      ],
+      "expected": {
+        "nominalWinnerIds": [
+          "A"
+        ],
+        "nominalMaximumKWh": 100,
+        "robustWinnerIds": [
+          "A"
+        ],
+        "worstRegretById": {
+          "A": 0,
+          "B": 10
+        },
+        "reversalCount": 0,
+        "regretReductionKWh": [
+          0,
+          0
+        ],
+        "nominalSacrificeById": {
+          "A": 0
+        },
+        "sensitivityRangeKWh": [
+          95,
+          105
+        ],
+        "expectedScenarioCount": 4,
+        "availableScenarioCount": 4
+      }
+    },
+    {
+      "id": "C02",
+      "title": "Rank reversal and nominal sacrifice",
+      "stratum": "complete",
+      "candidateIds": [
+        "A",
+        "B"
+      ],
+      "nominalKWh": [
+        100,
+        90
+      ],
+      "historicalCases": [
+        {
+          "id": "2022",
+          "annualKWh": [
+            100,
+            90
+          ]
+        },
+        {
+          "id": "2023",
+          "annualKWh": [
+            10,
+            80
+          ]
+        },
+        {
+          "id": "2024",
+          "annualKWh": [
+            110,
+            100
+          ]
+        },
+        {
+          "id": "2025",
+          "annualKWh": [
+            20,
+            75
+          ]
+        }
+      ],
+      "omittedAnnualKWh": [
+        90,
+        95,
+        100,
+        110
+      ],
+      "expected": {
+        "nominalWinnerIds": [
+          "A"
+        ],
+        "nominalMaximumKWh": 100,
+        "robustWinnerIds": [
+          "B"
+        ],
+        "worstRegretById": {
+          "A": 70,
+          "B": 10
+        },
+        "reversalCount": 1,
+        "regretReductionKWh": [
+          60,
+          60
+        ],
+        "nominalSacrificeById": {
+          "B": 10
+        },
+        "sensitivityRangeKWh": [
+          90,
+          110
+        ],
+        "expectedScenarioCount": 4,
+        "availableScenarioCount": 4
+      }
+    },
+    {
+      "id": "C03",
+      "title": "Identical options; all ties",
+      "stratum": "complete",
+      "candidateIds": [
+        "A",
+        "B"
+      ],
+      "nominalKWh": [
+        100,
+        100
+      ],
+      "historicalCases": [
+        {
+          "id": "2022",
+          "annualKWh": [
+            80,
+            80
+          ]
+        },
+        {
+          "id": "2023",
+          "annualKWh": [
+            90,
+            90
+          ]
+        },
+        {
+          "id": "2024",
+          "annualKWh": [
+            100,
+            100
+          ]
+        },
+        {
+          "id": "2025",
+          "annualKWh": [
+            70,
+            70
+          ]
+        }
+      ],
+      "omittedAnnualKWh": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "expected": {
+        "nominalWinnerIds": [
+          "A",
+          "B"
+        ],
+        "nominalMaximumKWh": 100,
+        "robustWinnerIds": [
+          "A",
+          "B"
+        ],
+        "worstRegretById": {
+          "A": 0,
+          "B": 0
+        },
+        "reversalCount": 0,
+        "regretReductionKWh": [
+          0,
+          0
+        ],
+        "nominalSacrificeById": {
+          "A": 0,
+          "B": 0
+        },
+        "sensitivityRangeKWh": [
+          100,
+          100
+        ],
+        "expectedScenarioCount": 4,
+        "availableScenarioCount": 4
+      }
+    },
+    {
+      "id": "C04",
+      "title": "Nominal tie; conditional benefit",
+      "stratum": "complete",
+      "candidateIds": [
+        "A",
+        "B"
+      ],
+      "nominalKWh": [
+        100,
+        100
+      ],
+      "historicalCases": [
+        {
+          "id": "2022",
+          "annualKWh": [
+            100,
+            90
+          ]
+        },
+        {
+          "id": "2023",
+          "annualKWh": [
+            40,
+            90
+          ]
+        },
+        {
+          "id": "2024",
+          "annualKWh": [
+            110,
+            100
+          ]
+        },
+        {
+          "id": "2025",
+          "annualKWh": [
+            60,
+            100
+          ]
+        }
+      ],
+      "omittedAnnualKWh": [
+        90,
+        95,
+        100,
+        105
+      ],
+      "expected": {
+        "nominalWinnerIds": [
+          "A",
+          "B"
+        ],
+        "nominalMaximumKWh": 100,
+        "robustWinnerIds": [
+          "B"
+        ],
+        "worstRegretById": {
+          "A": 50,
+          "B": 10
+        },
+        "reversalCount": 1,
+        "regretReductionKWh": [
+          0,
+          40
+        ],
+        "nominalSacrificeById": {
+          "B": 0
+        },
+        "sensitivityRangeKWh": [
+          90,
+          105
+        ],
+        "expectedScenarioCount": 4,
+        "availableScenarioCount": 4
+      }
+    },
+    {
+      "id": "C05",
+      "title": "Robust tie; one option sacrifices nominal yield",
+      "stratum": "complete",
+      "candidateIds": [
+        "A",
+        "B"
+      ],
+      "nominalKWh": [
+        105,
+        100
+      ],
+      "historicalCases": [
+        {
+          "id": "2022",
+          "annualKWh": [
+            100,
+            90
+          ]
+        },
+        {
+          "id": "2023",
+          "annualKWh": [
+            80,
+            90
+          ]
+        },
+        {
+          "id": "2024",
+          "annualKWh": [
+            110,
+            100
+          ]
+        },
+        {
+          "id": "2025",
+          "annualKWh": [
+            90,
+            100
+          ]
+        }
+      ],
+      "omittedAnnualKWh": [
+        100,
+        103,
+        105,
+        107
+      ],
+      "expected": {
+        "nominalWinnerIds": [
+          "A"
+        ],
+        "nominalMaximumKWh": 105,
+        "robustWinnerIds": [
+          "A",
+          "B"
+        ],
+        "worstRegretById": {
+          "A": 10,
+          "B": 10
+        },
+        "reversalCount": 1,
+        "regretReductionKWh": [
+          0,
+          0
+        ],
+        "nominalSacrificeById": {
+          "A": 0,
+          "B": 5
+        },
+        "sensitivityRangeKWh": [
+          100,
+          107
+        ],
+        "expectedScenarioCount": 4,
+        "availableScenarioCount": 4
+      }
+    },
+    {
+      "id": "C06",
+      "title": "All-zero valid energy",
+      "stratum": "complete",
+      "candidateIds": [
+        "A",
+        "B"
+      ],
+      "nominalKWh": [
+        0,
+        0
+      ],
+      "historicalCases": [
+        {
+          "id": "2022",
+          "annualKWh": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "2023",
+          "annualKWh": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "2024",
+          "annualKWh": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "2025",
+          "annualKWh": [
+            0,
+            0
+          ]
+        }
+      ],
+      "omittedAnnualKWh": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": {
+        "nominalWinnerIds": [
+          "A",
+          "B"
+        ],
+        "nominalMaximumKWh": 0,
+        "robustWinnerIds": [
+          "A",
+          "B"
+        ],
+        "worstRegretById": {
+          "A": 0,
+          "B": 0
+        },
+        "reversalCount": 0,
+        "regretReductionKWh": [
+          0,
+          0
+        ],
+        "nominalSacrificeById": {
+          "A": 0,
+          "B": 0
+        },
+        "sensitivityRangeKWh": [
+          0,
+          0
+        ],
+        "expectedScenarioCount": 4,
+        "availableScenarioCount": 4
+      }
+    },
+    {
+      "id": "C07",
+      "title": "Missing historical value",
+      "stratum": "incomplete-evidence",
+      "candidateIds": [
+        "A",
+        "B"
+      ],
+      "nominalKWh": [
+        100,
+        90
+      ],
+      "historicalCases": [
+        {
+          "id": "2022",
+          "annualKWh": [
+            100,
+            90
+          ]
+        },
+        {
+          "id": "2023",
+          "annualKWh": [
+            80,
+            null
+          ]
+        },
+        {
+          "id": "2024",
+          "annualKWh": [
+            110,
+            100
+          ]
+        },
+        {
+          "id": "2025",
+          "annualKWh": [
+            90,
+            80
+          ]
+        }
+      ],
+      "omittedAnnualKWh": [
+        95,
+        98,
+        102,
+        105
+      ],
+      "expected": {
+        "nominalWinnerIds": [
+          "A"
+        ],
+        "nominalMaximumKWh": 100,
+        "robustWinnerIds": null,
+        "worstRegretById": null,
+        "reversalCount": null,
+        "regretReductionKWh": null,
+        "nominalSacrificeById": null,
+        "sensitivityRangeKWh": [
+          95,
+          105
+        ],
+        "expectedScenarioCount": 4,
+        "availableScenarioCount": 4
+      }
+    },
+    {
+      "id": "C08",
+      "title": "Missing omission results",
+      "stratum": "incomplete-evidence",
+      "candidateIds": [
+        "A",
+        "B"
+      ],
+      "nominalKWh": [
+        100,
+        90
+      ],
+      "historicalCases": [
+        {
+          "id": "2022",
+          "annualKWh": [
+            100,
+            90
+          ]
+        },
+        {
+          "id": "2023",
+          "annualKWh": [
+            10,
+            80
+          ]
+        },
+        {
+          "id": "2024",
+          "annualKWh": [
+            110,
+            100
+          ]
+        },
+        {
+          "id": "2025",
+          "annualKWh": [
+            20,
+            75
+          ]
+        }
+      ],
+      "omittedAnnualKWh": [],
+      "expected": {
+        "nominalWinnerIds": [
+          "A"
+        ],
+        "nominalMaximumKWh": 100,
+        "robustWinnerIds": [
+          "B"
+        ],
+        "worstRegretById": {
+          "A": 70,
+          "B": 10
+        },
+        "reversalCount": 1,
+        "regretReductionKWh": [
+          60,
+          60
+        ],
+        "nominalSacrificeById": {
+          "B": 10
+        },
+        "sensitivityRangeKWh": null,
+        "expectedScenarioCount": 4,
+        "availableScenarioCount": 4
+      }
+    },
+    {
+      "id": "S01",
+      "title": "Cached robust choice conflicts with raw energy",
+      "stratum": "direct-renderer-stress",
+      "candidateIds": [
+        "A",
+        "B"
+      ],
+      "nominalKWh": [
+        100,
+        90
+      ],
+      "historicalCases": [
+        {
+          "id": "2022",
+          "annualKWh": [
+            100,
+            90
+          ]
+        },
+        {
+          "id": "2023",
+          "annualKWh": [
+            80,
+            70
+          ]
+        },
+        {
+          "id": "2024",
+          "annualKWh": [
+            110,
+            100
+          ]
+        },
+        {
+          "id": "2025",
+          "annualKWh": [
+            90,
+            80
+          ]
+        }
+      ],
+      "omittedAnnualKWh": [
+        95,
+        98,
+        102,
+        105
+      ],
+      "expected": {
+        "nominalWinnerIds": [
+          "A"
+        ],
+        "nominalMaximumKWh": 100,
+        "robustWinnerIds": [
+          "A"
+        ],
+        "worstRegretById": {
+          "A": 0,
+          "B": 10
+        },
+        "reversalCount": 0,
+        "regretReductionKWh": [
+          0,
+          0
+        ],
+        "nominalSacrificeById": {
+          "A": 0
+        },
+        "sensitivityRangeKWh": [
+          95,
+          105
+        ],
+        "expectedScenarioCount": 4,
+        "availableScenarioCount": 4
+      },
+      "tamper": {
+        "robustWinnerIds": [
+          "B"
+        ]
+      }
+    }
+  ]
+}

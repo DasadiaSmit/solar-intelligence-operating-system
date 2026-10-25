@@ -34,6 +34,8 @@ All 14 requested workspaces will exist inside one shared operating-system shell.
 - `lib/representative-year`: transparent weighted-regime/percentile-matched representative-year construction and year-by-year comparison.
 - `lib/optimisation`: grid search, Pareto filtering, Monte Carlo sensitivity, and stress scenarios.
 - `lib/providers`: provider interface, Open-Meteo and PVGIS adapters, deterministic sample provider, fallback registry, retry/backoff, validation, conversion, quality, and provenance.
+- `lib/mission-intelligence`: pure evidence contracts, fourteen-specialist routing, deterministic orchestration, confidence policy, artifact-continuity checks, and scientific working memory.
+- `features/mission-intelligence`: registered operating-state evidence adapter and native Mission Intelligence console.
 
 All scientific modules remain UI-independent and testable with deterministic fixtures.
 
@@ -102,10 +104,10 @@ The first release will implement deterministic grid search over tilt, azimuth, D
 
 The interface will use a continuous observatory instrument field rather than repeated rounded dashboard cards:
 
-- Mission header, workspace rail, linked scientific stage, inspector, orbital timeline, and system ledger.
+- Mission header, workspace rail, linked scientific stage, Mission Intelligence console, orbital timeline, and system ledger.
 - Observatory and daylight themes, reduced-motion handling, and sun/cloud/extreme-weather atmosphere states.
 - Two-letter framed workspace glyphs, coordinate ticks, scientific legends, crosshairs, quality textures, and confidence bands.
-- Command palette, shortcut map, replay controls, timeline scrubber, annotations, inspector tabs, fullscreen/focus mode, and responsive field mode.
+- Command palette, shortcut map, replay controls, timeline scrubber, annotations, Mission/Scenario/Evidence/Memory modes, fullscreen/focus mode, and responsive field mode.
 
 Signature connected instruments:
 
@@ -166,6 +168,17 @@ All workspaces will be reachable from the shell. The Annual Forecast, Digital Tw
 3. README, architecture, provider, provenance, deployment, backup/recovery, validation, limitations, and research-roadmap documentation.
 4. Final build, automated test suite, console review, interaction checks, responsive visual review, and defect fixes.
 
+### Slice E — Mission Intelligence Core
+
+1. Give the initial operating snapshot a reproducible result identity and register exact, unit-bearing evidence references.
+2. Implement fourteen automatically routed domain specialists with object expertise overriding workspace defaults.
+3. Compile evidence-gated scientific dossiers through legitimate context, validation, measurement, support, continuity and assembly operations.
+4. Replace the scientific inspector with native Mission, Scenario, Evidence and Memory console modes; add semantic object selection to every workspace.
+5. Persist schema-versioned device-local scientific state, register base/annual-study artifacts and flag dependency drift without storing conversation history.
+6. Validate routing, units, evidence resolution, unsupported/stale/planned/duplicate behavior, confidence policy, memory round-trip and real snapshot integration.
+
+This slice is implemented on `agent/mission-intelligence-core`. It contains no chat UI, language-model provider, generated free-form answer or assistant persona.
+
 ## 8. Delivery status convention
 
 - **Implemented** — executable and covered by validation/tests.
@@ -174,3 +187,97 @@ All workspaces will be reachable from the shell. The Annual Forecast, Digital Tw
 - **Planned** — interface/schema reserved, no fabricated output or performance claim.
 
 No estimate is presented as guaranteed production. Confidence intervals represent model/input uncertainty under documented assumptions, not contractual performance bounds.
+
+## 9. Helios experience milestones
+
+The supplied Helios redesign sequence is an additive presentation programme
+over the completed scientific and operational slices above. It does not reopen
+or replace them.
+
+1. **Milestone 1 — visual foundation: implemented 2026-07-29.** Exact-pinned
+   dependencies, `SceneFrameV1`, lazy `HeliosCanvas`, declarative
+   `HeliosCamera`, reusable `LightingSystem` and `EnvironmentSystem`,
+   deterministic `ParticleSystem`, adaptive demand-render policy, context-loss
+   containment and semantic HTML fallback.
+2. **Milestone 2 — Hero and Helios Core: implemented 2026-07-29.** One
+   accessible Hero composes the six-ring Core, procedural Sun, guided camera,
+   native scroll progress and responsive HTML over the unchanged analytical
+   shell. Three.js remains lazy; scientific status and fallback meaning remain
+   HTML.
+3. **Milestone 3 — Observatory framework: implemented 2026-07-29.** One
+   persistent Hero-to-Observatory canvas now contains the calibrated
+   fourteen-position structural ring, passive native-scroll engine, camera and
+   scene managers, controlled presentation state, semantic navigation and
+   reduced-motion path. Positions 01–07 are navigable placeholders; positions
+   08–14 are reserved. No instrument is formed and no analytical workspace is
+   remapped.
+4. **Milestone 4 — Instrument integration: Increments 01–05 accepted
+   2026-07-29; Increment 06 implemented and validated 2026-10-25.** Position 01 forms the configured-orientation Solar Digital
+   Twin system schematic from a fail-closed view of the linked
+   `SceneFrameV1`; its typed action opens `DT` at the representative hour.
+   Position 02 forms a static Atmospheric Observation transfer schematic from
+   a bounded, server-built `AtmosphericObservationFrameV1` for that exact
+   canonical hour; its typed action opens `WA` at the same index. The
+   atmospheric frame preserves weather, GHI/DNI/DHI/effective POA, modelled AC
+   energy, quality, units and provenance; provider bounds, a separate
+   conservative 4,200 W/m² POA-output ceiling and one-hour
+   AC-versus-capacity guard fail closed. It explicitly rejects an instant
+   causality claim and leaves wind direction, cloud altitude/type/geometry/
+   motion, sub-hour response and measured/live plant output unavailable.
+   Position 03 forms Annual Energy Observatory from a fail-closed
+   `AnnualEnergyFrameV1` built from the full canonical `OperatingSnapshot`.
+   It preserves exactly 8,760 unrounded hourly AC and quality values under one
+   contiguous no-leap calendar and reconciles monthly, hemisphere-aware
+   meteorological-season and annual totals. Its four-source-year P10/P50/P90 is
+   an empirical spread (`n = 4`), not a calibrated interval, issued forecast or
+   guarantee; measured/live output, issued forecast, intra-hour variation,
+   spatial generation and causal climate attribution remain unavailable. One
+   `InstancedBufferGeometry` draw path retains all samples while the typed
+   action opens `AF`. Instruments 01 and 02 remain visible at lower emphasis.
+   Position 04 then forms Solar Array Engineering from a fail-closed
+   `ArrayEngineeringFrameV1` built from the same full canonical snapshot. It
+   preserves configured/resolved orientation, authoritative Sun and incidence
+   geometry, linked irradiance/conversion/loss evidence, annual base output,
+   quality and provenance. Its normalized aperture is explicitly not module
+   or site geometry. Array changes cannot alter the astronomical Sun path, and
+   module count, module efficiency, named inverter selection/curve and physical
+   moving shadows remain unavailable until their required equipment and
+   surveyed geometry contracts exist. The typed action opens the existing
+   `AE` HTML screening controls without resetting a restored branch.
+   Instruments 01–03 remain visible at lower emphasis. The compact annual
+   tuple, one-canvas/one-frame-owner boundary and existing analytical
+   workspaces remain unchanged. Position 05 then forms Scenario Comparison
+   from a fail-closed `ScenarioComparisonFrameV1` built from the full canonical
+   snapshot. It is one homogeneous deterministic `stress-summary` mode: the
+   configured baseline plus the four existing canonical annual stress results
+   in fixed order. A narrow canonical replay must reconcile every stored
+   result before release. Exact generation, screened annual energy value,
+   local supply, deltas, assumptions, quality and provenance remain semantic
+   HTML; five normalized spatial chambers encode only relative annual
+   generation response. The typed action opens `SR` at the same index without
+   replacing the active branch. Same-time alternate weather, dust-event
+   dynamics, hourly stress paths, occurrence probabilities, validated
+   heatwave/storm evidence, spatial microclimate/terrain/shadows, structural
+   risk, measured/live response and issued forecasts remain explicitly
+   unavailable. Instruments 01–04 remain visible at lower emphasis. The
+   compact tuple, one-canvas/one-frame-owner boundary and existing analytical
+   workspaces remain unchanged. Position 06 adds Battery & Energy-Flow from
+   `BatteryEnergyFlowFrameV1`, with a complete canonical dispatch replay,
+   exact linked record and UTC day, reconciled annual ledgers, explicit
+   simulated boundaries and eleven unavailable layers. Its static logical
+   routing schematic loads only when reached. The typed `BE` action preserves
+   the canonical linked index and restored branch, acknowledges activation,
+   then focuses the selected interval. Battery interval labels use `kWh / 1h`
+   and keyboard controls use a single roving tab stop. Six instruments are
+   mounted; position 07 remains a placeholder and 08–14 reserved. Instrument
+   07 is a separate future increment after I06 release acceptance and further
+   user instruction.
+5. **Milestones 5–7:** integrate the remaining supplied sequence, implement
+   the operational-frequency shift and Moon only at Milestone 5, and reconnect
+   the complete system in Mission Control.
+6. **Milestone 8:** harden measured performance, accessibility, responsive
+   behavior, browser coverage and visual regression. Baseline accessibility and
+   performance remain mandatory during every preceding milestone.
+
+Milestones are never merged. Every milestone must leave the current routes,
+scientific calculations, APIs, validation, forecasting and provenance green.

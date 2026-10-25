@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Instrument_Sans, Intel_One_Mono } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
+import "@/components/ui/glass-interactions.css";
 
 const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
@@ -97,6 +98,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${instrumentSans.variable} ${intelOneMono.variable} antialiased`}
+        data-interaction-feedback="glass"
       >
         {children}
       </body>

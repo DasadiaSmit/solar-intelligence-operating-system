@@ -11,6 +11,31 @@ Create a coherent, accessible and high-trust operating environment for scientifi
 - Responsive phone, tablet and desktop rules, reduced-motion support, forced-colour support, focus trapping and roving inspector tabs exist.
 - Theme and saved-view preferences are device-local. The shell does not yet use a shared context/reducer, URL-addressable workspace state or a dockable layout model.
 - There is no isolated component library, automated visual-regression suite or automated browser accessibility suite.
+- The reusable semantic renderer fallback under `components/ui` is connected
+  through the Hero/Observatory boundary; it does not yet constitute a full
+  design system.
+- The continuous Hero/Observatory now exposes mounted Solar Digital Twin,
+  Atmospheric Observation, Annual Energy, Solar Array Engineering, Scenario
+  Comparison and Battery Energy-Flow
+  instruments through keyboard-operable HTML navigation, exact semantic
+  readouts, complete non-WebGL/forced-colour paths and typed exact-index focus
+  handoffs to the existing `DT`, `WA`, `AF`, `AE`, `SR` and `BE` workspaces. The
+  Scenario Comparison readout keeps the configured baseline and four canonical
+  deterministic stress cases in an exact semantic HTML table with provenance
+  and ten unavailable-layer disclosures. Battery Energy-Flow keeps exact
+  interval, linked-day and annual ledgers, units, residuals, quality and
+  provenance in HTML with eleven unavailable-layer disclosures. Positions
+  01–06 are mounted, position 07 remains a placeholder and positions 08–14 remain reserved;
+  earlier instruments persist at reduced emphasis as later ones form. Motion
+  remains presentational and respects reduced-motion selection.
+- The `BE` action preserves the linked index and restored local scenario,
+  waits for application acknowledgement and focuses `battery-linked-interval`.
+  The linked-day selector has one roving tab stop, Arrow/Home/End operation,
+  at least 24-pixel targets and `aria-current="time"`; accessible names include
+  full timestamp, SOC and import/export values labelled `kWh / 1h`. Modified
+  local scenarios retain an explicit screening disclosure; the unmodified
+  branch preserves the canonical base. I06 source integration does not itself
+  establish release or empirical browser acceptance.
 - `app/globals.css` and `components/solar-os/SolarOperatingSystem.tsx` remain cross-department merge hotspots. Existing browser verification is documented, but the latest corrected mobile/tablet pixels still require the manual acceptance checklist in `PROJECT_STATUS.md`.
 
 ## Ownership boundary
@@ -34,7 +59,7 @@ Until the monolith is split, changes to `app/globals.css`, `components/solar-os/
 - Render workspaces registered through `WorkspaceDefinitionV2`; do not hard-code scientific capabilities into navigation.
 - Dispatch typed `UiCommandV1` actions for navigation, replay, layout and proposed scenario operations.
 - Host Digital Twin renderers through a stable renderer boundary with a complete non-WebGL fallback.
-- Host PET through a dock/panel contract; PET citations and proposed actions must use the same status and confirmation primitives as the rest of the OS.
+- Render Mission Intelligence as a native console and workflow surface, never a chat panel; its findings, evidence links, pipeline stages and proposed actions must use the same status and confirmation primitives as the rest of the OS.
 
 ## Decision authority
 
@@ -52,6 +77,9 @@ It may block a release for inaccessible controls, unreadable uncertainty, mislea
 6. Make workspace, selected time and scenario branch deep-linkable without exposing unsafe or unvalidated state.
 7. Build documented specimens for loading, empty, error, offline, stale, low-confidence, night, extreme-weather, disabled and read-only states.
 8. Add automated keyboard, contrast, reduced-motion, responsive and visual-regression coverage for both themes.
+9. Complete and accept Instrument 06 before beginning Instrument 07 as a
+   separate increment, retaining acknowledged focus, canonical facts,
+   screening disclosures and complete HTML access.
 
 ## Definition of done
 

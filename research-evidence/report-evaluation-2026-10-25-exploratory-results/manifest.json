@@ -1,0 +1,50 @@
+{
+  "schema": "sios-report-evaluation-output-1",
+  "runKind": "exploratory-same-case-regression",
+  "wrapperVersion": "report-exploration-wrapper-1.0.0",
+  "ruleVersion": "report-markdown-rules-1.0.0",
+  "sourceCommit": "d4d3372252ce82f3b08ad832d86f89777bd42223",
+  "evaluatorCommit": "d4d3372252ce82f3b08ad832d86f89777bd42223",
+  "protocolSha256": "b689786c0bf6dbd90f3ad71eb422e96931f5519ccec205fead3060aa30170660",
+  "inputManifestSha256": "cd4c5abb83290fbeedc537aecdd6b08387ea407edfecd97279714d4302813ab7",
+  "primaryManifestSha256": "b89499f9f662cfdf9543f75a2b8cf38b1c27c1bd652807b71ced734cb482e298",
+  "primaryResultsManifestSha256": "11b027dd9e6bde5409197a8d013d58a9a843af451bcc0706aaeb7ac4b2dcbac1",
+  "unchangedExtractorSha256": "fe5dc66a53f394db2ff5fc42fb7434f0a22b6194f45eb870faf2a54958d35092",
+  "files": [
+    {
+      "path": "REPORT.html",
+      "sha256": "c699c9abdf29ec9e4ea41a1e1383fb121b5f9e89f5c391c430867b634cd0d5ab",
+      "bytes": 92980
+    },
+    {
+      "path": "REPORT.md",
+      "sha256": "c5ba9b9efffe955316eb94450de905192427608a031dac2d6fec05eff9fecdca",
+      "bytes": 10372
+    },
+    {
+      "path": "coverage.png",
+      "sha256": "e050902a7e326650cd0412b19447f73b492e94c2a85a552982e96a4452715656",
+      "bytes": 59838
+    },
+    {
+      "path": "coverage.svg",
+      "sha256": "8b148fec787d59842f809d204ead075897d935de2b084a0a60ab85cef97c34bb",
+      "bytes": 48262
+    },
+    {
+      "path": "evaluations.json",
+      "sha256": "58bc6dcb5a60f196ac86c5a8d9ffea093dea8fef2d52b51880e0290383d413bc",
+      "bytes": 262668
+    },
+    {
+      "path": "fact-scores.csv",
+      "sha256": "6a9a472fff80638b3f24896b3e95e0b2d2c57e46f81056a6e452170babd2aaa1",
+      "bytes": 17141
+    },
+    {
+      "path": "runtime.json",
+      "sha256": "f4cae0891e57d357d126f915881739b600480e3bed3012b5ccf3cd05d9a8d84e",
+      "bytes": 768
+    }
+  ]
+}

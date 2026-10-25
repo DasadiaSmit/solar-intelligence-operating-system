@@ -7,7 +7,7 @@
   { "name": "department:data-weather", "color": "86A5D1", "description": "Weather, datasets, quality and provenance" },
   { "name": "department:forecast-ml", "color": "8E7CC3", "description": "Forecasting, ML and representative year" },
   { "name": "department:digital-twin", "color": "4AAE9B", "description": "Digital twin, maps and visual computing" },
-  { "name": "department:pet-assistant", "color": "C7A7D8", "description": "PET Assistant and grounded Solar Copilot" },
+  { "name": "department:mission-intelligence", "color": "C7A7D8", "description": "Mission Intelligence Core, specialist orchestration and scientific memory" },
   { "name": "department:platform", "color": "5C7C72", "description": "APIs, persistence, jobs and Worker runtime" },
   { "name": "department:quality", "color": "3F8F68", "description": "Quality engineering and scientific assurance" },
   { "name": "department:security-release", "color": "EE7B70", "description": "Security, reliability and release" },

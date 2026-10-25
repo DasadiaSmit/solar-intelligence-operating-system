@@ -9,11 +9,11 @@ The deterministic sample dataset is labelled **Simulated**. Fixed-tilt geometry,
 ## Units and temporal convention
 
 - Internal timestamps are ISO 8601 UTC.
-- Location timezone is retained for calendar grouping and display.
-- Geometry is evaluated at the midpoint of each interval.
+- Location timezone is retained as display metadata. The executable annual research calendar is grouped in UTC with an explicit no-leap alignment; local civil-time/DST grouping is not yet implemented.
+- Provider radiation timestamps label the end of the preceding hourly mean. Geometry is evaluated 30 minutes earlier, at that interval's midpoint.
 - Irradiance is power density in W/m².
-- Irradiation is `W/m² × intervalSeconds / 3600`, giving Wh/m².
-- Power is kW; energy is `kW × intervalSeconds / 3600`, giving kWh.
+- The executable annual engine currently requires hourly intervals. Irradiation is therefore `W/m² × 1 h`, giving Wh/m², and hourly mean kW is numerically equal to interval kWh.
+- General interval-duration integration is planned; non-hourly inputs are rejected rather than silently treated as one hour.
 - Air/module temperature is °C and wind speed is m/s.
 - Angles are degrees at the public boundary and radians internally.
 
@@ -48,7 +48,38 @@ When GHI, DNI, and DHI are supplied, the engine checks closure:
 GHI ≈ DNI × cos(θz) + DHI
 ```
 
-If only GHI exists, the Erbs diffuse-fraction correlation estimates DHI from clearness index. Derived components receive an explicit quality flag.
+The supplied triplet is accepted when the absolute closure residual is at most
+`max(25 W/m², 0.05 × GHI)`. If it exceeds that declared tolerance, DNI is
+bounded by both `1,400 W/m²` and `GHI / cos(θz)` when `cos(θz) > 0.065`
+(otherwise DNI is zero), and DHI is recomputed from the closure equation. The
+hour is flagged `corrected:supplied-irradiance-closure`, marked imputed, counted
+in dataset evidence, and receives a `0.02` science-quality penalty. GHI remains
+the provider anchor; this correction is transparent reconciliation, not proof
+that the provider component product is physically exact.
+
+If either beam or diffuse irradiance is unavailable, the adapter re-derives both components from GHI with the hourly Erbs diffuse-fraction correlation. For `μ = cos(θz)`, extraterrestrial normal irradiance `I0n`, and non-negative `G = GHI`:
+
+```text
+if not daylight, μ <= 0.065, or G <= 0:
+    DNI = 0
+    DHI = G
+    Kt  = 0
+otherwise:
+    I0h = max(1, I0n × μ)
+    Kt  = clamp(G / I0h, 0, 1.2)
+
+    fd = 1 - 0.09 Kt                                           if Kt <= 0.22
+    fd = 0.9511 - 0.1604 Kt + 4.388 Kt² - 16.638 Kt³
+         + 12.336 Kt⁴                                          if 0.22 < Kt <= 0.80
+    fd = 0.165                                                  if Kt > 0.80
+
+    fd       = clamp(fd, 0, 1)
+    DHIerbs  = clamp(G × fd, 0, G)
+    DNI      = clamp((G - DHIerbs) / μ, 0, 1400) W/m²
+    DHI      = clamp(G - DNI × μ, 0, G)
+```
+
+The `μ <= 0.065` guard avoids unstable division near the horizon. Recomputing final DHI after the 1,400 W/m² DNI cap preserves `GHI = DNI cos(θz) + DHI`; at night, any non-zero provider GHI is retained as diffuse rather than silently discarded. Derived components receive `derived:erbs-irradiance-components`. This empirical correlation is a fallback, not a substitute for a validated component product.
 
 For surface tilt `β`, panel azimuth `αp`, and solar azimuth `αs`:
 
@@ -68,7 +99,29 @@ Beam angle-of-incidence loss follows the ASHRAE form:
 IAM = max(0, 1 - b0 × (1 / cos(AOI) - 1))
 ```
 
-A configured horizon blocks direct beam when solar elevation is below the interpolated obstruction angle. Scalar shading affects the remaining irradiance and is disclosed as a simplification.
+The current horizon input is a scalar retained-energy loss applied in the DC loss chain; it is not an interpolated obstruction profile and does not geometrically block the beam. Scalar shading is increased at high incidence angle. Both are disclosed first-order approximations pending a site horizon profile and row/terrain model.
+
+## Weather-derived snow depth and albedo
+
+When the source exposes snow depth, that non-negative value is used. When it is unavailable, the annual adapter starts each source year at `S₀ = 0 cm` and advances a simplified balance proxy for temperature `T` in °C and hourly precipitation `P` in mm:
+
+```text
+if T < 1°C and P > 0:
+    Snext = clamp(Sprior + 0.65 × P, 0, 100) cm
+otherwise:
+    Snext = clamp(Sprior - 0.016 × max(T, 0), 0, 100) cm
+```
+
+The `0.65 cm/mm` accumulation and `0.016 cm/(°C·h)` melt constants are generic screening assumptions, not a calibrated snowpack model. Every proxy hour is flagged `derived:snow-depth-balance-proxy`, marked imputed, and receives a 0.025 quality-score penalty.
+
+Surface albedo is then derived as:
+
+```text
+albedo = 0.58                                      if snow depth > 0.5 cm
+albedo = clamp(0.19 + min(0.09, 0.01 × P), 0.16, 0.28) otherwise
+```
+
+These constants do not model snow ageing, vegetation, roof material, meltwater, wind redistribution, or sub-hourly accumulation. Site measurements or a validated land-surface/snow model must replace them for field-grade analysis.
 
 ## Module temperature
 
@@ -101,52 +154,140 @@ Simplified bifacial gain and tracking multipliers are experimental and are never
 
 ## Inverter
 
-The part-load relationship follows the documented PVWatts v5 form, with nominal efficiency scaled against reference efficiency `0.9637`; AC output is clamped to the rated inverter power and clipping is reported separately. See the [PVWatts Version 5 manual](https://pvwatts.nrel.gov/downloads/pvwattsv5.pdf).
+The executable inverter is a bounded generic part-load approximation:
+
+```text
+loadFraction = Pdc / Pac,rated
+partLoadAdjustment = 0.92 + 0.08 × sqrt(clamp(loadFraction, 0, 1))
+Pac,preclip = Pdc × nominalEfficiency × partLoadAdjustment
+Pac = min(Pac,rated, Pac,preclip)
+```
+
+This is not the PVWatts v5 inverter equation and must not be described as such. AC output is clamped to rated inverter power and clipping is reported separately. A named manufacturer curve or independently validated PVWatts implementation remains future work.
 
 For every positive DC input, efficiency and AC output are constrained to physical ranges. Night output is exactly zero.
 
 ## Battery and grid balance
 
-For each interval, on-site load is served by PV first. Surplus charges the battery subject to charge power, capacity, maximum state of charge, and charge efficiency. Deficit is served by the battery subject to discharge power, minimum state of charge, and discharge efficiency. Remaining surplus is exported or curtailed; remaining deficit is imported.
+For each one-hour interval, on-site load is served by PV first. Surplus charges
+the battery subject to charge power, capacity, maximum state of charge and
+charge efficiency. Deficit is served by the battery subject to discharge
+power, the greater of minimum SOC and reserve SOC, and discharge efficiency.
+Remaining surplus is exported or curtailed; remaining deficit is imported.
+The current engine applies configured kW limits as one-hour energy caps; it
+does not support variable interval duration.
 
 ```text
-chargeInput = min(surplus, chargeLimit × dt, (Emax - SOC) / ηcharge)
-delivered   = min(deficit, dischargeLimit × dt, (SOC - Emin) × ηdischarge)
-SOCnext     = SOC + ηcharge × chargeInput - delivered / ηdischarge
+SOCafterSelfDischarge = max(Emin, SOCstart × (1 - selfDischargePerHour))
+dispatchFloor = max(Emin, Ereserve)
+chargeInput = min(surplus, chargeLimit × 1h, (Emax - SOCafterSelfDischarge) / ηcharge)
+deliverable = max(0, SOCafterSelfDischarge - dispatchFloor) × ηdischarge
+delivered   = min(deficit, dischargeLimit × 1h, deliverable)
+SOCnext     = SOCafterSelfDischarge + ηcharge × chargeInput - delivered / ηdischarge
 ```
 
 Tests assert SOC bounds, non-negative flows, no simultaneous charge/discharge, and interval energy conservation within numeric tolerance.
 
 Revenue includes avoided import cost and export payment. Carbon reduction defaults to avoided grid imports; export-displacement credit is counted only when explicitly enabled because marginal displacement is system-dependent.
 
+### Battery Energy-Flow evidence adapter
+
+Instrument 06 uses the renderer-neutral `BatteryEnergyFlowFrameV1` built from
+the full canonical `OperatingSnapshot`, not the compact browser tuple. It
+replays the existing demand and greedy dispatch functions over all 8,760
+records and rejects stored flow or annual-summary disagreement. The frame
+preserves the exact linked record, its complete 24-record UTC day and annual
+ledger with provenance, input/weather quality and explicit one-hour units.
+Its timestamp is a canonical record anchor; interval-start/end attribution
+is unavailable.
+
+The frame and immutable view enforce these ledgers without display rounding:
+
+```text
+PV generation = PV direct to load + battery charger input + grid export + curtailment
+Demand = PV direct to load + battery discharge delivered + grid import
+Generation retained on site = annual generation - export - curtailment
+Local supply delivered to load = PV direct to load + battery discharge delivered
+Equivalent-full-cycle throughput proxy =
+  (annual charger input × ηcharge + annual discharge delivered / ηdischarge)
+  / (2 × active battery capacity)
+```
+
+Disabled/zero-capacity storage has zero SOC and a zero cycle-throughput proxy.
+The proxy is not degradation, warranty use or remaining lifetime. State bounds,
+reserve deliverability, configured power/export limits, conversion losses,
+exclusive charge/discharge and import/export directions, and residuals are
+checked. Reconciliation uses the larger of `1e-8` absolute tolerance and
+`1e-10 × max(|a|, |b|)` relative tolerance.
+
+Six static spatial routes encode linked-UTC-day accumulated energy through
+bounded ratios; the SOC reservoir encodes its configured operating band.
+Exact linked-hour and annual values remain HTML. Eleven unavailable layers
+cover instantaneous/intra-hour power, physical topology, measured plant
+telemetry, BMS state, degradation/lifetime, protection/controller dynamics,
+dynamic tariffs/carbon/grid events, dispatch uncertainty, alternative
+optimisation, outage/islanding and attributable interval boundaries.
+
+The `BE` handoff retains the exact index and existing local branch. With no
+scenario changes, the analytical application uses the canonical transported
+base directly. Modified device-local scenarios use the existing explicitly
+disclosed screening approximation; they do not replace this canonical frame.
+
 ## Short-record representative composite
 
 The 2022–2025 record is too short to be called a climate normal or standards-grade Typical Meteorological Year. The platform calls it a **2022–2025 short-record representative composite**.
 
-For each calendar month and source year, daily distributions are compared with the pooled four-year month using a Finkelstein–Schafer-style CDF distance over irradiation, mean/min/max temperature, cloud, and wind. The selection score combines:
+For each calendar month and source year, daily distributions are compared with the pooled four-year month using a Finkelstein–Schafer-inspired empirical-CDF distance `FS`. The executable score is:
 
-- weighted distribution distance, with irradiation dominant;
-- mean/median anomaly penalty;
-- persistence/run-length penalty;
-- month-seam continuity penalty.
+```text
+FSweighted = 0.45 FSGHI
+           + 0.25 FStemperature
+           + 0.10 FSwind
+           + 0.15 FScloud
+           + 0.05 FSprecipitation
 
-The best whole source month is selected deterministically. Hourly values are never averaged across years. Every output record retains its source year and month-seam flag. Leap day handling is explicit. A seeded weighted resampling ensemble provides scenario quantiles; the interface labels plain percentiles and does not misuse “P90 energy.”
+continuity = 0.60 × |Tprevious,last - Tcandidate,first| / 30
+           + 0.40 × |cloudprevious,last - cloudcandidate,first| / 100
+
+score = FSweighted + 0.08 × persistence + 0.04 × continuity
+```
+
+`FSGHI` uses daily irradiation, while the other terms use daily mean temperature, daily mean wind, daily mean cloud and daily precipitation total. Each `FS` value is the mean absolute separation between the candidate-month CDF and the pooled four-year CDF evaluated on the pooled values. `persistence` is the mean normalized difference in longest clear, overcast and wet run length relative to the four candidate years; each denominator is bounded below by one day. The coefficients are method constants, not fitted parameters.
+
+The best whole source month is selected deterministically. Hourly values are never averaged across years. Every output record retains its source timestamp and source year; target month, day, and day-of-year are recomputed together. Leap-day removal is explicit. Annual Q10/Q50/Q90 values are empirical non-exceedance quantiles of only the four historical-year simulations (`n=4`), not calibrated probabilistic P-values.
 
 A long-record PVGIS TMY can be compared as a separate benchmark but is never silently merged with the short record.
 
-## Forecasting
+## Forecasting and hindcasting
 
-The in-Worker model registry supports methods that can be reproduced and inspected without hidden training infrastructure:
+The annual research route uses one explicit chronological protocol:
 
-- physics-only reference;
-- seasonal naïve (same local calendar position in the previous year);
-- trailing moving-average clear-sky index by local hour;
-- exponential smoothing;
-- ridge regression with train-only scaling;
-- hybrid physics plus regression residual correction;
-- validation-weighted probabilistic ensemble.
+- train regression and climatology on 2022–2023;
+- calibrate ensemble weights and residual width on 2024;
+- evaluate once on untouched 2025;
+- report separate expanding annual folds for 2023, 2024, and 2025 stability.
 
-Example ridge features include POA, air temperature, POA×temperature, cloud, wind, and sine/cosine encodings for hour and day of year. Ensemble weights are derived from validation-only inverse MAE. Residual intervals use empirical/block-conformal quantiles and are clipped to non-negative/nameplate bounds.
+The evaluated methods are prior-year seasonal naive, 2022–2023 hour-of-year climatology, meteorological ridge regression, and a validation-weighted ensemble. The ten ridge features are GHI, DNI and DHI divided by 1,000; temperature divided by 25; wind divided by 10; cloud divided by 100; and sine/cosine encodings for hour and no-leap day of year. Features are standardized from training data. The intercept is not penalized; the executable ridge system uses fixed `λ = 0.015` and is equivalent to minimizing:
+
+```text
+Σ(y - β0 - Xβ)² + λ × ntraining × ||β||²
+```
+
+No hyperparameter search is claimed. For the 2024 calibration year, ensemble weights and the 80% absolute-residual width are:
+
+```text
+wi       = (1 / max(10⁻⁶, MAEi)) / Σj(1 / max(10⁻⁶, MAEj))
+point(t) = Σi wi × max(0, componenti(t))
+r80      = Q0.80(|y2024(t) - point2024(t)|)
+σcomp(t) = population standard deviation of the three component values at t
+half(t)  = max(r80, σcomp(t))
+lower(t) = max(0, point(t) - half(t))
+upper(t) = point(t) + half(t)
+```
+
+The calibrated weights and `r80` are applied unchanged to 2025. Component spread is not added to the residual width: the larger of the two widths is used. The current upper bound is not clipped to inverter nameplate, and that limitation is retained in the validation report.
+
+Because 2025 meteorology is realised reanalysis, the ridge and ensemble tasks are weather-conditioned hindcasts, not issued year-ahead forecasts. The physics calculation defines the current target and is not scored against itself. The initial offline operating snapshot also retains moving-average and exponential-smoothing proving baselines, but those one-step tasks are not ranked as equivalent to the full-year holdout.
 
 ARIMA/SARIMA, random forest, gradient boosting, TCN, LSTM, transformer, and deep physics-informed models require an actual training pipeline, serialized artifact, run manifest, and validation record. Until those exist, their status is **Planned**, and the application displays no invented metrics.
 
@@ -162,15 +303,26 @@ Implemented optimisation tools reuse the same full-year calculation for every ca
 
 A candidate dominates another only if no objective is worse and at least one is better. The UI therefore presents trade-offs among annual energy, self-consumption, grid imports, revenue, carbon, reliability, and uncertainty instead of asserting one universally optimal design.
 
+The Observatory Scenario Comparison instrument uses only the configured
+baseline and four canonical deterministic annual stress summaries: extended
+summer heatwave, Atlantic storm week, persistent snow cover and seven-day
+inverter outage. A narrow replay reuses the same optimisation calculation and
+must reconcile the stored annual deltas before presentation. This homogeneous
+`stress-summary` comparison is not a same-timestamp weather counterfactual,
+scenario-probability model, hourly event trajectory, independent forecast,
+measured response or bankable resilience assessment. The legacy
+`reliabilityDeltaPct` field is a local-supply percentage-point delta under the
+implemented calculation; it is not an outage probability.
+
 Bayesian optimisation, Sobol global sensitivity, formal scenario-tree optimisation, and robust mathematical programming remain **Planned** until genuine algorithms and validation are connected.
 
 ## Known numerical limitations
 
 - Hourly midpoint geometry smooths fast cloud and edge-of-sunrise effects.
+- The executable calendar is UTC; civil-time grouping and DST transitions are not represented.
 - The compact solar-position approximation loses accuracy at extreme latitude.
 - Isotropic diffuse ignores circumsolar/horizon brightening.
-- Scalar shading, soiling, dust, and snow do not replace physical submodels.
+- Scalar shading, soiling, dust, and the documented snow/albedo proxy do not replace physical submodels.
 - Deterministic demand/tariff/carbon profiles are scenarios, not measurements.
 - Four source years cannot characterize multi-decadal climate variability.
 - Confidence intervals depend on the simulated/input regime and do not bound all structural error.
-

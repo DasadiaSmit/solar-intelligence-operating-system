@@ -85,7 +85,10 @@ export function generateSampleWeatherYear(
         0.11 * Math.sin(2 * Math.PI * dayOfYear / 23.5 + year * 0.17);
       for (let hour = 0; hour < 24; hour += 1) {
         const timestamp = isoHour(year, month, day, hour);
-        const position = calculateSolarPosition(timestamp, location, dayOfYear);
+        // Preserve a common no-leap modelling ordinal while deriving solar
+        // geometry from the real UTC timestamp (notably after 29 February in
+        // the 2024 source calendar).
+        const position = calculateSolarPosition(timestamp, location);
         const clearSky = calculateClearSkyIrradiance(position, location.elevationM);
         const weatherNoise = (random() - 0.5) * 0.32;
         const targetCloud = clamp(

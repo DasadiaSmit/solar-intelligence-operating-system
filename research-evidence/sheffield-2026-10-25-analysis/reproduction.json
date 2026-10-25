@@ -1,0 +1,12 @@
+{
+  "baselineStudyId": "study_22b6b34d1cf9f34dbfbc68ee",
+  "baselineSourceCommit": "5bbb7e389a5288b7d5a27f5cd23e3c55a81ff387",
+  "analysisSourceCommit": "23288f410bc5df5bf1a571b83a98e245dc1f43e0",
+  "protocolSha256": "ce4e11cbd2d123b5d17d77efcc18f91623a2b5bf817fa73562d459edccb0d02d",
+  "fullBaselineEquality": true,
+  "defaultAuditEnergyEquality": true,
+  "predictionMetricPathEquality": true,
+  "networkDisabled": true,
+  "target": "physics-derived-generation",
+  "evaluationStatus": "retrospective previously-inspected 2025; not a new untouched evaluation"
+}

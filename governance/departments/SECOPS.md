@@ -10,11 +10,12 @@ Protect source, identities, data, scientific integrity and operational continuit
 - API request bodies are bounded, provider retries/timeouts are bounded, user-owned scenarios are owner-scoped, and the Worker sets content-type, referrer, permissions and frame headers.
 - Return paths are validated in the retained ChatGPT authentication helper.
 - Security, deployment and backup/recovery documentation exists.
+- A whole-lockfile dependency audit blocks unexcepted high and critical advisories; exceptions are exact-GHSA, owner-assigned, reachability-documented and expiry-tested.
 - The hosted deployment and optional D1/R2 bindings exist, but scheduled ingestion has no configured trigger in the packaged application.
 - A tested Content Security Policy is not implemented.
 - Application rate limiting, tenant membership, full RBAC, signed manifests, SBOMs, release attestations and automated backup verification are not implemented.
 - Secret scanning, push protection, vulnerability alerts, private vulnerability reporting and branch protection are repository settings and must be verified after GitHub publication; their presence must not be inferred from source files.
-- No automated GitHub release pipeline, CodeQL workflow, dependency-review gate or recorded D1/R2 restore drill exists yet.
+- No automated GitHub release pipeline, CodeQL workflow, pull-request dependency-delta review or recorded D1/R2 restore drill exists yet.
 
 ## Ownership boundary
 
@@ -35,7 +36,7 @@ SECOPS does not own scientific acceptance, provider licensing, product prioritie
 - **DATA and RESEARCH:** licences, retention, sensitive datasets, manifest integrity and reproducible artifact custody.
 - **ARCH:** threat boundaries, dependency policy and release-compatible architecture.
 - **QA:** CodeQL/dependency checks, security regression tests and release evidence.
-- **FEATURES, EXPERIENCE and PET:** secure user flows, safe rendering/export and assistant abuse controls.
+- **FEATURES, EXPERIENCE and MI:** secure user flows, safe rendering/export, evidence-injection controls and confirmed-action boundaries.
 - **All departments:** vulnerability remediation, dependency ownership and rollback readiness.
 
 ## Decision authority
@@ -47,7 +48,7 @@ SECOPS controls release security gates, vulnerability severity, secret response,
 1. Verify the repository is private and configure a protected `main` ruleset with required checks, resolved conversations, blocked force-push/deletion and least-privilege bypass.
 2. Enable and record the status of vulnerability alerts, Dependabot security updates, secret scanning, push protection and private vulnerability reporting where the account supports them.
 3. Add a private vulnerability-reporting policy; public issues must not be used for undisclosed vulnerabilities.
-4. Build a threat model covering hosting-injected identity, scenario ownership, provider SSRF boundaries, D1/R2, exports, assistant behavior and scientific-integrity attacks.
+4. Build a threat model covering hosting-injected identity, scenario ownership, provider SSRF boundaries, D1/R2, exports, Mission Intelligence evidence routing, scientific memory and scientific-integrity attacks.
 5. Implement and test application rate limiting and tenant/RBAC enforcement with PLATFORM before those controls are marked implemented.
 6. Deploy CSP in report-only mode, resolve violations and enforce it only after exact production-build testing.
 7. Add dependency review, CodeQL or equivalent static analysis, secret checks and lockfile-based builds to CI.

@@ -1,0 +1,64 @@
+.solar-os .assessment-evidence { align-self: start; min-width: 0; }
+.solar-os .assessment-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 20px 22px 10px; }
+.solar-os .assessment-heading span:first-child { color: var(--forecast); font: 11px/1.4 var(--font-mono), monospace; letter-spacing: .06em; }
+.solar-os .assessment-heading h2 { margin: 6px 0 0; color: var(--text); font-size: 22px; line-height: 1.25; letter-spacing: -.03em; }
+.solar-os .assessment-evidence .assessment-scope { padding: 0 22px 18px; margin: 0; border-bottom: 1px solid var(--line); }
+.solar-os .assessment-evidence p { color: var(--muted); font-size: 13px; line-height: 1.6; }
+.solar-os .assessment-content, .solar-os .assessment-load { padding: 18px 22px 22px; }
+.solar-os .assessment-load p { margin: 0 0 14px; }
+.solar-os .assessment-evidence button { display: inline-flex; justify-content: center; align-items: center; min-height: 42px; padding: 9px 16px; border: 1px solid var(--sunlit-button-edge); border-radius: 25px; background: var(--sunlit-button); color: var(--text); font-size: 12px; line-height: 1.4; cursor: pointer; box-shadow: inset 0 1px 0 var(--sunlit-rim); transition: transform 160ms ease, background 160ms ease; }
+.solar-os .assessment-evidence button:hover:not(:disabled) { background: var(--sunlit-button-hover); transform: scale(1.035); }
+.solar-os .assessment-evidence button:active:not(:disabled) { transform: scale(.98); }
+.solar-os .assessment-evidence button:disabled { opacity: .5; cursor: default; }
+.solar-os .assessment-nav, .solar-os .assessment-downloads { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 18px; }
+.solar-os .assessment-metrics { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; margin: 16px 0; }
+.solar-os .assessment-metrics > div { min-width: 0; border: 1px solid var(--line); background: var(--sunlit-field); border-radius: 18px; padding: 18px; }
+.solar-os .assessment-metrics span { display: block; font-size: 12px; color: var(--muted); }
+.solar-os .assessment-metrics strong { display: block; margin-top: 9px; color: var(--text); font-size: 20px; line-height: 1.4; font-weight: 550; }
+.solar-os .assessment-metrics small { font-size: 13px; font-weight: 400; }
+.solar-os .assessment-metrics p { margin: 8px 0 0; }
+.solar-os .assessment-table { max-width: 100%; overflow: auto; border: 1px solid var(--line); border-radius: 13px; }
+.solar-os .assessment-table table { width: 100%; border-collapse: collapse; font-size: 12px; white-space: nowrap; }
+.solar-os .assessment-table caption { text-align: left; white-space: normal; padding: 12px 14px; font-size: 12px; line-height: 1.5; color: var(--muted); }
+.solar-os .assessment-table th, .solar-os .assessment-table td { text-align: left; padding: 11px 14px; border-top: 1px solid var(--line); color: var(--text); }
+.solar-os .assessment-table thead th { font-weight: 500; background: var(--sunlit-header); }
+.solar-os .assessment-table tbody th { font-weight: 400; }
+.solar-os .assessment-sacrifice { border-left: 3px solid var(--solar); padding-left: 16px; margin: 20px 0; }
+.solar-os .assessment-sacrifice h3 { font-size: 15px; margin: 0; }
+.solar-os .assessment-sacrifice p { margin: 6px 0; }
+.solar-os .assessment-finding { padding: 14px 17px; border-radius: 13px; background: var(--sunlit-accent); color: var(--sunlit-accent-text); }
+.solar-os .assessment-options { border: 0; margin: 24px 0; padding: 0; display: flex; gap: 9px; flex-wrap: wrap; }
+.solar-os .assessment-options legend { font-size: 14px; margin-bottom: 12px; color: var(--text); }
+.solar-os .assessment-options label { display: flex; align-items: center; gap: 7px; min-height: 42px; padding: 9px 14px; border: 1px solid var(--line); border-radius: 24px; background: var(--sunlit-field); font-size: 12px; color: var(--text); cursor: pointer; transition: transform 160ms ease; }
+.solar-os .assessment-options label:hover { transform: scale(1.035); }
+.solar-os .assessment-options label.is-included { border-color: var(--forecast); }
+.solar-os .assessment-options input { accent-color: var(--forecast); width: 16px; height: 16px; }
+.solar-os .assessment-options label:has(input:focus-visible) { outline: 2px solid var(--solar); outline-offset: 3px; }
+.solar-os .assessment-provenance, .solar-os .assessment-report { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.6; }
+.solar-os .assessment-evidence summary { color: var(--text); cursor: pointer; padding: 8px 0; min-height: 38px; font-size: 13px; }
+.solar-os .assessment-provenance dl > div { display: grid; grid-template-columns: 140px minmax(0,1fr); gap: 12px; padding: 6px 0; }
+.solar-os .assessment-provenance dd { margin: 0; overflow-wrap: anywhere; }
+.solar-os .assessment-provenance a { color: var(--forecast); text-decoration: underline; }
+.solar-os .assessment-provenance ul { padding-left: 20px; }
+.solar-os .assessment-error { color: var(--critical); padding: 0 22px 16px; }
+.solar-os .assessment-report article { background: var(--sunlit-field); border-radius: 12px; padding: 18px; }
+.solar-os .assessment-report h1 { font-size: 24px; line-height: 1.3; }
+.solar-os .assessment-report h2 { font-size: 18px; margin-top: 22px; }
+.solar-os .assessment-report h3 { font-size: 15px; }
+.solar-os .assessment-report .report-table { overflow: auto; }
+.solar-os .assessment-report table { border-collapse: collapse; width: 100%; font-size: 12px; }
+.solar-os .assessment-report th, .solar-os .assessment-report td { border: 1px solid var(--line); padding: 8px; text-align: left; }
+.solar-os .assessment-report p { overflow-wrap: anywhere; }
+@media (max-width: 760px) {
+  .solar-os .assessment-heading { padding: 16px 14px 10px; }
+  .solar-os .assessment-heading h2 { font-size: 19px; }
+  .solar-os .assessment-evidence .assessment-scope { padding: 0 14px 14px; }
+  .solar-os .assessment-content, .solar-os .assessment-load { padding: 14px; }
+  .solar-os .assessment-metrics { grid-template-columns: minmax(0,1fr); }
+  .solar-os .assessment-provenance dl > div { display: block; }
+  .solar-os .assessment-options label { flex: 1 1 180px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .solar-os .assessment-evidence button, .solar-os .assessment-options label { transition: none; }
+  .solar-os .assessment-evidence button:hover:not(:disabled), .solar-os .assessment-evidence button:active:not(:disabled), .solar-os .assessment-options label:hover { transform: none; }
+}

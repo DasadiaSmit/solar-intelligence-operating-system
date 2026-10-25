@@ -306,7 +306,7 @@ export interface ValidationMetrics {
   mapePct: number | null;
   normalizedMaePct: number;
   bias: number;
-  rSquared: number;
+  rSquared: number | null;
   seasonalMae: Record<"winter" | "spring" | "summer" | "autumn", number>;
   annualGenerationErrorPct: number;
   peakOutputErrorPct: number;

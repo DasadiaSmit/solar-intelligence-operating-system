@@ -1,0 +1,12 @@
+{
+  "sourceCommit": "83687bf35bb34c16efdb95de74a00e0cb4f145ff",
+  "baselineRendererCommit": "0dde63d2643514127e4383bfd6da9e69f91a03b4",
+  "baselineRendererSha256": "c68e381840869055bd7fb8e2f8acb2cc71875d8b68115d03d2f3b74b20c8b90f",
+  "protocolSha256": "b689786c0bf6dbd90f3ad71eb422e96931f5519ccec205fead3060aa30170660",
+  "sourceStudyManifestSha256": "99c481c916133111dc989b3c4696491d3b8fc34eb30c924f74715e55dc284f6f",
+  "primarySourceUnchanged": true,
+  "transferReportByteIdentical": true,
+  "fetchDisabled": true,
+  "noNetworkRequired": true,
+  "interpretation": "Predeclared known-answer software information benchmark; no participants or new PV experiments. Incomplete and direct renderer stress cases are separate from six complete primary cases."
+}

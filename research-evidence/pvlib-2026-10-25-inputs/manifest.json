@@ -1,0 +1,25 @@
+{
+  "schema": "sios-reference-input-1",
+  "generatedAtUtc": "2026-10-25T15:37:24.681Z",
+  "sourceCommit": "0dde63d2643514127e4383bfd6da9e69f91a03b4",
+  "sourceStudyManifestSha256": "99c481c916133111dc989b3c4696491d3b8fc34eb30c924f74715e55dc284f6f",
+  "sourceFrozenBundleGzipSha256": "fd373ec4e93aa73e2ea44a75d5265d154f9b6400ff8d8a88f0b877b35fa5695d",
+  "protocolSha256": "fd505e4bcf69eeeed94675f66aa47c0c58d763991df9be96d22ea8c0f31a781b",
+  "sourceStudyCommit": "23288f410bc5df5bf1a571b83a98e245dc1f43e0",
+  "originalAnnualTotalsReconciled": true,
+  "networkDisabled": true,
+  "units": "Irradiance W/m2; temperature C; power kW. Each exported hourly mean power integrated over1hour has the same numeric kWh value. UTC timestamps are existing interval midpoints; do not shift again.",
+  "diagnosticScope": "Controlled monofacial no-extra-loss copies; original bifacial inputs and results preserved separately.",
+  "files": [
+    {
+      "path": "inputs.json.gz",
+      "bytes": 6091704,
+      "sha256": "9e66a2e25756d3a658c2d761f67331380c5644adbecd8dc20428542b18b085df"
+    },
+    {
+      "path": "protocol.json",
+      "bytes": 5451,
+      "sha256": "fd505e4bcf69eeeed94675f66aa47c0c58d763991df9be96d22ea8c0f31a781b"
+    }
+  ]
+}

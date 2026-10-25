@@ -9,11 +9,12 @@ Estimate complete-year photovoltaic production with transparent baselines, physi
 Maturity uses the common scale: **M0** planned only; **M1** executable prototype; **M2** deterministic and tested; **M3** independently validated on untouched real data; **M4** operationally monitored; **M5** certified for its declared use.
 
 - **M2 numerical utilities:** `lib/forecasting/**` contains executable seasonal-naive, moving-average, exponential-smoothing, ridge-regression, inverse-MAE ensemble, interval and metric functions plus an expanding-window rolling-origin evaluator. Deterministic tests cover exact metrics, ridge fit and one rolling-origin case.
-- **M1 forecasting evidence:** model comparisons in `lib/operating-snapshot.ts` use deterministic simulated weather and a constructed `measuredPattern`; they demonstrate mechanics, not field forecast skill. Ensemble calibration uses the first 120 days of the 2025 proving series, while reported whole-year metrics are not yet a separately untouched promotion evaluation.
-- **M1 representative year:** `lib/representative-year/index.ts` constructs 8,760 hours by selecting whole historical days against irradiance, temperature and cloud quantiles with source-balance and continuity penalties. Its input is hard-coded to simulated 2022–2025 non-leap years.
+- **M1 legacy operating-snapshot evidence:** model comparisons in `lib/operating-snapshot.ts` still use deterministic simulated weather and a constructed `measuredPattern`; they demonstrate mechanics, not field forecast skill. This ledger remains separate from the annual research study and cannot support promotion.
+- **M2 chronological research protocol / M1 scientific evidence:** `lib/research/annual-study.ts` trains regression and climatology on 2022–2023, calibrates ensemble weights and interval width on 2024, evaluates once on untouched 2025, and reports expanding annual stability folds. It is deterministic and tested, but its target is physics-derived generation and realised weather is reanalysis or simulation, so it is not M3 field or issued-forecast evidence.
+- **M2 implementation / M1 representative-year evidence:** `lib/representative-year/index.ts` constructs exactly 8,760 hours by selecting one intact source month per calendar month with multivariate empirical-CDF, persistence and boundary penalties. The research route accepts canonical sample or reanalysis years and preserves source identity, but four years remain too short for a standards-grade TMY.
 - **M0:** trained SARIMA, random forest, gradient boosting, TCN, LSTM, Transformer and deep physics-informed artifacts; archived issue-time forecast replay; production drift monitoring; formal experiment execution and artifact promotion.
 - Registry entries for untrained models are correctly marked `planned` with no fabricated metrics.
-- Documentation currently overstates parts of the implementation: it describes FS-style source-month selection, clear-sky-index moving averages, physics residual correction, block-conformal intervals and CUSUM/feature drift monitoring that the runtime does not yet implement.
+- Scientific documentation now describes the executable whole-month selection, fixed ridge baseline and calibration-only absolute-residual interval. Block-conformal intervals, interval scoring and runtime residual/feature drift monitoring remain explicitly planned.
 
 ## Ownership boundary
 
@@ -21,6 +22,7 @@ Maturity uses the common scale: **M0** planned only; **M1** executable prototype
 - **Primary records:** `model_versions`, `experiments` and `experiment_metrics` in `db/schema.ts` and `drizzle/**`. A forecast-run table and immutable model-artifact storage are target capabilities, not current tables.
 - **Governed shared paths:** forecast, model, interval, validation and representative-year contracts plus `MODEL_VERSION` and `DATASET_VERSION` in `lib/contracts/index.ts`.
 - **Shared integration path:** model construction inside `lib/operating-snapshot.ts` is platform orchestration; FORECAST owns its methodological validity, split definitions and model status.
+- **Shared annual-research path:** `lib/research/**` and `app/api/v1/studies/annual/**` are ARCH/PLATFORM integration surfaces. FORECAST owns representative-year scoring, features, hyperparameters, temporal partitions, ensemble calibration, metrics and model status within that boundary.
 - **Documentation and tests:** `docs/MODEL_VALIDATION.md`, forecasting and representative-year sections of `docs/SCIENTIFIC_METHODS.md`, `docs/RESEARCH_ROADMAP.md`, `research/README.md` and relevant cases in `tests/science-core.test.mjs`.
 - **Target paths, planned:** `research/pipelines/**`, `research/configs/**`, `research/manifests/**`, `tests/forecasting/**`, `tests/representative-year/**` and `tests/fixtures/model-runs/**`.
 - FORECAST does not own provider truth, solar equations, battery dispatch, financial policy or visual ranking of models.
@@ -29,7 +31,7 @@ Maturity uses the common scale: **M0** planned only; **M1** executable prototype
 
 - **Consumes from DATA:** immutable weather and production snapshot IDs, quality, exact data class, issue/valid times, lead time, units and transformation history.
 - **Consumes from STAR:** versioned hourly physical estimates and structural assumptions; these remain a reference or feature, not measured truth.
-- **Publishes today:** `ModelRecord[]`, `ValidationMetrics`, point/interval arrays and `RepresentativeYearRecord` within the operating snapshot.
+- **Publishes today:** `ModelRecord[]`, `ValidationMetrics`, point/interval arrays and `RepresentativeYearRecord` within the operating snapshot, plus chronological `ResearchModelEvidence`, rolling-origin evidence and annual uncertainty in `AnnualResearchStudy`.
 - **Required target forecast contract:** forecast-run ID, model/artifact hash, input snapshot IDs, issue time, valid range, lead-time grid, feature schema, training/calibration/evaluation windows, point/quantile output, units, quality, assumptions and warnings.
 - **Required target representative-year contract:** method/version, selected source interval and snapshot for every output hour, construction scores, seam flags, source weights, distribution diagnostics and uncertainty ensemble.
 - ENERGY may consume forecast distributions for optimisation only after issue-time and scenario semantics are explicit. It may not treat P10/P90 bounds as guarantees.
@@ -44,7 +46,7 @@ Maturity uses the common scale: **M0** planned only; **M1** executable prototype
 
 ## First deep-work programme
 
-1. **Correct the evidence boundary:** align documentation with current code, separate calibration from untouched evaluation and make every simulated score visibly non-field evidence.
+1. **Attach measured truth without weakening the evidence boundary:** add a versioned production target and archived issue-time forecast inputs while preserving the current disjoint train/calibration/evaluation protocol and non-field labels.
 2. **Generalise representative years:** accept versioned multi-year datasets, preserve source snapshot lineage, support leap policy and compare multi-year averaging, weather normalisation, FS/TMY selection, regime clustering and weighted resampling.
 3. **Create the offline run contract:** pin Python dependencies and record code release, dataset hashes, feature schema, split, seed, hyperparameters, compute, metrics, calibration and artifact hash.
 4. **Establish serious baselines:** implement seasonal/state-space and SARIMA, random forest and gradient boosting before deep architectures; compare all models under identical rolling origins.

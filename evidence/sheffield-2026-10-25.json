@@ -1,0 +1,260 @@
+{
+  "schema": "sios-assessment-evidence-bundle-1",
+  "evidenceId": "sheffield-2026-10-25",
+  "title": "Sheffield array decision evidence",
+  "source": {
+    "studyId": "study_22b6b34d1cf9f34dbfbc68ee",
+    "sourceMode": "reanalysis",
+    "sourceYears": [
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "provider": "Open-Meteo / ECMWF",
+    "product": "ERA5 reanalysis",
+    "studyManifestSha256": "99c481c916133111dc989b3c4696491d3b8fc34eb30c924f74715e55dc284f6f",
+    "auditSha256": "eb8bf4bc9309c62ed126d9d30e244d0cdd638f55aa75993fdc5f3c4af7fbacac",
+    "studySha256": "eb0a5f5c637426bb655d5ff681b941a449e5bc5ef257eff59ae4e14a0c69b54b",
+    "protocolSha256": "ce4e11cbd2d123b5d17d77efcc18f91623a2b5bf817fa73562d459edccb0d02d",
+    "sourceCommit": "23288f410bc5df5bf1a571b83a98e245dc1f43e0",
+    "generatedAtUtc": "2026-10-25T15:05:02.756Z",
+    "calculationVersion": "sios-physics-1.0.0",
+    "modelVersion": "sios-request-models-1.0.0",
+    "scienceAdapterVersion": "sios-weather-science-adapter-1.0.0",
+    "representativeYearId": "representative-2026-972fefef",
+    "datasets": [
+      {
+        "year": 2022,
+        "snapshotId": "dsv_3db08eb3080ccdd12bef39b5",
+        "contentHash": "c01a61127197eed7b82b9354cbc030dbdc441376f052358fb3bf94d0ed521360",
+        "scienceContentHash": "592e04c344c30f656494c7dfba78f3853234cf7d3f9678652fd50e893d7cc24b",
+        "sourceRecordCount": 8760,
+        "simulationRecordCount": 8760,
+        "leapHoursRemoved": 0
+      },
+      {
+        "year": 2023,
+        "snapshotId": "dsv_4fc4781c7d2c114039d69518",
+        "contentHash": "1f9d4acff7dff2493e65c99cb77cd957f72e5682abfcff8061a9a704c6e42839",
+        "scienceContentHash": "4544f8039fcf30e219a8a8b802eabe2e1673be8e9d7e01bfb4e269aaea90af9e",
+        "sourceRecordCount": 8760,
+        "simulationRecordCount": 8760,
+        "leapHoursRemoved": 0
+      },
+      {
+        "year": 2024,
+        "snapshotId": "dsv_65dd51ef9aad6ac9f970be51",
+        "contentHash": "e39bc729a0375cfe046f4ae76a747c44ebc2d73b2a2f5f5388f7a933cc1ea72f",
+        "scienceContentHash": "87e464afa2fc27d8953d3e799cbf926d6c5f054fdcb9059cf69c08ff40e1ceb7",
+        "sourceRecordCount": 8784,
+        "simulationRecordCount": 8760,
+        "leapHoursRemoved": 24
+      },
+      {
+        "year": 2025,
+        "snapshotId": "dsv_6f4c3efbedf7e7b17b5a95da",
+        "contentHash": "87a09b1158608761a10ae56c47caa915d70a887953d15768acbcc921baaae40d",
+        "scienceContentHash": "90c790f445bd8507a6d9c9019714f7b8ea703aa6ad1330816268d5efcccebcb4",
+        "sourceRecordCount": 8760,
+        "simulationRecordCount": 8760,
+        "leapHoursRemoved": 0
+      }
+    ],
+    "attributionUrl": "https://open-meteo.com/en/licence"
+  },
+  "baseline": {
+    "location": {
+      "id": "sheffield-research-array",
+      "name": "Sheffield Solar Research Array",
+      "latitude": 53.3811,
+      "longitude": -1.4701,
+      "elevationM": 95,
+      "timezone": "Europe/London",
+      "standardUtcOffsetMinutes": 0
+    },
+    "capacityKwDc": 48,
+    "tiltDeg": 32,
+    "azimuthDeg": 180,
+    "aggregatePvLossPct": 10.128170830605265,
+    "annualKWh": 49248.55942623277,
+    "configuration": {
+      "array": {
+        "capacityKwDc": 48,
+        "tiltDeg": 32,
+        "azimuthDeg": 180,
+        "tracking": "fixed",
+        "maxTrackerTiltDeg": 60,
+        "panelTechnology": "bifacial-mono-n",
+        "bifaciality": 0.72,
+        "temperatureCoefficientPerC": -0.0034,
+        "degradationPerYear": 0.004,
+        "systemAgeYears": 2,
+        "dcAcRatio": 1.2,
+        "inverterEfficiency": 0.975
+      },
+      "losses": {
+        "horizon": 0.012,
+        "shading": 0.018,
+        "soiling": 0.022,
+        "dust": 0.006,
+        "snow": 0.002,
+        "mismatch": 0.012,
+        "wiring": 0.015,
+        "strings": 0.007,
+        "availability": 0.012,
+        "curtailment": 0
+      }
+    }
+  },
+  "candidates": [
+    {
+      "id": "tilt-22_azimuth-162",
+      "tiltDeg": 22,
+      "azimuthDeg": 162
+    },
+    {
+      "id": "tilt-22_azimuth-180",
+      "tiltDeg": 22,
+      "azimuthDeg": 180
+    },
+    {
+      "id": "tilt-22_azimuth-198",
+      "tiltDeg": 22,
+      "azimuthDeg": 198
+    },
+    {
+      "id": "tilt-32_azimuth-162",
+      "tiltDeg": 32,
+      "azimuthDeg": 162
+    },
+    {
+      "id": "tilt-32_azimuth-180",
+      "tiltDeg": 32,
+      "azimuthDeg": 180
+    },
+    {
+      "id": "tilt-32_azimuth-198",
+      "tiltDeg": 32,
+      "azimuthDeg": 198
+    },
+    {
+      "id": "tilt-42_azimuth-162",
+      "tiltDeg": 42,
+      "azimuthDeg": 162
+    },
+    {
+      "id": "tilt-42_azimuth-180",
+      "tiltDeg": 42,
+      "azimuthDeg": 180
+    },
+    {
+      "id": "tilt-42_azimuth-198",
+      "tiltDeg": 42,
+      "azimuthDeg": 198
+    }
+  ],
+  "nominalKWh": [
+    47813.49209206635,
+    47976.59899626831,
+    47547.08194900298,
+    49062.88883694867,
+    49248.55942623277,
+    48686.05428653013,
+    49383.296783891325,
+    49614.21162709614,
+    48956.0885214629
+  ],
+  "historicalCases": [
+    {
+      "id": "2022",
+      "annualKWh": [
+        50440.756875621846,
+        50597.27847507135,
+        50072.80291934209,
+        51991.6574654031,
+        52169.7437610365,
+        51466.600923732694,
+        52533.70710837607,
+        52751.036542987495,
+        51920.066916441516
+      ]
+    },
+    {
+      "id": "2023",
+      "annualKWh": [
+        47980.85984219473,
+        48279.79271480771,
+        47972.343400181846,
+        49188.557303459995,
+        49563.10073967555,
+        49166.747624782125,
+        49463.77947169087,
+        49929.482590758445,
+        49469.09418756979
+      ]
+    },
+    {
+      "id": "2024",
+      "annualKWh": [
+        44481.45450233529,
+        44562.184477146526,
+        44117.570650270536,
+        45585.67221873789,
+        45660.769309873904,
+        45065.49798598183,
+        45859.60710306949,
+        45941.380184023896,
+        45246.74807238712
+      ]
+    },
+    {
+      "id": "2025",
+      "annualKWh": [
+        51562.15221486784,
+        51797.81595396367,
+        51367.28962835075,
+        52971.34284178677,
+        53252.29667801031,
+        52685.82666906609,
+        53347.671717228695,
+        53672.90046591837,
+        53016.75924568745
+      ]
+    }
+  ],
+  "omissions": [
+    {
+      "excludedScenarioId": "2022",
+      "annualKWh": 48604.31937360942
+    },
+    {
+      "excludedScenarioId": "2023",
+      "annualKWh": 49986.310731413825
+    },
+    {
+      "excludedScenarioId": "2024",
+      "annualKWh": 51936.45068563008
+    },
+    {
+      "excludedScenarioId": "2025",
+      "annualKWh": 47150.226926160336
+    }
+  ],
+  "limitations": [
+    "Four years only. Omitted-year cases are retrospective diagnostics, not forecasting tests.",
+    "Regret improvement is descriptive over the same finite scenarios used to choose the robust option.",
+    "Method scores and seam jumps are diagnostics, not proof of measured accuracy.",
+    "Options are a bounded hypothetical grid, not surveyed feasibility or a global optimum.",
+    "The energy objective does not establish financial value.",
+    "Retrospective evidence from a previously inspected study; not a fresh untouched validation set.",
+    "The selected option subset is compared across all four recorded years. Filtering does not create new simulations.",
+    "The omission series remains tied to the recorded 48 kWp, 32-degree tilt, 180-degree azimuth baseline; it is not a range for the selected winner.",
+    "ERA5 is gridded reanalysis, not a plant meter. Snow depth uses the documented temperature/precipitation proxy; leap day is removed after weather adaptation.",
+    "The dashboard scenario controls do not alter this frozen evidence."
+  ],
+  "integrity": {
+    "algorithm": "SHA-256",
+    "payloadSha256": "b65dd7925d2e1168ba50c8f6d1c1aed961dfd8c04580adbc00d1b80831aa2c5c"
+  }
+}

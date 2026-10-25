@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-25",
+  "baselineDeployedSource": "869cb1310894ba6d1827b2e6ff4a557f5c5a800f",
+  "applicationTests": {
+    "passed": 231,
+    "groups": {
+      "departments": 4,
+      "science": 11,
+      "research": 11,
+      "assessment": 86,
+      "mission": 15,
+      "visual": 96,
+      "renderedSmoke": 8
+    }
+  },
+  "freshPublicationCheckout": {
+    "frozenLockfileInstall": "passed",
+    "productionBuild": "passed",
+    "typecheck": "passed",
+    "lint": "passed",
+    "dependencyAudit": {
+      "highCriticalGate": "passed",
+      "moderateAdvisories": 3
+    }
+  },
+  "portableReplay": {
+    "testsPassed": 5,
+    "primaryRecords": 216,
+    "exploratoryRecords": 288,
+    "controlRecordsUnchanged": 216
+  },
+  "frozenEvidence": {
+    "files": 135,
+    "sha256Match": true
+  },
+  "sourceChangesRelativeToV20": [
+    ".github/workflows/ci.yml",
+    "PROJECT_STATUS.md",
+    "README.md",
+    "START_HERE_OTHER_LAPTOP.md"
+  ],
+  "localStartup": {
+    "assessmentEndpoint": "HTTP 200",
+    "productionHealth": "operational",
+    "database": "available after local-only schema creation",
+    "snapshotStore": "available"
+  },
+  "scope": "Packaging verification of existing frozen studies; not measured plant, operational forecast, or human benefit validation.",
+  "archiveRestore": {
+    "files": 468,
+    "allSha256Match": true,
+    "portableTestsPassed": 5,
+    "primaryRecords": 216,
+    "exploratoryRecords": 288,
+    "controlRecordsUnchanged": 216,
+    "gitMetadataIncluded": false
+  },
+  "whitespaceReview": {
+    "newPackagingFiles": "passed",
+    "frozenSourceAndEvidence": "Preserved byte-identically, including pre-existing SVG trailing whitespace and two trailing blank lines."
+  }
+}
