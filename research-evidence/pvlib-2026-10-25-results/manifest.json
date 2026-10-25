@@ -1,0 +1,77 @@
+{
+  "schema": "sios-pvlib-comparison-evidence-1",
+  "sourceCommit": "0dde63d2643514127e4383bfd6da9e69f91a03b4",
+  "inputManifestSha256": "2ea3bb79c52f5dd19619e7d7c266db03a095210611ee1e6c45503ffea33ac517",
+  "protocolSha256": "fd505e4bcf69eeeed94675f66aa47c0c58d763991df9be96d22ea8c0f31a781b",
+  "runtime": {
+    "python": "3.12.14",
+    "pvlib": "0.13.1",
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "scipy": "1.16.3",
+    "matplotlib": "3.10.7",
+    "Markdown": "3.9"
+  },
+  "files": [
+    {
+      "path": "01-controlled-energy.png",
+      "sha256": "401be71d99fad0317a191c92e53fc39585a481bf8e61332cd157485df0a9c441",
+      "bytes": 107589
+    },
+    {
+      "path": "01-controlled-energy.svg",
+      "sha256": "9445788430ddc33ba26e9777ae1216346fea167826f89c16aabefb00d56846f4",
+      "bytes": 18737
+    },
+    {
+      "path": "02-geometry-differences.png",
+      "sha256": "665e7dbb9c5614ea6e9775656732ec17674e7b66855227dffaa0e787df592992",
+      "bytes": 247959
+    },
+    {
+      "path": "02-geometry-differences.svg",
+      "sha256": "d48cd5de037aa09db0324d4f2e2ed731cc870aaa15073f9614f9d277c3652a0f",
+      "bytes": 27311
+    },
+    {
+      "path": "REPORT.html",
+      "sha256": "6798d437ed37b12ec4fb4967fe1df65db3ebbdbddc864513c4f7b6fb13880877",
+      "bytes": 484340
+    },
+    {
+      "path": "REPORT.md",
+      "sha256": "cd14e0530c0d259d7b9dde4b1bc8014593c12d3a54920953aced7d2ea85c158b",
+      "bytes": 6278
+    },
+    {
+      "path": "annual-monthly.csv",
+      "sha256": "6e24c4e4a4ac6ced35fb9bccc1077a79ddb1fedc76bd55859c95740d7f36b4b3",
+      "bytes": 14558
+    },
+    {
+      "path": "array-comparison.csv",
+      "sha256": "0a3de4e98bd78ce71ea23c4b4f61fd6aebe0883016ffe4f574a78b42e49cadbd",
+      "bytes": 50089
+    },
+    {
+      "path": "comparison.json",
+      "sha256": "a3cafed02d74c893e3abc6e47509497d95e5180cf716596f4a3d6cfcc0e6eee6",
+      "bytes": 95602
+    },
+    {
+      "path": "hourly-comparison.csv",
+      "sha256": "6b95bb7cb20b8d64585f9dfed60446d2c122d0e76ef7d9073c46ba41630fff68",
+      "bytes": 12558363
+    },
+    {
+      "path": "protocol.json",
+      "sha256": "fd505e4bcf69eeeed94675f66aa47c0c58d763991df9be96d22ea8c0f31a781b",
+      "bytes": 5451
+    },
+    {
+      "path": "reproduction.json",
+      "sha256": "e27f819eb4d8838533ced361fb3bf79721007eac195f79cf3b22e25ea737de41",
+      "bytes": 809
+    }
+  ]
+}

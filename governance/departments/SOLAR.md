@@ -8,17 +8,18 @@ Own the explainable physical chain from sun position and weather inputs to hourl
 
 Maturity uses the common scale: **M0** planned only; **M1** executable prototype; **M2** deterministic and tested; **M3** independently validated against authoritative references or measured data; **M4** operationally monitored; **M5** certified or bankable for its declared use.
 
-- **M2:** `lib/solar/solar-position.ts` implements NOAA-style fractional-year geometry, sunrise/sunset and a Haurwitz/Kasten–Young clear-sky envelope. `lib/solar/irradiance.ts` implements fixed-array isotropic transposition, ground reflection and an ASHRAE angle-of-incidence modifier. `lib/solar/power.ts` implements Faiman temperature, multiplicative losses, degradation, inverter conversion and clipping. `lib/solar/simulation.ts` integrates the chain over an hourly year and exposes its loss chain.
+- **M2:** `lib/solar/solar-position.ts` implements NOAA-style fractional-year geometry, sunrise/sunset and a Haurwitz/Kasten–Young clear-sky envelope. `lib/solar/irradiance.ts` implements closure-preserving Erbs decomposition for missing beam/diffuse inputs, fixed-array isotropic transposition, ground reflection and an ASHRAE angle-of-incidence modifier. `lib/solar/power.ts` implements Faiman temperature, multiplicative losses, degradation, generic part-load inverter conversion and clipping. `lib/solar/simulation.ts` integrates the chain over an hourly year and exposes its loss chain.
 - **M1:** single- and dual-axis orientation, bifacial rear irradiance, low-sun shading, horizon, snow, dust, mismatch and string losses are executable approximations without site calibration or independent field validation.
 - **M0:** Perez/Hay–Davies transposition, row-to-row backtracking, terrain and horizon ray tracing, rear-side view factors, physical snow/soiling processes, detailed module IV curves and string electrical networks.
-- The ten broad science tests include solar-position, plane-of-array, Faiman and integrated annual checks. There is no independent ephemeris, `pvlib`, measured-plant or manufacturer-model comparison suite yet.
-- The current methods document is not a perfect description of the code: it mentions Erbs decomposition and profile-based horizon blocking that are not implemented, and describes a PVWatts v5 inverter relationship while the runtime uses a bounded square-root part-load adjustment. These are open scientific-assurance issues, not implemented capabilities.
+- The scientific-core and research-spine suites include solar-position, Erbs closure, plane-of-array, Faiman and integrated annual checks. There is no independent ephemeris, `pvlib`, measured-plant or manufacturer-model comparison suite yet.
+- The methods document now identifies the horizon input as a scalar retained-energy approximation and the inverter as the executable bounded square-root part-load relationship; it no longer labels either as a geometric horizon profile or PVWatts v5. Remaining scientific-assurance work is independent comparison and site calibration, not invented method parity.
 
 ## Ownership boundary
 
 - **Primary existing paths:** `lib/solar/**`.
 - **Governed shared contracts:** the solar, irradiance, generation, array and loss types plus `CALCULATION_VERSION` in `lib/contracts/index.ts`. Changes require STAR Engine approval and review from every affected consumer.
 - **Shared integration paths:** `lib/operating-snapshot.ts` and `app/api/v1/simulate/route.ts` are integration surfaces, not STAR-owned orchestration. STAR approves their physical input/output semantics.
+- **Shared annual-research paths:** `lib/research/**` and `app/api/v1/studies/annual/**` are cross-department integration surfaces. STAR approves solar-position timing, irradiance-component and physical simulation semantics; DATA owns source fitness and FORECAST owns temporal evaluation.
 - **Documentation and tests:** physics portions of `docs/SCIENTIFIC_METHODS.md`, `docs/LIMITATIONS.md`, `docs/MODEL_VALIDATION.md` and physics cases currently in `tests/science-core.test.mjs`.
 - **Target paths, planned:** `lib/solar/contracts.ts`, `lib/solar/calibration/**`, `tests/solar/**` and `tests/fixtures/solar-reference/**`. Creation of these paths does not by itself raise maturity.
 - The department does not own provider retrieval, representative-year selection, statistical forecasting, tariffs, user-interface presentation or deployment.
@@ -41,10 +42,10 @@ Maturity uses the common scale: **M0** planned only; **M1** executable prototype
 
 ## First deep-work programme
 
-1. **Freeze the executable v1 specification:** trace every current equation, constant, unit and approximation from source to a matching test; correct the method document or code where they diverge.
+1. **Maintain the executable v1 specification:** trace every current equation, constant, unit and approximation from source to a matching test, and block any future code/document divergence.
 2. **Stabilise the engine port:** introduce the versioned request/result contract, explicit interval duration and structured calculation provenance without breaking the current sample path.
 3. **Build independent references:** add curated solar-position, transposition, module-temperature, inverter and annual-yield vectors from authoritative tools or publications, with recorded source/version and predeclared tolerances.
-4. **Improve irradiance physics:** implement and compare isotropic, Hay–Davies and Perez transposition; add irradiance closure and component-derivation policy rather than assuming every record is complete.
+4. **Improve irradiance physics:** retain the tested Erbs fallback and supplied-component closure policy, broaden authoritative reference fixtures, then implement and compare isotropic, Hay–Davies and Perez transposition.
 5. **Deepen array engineering:** implement horizon profiles, row geometry and backtracking before claiming tracking optimisation; add a defensible rear-side view-factor model before raising bifacial maturity.
 6. **Calibrate and quantify:** define a measured-site calibration protocol that separates parameter uncertainty, weather uncertainty and structural-model error.
 

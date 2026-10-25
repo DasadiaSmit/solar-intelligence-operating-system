@@ -1,0 +1,29 @@
+{
+  "id": "short-record-decision-audit-01",
+  "version": "1.0.0",
+  "fixedDate": "2026-10-25",
+  "researchQuestion": "How sensitive are representative annual PV estimates and equal-capacity array choices to source-year inclusion and representative-month scoring?",
+  "site": "Existing Sheffield research scenario; not a surveyed or metered plant",
+  "sourceYears": [2022, 2023, 2024, 2025],
+  "sourceProduct": "Open-Meteo ERA5 reanalysis; no simulated fallback",
+  "referenceCalendar": "2026 no-leap representative year",
+  "arrayCandidates": {
+    "tiltDeg": [22, 32, 42],
+    "azimuthDeg": [162, 180, 198],
+    "capacityKwDc": 48,
+    "dcAcRatio": 1.2,
+    "rationale": "Bounded exploration around the existing32degree south-facing scenario using existing optimiser increments of10degree tilt and18degree azimuth; not surveyed feasibility or a global optimum"
+  },
+  "monthSelectionVariants": ["default", "no-persistence", "no-continuity", "distribution-only"],
+  "sourceInclusionVariants": ["all-four", "omit-2022", "omit-2023", "omit-2024", "omit-2025"],
+  "weightPolicy": "Retain existing variable weights; independently remove persistence/continuity terms, without tuning for favourable outcomes",
+  "decisionObjective": "Annual AC energy, fixed DC capacity and inverter; seasonal energy reported separately",
+  "nominalRule": "Maximise generation under default representative-year weather",
+  "robustRule": "Minimise maximum energy regret across four historical weather years; disclose ties",
+  "regretDefinition": "For option a and scenario s, max_b energy(b,s) minus energy(a,s)",
+  "tieToleranceKWh": 0.000001,
+  "evaluationPolicy": "Retrospective descriptive stability, not forecast generalisation. Historical2025 results were previously inspected. Benefit is in-scenario and may be zero; retain all cases.",
+  "metrics": ["annual and monthly AC kWh", "candidate month score components and margin", "seam temperature/cloud jumps", "deviation from four-year mean and median", "nominal and minimax-regret choices", "ranking reversals", "worst-case energy regret", "model reference-agreement metrics"],
+  "boundaries": ["No measured production", "No financial optimality", "No calibrated future probabilities from four years", "No global novelty claim", "No UI or deployment", "Independent model reference comparison and participant evaluation outside first experiment"],
+  "expectedNegativeCase": "If one array wins every tested year, robustness adds diagnostic evidence but no decision improvement. Report without changing cases."
+}

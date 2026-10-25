@@ -14,6 +14,21 @@ Maturity uses the common scale: **M0** planned only; **M1** executable prototype
 - **M0:** tariff-aware predictive dispatch, battery electrochemical ageing, demand response, islanding and critical-load control, Bayesian optimisation, Sobol sensitivity, stochastic scenario trees and distributionally robust optimisation.
 - The current engine assumes one-hour intervals, so charge/discharge values named in kW are numerically used as hourly kWh limits. It is not yet a general variable-interval dispatch model.
 - Current financial and carbon results use configured static scenarios. They are not market settlement, investment advice or audited carbon accounts.
+- Instrument 06 source now exposes this dispatch through
+  `BatteryEnergyFlowFrameV1`. A fresh canonical demand/dispatch replay checks
+  all 8,760 stored flow records and annual summaries. The frame preserves the
+  exact linked interval, its 24-record UTC day, SOC/energy-balance residuals,
+  reserve and configured limits, provenance and input quality. This is model
+  consistency, not M3 measured validation or a new dispatch strategy.
+- Its six logical routes and single grid intertie use linked-day energy
+  ratios; exact one-hour and annual quantities remain HTML. Eleven
+  unavailable layers prevent live/BMS/physical-topology/degradation/control,
+  alternative-optimisation, outage and interval-boundary claims. The registry
+  now has six mounted instruments, one placeholder and seven reserved slots;
+  release acceptance remains separately recorded in `PROJECT_STATUS.md`.
+- The Battery workspace uses `kWh / 1h` labels and an accessible linked-day
+  selector. An unchanged scenario uses canonical transported results directly;
+  modified local scenarios retain the existing disclosed screening model.
 
 ## Ownership boundary
 
@@ -31,6 +46,10 @@ Maturity uses the common scale: **M0** planned only; **M1** executable prototype
 - **Consumes from DATA:** interval-aligned measured or scenario demand, tariffs, grid-carbon intensity, outages and telemetry with timezone, quality and provenance.
 - **Consumes from FORECAST:** optional probabilistic generation/demand scenarios with issue time, valid time, lead time and calibration evidence.
 - **Publishes today:** `EnergyDispatchSummary`, hourly `EnergyFlowHour[]`, `OptimisationRecord`, Pareto candidates, Monte Carlo summary and stress-scenario deltas.
+- **Observatory handoff:** ENERGY and TWIN jointly govern
+  `BatteryEnergyFlowFrameV1`/`BatteryEnergyFlowViewV1`. EXPERIENCE applies the
+  exact-index `BE` request and acknowledges it before focus reaches
+  `battery-linked-interval`; no handoff resets a device-local branch.
 - **Required target contract:** explicit interval duration, state transition, objective vector, constraint set, costs, emissions method, solver/version, random seed, input snapshot IDs, feasibility status and optimality/termination evidence.
 - UI and API consumers must disclose configured prices, demand and carbon assumptions and retain `simulated` or `experimental` lifecycle status.
 
@@ -50,6 +69,9 @@ Maturity uses the common scale: **M0** planned only; **M1** executable prototype
 4. **Add defensible battery life:** model usable-capacity fade, calendar/cycle ageing, efficiency change, replacement and salvage scenarios before optimisation claims lifetime value.
 5. **Advance dispatch:** compare greedy self-consumption with tariff-aware deterministic optimisation, then forecast-aware and resilience policies under the same conservation gates.
 6. **Advance optimisation carefully:** formalise bounds/costs, validate the existing grid/Pareto implementation, then add Bayesian, Sobol, scenario-tree and robust methods with solver termination and feasibility evidence.
+7. **Accept the current instrument first:** finish I06 production, bundle,
+   regression and release gates before beginning I07 as a separate increment;
+   do not change the canonical dispatch while completing presentation work.
 
 ## Definition of done
 

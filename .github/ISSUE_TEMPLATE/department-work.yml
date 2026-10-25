@@ -18,7 +18,7 @@ body:
         - DATA — Weather, Data & Provenance
         - FORECAST — Forecasting, ML & Representative Year
         - TWIN — Digital Twin, Maps & Visual Computing
-        - PET — PET Assistant & Solar Copilot
+        - MI — Mission Intelligence Core
         - PLATFORM — Platform, API & Persistence
         - QA — Quality Engineering & Scientific Assurance
         - SECOPS — Security, Reliability & Release
@@ -80,4 +80,3 @@ body:
           required: true
         - label: I have identified every shared contract and contributing department known at issue creation.
           required: true
-

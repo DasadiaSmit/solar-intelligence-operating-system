@@ -1,0 +1,363 @@
+/* The analytical instruments share the observatory's silver-blue glass material.
+   Plot surfaces remain opaque enough to read small scientific marks accurately. */
+.solar-os[data-interface="sunlit"][data-theme] {
+  --void: #e0eaf1;
+  --shell: #e9f1f7;
+  --stage: #eaf2f8;
+  --instrument: #f5f9fc;
+  --instrument-2: #e6eef5;
+  --line: #c1d0dd;
+  --line-bright: #90a8bb;
+  --text: #17364c;
+  --muted: #405d73;
+  --dim: #526c80;
+  --solar: #845717;
+  --forecast: #086c79;
+  --historical: #395fad;
+  --positive: #216d52;
+  --critical: #ab3f42;
+  --model: #74509c;
+  --shadow: rgb(44 77 104 / 11%);
+  --grid: rgb(39 86 120 / 4%);
+  --canvas-surface: #e8f0f7;
+  --sunlit-glass: linear-gradient(135deg, rgb(255 255 255 / 73%), rgb(247 252 255 / 22%) 58%, rgb(194 219 238 / 17%));
+  --sunlit-edge: rgb(255 255 255 / 81%);
+  --sunlit-rim: rgb(255 255 255 / 88%);
+  --sunlit-button: rgb(255 255 255 / 50%);
+  --sunlit-button-hover: rgb(255 255 255 / 87%);
+  --sunlit-button-edge: rgb(140 167 187 / 48%);
+  --sunlit-accent: linear-gradient(135deg, #fff8e8, #efdcb9);
+  --sunlit-accent-hover: #f6e6c9;
+  --sunlit-accent-edge: #c9ac78;
+  --sunlit-accent-text: #6a491c;
+  --sunlit-field: rgb(255 255 255 / 68%);
+  --sunlit-header: rgb(255 255 255 / 51%);
+  --sunlit-dialog: linear-gradient(145deg, #f8fcff, #e9f2f8 70%, #e6edf3);
+}
+
+.solar-os[data-interface="sunlit"] {
+  color-scheme: light;
+  gap: 10px;
+  padding: 12px;
+  grid-template-columns: 64px minmax(0, 1fr) 336px;
+  grid-template-rows: 64px minmax(0, 1fr) 152px 26px;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 92% -8%, rgb(255 239 205 / 90%), transparent 45%),
+    radial-gradient(ellipse at 8% 2%, rgb(255 255 255 / 88%), transparent 48%),
+    radial-gradient(ellipse at 78% 94%, rgb(248 252 255 / 65%), transparent 52%),
+    linear-gradient(145deg, #dcecf7, #c6dced 60%, #d9e7f1);
+}
+
+.solar-os[data-interface="sunlit"][data-theme="observatory"] {
+  --void: #0c1c2c;
+  --shell: #142a3e;
+  --stage: #132b3f;
+  --instrument: #183247;
+  --instrument-2: #203b52;
+  --line: #3d566c;
+  --line-bright: #7690a7;
+  --text: #f5f8fc;
+  --muted: #cfdae5;
+  --dim: #acbdcd;
+  --solar: #f5d5a1;
+  --forecast: #9ddedc;
+  --historical: #b2ccff;
+  --positive: #b4e3c5;
+  --critical: #ffb2a9;
+  --model: #d4bff3;
+  --shadow: rgb(5 20 37 / 23%);
+  --grid: rgb(207 226 245 / 3%);
+  --canvas-surface: #142a3e;
+  --sunlit-glass: linear-gradient(135deg, rgb(213 233 249 / 17%), rgb(103 144 178 / 8%) 50%, rgb(18 48 75 / 15%));
+  --sunlit-edge: rgb(225 241 255 / 27%);
+  --sunlit-rim: rgb(255 255 255 / 13%);
+  --sunlit-button: rgb(223 240 255 / 5%);
+  --sunlit-button-hover: rgb(235 246 255 / 16%);
+  --sunlit-button-edge: rgb(224 240 255 / 20%);
+  --sunlit-accent: linear-gradient(135deg, rgb(243 211 164 / 26%), rgb(243 211 164 / 9%));
+  --sunlit-accent-hover: rgb(243 211 164 / 30%);
+  --sunlit-accent-edge: rgb(249 220 177 / 47%);
+  --sunlit-accent-text: #fff0d7;
+  --sunlit-field: rgb(8 27 44 / 30%);
+  --sunlit-header: rgb(225 240 255 / 4%);
+  --sunlit-dialog: linear-gradient(135deg, #36556e, #203c53 65%);
+  color-scheme: dark;
+  background: radial-gradient(ellipse at 74% -20%, #45536d, transparent 60%), linear-gradient(145deg, #1b354e, #0d1d30);
+}
+
+.solar-os[data-interface="sunlit"]::before { opacity: .22; }
+.solar-os[data-interface="sunlit"]::after { opacity: .38; }
+.solar-os[data-interface="sunlit"].inspector-hidden { grid-template-columns: 64px minmax(0, 1fr) 0; column-gap: 10px; }
+.solar-os[data-interface="sunlit"].focus-mode { grid-template-columns: 0 minmax(0, 1fr) 0; }
+.solar-os[data-interface="sunlit"] :focus-visible { outline: 2px solid var(--solar); outline-offset: 3px; }
+.solar-os[data-interface="sunlit"] button { touch-action: manipulation; }
+
+.solar-os[data-interface="sunlit"] :is(.mission-header, .workspace-rail, .primary-stage, .mission-intelligence-console, .orbital-deck) {
+  border: 1px solid var(--sunlit-edge);
+  border-radius: 20px;
+  box-shadow: inset 0 1px 0 var(--sunlit-rim), 0 8px 28px var(--shadow);
+}
+.solar-os[data-interface="sunlit"] :is(.mission-header, .workspace-rail, .orbital-deck) {
+  background: var(--sunlit-glass), color-mix(in srgb, var(--shell) 72%, transparent);
+  backdrop-filter: blur(20px) saturate(120%);
+}
+.solar-os[data-interface="sunlit"] .mission-header { grid-template-columns: 224px minmax(140px, 1fr) auto auto; gap: 8px; padding: 0 10px 0 4px; overflow: visible; }
+.solar-os[data-interface="sunlit"] .brand-lockup { height: 62px; gap: 11px; padding: 0 16px; border: 0; }
+.solar-os[data-interface="sunlit"] .brand-lockup strong { font-size: 10px; letter-spacing: .15em; }
+.solar-os[data-interface="sunlit"] .brand-lockup small { margin-top: 4px; color: var(--muted); font-size: 8px; letter-spacing: .08em; }
+.solar-os[data-interface="sunlit"] .brand-orbit { border-radius: 50%; transform: none; border-color: var(--solar); box-shadow: 0 0 22px rgb(246 210 154 / 16%); }
+.solar-os[data-interface="sunlit"] .brand-orbit i { border-color: var(--solar); background: rgb(245 213 161 / 12%); }
+.solar-os[data-interface="sunlit"] .site-identity { height: 62px; padding-inline: 8px; border: 0; grid-template-columns: 1fr; align-content: center; gap: 3px; }
+.solar-os[data-interface="sunlit"] .site-identity > span { font-size: 8px; letter-spacing: .13em; }
+.solar-os[data-interface="sunlit"] .site-identity strong { font-size: 11px; }
+.solar-os[data-interface="sunlit"] .site-identity small { font-size: 8px; }
+.solar-os[data-interface="sunlit"] .header-telemetry { height: auto; gap: 12px; font-size: 8px; }
+.solar-os[data-interface="sunlit"] .header-telemetry span { border: 0; padding: 0; }
+.solar-os[data-interface="sunlit"] .header-telemetry .mi-header-specialist { display: none; }
+.solar-os[data-interface="sunlit"] .mission-actions { gap: 5px; height: auto; align-items: center; }
+.solar-os[data-interface="sunlit"] .mission-actions button { min-width: 40px; height: 38px; padding: 0 10px; border: 1px solid var(--sunlit-button-edge); border-radius: 999px; color: var(--muted); font-size: 9px; background: var(--sunlit-button); box-shadow: inset 0 1px var(--sunlit-rim); transition: background .18s ease, border-color .18s ease, color .18s ease; }
+.solar-os[data-interface="sunlit"] .mission-actions button:hover { background: var(--sunlit-button-hover); border-color: var(--line-bright); color: var(--text); }
+.solar-os[data-interface="sunlit"] .mission-actions .observatory-return { display: inline-flex !important; gap: 7px; align-items: center; justify-content: center; padding-inline: 14px; color: var(--sunlit-accent-text); background: var(--sunlit-accent); border-color: var(--sunlit-accent-edge); font-family: var(--font-sans); font-size: 11px; }
+.solar-os[data-interface="sunlit"] .mission-actions .observatory-return:hover { background: var(--sunlit-accent-hover); }
+.solar-os[data-interface="sunlit"] .mission-actions .command-trigger { display: block !important; }
+
+.solar-os[data-interface="sunlit"] .workspace-rail { padding: 5px; overflow: visible; }
+.solar-os[data-interface="sunlit"] .rail-index { height: 26px; font-size: 7px; color: var(--muted); }
+.solar-os[data-interface="sunlit"] .rail-items { gap: 3px; scrollbar-width: thin; }
+.solar-os[data-interface="sunlit"] .rail-items button { min-height: 33px; flex-basis: 33px; border: 0; border-radius: 12px; transition: background .18s ease; }
+.solar-os[data-interface="sunlit"] .rail-items button > span { width: 34px; height: 27px; border-radius: 9px; border-color: transparent; font-size: 9px; }
+.solar-os[data-interface="sunlit"] .rail-items button::before { display: none; }
+.solar-os[data-interface="sunlit"] .rail-items button:hover { background: var(--sunlit-button-hover); }
+.solar-os[data-interface="sunlit"] .rail-items button.active { background: var(--sunlit-accent); box-shadow: inset 0 0 0 1px var(--sunlit-accent-edge), inset 0 1px var(--sunlit-rim); }
+.solar-os[data-interface="sunlit"] .rail-items button.active > span { color: var(--solar); background: transparent; }
+.solar-os[data-interface="sunlit"] .rail-items button:hover::after { left: 84px; border-radius: 9px; padding: 9px 12px; background: var(--shell); color: var(--text); border-color: var(--sunlit-edge); font-size: 10px; box-shadow: 0 8px 25px var(--shadow); }
+.solar-os[data-interface="sunlit"] .rail-help { border: 0; border-radius: 9px; font-size: 11px; }
+
+.solar-os[data-interface="sunlit"] .primary-stage { background: color-mix(in srgb, var(--stage) 91%, transparent); }
+.solar-os[data-interface="sunlit"] .stage-heading { min-height: 76px; grid-template-columns: 46px minmax(0, 1fr) auto; background: linear-gradient(110deg, var(--sunlit-header), transparent); border-bottom-color: var(--sunlit-edge); }
+.solar-os[data-interface="sunlit"] .stage-heading > div:nth-child(2) { padding: 14px 12px; }
+.solar-os[data-interface="sunlit"] .stage-heading h1 { font-size: clamp(18px, 1.6vw, 25px); font-weight: 500; letter-spacing: -.035em; }
+.solar-os[data-interface="sunlit"] .stage-heading p { margin-top: 5px; font-size: 10px; color: var(--muted); }
+.solar-os[data-interface="sunlit"] .stage-coordinate { color: var(--solar); border-color: var(--sunlit-edge); font-size: 8px; }
+.solar-os[data-interface="sunlit"] .stage-state { gap: 6px; padding-right: 15px; }
+.solar-os[data-interface="sunlit"] .life-tag { border-radius: 999px; padding: 5px 8px; font-size: 8px; }
+.solar-os[data-interface="sunlit"] .workspace-grid { min-height: 100%; padding: 10px; gap: 8px; background: none; }
+.solar-os[data-interface="sunlit"] .instrument { border: 1px solid color-mix(in srgb, var(--line) 85%, transparent); border-radius: 13px; background: var(--instrument); box-shadow: inset 0 1px var(--sunlit-rim), 0 3px 12px color-mix(in srgb, var(--shadow) 45%, transparent); }
+.solar-os[data-interface="sunlit"] .instrument::before { display: none; }
+.solar-os[data-interface="sunlit"] .instrument-header { min-height: 32px; height: auto; padding-block: 7px; background: var(--sunlit-header); border-bottom-color: var(--line); }
+.solar-os[data-interface="sunlit"] .instrument-header h2 { font-size: 10px; }
+.solar-os[data-interface="sunlit"] .instrument-header small { font-size: 8px; }
+.solar-os[data-interface="sunlit"] .instrument-code { color: var(--dim); font-size: 8px; }
+.solar-os[data-interface="sunlit"] .instrument-note { color: var(--muted); font-size: 9px; line-height: 1.5; }
+.solar-os[data-interface="sunlit"] .chart-legend { background: color-mix(in srgb, var(--void) 90%, transparent); border-radius: 8px; font-size: 8px; }
+.solar-os[data-interface="sunlit"] .forecast-constitution { border: 1px solid var(--line); border-radius: 13px; background: var(--sunlit-glass), color-mix(in srgb, var(--shell) 80%, transparent); overflow: hidden; }
+.solar-os[data-interface="sunlit"] .metric-tape { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+.solar-os[data-interface="sunlit"] .metric-readout { background: var(--sunlit-header); }
+.solar-os[data-interface="sunlit"] .metric-readout > span { color: var(--muted); }
+.solar-os[data-interface="sunlit"] .metric-readout strong { letter-spacing: -.04em; }
+.solar-os[data-interface="sunlit"] :is(.range-input-row button, .scenario-presets button, .export-console button, .mobile-inspector-trigger) { border-radius: 8px; }
+.solar-os[data-interface="sunlit"] input[type="range"] { accent-color: var(--solar); }
+.solar-os[data-interface="sunlit"] .mobile-inspector-trigger { font-size: 9px; color: var(--sunlit-accent-text); border-color: var(--sunlit-accent-edge); background: var(--sunlit-accent); }
+
+.solar-os[data-interface="sunlit"] .mission-intelligence-console { background: var(--sunlit-glass), var(--shell); overflow: hidden; }
+.solar-os[data-interface="sunlit"] .mi-console-title { min-height: 62px; background: transparent; padding-inline: 16px; border-bottom-color: var(--line); }
+.solar-os[data-interface="sunlit"] .mi-console-title strong { font-size: 14px; font-weight: 500; }
+.solar-os[data-interface="sunlit"] .mi-console-title > button { align-self: center; border: 1px solid var(--sunlit-button-edge); border-radius: 50%; width: 30px; height: 30px; background: var(--sunlit-button); }
+.solar-os[data-interface="sunlit"] .mi-console-tabs { height: 44px; padding: 4px; gap: 3px; border-color: var(--line); background: color-mix(in srgb, var(--void) 48%, transparent); }
+.solar-os[data-interface="sunlit"] .mi-console-tabs button { border: 0; border-radius: 8px; color: var(--muted); font-size: 10px; }
+.solar-os[data-interface="sunlit"] .mi-console-tabs button[aria-selected="true"] { background: var(--sunlit-accent); color: var(--sunlit-accent-text); box-shadow: inset 0 0 0 1px var(--sunlit-accent-edge); }
+.solar-os[data-interface="sunlit"] .mi-console-body { height: calc(100% - 106px); scrollbar-width: thin; }
+.solar-os[data-interface="sunlit"] :is(.mi-command-state, .mi-next, .mi-evidence, .mi-memory, .mi-specialist) { background: transparent; }
+.solar-os[data-interface="sunlit"] .mi-next button { border-radius: 10px; background: var(--sunlit-button); }
+.solar-os[data-interface="sunlit"] .inspector-reopen { right: 16px; top: 96px; border: 1px solid var(--sunlit-edge); border-radius: 10px; background: var(--shell); color: var(--solar); font-size: 9px; box-shadow: 0 8px 20px var(--shadow); }
+
+.solar-os[data-interface="sunlit"] .orbital-deck { grid-template-columns: 136px minmax(0, 1fr) 182px; overflow: hidden; }
+.solar-os[data-interface="sunlit"] .replay-console { padding: 10px; gap: 5px; border-color: var(--sunlit-edge); }
+.solar-os[data-interface="sunlit"] .replay-console > button { min-height: 28px; border: 1px solid var(--sunlit-button-edge); border-radius: 999px; background: var(--sunlit-button); color: var(--muted); font-size: 9px; box-shadow: inset 0 1px var(--sunlit-rim); }
+.solar-os[data-interface="sunlit"] .replay-console > button:first-of-type { color: var(--sunlit-accent-text); background: var(--sunlit-accent); border-color: var(--sunlit-accent-edge); }
+.solar-os[data-interface="sunlit"] .replay-console label { font-size: 8px; }
+.solar-os[data-interface="sunlit"] .replay-console select { padding: 3px; border-radius: 5px; font-size: 9px; }
+.solar-os[data-interface="sunlit"] .orbital-canvas-wrap { padding: 9px; border-color: var(--sunlit-edge); }
+.solar-os[data-interface="sunlit"] .linked-time { padding: 15px; gap: 6px; border-color: var(--sunlit-edge); }
+.solar-os[data-interface="sunlit"] .linked-time > span { font-size: 8px; letter-spacing: .1em; }
+.solar-os[data-interface="sunlit"] .linked-time strong { font-size: 10px; color: var(--text); }
+.solar-os[data-interface="sunlit"] .linked-time small { font-size: 8px; }
+.solar-os[data-interface="sunlit"] .system-ledger { border: 0; border-radius: 8px; background: color-mix(in srgb, var(--shell) 65%, transparent); color: var(--muted); font-size: 8px; padding-inline: 10px; overflow: hidden; }
+
+.solar-os[data-interface="sunlit"] .modal-backdrop { background: rgb(8 24 41 / 62%); backdrop-filter: blur(15px); padding-inline: 16px; }
+.solar-os[data-interface="sunlit"] :is(.command-palette, .annotation-dialog, .shortcut-dialog) { --text: inherit; --muted: inherit; --dim: inherit; --line: inherit; --line-bright: inherit; --forecast: inherit; --solar: inherit; --shell: inherit; --instrument: inherit; --instrument-2: inherit; color: var(--text); border: 1px solid var(--sunlit-edge); border-radius: 24px; overflow: hidden; background: var(--sunlit-dialog); box-shadow: inset 0 1px var(--sunlit-rim), 0 30px 100px color-mix(in srgb, var(--shadow) 85%, transparent); }
+.solar-os[data-interface="sunlit"] :is(.command-palette, .annotation-dialog, .shortcut-dialog) > header { padding: 18px; font-size: 11px; }
+.solar-os[data-interface="sunlit"] :is(.command-palette, .annotation-dialog, .shortcut-dialog) > header button { border-radius: 999px; padding: 8px 12px; }
+.solar-os[data-interface="sunlit"] .command-palette > input { margin: 0 14px 10px; width: calc(100% - 28px); min-height: 48px; border: 1px solid var(--line-bright); border-radius: 12px; background: var(--sunlit-field); font-size: 14px; }
+.solar-os[data-interface="sunlit"] .command-results { padding: 6px 12px 12px; }
+.solar-os[data-interface="sunlit"] .command-results > button { min-height: 58px; border-radius: 12px; margin-block: 3px; font-size: 13px; }
+.solar-os[data-interface="sunlit"] .command-results > button:hover { background: var(--sunlit-button-hover); }
+.solar-os[data-interface="sunlit"] .command-results > button small { margin-top: 4px; font-size: 10px; color: var(--muted); }
+.solar-os[data-interface="sunlit"] .annotation-dialog textarea { border-radius: 12px; background: var(--sunlit-field); font-size: 13px; }
+.solar-os[data-interface="sunlit"] .toast { border: 1px solid var(--sunlit-edge); border-radius: 999px; padding: 12px 18px; background: var(--shell); color: var(--text); font-size: 11px; box-shadow: 0 12px 30px var(--shadow); }
+
+.solar-os[data-interface="sunlit"] :is(.primary-action, .export-button, .reset-scenario, .instrument-actions button, .scenario-presets button, .annotation-dialog footer button) {
+  border: 1px solid var(--sunlit-button-edge);
+  border-radius: 999px;
+  background: var(--sunlit-button);
+  color: var(--forecast);
+  box-shadow: inset 0 1px var(--sunlit-rim), 0 3px 10px color-mix(in srgb, var(--shadow) 50%, transparent);
+  transition: background .18s ease, border-color .18s ease;
+}
+.solar-os[data-interface="sunlit"] :is(.primary-action, .export-button, .reset-scenario, .instrument-actions button, .scenario-presets button, .annotation-dialog footer button):hover:not(:disabled) {
+  background: var(--sunlit-button-hover);
+  border-color: var(--line-bright);
+}
+.solar-os[data-interface="sunlit"] .range-input-row button {
+  border-radius: 50%;
+  border-color: var(--sunlit-button-edge);
+  background: var(--sunlit-button);
+  color: var(--muted);
+  box-shadow: inset 0 1px var(--sunlit-rim);
+}
+.solar-os[data-interface="sunlit"] .range-input-row button:hover { background: var(--sunlit-button-hover); color: var(--forecast); }
+.solar-os[data-interface="sunlit"] select { border-color: var(--line); border-radius: 8px; background-color: var(--sunlit-field); color: var(--text); }
+.solar-os[data-interface="sunlit"] :is(input, textarea)::placeholder { color: var(--dim); opacity: 1; }
+.solar-os[data-interface="sunlit"] :is(.science-table, .compare-table) thead { background: var(--sunlit-header); }
+.solar-os[data-interface="sunlit"] :is(.science-table, .compare-table) tbody tr:hover { background: color-mix(in srgb, var(--forecast) 5%, var(--instrument)); }
+.solar-os[data-interface="sunlit"] :is(.simulation-disclosure, .annotation-note, .loss-result, .layer-registry, .method-boundary) { border-radius: 10px; }
+.solar-os[data-interface="sunlit"] .mi-console-tabs button[aria-selected="true"]::after { display: none; }
+
+/* The daytime palette also reaches the CSS-rendered scientific scenes, whose
+   original styles intentionally held their own dark colors. Night remains night. */
+.solar-os[data-interface="sunlit"][data-theme="daylight"]::after {
+  opacity: .35;
+  background: radial-gradient(ellipse at 83% 0%, rgb(255 244 220 / 80%), transparent 44%);
+}
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .primary-stage {
+  background: linear-gradient(135deg, rgb(252 254 255 / 78%), rgb(235 244 250 / 86%));
+  backdrop-filter: blur(18px) saturate(110%);
+}
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .instrument {
+  border-color: rgb(182 204 220 / 76%);
+  background: linear-gradient(150deg, #fcfeff, #f2f7fb);
+}
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .chart-legend {
+  border: 1px solid rgb(175 198 217 / 68%);
+  background: rgb(246 251 255 / 94%);
+  box-shadow: 0 2px 8px rgb(49 82 108 / 6%);
+}
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .mission-intelligence-console {
+  background: linear-gradient(145deg, rgb(252 254 255 / 98%), rgb(232 242 249 / 98%));
+}
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .mi-command-state { background: linear-gradient(135deg, rgb(222 238 247 / 52%), transparent); }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .mi-next button { border-color: var(--line); }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .modal-backdrop { background: rgb(77 111 138 / 31%); }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] :is(.twin-viewport.is-day, .atmosphere-viewport, .regional-globe) {
+  --text: inherit;
+  --muted: inherit;
+  --dim: inherit;
+  --solar: inherit;
+  --forecast: inherit;
+  --historical: inherit;
+  --positive: inherit;
+  --critical: inherit;
+  --model: inherit;
+  --line: inherit;
+  --line-bright: inherit;
+}
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .twin-viewport.is-day {
+  background: radial-gradient(ellipse at 65% 4%, #fff6d9, transparent 42%), linear-gradient(#b9d6eb 0%, #e1eef7 53%, #cedde1 54%, #b7cbce 100%);
+}
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .twin-viewport.is-day .twin-atmosphere { background: repeating-radial-gradient(ellipse at 62% 18%, rgb(255 255 255 / 44%) 0 7%, transparent 8% 14%); }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .twin-viewport.is-day .twin-horizon { background: #afc8ce; }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .twin-viewport.is-day .horizon-2 { background: #a2bdc5; }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .twin-viewport.is-day .horizon-1 { background: #91adb8; }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .twin-viewport.is-day .twin-sun { border-color: #efd09a; box-shadow: 0 0 50px 16px rgb(255 229 170 / 60%); }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .twin-viewport.is-day .twin-sun span { background: #fff1c7; }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .twin-viewport.is-day .telemetry-float { border: 1px solid rgb(255 255 255 / 80%); border-radius: 10px; background: rgb(244 250 255 / 82%); box-shadow: 0 5px 18px rgb(44 77 104 / 10%); }
+.solar-os[data-interface="sunlit"] .twin-viewport.is-night { background: linear-gradient(#12263d 0 48%, #233b50 49%, #243b47); }
+.solar-os[data-interface="sunlit"] .twin-viewport.is-night .twin-horizon { background: #1c3445; }
+.solar-os[data-interface="sunlit"] .twin-viewport.is-night .horizon-2 { background: #213e4e; }
+.solar-os[data-interface="sunlit"] .twin-viewport.is-night .horizon-1 { background: #294755; }
+.solar-os[data-interface="sunlit"] :is(.array-plane i, .blueprint-array i) { border-color: #577f9d; background: linear-gradient(135deg, #315678, #203c5d 70%); box-shadow: inset 0 0 0 1px rgb(195 220 245 / 14%); }
+.solar-os[data-interface="sunlit"] :is(.array-plane i, .blueprint-array i)::before { background: rgb(191 220 246 / 28%); }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .atmosphere-viewport { background: radial-gradient(ellipse at 70% 10%, #fff2d8, transparent 43%), linear-gradient(#d3e7f5, #edf5fa); }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .atmosphere-contours button::before { background: rgb(102 147 179 / calc(.08 + var(--cloud) * .28)); }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .regional-globe { background: radial-gradient(circle at 35% 27%, #fafdff, #d7e8f4 52%, #b7d0e3); box-shadow: inset -22px -12px 42px rgb(78 119 151 / 14%), 0 12px 32px rgb(51 91 122 / 12%); }
+.solar-os[data-interface="sunlit"][data-theme="daylight"] .globe-grid { background-image: linear-gradient(rgb(47 101 140 / 15%) 1px, transparent 1px); }
+
+@media (max-width: 1440px) {
+  .solar-os[data-interface="sunlit"] .header-telemetry { display: none; }
+  .solar-os[data-interface="sunlit"] .mission-header { grid-template-columns: 224px minmax(130px, 1fr) auto; }
+}
+@media (max-width: 1280px) {
+  .solar-os[data-interface="sunlit"] { grid-template-columns: 58px minmax(0, 1fr) 310px; }
+  .solar-os[data-interface="sunlit"].inspector-hidden { grid-template-columns: 58px minmax(0, 1fr) 0; }
+  .solar-os[data-interface="sunlit"] .mission-actions > button:not(.observatory-return):not(.command-trigger) { display: none; }
+}
+@media (max-width: 1024px) {
+  .solar-os[data-interface="sunlit"], .solar-os[data-interface="sunlit"].inspector-hidden { grid-template-columns: 56px minmax(0, 1fr) 0; grid-template-rows: 64px minmax(0, 1fr) 136px 24px; }
+  .solar-os[data-interface="sunlit"] .mission-intelligence-console { position: fixed; z-index: 90; top: 86px; right: 12px; bottom: 48px; width: min(390px, calc(100vw - 24px)); grid-column: auto; transform: translateX(calc(100% + 24px)); opacity: 1 !important; box-shadow: -20px 16px 60px rgb(4 20 37 / 45%); }
+  .solar-os[data-interface="sunlit"].inspector-visible .mission-intelligence-console { transform: translateX(0); }
+  .solar-os[data-interface="sunlit"] .mobile-inspector-trigger { display: block; grid-column: 3; margin-right: 12px; min-height: 36px; padding: 7px 10px; }
+  .solar-os[data-interface="sunlit"] .stage-state { display: none; }
+  .solar-os[data-interface="sunlit"] .orbital-deck { grid-template-columns: 112px minmax(0, 1fr) 150px; }
+  .solar-os[data-interface="sunlit"] .linked-time { padding: 10px; }
+}
+@media (max-height: 760px) and (min-width: 721px) {
+  .solar-os[data-interface="sunlit"] { grid-template-rows: 58px minmax(0, 1fr) 124px 24px; padding: 8px; gap: 8px; }
+  .solar-os[data-interface="sunlit"] :is(.brand-lockup, .site-identity) { height: 56px; }
+  .solar-os[data-interface="sunlit"] .rail-index { display: none; }
+  .solar-os[data-interface="sunlit"] .rail-items button { min-height: 30px; flex-basis: 30px; }
+  .solar-os[data-interface="sunlit"] .replay-console { gap: 4px; padding: 7px; }
+  .solar-os[data-interface="sunlit"] .replay-console > button { min-height: 24px; }
+  .solar-os[data-interface="sunlit"] .replay-console .deck-code { display: none; }
+}
+@media (min-width: 721px) {
+  .solar-os[data-interface="sunlit"].focus-mode { grid-template-columns: 0 minmax(0, 1fr) 0; }
+}
+@media (max-width: 720px) {
+  .solar-os[data-interface="sunlit"], .solar-os[data-interface="sunlit"].inspector-hidden, .solar-os[data-interface="sunlit"].focus-mode { padding: 6px; gap: 6px; grid-template-columns: minmax(0, 1fr); grid-template-rows: 60px minmax(0, 1fr) 108px 58px 24px; }
+  .solar-os[data-interface="sunlit"] :is(.mission-header, .workspace-rail, .primary-stage, .orbital-deck) { border-radius: 16px; }
+  .solar-os[data-interface="sunlit"] .mission-header { grid-template-columns: minmax(0, 1fr) auto; gap: 0; padding-inline: 4px; }
+  .solar-os[data-interface="sunlit"] .brand-lockup { height: 58px; padding-inline: 8px; gap: 7px; min-width: 0; }
+  .solar-os[data-interface="sunlit"] .brand-lockup strong { display: block; max-width: 120px; font-size: 8px; letter-spacing: .08em; }
+  .solar-os[data-interface="sunlit"] .brand-lockup small { font-size: 7px; letter-spacing: 0; }
+  .solar-os[data-interface="sunlit"] .brand-orbit { width: 24px; height: 24px; flex-shrink: 0; }
+  .solar-os[data-interface="sunlit"] :is(.site-identity, .header-telemetry) { display: none; }
+  .solar-os[data-interface="sunlit"] .mission-actions { gap: 4px; }
+  .solar-os[data-interface="sunlit"] .mission-actions .observatory-return { min-height: 44px; padding: 0 10px; gap: 5px; font-size: 10px; }
+  .solar-os[data-interface="sunlit"] .mission-actions .command-trigger { min-width: 38px; min-height: 44px; padding-inline: 7px; font-size: 10px; }
+  .solar-os[data-interface="sunlit"] .workspace-rail { grid-column: 1; grid-row: 4; overflow: hidden; padding: 4px; }
+  .solar-os[data-interface="sunlit"] .rail-index, .solar-os[data-interface="sunlit"] .rail-help { display: none; }
+  .solar-os[data-interface="sunlit"] .rail-items { gap: 4px; scrollbar-width: none; }
+  .solar-os[data-interface="sunlit"] .rail-items button { min-width: 44px; width: 44px; min-height: 46px; flex-basis: 44px; border-radius: 11px; }
+  .solar-os[data-interface="sunlit"] .rail-items button > span { width: 32px; height: 30px; font-size: 10px; }
+  .solar-os[data-interface="sunlit"] .primary-stage, .solar-os[data-interface="sunlit"].focus-mode .primary-stage { grid-column: 1; grid-row: 2; }
+  .solar-os[data-interface="sunlit"] .stage-heading { min-height: 70px; grid-template-columns: 28px minmax(0, 1fr) auto; }
+  .solar-os[data-interface="sunlit"] .stage-heading > div:nth-child(2) { padding: 10px 8px; }
+  .solar-os[data-interface="sunlit"] .stage-heading h1 { max-width: 53vw; font-size: 17px; }
+  .solar-os[data-interface="sunlit"] .stage-heading p { display: none; }
+  .solar-os[data-interface="sunlit"] .stage-coordinate { font-size: 7px; padding-inline: 4px; }
+  .solar-os[data-interface="sunlit"] .mobile-inspector-trigger { min-width: 64px; min-height: 44px; margin-right: 8px; padding: 5px; font-size: 9px; }
+  .solar-os[data-interface="sunlit"] .workspace-grid { display: block; padding: 7px; }
+  .solar-os[data-interface="sunlit"] .workspace-grid > * + * { margin-top: 8px; }
+  .solar-os[data-interface="sunlit"] .instrument-header { min-height: 34px; }
+  .solar-os[data-interface="sunlit"] .orbital-deck { grid-column: 1; grid-row: 3; grid-template-columns: 54px minmax(0, 1fr); }
+  .solar-os[data-interface="sunlit"] .replay-console { padding: 5px; justify-content: center; }
+  .solar-os[data-interface="sunlit"] .replay-console > button:first-of-type { height: 84px; min-width: 44px; font-size: 16px; }
+  .solar-os[data-interface="sunlit"] .orbital-canvas-wrap { padding: 5px; }
+  .solar-os[data-interface="sunlit"] .linked-time { display: none; }
+  .solar-os[data-interface="sunlit"] .system-ledger { grid-column: 1; grid-row: 5; padding-inline: 6px; gap: 5px; font-size: 7px; }
+  .solar-os[data-interface="sunlit"] .mission-intelligence-console { top: 72px; right: 6px; bottom: 36px; width: calc(100vw - 12px); border-radius: 18px; transform: translateY(calc(100% + 42px)); }
+  .solar-os[data-interface="sunlit"].inspector-visible .mission-intelligence-console { transform: translateY(0); }
+  .solar-os[data-interface="sunlit"] .mi-console-tabs button { min-height: 36px; }
+  .solar-os[data-interface="sunlit"] .modal-backdrop { padding-inline: 10px; padding-top: 5dvh; }
+  .solar-os[data-interface="sunlit"] :is(.command-palette, .annotation-dialog, .shortcut-dialog) { border-radius: 18px; max-height: 88dvh; }
+  .solar-os[data-interface="sunlit"] .toast { max-width: calc(100vw - 24px); font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .solar-os[data-interface="sunlit"] *, .solar-os[data-interface="sunlit"] *::before, .solar-os[data-interface="sunlit"] *::after { transition-duration: 0s !important; }
+}
+@media (forced-colors: active) {
+  .solar-os[data-interface="sunlit"] { color: CanvasText; background: Canvas; }
+  .solar-os[data-interface="sunlit"] :is(.mission-header, .workspace-rail, .primary-stage, .instrument, .mission-intelligence-console, .orbital-deck, .command-palette, .annotation-dialog, .shortcut-dialog) { border: 1px solid CanvasText; background: Canvas; box-shadow: none; }
+  .solar-os[data-interface="sunlit"] .rail-items button.active, .solar-os[data-interface="sunlit"] .mi-console-tabs button[aria-selected="true"] { outline: 2px solid Highlight; }
+}

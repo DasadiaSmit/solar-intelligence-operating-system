@@ -1,0 +1,78 @@
+{
+  "schema": "sios-assessment-presentation-1",
+  "analysisSourceCommit": "23288f410bc5df5bf1a571b83a98e245dc1f43e0",
+  "rendererSourceCommit": "a0d82f9e5e4ae375f585cde40716b64e54a9f53a",
+  "rendererHasUncommittedChanges": false,
+  "rendererSha256": "715c681c5f51ea8698b06b508b67304254da9fa05db8520c69aef223c7c55736",
+  "rendererPath": "scripts/research/render-assessment.py",
+  "runtime": {
+    "python": "3.12.14",
+    "matplotlib": "3.10.7",
+    "Markdown": "3.9",
+    "numpy": "2.5.4"
+  },
+  "inputs": [
+    {
+      "path": "../manifest.json",
+      "sha256": "99c481c916133111dc989b3c4696491d3b8fc34eb30c924f74715e55dc284f6f"
+    },
+    {
+      "path": "../audit.json",
+      "sha256": "eb8bf4bc9309c62ed126d9d30e244d0cdd638f55aa75993fdc5f3c4af7fbacac"
+    },
+    {
+      "path": "../REPORT.md",
+      "sha256": "d18e6b5e230bcf57a6ef73412d5e89ac25be0a450ad5e04f5e15ac2dbba27b2d"
+    },
+    {
+      "path": "../baseline-study-replay.json",
+      "sha256": "eb0a5f5c637426bb655d5ff681b941a449e5bc5ef257eff59ae4e14a0c69b54b"
+    },
+    {
+      "path": "../protocol.json",
+      "sha256": "ce4e11cbd2d123b5d17d77efcc18f91623a2b5bf817fa73562d459edccb0d02d"
+    },
+    {
+      "path": "../reproduction.json",
+      "sha256": "3293cc837482b1084d72a769f4d6c3126008ce0f277a766ac560dd29915a50a2"
+    }
+  ],
+  "files": [
+    {
+      "path": "01-annual-sensitivity.png",
+      "sha256": "21f0fe64ebf32c92aba1db8b57abb27149447fd7c70b68c7d90b05c032192ba5",
+      "bytes": 180263
+    },
+    {
+      "path": "01-annual-sensitivity.svg",
+      "sha256": "2ec09c693fbf3394b026dca95e06480adf9b9aab4acdc58acb5e9f41d1fdd187",
+      "bytes": 22385
+    },
+    {
+      "path": "02-array-energy-regret.png",
+      "sha256": "ca951fe5300b0d203d299f20ab7800bbb7ada93645653998971fbb0fd16cfa7f",
+      "bytes": 194063
+    },
+    {
+      "path": "02-array-energy-regret.svg",
+      "sha256": "78fec23a4be4d10f898d199197322763b96f971a6c7a1052aa4752f50c659e80",
+      "bytes": 29853
+    },
+    {
+      "path": "03-selected-month-origins.png",
+      "sha256": "b265c8dfc4d883684273c3cd5b5214108956adf089338c04a363539cdab70441",
+      "bytes": 174774
+    },
+    {
+      "path": "03-selected-month-origins.svg",
+      "sha256": "f86a4f2c0f47d5a74b1c43011aaf12ce1490ec6a507799357fe0167d28c3b5ec",
+      "bytes": 42231
+    },
+    {
+      "path": "REPORT.html",
+      "sha256": "ba7d4cafcd7078fc0461d68e63add849d94b98641bf076ad621a2a4eb41f10fe",
+      "bytes": 745896
+    }
+  ],
+  "interpretation": "Figures visualise frozen retrospective physics-derived evidence. No measured production, future probabilities or global optimality are claimed."
+}

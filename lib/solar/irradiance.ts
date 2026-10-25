@@ -6,6 +6,71 @@ import type {
 } from "../contracts/index";
 import { clamp, DEG_TO_RAD, RAD_TO_DEG } from "./math";
 
+export interface IrradianceComponents {
+  ghiWm2: number;
+  dniWm2: number;
+  dhiWm2: number;
+  clearnessIndex: number;
+  diffuseFraction: number;
+}
+
+/**
+ * Erbs hourly diffuse-fraction correlation.
+ *
+ * This is used only when a provider supplies global horizontal irradiance but
+ * omits one or both beam/diffuse components. Inputs and outputs are hourly mean
+ * irradiances in W m-2. The result is constrained to preserve
+ * GHI = DNI cos(zenith) + DHI. Near the horizon the bounded DNI remainder is
+ * reassigned to DHI so closure is retained; at night DNI is zero and any
+ * non-zero provider GHI remains diffuse rather than disappearing.
+ */
+export function decomposeGhiErbs(
+  ghiWm2: number,
+  position: Pick<SolarPosition, "zenithDeg" | "extraterrestrialNormalWm2" | "isDaylight">,
+): IrradianceComponents {
+  const ghi = Math.max(0, Number.isFinite(ghiWm2) ? ghiWm2 : 0);
+  const cosZenith = Math.cos(position.zenithDeg * DEG_TO_RAD);
+  if (!position.isDaylight || cosZenith <= 0.065 || ghi <= 0) {
+    return {
+      ghiWm2: ghi,
+      dniWm2: 0,
+      dhiWm2: ghi,
+      clearnessIndex: 0,
+      diffuseFraction: ghi > 0 ? 1 : 0,
+    };
+  }
+
+  const extraterrestrialHorizontal = Math.max(
+    1,
+    position.extraterrestrialNormalWm2 * cosZenith,
+  );
+  const clearnessIndex = clamp(ghi / extraterrestrialHorizontal, 0, 1.2);
+  let diffuseFraction: number;
+  if (clearnessIndex <= 0.22) {
+    diffuseFraction = 1 - 0.09 * clearnessIndex;
+  } else if (clearnessIndex <= 0.8) {
+    diffuseFraction =
+      0.9511 -
+      0.1604 * clearnessIndex +
+      4.388 * clearnessIndex ** 2 -
+      16.638 * clearnessIndex ** 3 +
+      12.336 * clearnessIndex ** 4;
+  } else {
+    diffuseFraction = 0.165;
+  }
+  diffuseFraction = clamp(diffuseFraction, 0, 1);
+  const erbsDhiWm2 = clamp(ghi * diffuseFraction, 0, ghi);
+  const dniWm2 = clamp((ghi - erbsDhiWm2) / cosZenith, 0, 1_400);
+  const dhiWm2 = clamp(ghi - dniWm2 * cosZenith, 0, ghi);
+  return {
+    ghiWm2: ghi,
+    dniWm2,
+    dhiWm2,
+    clearnessIndex,
+    diffuseFraction: ghi > 0 ? dhiWm2 / ghi : 0,
+  };
+}
+
 export interface ResolvedOrientation {
   tiltDeg: number;
   azimuthDeg: number;

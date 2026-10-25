@@ -10,14 +10,14 @@ const readJson = async (path) => JSON.parse(await readText(path));
 
 const expectedDepartments = [
   "ARCH", "EXPERIENCE", "FEATURES", "SOLAR", "ENERGY", "DATA", "FORECAST",
-  "TWIN", "PET", "PLATFORM", "QA", "SECOPS", "RESEARCH",
+  "TWIN", "MI", "PLATFORM", "QA", "SECOPS", "RESEARCH",
 ];
 const expectedWorkspaces = ["DT", "AF", "WA", "ML", "RV", "AE", "SR", "BE", "RM", "CL", "FI", "PA", "RP", "MC"];
 const expectedHeadings = [
   "Mission", "Current truth", "Ownership boundary", "Interfaces", "Decision authority",
   "First deep-work programme", "Definition of done", "Measures", "Risks and escalation",
 ];
-const allowedChecks = new Set(["department-registry", "typecheck", "lint", "science", "build", "smoke"]);
+const allowedChecks = new Set(["department-registry", "dependency-security", "typecheck", "lint", "science", "build", "smoke"]);
 
 test("department registry has unique, resolvable and accountable departments", async () => {
   const [registry, labels] = await Promise.all([
@@ -62,10 +62,10 @@ test("department registry has unique, resolvable and accountable departments", a
     }
   }
 
-  const pet = registry.departments.find((department) => department.id === "PET");
-  assert.equal(pet.operatingState, "planned");
-  assert.equal(pet.primaryPaths.length, 0);
-  assert.ok(pet.reservedPaths.length >= 4);
+  const missionIntelligence = registry.departments.find((department) => department.id === "MI");
+  assert.equal(missionIntelligence.operatingState, "active");
+  assert.ok(missionIntelligence.primaryPaths.includes("lib/mission-intelligence"));
+  assert.ok(missionIntelligence.primaryPaths.includes("features/mission-intelligence"));
 });
 
 test("all 14 workspaces have exactly one valid accountable department", async () => {
@@ -89,6 +89,33 @@ test("all 14 workspaces have exactly one valid accountable department", async ()
   assert.deepEqual(runtimeWorkspaceIds, expectedWorkspaces);
 });
 
+test("dependency-security exceptions are exact, owned and time-bounded", async () => {
+  const [registry, exceptions, workspaceConfig] = await Promise.all([
+    readJson("governance/departments.json"),
+    readJson("governance/security-exceptions.json"),
+    readText("pnpm-workspace.yaml"),
+  ]);
+  const departmentIds = new Set(registry.departments.map((department) => department.id));
+  const advisoryIds = new Set();
+  const ignoredAdvisories = [...workspaceConfig.matchAll(/^\s+- (GHSA-[a-z0-9]{4}(?:-[a-z0-9]{4}){2})$/gm)].map((match) => match[1]);
+  assert.deepEqual(ignoredAdvisories.toSorted(), exceptions.exceptions.map((exception) => exception.advisoryId).toSorted(), "every ignored advisory must have an active exception, and vice versa");
+
+  assert.equal(exceptions.schemaVersion, "1.0.0");
+  assert.ok(Array.isArray(exceptions.exceptions));
+  for (const exception of exceptions.exceptions) {
+    assert.match(exception.advisoryId, /^GHSA-[a-z0-9]{4}(?:-[a-z0-9]{4}){2}$/);
+    assert.equal(advisoryIds.has(exception.advisoryId), false);
+    advisoryIds.add(exception.advisoryId);
+    assert.ok(departmentIds.has(exception.ownerDepartment));
+    assert.equal(exception.status, "temporary");
+    assert.ok(Date.parse(exception.expiresAt) > Date.now(), `${exception.advisoryId} security exception has expired`);
+    assert.match(workspaceConfig, new RegExp(`^\\s+- ${exception.advisoryId}$`, "m"));
+    assert.ok(exception.reachability.length >= 40);
+    assert.ok(exception.compensatingControls.length >= 2);
+    assert.ok(exception.remediationGate.length >= 40);
+  }
+});
+
 test("GitHub collaboration files cover departments, evidence and private security reporting", async () => {
   const [registry, departmentForm, pullRequest, security, workflow, dependabot, schema] = await Promise.all([
     readJson("governance/departments.json"),
@@ -108,6 +135,7 @@ test("GitHub collaboration files cover departments, evidence and private securit
   }
   assert.match(security, /Security Advisory/i);
   assert.match(workflow, /name: Governance registry/);
+  assert.match(workflow, /name: Dependency security/);
   assert.match(workflow, /name: Typecheck and lint/);
   assert.match(workflow, /name: Scientific invariants/);
   assert.match(workflow, /name: Production build and smoke/);
@@ -115,4 +143,3 @@ test("GitHub collaboration files cover departments, evidence and private securit
   assert.match(dependabot, /package-ecosystem: github-actions/);
   assert.equal(schema.title, "Solar Intelligence OS department registry");
 });
-

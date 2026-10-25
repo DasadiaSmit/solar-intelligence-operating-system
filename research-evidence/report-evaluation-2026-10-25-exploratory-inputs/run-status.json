@@ -1,0 +1,129 @@
+{
+  "C01": {
+    "point": {
+      "status": "generated"
+    },
+    "tables": {
+      "status": "generated"
+    },
+    "evidence-v1": {
+      "status": "generated"
+    },
+    "evidence-v2": {
+      "status": "generated"
+    }
+  },
+  "C02": {
+    "point": {
+      "status": "generated"
+    },
+    "tables": {
+      "status": "generated"
+    },
+    "evidence-v1": {
+      "status": "generated"
+    },
+    "evidence-v2": {
+      "status": "generated"
+    }
+  },
+  "C03": {
+    "point": {
+      "status": "generated"
+    },
+    "tables": {
+      "status": "generated"
+    },
+    "evidence-v1": {
+      "status": "generated"
+    },
+    "evidence-v2": {
+      "status": "generated"
+    }
+  },
+  "C04": {
+    "point": {
+      "status": "generated"
+    },
+    "tables": {
+      "status": "generated"
+    },
+    "evidence-v1": {
+      "status": "generated"
+    },
+    "evidence-v2": {
+      "status": "generated"
+    }
+  },
+  "C05": {
+    "point": {
+      "status": "generated"
+    },
+    "tables": {
+      "status": "generated"
+    },
+    "evidence-v1": {
+      "status": "generated"
+    },
+    "evidence-v2": {
+      "status": "generated"
+    }
+  },
+  "C06": {
+    "point": {
+      "status": "generated"
+    },
+    "tables": {
+      "status": "generated"
+    },
+    "evidence-v1": {
+      "status": "generated"
+    },
+    "evidence-v2": {
+      "status": "generated"
+    }
+  },
+  "C07": {
+    "point": {
+      "status": "generated"
+    },
+    "tables": {
+      "status": "generated"
+    },
+    "evidence-v1": {
+      "status": "generation-rejected",
+      "error": "Energy values must be finite, nonnegative and complete."
+    },
+    "evidence-v2": {
+      "status": "generated"
+    }
+  },
+  "C08": {
+    "point": {
+      "status": "generated"
+    },
+    "tables": {
+      "status": "generated"
+    },
+    "evidence-v1": {
+      "status": "generated"
+    },
+    "evidence-v2": {
+      "status": "generated"
+    }
+  },
+  "S01": {
+    "point": {
+      "status": "generated"
+    },
+    "tables": {
+      "status": "generated"
+    },
+    "evidence-v1": {
+      "status": "generated"
+    },
+    "evidence-v2": {
+      "status": "generated"
+    }
+  }
+}

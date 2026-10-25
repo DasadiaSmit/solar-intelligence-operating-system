@@ -1,0 +1,6 @@
+model,task,target,mae,rmse,bias,annualErrorPct,coveragePct
+"seasonal-naive","full-year-seasonal-holdout","physics-derived-generation",3.270984990019531,6.6996118795245705,-0.8666127132575658,-14.255774570697916,""
+"hourly-climatology","full-year-seasonal-holdout","physics-derived-generation",2.716681613304817,5.4631626773134645,-0.27236009448107695,-4.480322120340672,""
+"meteo-ridge","weather-conditioned-hindcast","physics-derived-generation",0.9841305831268355,1.8311734947678562,0.30346949301519127,4.9920715624474985,""
+"hybrid-probabilistic","weather-conditioned-hindcast","physics-derived-generation",1.3709643418443853,2.5226915808039223,0.005931548965834756,0.09757394926008571,91.62100456621005
+"physics-reference","target-definition","physics-derived-generation","","","","",""

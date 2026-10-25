@@ -1,0 +1,115 @@
+{
+  "id": "independent-component-comparison-02",
+  "version": "1.0.0",
+  "fixedDate": "2026-10-25",
+  "researchQuestion": "Which calculations agree with an independent library under matched inputs, and how do geometry, temperature-factor clipping and inverter model choices change controlled annual energy and array ranking?",
+  "baseline": "Preserve study01 and production model unchanged; input frozen-bundle from sheffield-2026-10-25-analysis",
+  "reference": {
+    "library": "pvlib-python",
+    "version": "0.13.1",
+    "solarPosition": "spa_python how=numpy delta_t=67.0, geometric zenith/elevation for POA; actual UTC interval-midpoint timestamps",
+    "irradiance": "isotropic plus ground reflection; ASHRAE b=0.05 applied only to direct component; zero all components at geometric elevation<=0",
+    "temperature": "faiman u0=25 u1=6.84; same weather wind values as application",
+    "dc": "pvwatts_dc pdc0=48000 W gamma=-0.0034 temp_ref=25",
+    "ac": "pvwatts pdc0=(40000/0.975) W eta_inv_nom=0.975 eta_inv_ref=0.9637"
+  },
+  "inputCases": [
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "representative-2026"
+  ],
+  "controlledConfiguration": {
+    "tracking": "fixed",
+    "capacityKwDc": 48,
+    "dcAcRatio": 1.2,
+    "inverterEfficiency": 0.975,
+    "baselineTiltDeg": 32,
+    "baselineAzimuthDeg": 180,
+    "bifaciality": 0,
+    "systemAgeYears": 0,
+    "allConfiguredLossFractions": 0,
+    "snowDepthCm": 0,
+    "reason": "An explicitly diagnostic monofacial no-extra-loss copy isolates common front-side components. Original bifacial/lossy scenario is not relabelled or overwritten."
+  },
+  "componentChecks": [
+    "Original solar geometry vs SPA: signed elevation difference; circular azimuth difference. Report all hours, SPA elevation>5 degrees, and absolute SPA elevation<=5 degrees separately. Report mean absolute, root mean square and maximum differences, and fraction daylight elevation differences>0.5 degrees as investigation flag, not acceptance standard.",
+    "Matched application geometry: pvlib beam+ASHRAE, isotropic diffuse and ground reflection vs exported original front components; identical daylight gating. No validation of rear proxy.",
+    "Faiman with original effective irradiance and unadjusted wind: implementation parity only; no temperature field validation.",
+    "PVWatts DC with original effective irradiance and temperature vs application temperature-adjusted ideal DC, separating raw formula and application clipped temperature factor; count nonzero-irradiance cap-trigger hours."
+  ],
+  "controlledStages": [
+    {
+      "id": "project",
+      "definition": "Native application, controlled monofacial no-extra-loss configuration"
+    },
+    {
+      "id": "matched-primitives",
+      "definition": "pvlib front/temperature/DC with application geometry; retain application temperature cap and ported application inverter. Integration parity; copied inverter policy is not independently validated."
+    },
+    {
+      "id": "spa-geometry",
+      "definition": "Replace only geometric solar position with SPA; keep temperature cap and ported application inverter"
+    },
+    {
+      "id": "linear-temperature",
+      "definition": "SPA geometry, remove application temperature-factor clipping; keep ported application inverter"
+    },
+    {
+      "id": "pvwatts-inverter",
+      "definition": "SPA geometry, standard linear DC, replace inverter with pvlib PVWatts at the same40kW AC cap"
+    }
+  ],
+  "arrayGrid": {
+    "tiltDeg": [
+      22,
+      32,
+      42
+    ],
+    "azimuthDeg": [
+      162,
+      180,
+      198
+    ],
+    "cases": [
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "models": [
+      "project-controlled",
+      "pvlib-controlled"
+    ],
+    "interpretation": "Same9options as study01 but controlled monofacial configurations; ranking agreement here does not validate original bifacial result"
+  },
+  "metrics": [
+    "per-component MAE/RMSE/bias/maxabs",
+    "annual/monthly AC kWh by stage",
+    "paired stage deltas kWh and percent",
+    "daylight geometry errors including near horizon",
+    "nonzero-output temperature clipping counts and DC energy effect",
+    "array winner/ranking comparison by historical year"
+  ],
+  "numericalParityTolerances": {
+    "irradianceWm2": 1e-08,
+    "temperatureC": 1e-10,
+    "powerKw": 1e-09
+  },
+  "policy": "No calibration or tuning to reduce disagreement after viewing results. Record failures and investigate. These are implementation checks and model-choice sensitivity, not measured-plant accuracy or operational forecasting. No energy superiority/novelty assumed.",
+  "knownSharedAssumptions": [
+    "Frozen ERA5 inputs and original adaptation are shared, not independently validated.",
+    "Generic Faiman coefficients use unadjusted10m wind rather than calibrated module-height wind.",
+    "Thermal calculations use post-IAM effective irradiance, shared with application; physical adequacy is not established.",
+    "Isotropic sky and generic ASHRAE coefficient remain shared modelling assumptions.",
+    "Protocol01 results were already inspected; this is a predeclared new retrospective diagnostic, not a fresh untouched holdout."
+  ],
+  "excluded": [
+    "Measured production validation",
+    "Independent bifacial rear irradiance validation",
+    "Site geometry, module or inverter calibration",
+    "Weather-provider validation",
+    "App scientific corrections, UI changes or deployment"
+  ]
+}

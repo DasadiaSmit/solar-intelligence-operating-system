@@ -1,0 +1,12 @@
+{
+  "sourceCommit": "d4d3372252ce82f3b08ad832d86f89777bd42223",
+  "protocolSha256": "b689786c0bf6dbd90f3ad71eb422e96931f5519ccec205fead3060aa30170660",
+  "primarySourceCommit": "83687bf35bb34c16efdb95de74a00e0cb4f145ff",
+  "primaryManifestSha256": "b89499f9f662cfdf9543f75a2b8cf38b1c27c1bd652807b71ced734cb482e298",
+  "sourceStudyManifestSha256": "99c481c916133111dc989b3c4696491d3b8fc34eb30c924f74715e55dc284f6f",
+  "runKind": "exploratory-same-case-regression",
+  "fetchDisabled": true,
+  "noNetworkRequired": true,
+  "primaryReportsCopiedWithoutModification": true,
+  "independentValidation": false
+}

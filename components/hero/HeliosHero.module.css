@@ -1,0 +1,465 @@
+.experience,
+.observatoryShell,
+.applicationShell {
+  display: contents;
+}
+
+.overlay {
+  --hero-void: #050706;
+  --hero-surface: #0d110f;
+  --hero-line: rgba(190, 203, 195, 0.2);
+  --hero-line-strong: rgba(231, 196, 106, 0.44);
+  --hero-text: #f4f1e9;
+  --hero-muted: #abb4ae;
+  --hero-dim: #76817b;
+  --hero-solar: #e7c46a;
+  --hero-focus: #8ed4c5;
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--hero-text);
+  background:
+    radial-gradient(circle at 72% 38%, rgba(231, 196, 106, 0.08), transparent 25%),
+    radial-gradient(circle at 76% 46%, rgba(59, 84, 86, 0.11), transparent 42%),
+    linear-gradient(142deg, #050706, #0a0e0e 56%, #050706);
+  font-family:
+    var(--font-instrument-sans),
+    "Avenir Next",
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 280ms ease,
+    visibility 0s linear;
+}
+
+.overlay[data-experience-active="false"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 280ms ease,
+    visibility 0s linear 280ms;
+}
+
+.overlay::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  opacity: 0.5;
+  background-image:
+    linear-gradient(rgba(142, 212, 197, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(142, 212, 197, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at 68% 43%, black, transparent 74%);
+}
+
+.scrollRegion {
+  position: absolute;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--hero-line-strong) transparent;
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+}
+
+.scrollRegion:focus-visible {
+  outline: 2px solid var(--hero-focus);
+  outline-offset: -4px;
+}
+
+.journey {
+  position: relative;
+  min-height: 820dvh;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.78fr) minmax(420px, 1.22fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: clamp(20px, 3vw, 52px);
+  align-items: center;
+  padding: clamp(28px, 5vw, 76px);
+}
+
+.stage:not([data-observatory-phase="hero"]) {
+  /* Hidden entry content must not move observatory controls below the viewport. */
+  height: 100dvh;
+}
+
+.entryLayer {
+  display: contents;
+}
+
+.entryLayer [data-hero-entry] {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 420ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear;
+}
+
+.entryLayer[aria-hidden="true"] [data-hero-entry] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate3d(-18px, 0, 0);
+  transition:
+    opacity 320ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 420ms;
+}
+
+.observatoryLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  /* Keep focus-driven scrolling inside this viewport, away from journey progress. */
+  overflow-y: auto;
+  grid-template-columns: minmax(520px, 1fr) minmax(300px, 0.46fr);
+  gap: clamp(20px, 3vw, 52px);
+  align-items: center;
+  padding: clamp(28px, 5vw, 76px);
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 420ms ease 100ms,
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear;
+}
+
+.observatoryLayer > :first-child {
+  min-width: 0;
+}
+
+.observatoryLayer > :last-child {
+  align-self: end;
+  justify-self: end;
+}
+
+.observatoryLayer[aria-hidden="true"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate3d(18px, 0, 0);
+  transition:
+    opacity 260ms ease,
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 400ms;
+}
+
+.copyBlock {
+  position: relative;
+  z-index: 4;
+  grid-column: 1;
+  grid-row: 1;
+  max-width: 650px;
+  align-self: center;
+}
+
+.eyebrow,
+.motionNote,
+.progressLabel {
+  font-family:
+    var(--font-intel-one-mono),
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+}
+
+.eyebrow {
+  margin: 0 0 20px;
+  color: var(--hero-solar);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+}
+
+.copyBlock h1 {
+  max-width: 12ch;
+  margin: 0;
+  font-size: clamp(2.6rem, 5.7vw, 6.7rem);
+  font-weight: 470;
+  letter-spacing: -0.055em;
+  line-height: 0.93;
+  text-wrap: balance;
+}
+
+.introduction {
+  max-width: 56ch;
+  margin: 28px 0 0;
+  color: var(--hero-muted);
+  font-size: clamp(0.96rem, 1.2vw, 1.18rem);
+  line-height: 1.65;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.primaryAction,
+.secondaryAction {
+  min-height: 44px;
+  padding: 0 19px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.primaryAction {
+  color: #11130f;
+  background: var(--hero-solar);
+}
+
+.primaryAction:hover {
+  background: #f0d883;
+}
+
+.secondaryAction {
+  color: var(--hero-text);
+  border-color: var(--hero-line);
+  background: rgba(15, 20, 18, 0.68);
+}
+
+.secondaryAction:hover,
+.secondaryAction[aria-expanded="true"] {
+  border-color: var(--hero-line-strong);
+  background: rgba(231, 196, 106, 0.08);
+}
+
+.primaryAction:focus-visible,
+.secondaryAction:focus-visible {
+  outline: 2px solid var(--hero-focus);
+  outline-offset: 4px;
+}
+
+.motionNote {
+  max-width: 58ch;
+  margin: 14px 0 0;
+  color: var(--hero-dim);
+  font-size: 0.68rem;
+  line-height: 1.55;
+}
+
+.progressRail {
+  position: absolute;
+  right: clamp(28px, 5vw, 76px);
+  bottom: 27px;
+  left: clamp(28px, 5vw, 76px);
+  z-index: 5;
+  height: 1px;
+  background: var(--hero-line);
+}
+
+.progressRail span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--hero-solar);
+  transform-origin: left;
+}
+
+.progressLabel {
+  position: absolute;
+  right: clamp(28px, 5vw, 76px);
+  bottom: 34px;
+  z-index: 5;
+  margin: 0;
+  color: var(--hero-dim);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+}
+
+.screenReaderOnly {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (max-width: 1024px) {
+  .stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(38dvh, 1fr) auto auto;
+    align-content: start;
+    gap: 14px;
+    padding: 24px clamp(24px, 6vw, 60px) 58px;
+  }
+
+  .copyBlock {
+    grid-column: 1;
+    grid-row: 2;
+    max-width: 760px;
+    align-self: end;
+  }
+
+  .copyBlock h1 {
+    max-width: 16ch;
+    font-size: clamp(2.4rem, 7.7vw, 5rem);
+  }
+
+  .introduction {
+    margin-top: 17px;
+  }
+
+  .actions {
+    margin-top: 20px;
+  }
+
+  .observatoryLayer {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 34vw);
+    gap: 18px;
+    padding: 24px clamp(24px, 4vw, 48px) 58px;
+  }
+}
+
+@media (max-width: 640px) {
+  .journey {
+    min-height: 820dvh;
+  }
+
+  .stage {
+    grid-template-rows: minmax(31dvh, 1fr) auto auto;
+    min-height: 100dvh;
+    gap: 11px;
+    padding: 14px 16px 48px;
+  }
+
+  .eyebrow {
+    margin-bottom: 10px;
+    font-size: 0.57rem;
+  }
+
+  .copyBlock h1 {
+    max-width: 17ch;
+    font-size: clamp(2rem, 10.5vw, 3.35rem);
+    line-height: 0.96;
+  }
+
+  .introduction {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .actions {
+    gap: 8px;
+    margin-top: 15px;
+  }
+
+  .primaryAction,
+  .secondaryAction {
+    min-height: 44px;
+    padding: 0 13px;
+    font-size: 0.65rem;
+  }
+
+  .motionNote {
+    margin-top: 9px;
+    font-size: 0.59rem;
+  }
+
+  .progressRail {
+    right: 16px;
+    bottom: 20px;
+    left: 16px;
+  }
+
+  .progressLabel {
+    right: 16px;
+    bottom: 26px;
+  }
+
+  .observatoryLayer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    align-content: safe center;
+    padding: 14px 16px 48px;
+  }
+
+  .observatoryLayer > :last-child {
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 50rem), (pointer: coarse), (max-height: 42rem) {
+  .observatoryLayer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    align-content: safe center;
+  }
+
+  .observatoryLayer > :last-child {
+    justify-self: stretch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey {
+    min-height: 100dvh;
+  }
+
+  .scrollRegion {
+    scroll-behavior: auto;
+  }
+
+  .primaryAction,
+  .secondaryAction,
+  .entryLayer [data-hero-entry],
+  .observatoryLayer,
+  .overlay {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .overlay,
+  .secondaryAction {
+    color: CanvasText;
+    background: Canvas;
+  }
+
+  .overlay::before {
+    display: none;
+  }
+
+  .primaryAction,
+  .secondaryAction {
+    border-color: CanvasText;
+  }
+
+  .primaryAction {
+    color: ButtonText;
+    background: ButtonFace;
+  }
+}

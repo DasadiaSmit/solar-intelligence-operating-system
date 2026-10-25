@@ -19,6 +19,19 @@ const FIELDS: CanonicalWeatherField[] = [
   "dhiWm2",
 ];
 
+// Only state variables for which a short linear bridge has a defensible local
+// interpretation are interpolated. Precipitation and snow are accumulative or
+// stateful; beam/diffuse radiation is reconstructed downstream with a closure-
+// preserving method when necessary.
+const SHORT_GAP_INTERPOLATION_FIELDS: CanonicalWeatherField[] = [
+  "temperatureC",
+  "relativeHumidityPct",
+  "cloudCoverPct",
+  "surfacePressureHpa",
+  "windSpeedMps",
+  "ghiWm2",
+];
+
 export function finiteOrNull(value: unknown): number | null {
   return typeof value === "number" && Number.isFinite(value) ? value : null;
 }
@@ -65,7 +78,9 @@ export function sanitiseRecords(records: CanonicalWeatherHour[]): CanonicalWeath
     deduplicated.push(record);
   }
 
-  for (const field of FIELDS) interpolateShortGaps(deduplicated, field, 2);
+  for (const field of SHORT_GAP_INTERPOLATION_FIELDS) {
+    interpolateShortGaps(deduplicated, field, 2);
+  }
   for (let index = 0; index < deduplicated.length; index += 1) {
     const record = deduplicated[index];
     if (index > 0) {

@@ -27,6 +27,7 @@ export interface ClientOperatingSnapshot extends Omit<OperatingSnapshot, "hourly
   hourly: ClientHourTuple[];
   transport: {
     format: "sios-hour-tuple-v1";
+    resultId: string;
     startTimestampUtc: string;
     intervalSeconds: 3600;
     recordCount: number;
@@ -40,7 +41,7 @@ function compact(value: number, precision = 3): number {
   return Math.round(value * factor) / factor;
 }
 
-export function compactOperatingSnapshot(snapshot: OperatingSnapshot): ClientOperatingSnapshot {
+export function compactOperatingSnapshot(snapshot: OperatingSnapshot, resultId: string): ClientOperatingSnapshot {
   return {
     ...snapshot,
     hourly: snapshot.hourly.map((point) => [
@@ -61,6 +62,7 @@ export function compactOperatingSnapshot(snapshot: OperatingSnapshot): ClientOpe
     ]),
     transport: {
       format: "sios-hour-tuple-v1",
+      resultId,
       startTimestampUtc: snapshot.hourly[0]?.timestamp ?? "2025-01-01T00:00:00.000Z",
       intervalSeconds: 3600,
       recordCount: snapshot.hourly.length,

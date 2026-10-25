@@ -43,6 +43,7 @@ Write `Not applicable` only when the change cannot affect scientific or data mea
 ## Verification
 
 - [ ] Department registry
+- [ ] Dependency security audit
 - [ ] TypeScript
 - [ ] Lint
 - [ ] Focused tests
@@ -63,4 +64,3 @@ Commands and evidence:
 - Documents/ADRs/SDRs updated:
 - Rollback or forward-fix plan:
 - Known limitations and follow-up work:
-

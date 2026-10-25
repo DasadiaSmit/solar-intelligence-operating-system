@@ -1,0 +1,448 @@
+.navigation,
+.readout {
+  --observatory-line: rgba(190, 203, 195, 0.24);
+  --observatory-line-strong: rgba(231, 196, 106, 0.56);
+  --observatory-text: #f4f1e9;
+  --observatory-muted: #abb4ae;
+  --observatory-dim: #76817b;
+  --observatory-solar: #e7c46a;
+  --observatory-focus: #8ed4c5;
+  color: var(--observatory-text);
+}
+
+.navigation { width: min(100%, 850px); }
+.navigationHeading p,
+.readoutCoordinate {
+  margin: 0;
+  color: var(--observatory-solar);
+  font-family: var(--font-intel-one-mono), "SFMono-Regular", Consolas, monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.17em;
+}
+.navigationHeading h2,
+.readout h2 {
+  margin: 5px 0 0;
+  font-size: clamp(1.15rem, 2vw, 1.8rem);
+  font-weight: 540;
+  letter-spacing: -0.025em;
+}
+.disclosure,
+.instructions,
+.instrumentSummary,
+.provenanceLine,
+.readoutLimitation,
+.motionNotice {
+  max-width: 66ch;
+  color: var(--observatory-muted);
+  line-height: 1.55;
+}
+.disclosure { margin: 12px 0 0; font-size: 0.76rem; }
+.instructions { margin: 8px 0 0; color: var(--observatory-dim); font-size: 0.68rem; }
+
+.ring {
+  --ring-radius: clamp(150px, 29vmin, 290px);
+  position: relative;
+  width: min(72vmin, 680px);
+  max-width: 100%;
+  aspect-ratio: 1;
+  margin: clamp(22px, 4vh, 42px) auto 0;
+  border: 1px solid var(--observatory-line);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 53%, rgba(231, 196, 106, 0.035) 53.2% 53.8%, transparent 54%),
+    radial-gradient(circle, transparent 0 72%, rgba(190, 203, 195, 0.08) 72.2% 72.6%, transparent 72.8%);
+}
+.ring::before,
+.ring::after {
+  position: absolute;
+  inset: 12%;
+  border: 1px solid rgba(190, 203, 195, 0.12);
+  border-radius: 50%;
+  pointer-events: none;
+  content: "";
+}
+.ring::after { inset: 31%; border-style: dashed; opacity: 0.55; }
+.activePositions,
+.reservedPositions { position: absolute; inset: 0; margin: 0; padding: 0; }
+.activePositions,
+.reservedPositions {
+  transform: rotate(var(--observatory-dial-rotation, 0rad));
+  transform-origin: center;
+  transition: transform 110ms linear;
+}
+.reservedPositions { list-style: none; }
+
+.positionButton,
+.reservedPosition {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform:
+    translate(-50%, -50%)
+    rotate(var(--observatory-counter-angle))
+    translateX(var(--ring-radius))
+    rotate(var(--observatory-position-angle))
+    rotate(var(--observatory-dial-counter-rotation, 0rad));
+}
+.positionButton {
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  padding: 0;
+  border: 1px solid var(--observatory-line);
+  border-radius: 50%;
+  color: var(--observatory-muted);
+  background: #0d110f;
+  touch-action: manipulation;
+  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+.positionButton::before {
+  position: absolute;
+  inset: 7px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.38;
+  content: "";
+}
+.positionOrdinal,
+.reservedOrdinal {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-intel-one-mono), "SFMono-Regular", Consolas, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+}
+.positionLabel {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  z-index: 5;
+  width: max-content;
+  max-width: 180px;
+  padding: 5px 7px;
+  border: 1px solid var(--observatory-line);
+  color: var(--observatory-text);
+  background: #0d110f;
+  font-size: 0.64rem;
+  line-height: 1.35;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+.positionButton:hover .positionLabel,
+.positionButton:focus-visible .positionLabel,
+.positionButton[aria-current="location"] .positionLabel { opacity: 1; }
+.positionButton[data-position-state="current"] {
+  color: #11130f;
+  border-color: var(--observatory-solar);
+  background: var(--observatory-solar);
+  box-shadow: 0 0 0 5px rgba(231, 196, 106, 0.11), 0 0 24px rgba(231, 196, 106, 0.22);
+}
+.positionButton[data-position-state="previous"] {
+  color: var(--observatory-muted);
+  border-color: rgba(190, 203, 195, 0.4);
+}
+.positionButton[data-position-state="future"] {
+  color: var(--observatory-dim);
+  border-color: rgba(231, 196, 106, 0.22);
+  box-shadow: 0 0 12px rgba(231, 196, 106, 0.055);
+}
+.positionButton:focus-visible {
+  z-index: 8;
+  outline: 3px solid var(--observatory-focus);
+  outline-offset: 4px;
+  color: var(--observatory-text);
+  border-color: var(--observatory-focus);
+  box-shadow: 0 0 0 6px rgba(142, 212, 197, 0.14);
+}
+.reservedPosition {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(190, 203, 195, 0.14);
+  border-radius: 50%;
+  color: var(--observatory-dim);
+  background: #090c0a;
+}
+.calibrationMark {
+  position: absolute;
+  left: 50%;
+  top: -9px;
+  width: 1px;
+  height: 22px;
+  background: var(--observatory-solar);
+  box-shadow: 0 0 12px rgba(231, 196, 106, 0.3);
+  transform: translateX(-50%);
+}
+
+.readout {
+  width: min(100%, 440px);
+  max-height: min(82dvh, 760px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 18px 20px;
+  border-left: 2px solid var(--observatory-line-strong);
+  background: #0d110f;
+}
+.readout:focus-visible {
+  outline: 3px solid var(--observatory-focus);
+  outline-offset: 3px;
+}
+.readoutLimitation,
+.motionNotice { margin: 11px 0 0; font-size: 0.74rem; }
+.readoutLimitation h3 {
+  margin: 0;
+  color: var(--observatory-text);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.instrumentSummary {
+  margin: 11px 0 0;
+  font-size: 0.74rem;
+}
+.instrumentFacts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 13px 0 0;
+}
+.instrumentFacts div {
+  min-width: 0;
+  padding: 8px 9px;
+  border: 1px solid var(--observatory-line);
+  background: rgba(190, 203, 195, 0.035);
+}
+.instrumentFacts dt {
+  color: var(--observatory-dim);
+  font-family: var(--font-intel-one-mono), "SFMono-Regular", Consolas, monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.instrumentFacts dd {
+  margin: 4px 0 0;
+  color: var(--observatory-text);
+  font-size: 0.68rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.instrumentEvidenceList {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-inline-start: 18px;
+}
+.instrumentEvidenceList li::marker {
+  color: var(--observatory-dim);
+  font-family: var(--font-intel-one-mono), "SFMono-Regular", Consolas, monospace;
+}
+.comparisonTableRegion {
+  margin-top: 13px;
+  overflow-x: auto;
+  border: 1px solid var(--observatory-line);
+}
+.flowTableRegion {
+  margin-top: 13px;
+  overflow-x: auto;
+  border: 1px solid var(--observatory-line);
+}
+.comparisonTable {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  color: var(--observatory-text);
+  font-size: 0.64rem;
+  line-height: 1.4;
+}
+.flowTable {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  color: var(--observatory-text);
+  font-size: 0.64rem;
+  line-height: 1.4;
+}
+.flowTable caption {
+  padding: 8px 9px;
+  color: var(--observatory-dim);
+  font-family: var(--font-intel-one-mono), "SFMono-Regular", Consolas, monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.09em;
+  text-align: left;
+  text-transform: uppercase;
+}
+.flowTable th,
+.flowTable td {
+  padding: 8px 9px;
+  border-top: 1px solid var(--observatory-line);
+  text-align: left;
+  vertical-align: top;
+}
+.flowTable thead th {
+  color: var(--observatory-dim);
+  font-family: var(--font-intel-one-mono), "SFMono-Regular", Consolas, monospace;
+  font-size: 0.54rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.flowTable tbody th {
+  min-width: 180px;
+  font-weight: 500;
+}
+.comparisonTable caption {
+  padding: 8px 9px;
+  color: var(--observatory-dim);
+  font-family: var(--font-intel-one-mono), "SFMono-Regular", Consolas, monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.09em;
+  text-align: left;
+  text-transform: uppercase;
+}
+.comparisonTable th,
+.comparisonTable td {
+  padding: 8px 9px;
+  border-top: 1px solid var(--observatory-line);
+  text-align: left;
+  vertical-align: top;
+}
+.comparisonTable thead th {
+  color: var(--observatory-dim);
+  font-family: var(--font-intel-one-mono), "SFMono-Regular", Consolas, monospace;
+  font-size: 0.54rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.comparisonTable tbody th {
+  min-width: 190px;
+  font-weight: 500;
+}
+.comparisonTable tbody th span {
+  display: block;
+  margin-top: 3px;
+  color: var(--observatory-muted);
+  font-weight: 400;
+}
+.provenanceLine {
+  margin: 10px 0 0;
+  color: var(--observatory-dim);
+  font-family: var(--font-intel-one-mono), "SFMono-Regular", Consolas, monospace;
+  font-size: 0.58rem;
+  overflow-wrap: anywhere;
+}
+.motionNotice { color: var(--observatory-focus); }
+.enterApplication {
+  min-width: 44px;
+  min-height: 44px;
+  margin-top: 17px;
+  padding: 0 16px;
+  border: 1px solid var(--observatory-line-strong);
+  color: var(--observatory-text);
+  background: transparent;
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+.readout[data-entry-emphasis="strong"] .enterApplication {
+  color: #11130f;
+  border-color: var(--observatory-solar);
+  background: var(--observatory-solar);
+}
+.enterApplication:focus-visible {
+  outline: 3px solid var(--observatory-focus);
+  outline-offset: 4px;
+}
+.screenReaderOnly {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (max-width: 64rem), (pointer: coarse), (max-height: 42rem) {
+  .navigation {
+    width: 100%;
+    padding-inline: max(12px, env(safe-area-inset-left)) max(12px, env(safe-area-inset-right));
+  }
+  .ring {
+    width: 100%;
+    aspect-ratio: auto;
+    margin-top: 18px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+  .ring::before,
+  .ring::after,
+  .calibrationMark { display: none; }
+  .activePositions,
+  .reservedPositions {
+    position: relative;
+    inset: auto;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(48px, 1fr));
+    gap: 8px;
+    overflow-x: auto;
+    padding: 6px 2px 14px;
+  }
+  .reservedPositions {
+    margin-top: 8px;
+    border-top: 1px solid var(--observatory-line);
+  }
+  .positionButton,
+  .reservedPosition { position: relative; left: auto; top: auto; transform: none; }
+  .activePositions,
+  .reservedPositions { transform: none; }
+  .positionButton { width: 48px; justify-self: center; }
+  .reservedPosition { width: 44px; height: 44px; justify-self: center; }
+  .positionLabel { top: auto; bottom: calc(100% + 7px); }
+  .instrumentFacts { grid-template-columns: 1fr; }
+  .readout { max-height: 44dvh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .activePositions,
+  .reservedPositions,
+  .positionButton,
+  .enterApplication { transition: none; }
+}
+
+@media (forced-colors: active) {
+  .navigation,
+  .readout { color: CanvasText; background: Canvas; }
+  .ring,
+  .ring::before,
+  .ring::after,
+  .positionButton,
+  .reservedPosition,
+  .instrumentFacts div,
+  .comparisonTableRegion,
+  .comparisonTable th,
+  .comparisonTable td,
+  .flowTableRegion,
+  .flowTable th,
+  .flowTable td,
+  .readout,
+  .enterApplication,
+  .positionLabel { border-color: CanvasText; }
+  .positionButton,
+  .reservedPosition,
+  .positionLabel { color: CanvasText; background: Canvas; }
+  .positionButton[aria-current="location"] {
+    color: HighlightText;
+    border-color: Highlight;
+    background: Highlight;
+  }
+  .positionButton:focus-visible,
+  .readout:focus-visible,
+  .enterApplication:focus-visible { outline-color: Highlight; }
+}

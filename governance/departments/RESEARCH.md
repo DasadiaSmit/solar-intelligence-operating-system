@@ -32,7 +32,7 @@ RESEARCH does not unilaterally change solar formulae, provider transformations, 
 - **DATA:** dataset snapshots, licences, quality, transformations, temporal meaning and retention.
 - **FORECAST:** temporal splits, metrics, calibration, drift and champion/challenger promotion.
 - **TWIN and FEATURES:** research visualisation, annotations, export context and honest lifecycle labels.
-- **PET:** citation, provenance, uncertainty language and safeguards against fabricated explanations.
+- **MI:** evidence eligibility, provenance, uncertainty language, research-method specialist boundaries and safeguards against fabricated findings.
 - **PLATFORM:** experiment/model metadata, immutable artifacts and bounded inference interfaces.
 - **QA:** reproducibility, numerical tolerances, leakage checks and publication regression evidence.
 - **SECOPS:** sensitive data, licences, artifact integrity and scientific-output incident handling.

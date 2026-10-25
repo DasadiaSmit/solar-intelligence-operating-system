@@ -9,7 +9,7 @@ The authoritative registry is [`governance/departments.json`](governance/departm
 1. **One product, explicit owners.** Every workspace and primary path has one accountable department.
 2. **Contracts before coupling.** Shared data crosses departments through versioned, tested interfaces.
 3. **Evidence before status.** Visual completeness does not promote planned work to implemented.
-4. **Truth survives transport.** Units, lifecycle, provenance, quality, assumptions, uncertainty and warnings remain attached through APIs, UI, exports and assistant responses.
+4. **Truth survives transport.** Units, lifecycle, provenance, quality, assumptions, uncertainty and warnings remain attached through APIs, UI, exports and Mission Intelligence findings.
 5. **No silent substitution.** Providers, data classes, models and scenario results are never swapped or relabelled without visible lineage.
 6. **Forward-only history.** Git, migrations, ADRs and SDRs preserve what changed and why.
 7. **Safe review.** `main` is the recoverable source of record; normal work arrives through checked pull requests.
@@ -38,4 +38,3 @@ The authoritative registry is [`governance/departments.json`](governance/departm
 ## Continuity
 
 GitHub is the private source of record, not the only recovery mechanism. Deployment artifacts, D1 metadata, R2 snapshots and provider/model assets follow the separate backup and recovery plan. `PROJECT_STATUS.md` remains the crystal-clear restart ledger after each major phase.
-

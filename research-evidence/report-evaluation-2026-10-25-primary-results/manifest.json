@@ -1,0 +1,45 @@
+{
+  "schema": "sios-report-evaluation-output-1",
+  "ruleVersion": "report-markdown-rules-1.0.0",
+  "sourceCommit": "83687bf35bb34c16efdb95de74a00e0cb4f145ff",
+  "evaluatorCommit": "83687bf35bb34c16efdb95de74a00e0cb4f145ff",
+  "protocolSha256": "b689786c0bf6dbd90f3ad71eb422e96931f5519ccec205fead3060aa30170660",
+  "inputManifestSha256": "b89499f9f662cfdf9543f75a2b8cf38b1c27c1bd652807b71ced734cb482e298",
+  "files": [
+    {
+      "path": "REPORT.html",
+      "sha256": "4e4b2d6854fd961d4e83129fccc6d0bb373157cf807c13847ee7e305ceef40bb",
+      "bytes": 84817
+    },
+    {
+      "path": "REPORT.md",
+      "sha256": "6e7b7f52f2c26484dd54a8932eb55ce9b87a05a679f3304e937890dca3c026dc",
+      "bytes": 7480
+    },
+    {
+      "path": "coverage.png",
+      "sha256": "41d074cf982cae245322db44a53394d98af492d27cd522c3f7333be29c55359d",
+      "bytes": 56276
+    },
+    {
+      "path": "coverage.svg",
+      "sha256": "c1ec4c85069587433692e3d220dcf6fada5ad4056b0f557f4695e2ff12b59760",
+      "bytes": 45756
+    },
+    {
+      "path": "evaluations.json",
+      "sha256": "ecbbc93ded813c4d5dc089d396d15ab9e02754f32b04e8dac232d17b4c2fb91d",
+      "bytes": 179592
+    },
+    {
+      "path": "fact-scores.csv",
+      "sha256": "1d625c4d79525d75785bb58b24577929356c008b68d08767e7e976e281ff9377",
+      "bytes": 12623
+    },
+    {
+      "path": "runtime.json",
+      "sha256": "12b746d7f1a64cf4c2522bc2b468a1db7a7f460b3a87abae8e75553f24f2e6a3",
+      "bytes": 488
+    }
+  ]
+}

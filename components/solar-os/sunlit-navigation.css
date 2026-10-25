@@ -1,0 +1,83 @@
+/* Full names are part of the navigation, including on compact screens. */
+.solar-os[data-interface="sunlit"][data-navigation="full"] {
+  --workspace-width: 246px;
+  grid-template-columns: var(--workspace-width) minmax(0, 1fr) 336px;
+}
+.solar-os[data-interface="sunlit"][data-navigation="full"].inspector-hidden { grid-template-columns: var(--workspace-width) minmax(0, 1fr) 0; }
+.solar-os[data-interface="sunlit"][data-navigation="full"].focus-mode { grid-template-columns: 0 minmax(0, 1fr) 0; }
+.solar-os[data-navigation="full"] .workspace-rail { grid-column: 1; grid-row: 2 / 4; min-height: 0; padding: 8px; flex-direction: column; overflow: hidden; }
+.solar-os[data-navigation="full"] .workspace-navigation-panel { display: flex; flex-direction: column; min-height: 0; height: 100%; }
+.solar-os[data-navigation="full"] .workspace-navigation-heading { display: flex; align-items: center; justify-content: space-between; padding: 15px 12px 16px; flex: none; }
+.solar-os[data-navigation="full"] .workspace-navigation-heading span { display: block; color: var(--muted); font-size: 10px; letter-spacing: .025em; margin-bottom: 5px; }
+.solar-os[data-navigation="full"] .workspace-navigation-heading strong { font: 500 20px var(--font-sans); letter-spacing: -.035em; }
+.solar-os[data-navigation="full"] :is(.workspace-menu-trigger, .workspace-menu-close, .workspace-menu-scrim) { display: none; }
+.solar-os[data-navigation="full"] .rail-items { display: flex; flex-direction: column; overflow-x: hidden; overflow-y: auto; padding: 5px; gap: 6px; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.solar-os[data-navigation="full"] .rail-items::-webkit-scrollbar { display: block; width: 3px; }
+.solar-os[data-navigation="full"] .rail-items::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
+.solar-os[data-navigation="full"] .rail-items button { display: flex; align-items: center; justify-content: flex-start; gap: 10px; width: 100%; min-width: 0; min-height: 57px; height: auto; flex: 0 0 auto; padding: 12px 11px; border: 1px solid transparent; border-radius: 19px; text-align: left; color: var(--muted); }
+.solar-os[data-navigation="full"] .rail-items button > span { display: block; width: auto; height: auto; border: 0; padding: 0; font: 500 12px/1.35 var(--font-sans); letter-spacing: -.01em; white-space: normal; }
+.solar-os[data-navigation="full"] .rail-items button > i { position: static; flex: 0 0 5px; width: 5px; height: 5px; border-radius: 50%; }
+.solar-os[data-navigation="full"] .rail-items button > b { margin-left: auto; font: 16px var(--font-sans); color: var(--solar); }
+.solar-os[data-navigation="full"] .rail-items button.active { color: var(--text); border-color: color-mix(in srgb, var(--solar) 32%, transparent); background: linear-gradient(125deg, rgb(255 237 202 / 52%), rgb(248 226 190 / 14%)); box-shadow: inset 0 1px 0 rgb(255 255 255 / 65%), 0 3px 10px var(--shadow); }
+.solar-os[data-navigation="full"][data-theme="observatory"] .rail-items button.active { background: linear-gradient(125deg, rgb(245 213 161 / 23%), rgb(245 213 161 / 7%)); }
+.solar-os[data-navigation="full"] .rail-items button.active > span { color: var(--text); }
+.solar-os[data-navigation="full"] .rail-items button:hover { color: var(--text); background-color: color-mix(in srgb, var(--instrument) 55%, transparent); border-color: var(--sunlit-edge); }
+.solar-os[data-navigation="full"] .rail-items button::after { display: none; }
+.solar-os[data-navigation="full"] .rail-help { display: flex; align-items: center; gap: 9px; flex: none; width: calc(100% - 10px); height: 40px; margin: 10px 5px 2px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font: 11px var(--font-sans); }
+.solar-os[data-navigation="full"] .mission-actions .dashboard-theme-toggle { display: inline-flex !important; align-items: center; gap: 6px; color: var(--text); font-family: var(--font-sans); }
+.solar-os[data-navigation="full"] .dashboard-theme-toggle > span:first-child { font-size: 17px; }
+.solar-os[data-navigation="full"] .stage-heading h1 { line-height: 1.18; white-space: normal; }
+.solar-os[data-navigation="full"] .stage-heading .mobile-inspector-trigger { border-radius: 999px; font-family: var(--font-sans); text-transform: none; }
+.solar-os[data-navigation="full"] .inspector-reopen { display: none; }
+.solar-os[data-navigation="full"] .mobile-inspector-trigger { display: block; min-height: 38px; margin-right: 12px; padding: 8px 14px; grid-column: 3; }
+.solar-os[data-navigation="full"] .stage-state { display: none; }
+.solar-os[data-navigation="full"] .replay-console > button,
+.solar-os[data-navigation="full"] .replay-console label { margin-top: 0; }
+
+@media (max-width: 1440px) {
+  .solar-os[data-interface="sunlit"][data-navigation="full"], .solar-os[data-interface="sunlit"][data-navigation="full"].inspector-hidden { --workspace-width: 230px; grid-template-columns: var(--workspace-width) minmax(0, 1fr) 0; }
+  .solar-os[data-interface="sunlit"][data-navigation="full"].focus-mode { grid-template-columns: 0 minmax(0, 1fr) 0; }
+  .solar-os[data-navigation="full"] .mission-intelligence-console { position: fixed; z-index: 90; top: 86px; right: 12px; bottom: 48px; width: min(390px, calc(100vw - 24px)); grid-column: auto; opacity: 1 !important; box-shadow: -20px 16px 60px var(--shadow); transform: none; }
+  .solar-os[data-navigation="full"] .stage-heading { grid-template-columns: 34px minmax(0, 1fr) auto; }
+}
+@media (max-width: 1100px) and (min-width: 901px) {
+  .solar-os[data-interface="sunlit"][data-navigation="full"] { --workspace-width: 212px; }
+  .solar-os[data-navigation="full"] .rail-items button { gap: 7px; padding: 10px 8px; }
+  .solar-os[data-navigation="full"] .rail-items button > span { font-size: 11px; }
+}
+@media (max-width: 900px) {
+  .solar-os[data-interface="sunlit"][data-navigation="full"], .solar-os[data-interface="sunlit"][data-navigation="full"].inspector-hidden { grid-template-columns: minmax(0, 1fr); grid-template-rows: 60px 58px minmax(0, 1fr) 112px 24px; gap: 7px; padding: 7px; }
+  .solar-os[data-navigation="full"] .mission-header { grid-column: 1; grid-row: 1; }
+  .solar-os[data-navigation="full"] .workspace-rail { grid-column: 1; grid-row: 2; display: block; padding: 0; overflow: visible; z-index: 70; backdrop-filter: none; }
+  .solar-os[data-navigation="full"] .workspace-menu-trigger { display: flex; align-items: center; justify-content: space-between; gap: 10px; height: 100%; width: 100%; padding: 8px 16px; background: transparent; color: var(--text); text-align: left; border-radius: 18px; backdrop-filter: blur(20px); }
+  .solar-os[data-navigation="full"] .workspace-menu-trigger small { display: block; margin-bottom: 3px; font: 9px var(--font-sans); color: var(--muted); }
+  .solar-os[data-navigation="full"] .workspace-menu-trigger strong { display: block; font: 500 12px/1.25 var(--font-sans); }
+  .solar-os[data-navigation="full"] .workspace-navigation-panel { display: none; }
+  .solar-os[data-navigation="full"] .workspace-rail[data-menu-open="true"] { z-index: 200; }
+  .solar-os[data-navigation="full"] [data-menu-open="true"] .workspace-navigation-panel { display: flex; position: fixed; z-index: 202; inset: 20px auto 20px 12px; width: min(360px, calc(100vw - 24px)); height: auto; padding: 8px; border: 1px solid var(--sunlit-edge); border-radius: 26px; background: var(--sunlit-glass), color-mix(in srgb, var(--shell) 94%, transparent); backdrop-filter: blur(28px); box-shadow: 0 24px 80px var(--shadow); }
+  .solar-os[data-navigation="full"] [data-menu-open="true"] .workspace-menu-scrim { display: block; position: fixed; inset: 0; z-index: 201; background: rgb(19 48 70 / 25%); backdrop-filter: blur(6px); cursor: default; border-radius: 0; }
+  .solar-os[data-navigation="full"] .workspace-menu-close { display: block; width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%; background: color-mix(in srgb, var(--instrument) 75%, transparent); color: var(--text); font-size: 22px; }
+  .solar-os[data-navigation="full"] .rail-items button { min-height: 58px; }
+  .solar-os[data-navigation="full"] .rail-items button > span { font-size: 13px; }
+  .solar-os[data-navigation="full"] .primary-stage { grid-column: 1; grid-row: 3; }
+  .solar-os[data-navigation="full"] .orbital-deck { grid-column: 1; grid-row: 4; }
+  .solar-os[data-navigation="full"] .system-ledger { grid-column: 1; grid-row: 5; }
+  .solar-os[data-interface="sunlit"][data-navigation="full"].focus-mode { grid-template-columns: minmax(0, 1fr); grid-template-rows: 60px minmax(0, 1fr) 112px 24px; }
+  .solar-os[data-navigation="full"].focus-mode .primary-stage { grid-row: 2; }
+  .solar-os[data-navigation="full"].focus-mode .orbital-deck { grid-row: 3; }
+  .solar-os[data-navigation="full"].focus-mode .system-ledger { grid-row: 4; }
+}
+@media (max-width: 720px) {
+  .solar-os[data-navigation="full"] .mission-actions .dashboard-theme-toggle { width: 38px; min-width: 38px; height: 44px; padding: 0; justify-content: center; }
+  .solar-os[data-navigation="full"] .dashboard-theme-toggle > span:last-child { display: none; }
+  .solar-os[data-navigation="full"] .brand-lockup small { display: none; }
+  .solar-os[data-navigation="full"] .brand-lockup > div { min-width: 0; }
+  .solar-os[data-navigation="full"] .brand-lockup strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .solar-os[data-navigation="full"] .mission-actions .observatory-return { padding-inline: 8px; }
+  .solar-os[data-navigation="full"] .stage-heading { grid-template-columns: minmax(0, 1fr) auto; }
+  .solar-os[data-navigation="full"] .stage-heading .stage-coordinate { display: none; }
+  .solar-os[data-navigation="full"] .stage-heading > div:nth-child(2) { padding: 12px; }
+  .solar-os[data-navigation="full"] .stage-heading h1 { max-width: none; font-size: 16px; }
+  .solar-os[data-navigation="full"] .mobile-inspector-trigger { grid-column: 2; min-width: 70px; width: 70px; margin-right: 10px; padding: 6px; }
+  .solar-os[data-navigation="full"] .mission-intelligence-console { top: 74px; right: 7px; bottom: 38px; width: calc(100vw - 14px); }
+}

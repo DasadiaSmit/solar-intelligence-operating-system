@@ -1,0 +1,68 @@
+{
+  "schema": "sios-assessment-evidence-1",
+  "generatedAtUtc": "2026-10-25T15:05:02.756Z",
+  "sourceCommit": "23288f410bc5df5bf1a571b83a98e245dc1f43e0",
+  "protocolSha256": "ce4e11cbd2d123b5d17d77efcc18f91623a2b5bf817fa73562d459edccb0d02d",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "d18e6b5e230bcf57a6ef73412d5e89ac25be0a450ad5e04f5e15ac2dbba27b2d",
+      "bytes": 4581
+    },
+    {
+      "path": "annual-monthly.csv",
+      "sha256": "be4e7b70dd4a369d4ec1813e6b2ed6d61c04e63d961f514d944c9b4a4014ced9",
+      "bytes": 5117
+    },
+    {
+      "path": "array-comparison.csv",
+      "sha256": "dd36a7647641464547caa9aa70ada8eac1bd7dfa4c52f01dced05ffeb66b6f1c",
+      "bytes": 76756
+    },
+    {
+      "path": "audit.json",
+      "sha256": "eb8bf4bc9309c62ed126d9d30e244d0cdd638f55aa75993fdc5f3c4af7fbacac",
+      "bytes": 199943
+    },
+    {
+      "path": "baseline-study-replay.json",
+      "sha256": "eb0a5f5c637426bb655d5ff681b941a449e5bc5ef257eff59ae4e14a0c69b54b",
+      "bytes": 36901
+    },
+    {
+      "path": "frozen-bundle.json.gz",
+      "sha256": "fd373ec4e93aa73e2ea44a75d5265d154f9b6400ff8d8a88f0b877b35fa5695d",
+      "bytes": 2442055
+    },
+    {
+      "path": "model-metrics.csv",
+      "sha256": "f9fcc4c5923c1ccc094f9b39ec61bb34bdfc85b98c503e9090c0f95e479caebd",
+      "bytes": 791
+    },
+    {
+      "path": "month-candidate-scores.csv",
+      "sha256": "63d08ed1f7b1a18ab0f4b18ea843e43f15dac52bac05a90265062cad05c5402d",
+      "bytes": 40523
+    },
+    {
+      "path": "prediction-evidence.json",
+      "sha256": "a1086f83a07e60a69443c58a2f5b0311c81157fa1b20804c9ea2f930375f7d5c",
+      "bytes": 2942810
+    },
+    {
+      "path": "predictions-2025.csv",
+      "sha256": "8eeb427fd8b2322ccac6a660d8630fc46a9dbf913abe2465be578d50c8fd8b4f",
+      "bytes": 1018727
+    },
+    {
+      "path": "protocol.json",
+      "sha256": "ce4e11cbd2d123b5d17d77efcc18f91623a2b5bf817fa73562d459edccb0d02d",
+      "bytes": 2543
+    },
+    {
+      "path": "reproduction.json",
+      "sha256": "3293cc837482b1084d72a769f4d6c3126008ce0f277a766ac560dd29915a50a2",
+      "bytes": 562
+    }
+  ]
+}

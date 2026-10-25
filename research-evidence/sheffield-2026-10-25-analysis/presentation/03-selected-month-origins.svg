@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="826.156406pt" height="487.065375pt" viewBox="0 0 826.156406 487.065375" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Solar Intelligence OS assessment renderer</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 487.065375 
+L 826.156406 487.065375 
+L 826.156406 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 152.396406 407.125656 
+L 818.956406 407.125656 
+L 818.956406 36.597656 
+L 152.396406 36.597656 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g clip-path="url(#p092973f7ee)">
+    <image xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAA54AAAIDCAYAAABsAMHOAAANGElEQVR4nO3ZoWpcaRiA4aTMrVSMGVeoCBVjxleNqg0MjQ6kvhBTCi2B2qqo9WMiliwE1sVE5GKyeqEVp/Sd03PyPBdw5uObn5nz8h9/2v/zdMQgm9XSxgba3z/Y2UB//f2vnQ307f07O+MgTr9+t2lyb9+8suWB/HfCn+vF2AMAAAAwb8ITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABILdrHz9N6uxt7hMm5ub4ae4TJ2ayWY48wOfv7h7FHmCRnbbjH27vgm4D/u3TOgBlx4wkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSOTz58fmo/Ao6Ovr1/Zw0Az9h6uxt7BOAHbq6v7OUX+E0bzo0nAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAACA8AQAAGC63HgCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABAatE+fp4eb+/GHmFy9m9ejT0C8BOXH7/YzUDnF2d2NtDLk9d2Rs472nD7+4fgm5g//wPDufEEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAIDUon38PN1cX409AsBvs/GbxgFcfvxizwN53xju1CkbbLNa2tovWG939jaQG08AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAAAQngAAAEyXG08AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAIDUon38PK23u7FHmJzzi7OxR5iczWo59giTs79/GHuESXLWOISXJ68teiDvG87ZIThnHIobTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAILVoHz9PN9dXY48A/MBmtbQX+EM93t6NPcLkeN8Y7vTr9+CbmLfzi7OxR+CZcOMJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAACE8AAACmy40nAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABASngCAACQEp4AAACkhCcAAAAp4QkAAEBKeAIAAJASngAAAKSEJwAAACnhCQAAQEp4AgAAkBKeAAAApIQnAAAAKeEJAABASngCAACQEp4AAACkjk8+fH5qP2J+Hm/vxh5hcs4vzsYeAfiJzWppN+TW250tAzxjbjwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICU8AQAACAlPAEAAEgJTwAAAFLCEwAAgJTwBAAAICU8AQAASAlPAAAAUsITAACAlPAEAAAgJTwBAABICU8AAABSwhMAAICj0n+HplZ1lkX0ggAAAABJRU5ErkJggg==" id="image02b51cd254" transform="scale(1 -1) translate(0 -370.8)" x="152.396406" y="-36.325656" width="666.72" height="370.8"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m6d3e1f6383" d="M 0 0 
+L 0 3.5 
+" style="stroke: #183544; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m6d3e1f6383" x="180.16974" y="407.125656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="180.16974" y="422.104016" transform="rotate(-0 180.16974 422.104016)">Jan</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m6d3e1f6383" x="235.716406" y="407.125656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="235.716406" y="422.104016" transform="rotate(-0 235.716406 422.104016)">Feb</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m6d3e1f6383" x="291.263073" y="407.125656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="291.263073" y="422.104016" transform="rotate(-0 291.263073 422.104016)">Mar</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m6d3e1f6383" x="346.80974" y="407.125656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="346.80974" y="422.104016" transform="rotate(-0 346.80974 422.104016)">Apr</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m6d3e1f6383" x="402.356406" y="407.125656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="402.356406" y="422.104016" transform="rotate(-0 402.356406 422.104016)">May</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m6d3e1f6383" x="457.903073" y="407.125656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="457.903073" y="422.104016" transform="rotate(-0 457.903073 422.104016)">Jun</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m6d3e1f6383" x="513.44974" y="407.125656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="513.44974" y="422.104016" transform="rotate(-0 513.44974 422.104016)">Jul</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m6d3e1f6383" x="568.996406" y="407.125656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="568.996406" y="422.104016" transform="rotate(-0 568.996406 422.104016)">Aug</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m6d3e1f6383" x="624.543073" y="407.125656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="624.543073" y="422.104016" transform="rotate(-0 624.543073 422.104016)">Sep</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m6d3e1f6383" x="680.08974" y="407.125656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="680.08974" y="422.104016" transform="rotate(-0 680.08974 422.104016)">Oct</text>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m6d3e1f6383" x="735.636406" y="407.125656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="735.636406" y="422.104016" transform="rotate(-0 735.636406 422.104016)">Nov</text>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m6d3e1f6383" x="791.183073" y="407.125656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="791.183073" y="422.104016" transform="rotate(-0 791.183073 422.104016)">Dec</text>
+     </g>
+    </g>
+    <g id="xtick_13">
+     <g id="line2d_13">
+      <path d="M 152.396406 407.125656 
+L 152.396406 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="xtick_14">
+     <g id="line2d_14">
+      <path d="M 207.943073 407.125656 
+L 207.943073 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="xtick_15">
+     <g id="line2d_15">
+      <path d="M 263.48974 407.125656 
+L 263.48974 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="xtick_16">
+     <g id="line2d_16">
+      <path d="M 319.036406 407.125656 
+L 319.036406 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="xtick_17">
+     <g id="line2d_17">
+      <path d="M 374.583073 407.125656 
+L 374.583073 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="xtick_18">
+     <g id="line2d_18">
+      <path d="M 430.12974 407.125656 
+L 430.12974 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="xtick_19">
+     <g id="line2d_19">
+      <path d="M 485.676406 407.125656 
+L 485.676406 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="xtick_20">
+     <g id="line2d_20">
+      <path d="M 541.223073 407.125656 
+L 541.223073 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="xtick_21">
+     <g id="line2d_21">
+      <path d="M 596.76974 407.125656 
+L 596.76974 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="xtick_22">
+     <g id="line2d_22">
+      <path d="M 652.316406 407.125656 
+L 652.316406 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="xtick_23">
+     <g id="line2d_23">
+      <path d="M 707.863073 407.125656 
+L 707.863073 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="xtick_24">
+     <g id="line2d_24">
+      <path d="M 763.40974 407.125656 
+L 763.40974 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="xtick_25">
+     <g id="line2d_25">
+      <path d="M 818.956406 407.125656 
+L 818.956406 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="text_13">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="485.676406" y="436.645969" transform="rotate(-0 485.676406 436.645969)">Month in the constructed representative calendar</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_26">
+      <defs>
+       <path id="me2c2802d70" d="M 0 0 
+L -3.5 0 
+" style="stroke: #183544; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#me2c2802d70" x="152.396406" y="59.755656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #183544" x="145.396406" y="63.744836" transform="rotate(-0 145.396406 63.744836)">Default selection</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_27">
+      <g>
+       <use xlink:href="#me2c2802d70" x="152.396406" y="106.071656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #183544" x="145.396406" y="110.060836" transform="rotate(-0 145.396406 110.060836)">Persistence term removed</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#me2c2802d70" x="152.396406" y="152.387656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #183544" x="145.396406" y="156.376836" transform="rotate(-0 145.396406 156.376836)">Continuity term removed</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#me2c2802d70" x="152.396406" y="198.703656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_17">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #183544" x="145.396406" y="202.692836" transform="rotate(-0 145.396406 202.692836)">Distribution score only</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#me2c2802d70" x="152.396406" y="245.019656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #183544" x="145.396406" y="249.008836" transform="rotate(-0 145.396406 249.008836)">Source year 2022 omitted</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#me2c2802d70" x="152.396406" y="291.335656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #183544" x="145.396406" y="295.324836" transform="rotate(-0 145.396406 295.324836)">Source year 2023 omitted</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#me2c2802d70" x="152.396406" y="337.651656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #183544" x="145.396406" y="341.640836" transform="rotate(-0 145.396406 341.640836)">Source year 2024 omitted</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#me2c2802d70" x="152.396406" y="383.967656" style="fill: #183544; stroke: #183544; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 10.5px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #183544" x="145.396406" y="387.956836" transform="rotate(-0 145.396406 387.956836)">Source year 2025 omitted</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_34">
+      <path d="M 152.396406 36.597656 
+L 818.956406 36.597656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_35">
+      <path d="M 152.396406 82.913656 
+L 818.956406 82.913656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_36">
+      <path d="M 152.396406 129.229656 
+L 818.956406 129.229656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_37">
+      <path d="M 152.396406 175.545656 
+L 818.956406 175.545656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_38">
+      <path d="M 152.396406 221.861656 
+L 818.956406 221.861656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_39">
+      <path d="M 152.396406 268.177656 
+L 818.956406 268.177656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_40">
+      <path d="M 152.396406 314.493656 
+L 818.956406 314.493656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="ytick_16">
+     <g id="line2d_41">
+      <path d="M 152.396406 360.809656 
+L 818.956406 360.809656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+    <g id="ytick_17">
+     <g id="line2d_42">
+      <path d="M 152.396406 407.125656 
+L 818.956406 407.125656 
+" clip-path="url(#p092973f7ee)" style="fill: none; stroke: #ffffff; stroke-width: 1.2; stroke-linecap: square"/>
+     </g>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 152.396406 407.125656 
+L 152.396406 36.597656 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 152.396406 407.125656 
+L 818.956406 407.125656 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="180.16974" y="62.239094" transform="rotate(-0 180.16974 62.239094)">2024</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="235.716406" y="62.239094" transform="rotate(-0 235.716406 62.239094)">2025</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="291.263073" y="62.239094" transform="rotate(-0 291.263073 62.239094)">2023</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="346.80974" y="62.239094" transform="rotate(-0 346.80974 62.239094)">2023</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="402.356406" y="62.239094" transform="rotate(-0 402.356406 62.239094)">2023</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="457.903073" y="62.239094" transform="rotate(-0 457.903073 62.239094)">2022</text>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="513.44974" y="62.239094" transform="rotate(-0 513.44974 62.239094)">2022</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="568.996406" y="62.239094" transform="rotate(-0 568.996406 62.239094)">2025</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="624.543073" y="62.239094" transform="rotate(-0 624.543073 62.239094)">2025</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="680.08974" y="62.239094" transform="rotate(-0 680.08974 62.239094)">2025</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="735.636406" y="62.239094" transform="rotate(-0 735.636406 62.239094)">2025</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="791.183073" y="62.239094" transform="rotate(-0 791.183073 62.239094)">2025</text>
+   </g>
+   <g id="text_34">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="180.16974" y="108.555094" transform="rotate(-0 180.16974 108.555094)">2024</text>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="235.716406" y="108.555094" transform="rotate(-0 235.716406 108.555094)">2022</text>
+   </g>
+   <g id="text_36">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="291.263073" y="108.555094" transform="rotate(-0 291.263073 108.555094)">2022</text>
+   </g>
+   <g id="text_37">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="346.80974" y="108.555094" transform="rotate(-0 346.80974 108.555094)">2022</text>
+   </g>
+   <g id="text_38">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="402.356406" y="108.555094" transform="rotate(-0 402.356406 108.555094)">2022</text>
+   </g>
+   <g id="text_39">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="457.903073" y="108.555094" transform="rotate(-0 457.903073 108.555094)">2022</text>
+   </g>
+   <g id="text_40">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="513.44974" y="108.555094" transform="rotate(-0 513.44974 108.555094)">2022</text>
+   </g>
+   <g id="text_41">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="568.996406" y="108.555094" transform="rotate(-0 568.996406 108.555094)">2025</text>
+   </g>
+   <g id="text_42">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="624.543073" y="108.555094" transform="rotate(-0 624.543073 108.555094)">2022</text>
+   </g>
+   <g id="text_43">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="680.08974" y="108.555094" transform="rotate(-0 680.08974 108.555094)">2024</text>
+   </g>
+   <g id="text_44">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="735.636406" y="108.555094" transform="rotate(-0 735.636406 108.555094)">2023</text>
+   </g>
+   <g id="text_45">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="791.183073" y="108.555094" transform="rotate(-0 791.183073 108.555094)">2023</text>
+   </g>
+   <g id="text_46">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="180.16974" y="154.871094" transform="rotate(-0 180.16974 154.871094)">2024</text>
+   </g>
+   <g id="text_47">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="235.716406" y="154.871094" transform="rotate(-0 235.716406 154.871094)">2025</text>
+   </g>
+   <g id="text_48">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="291.263073" y="154.871094" transform="rotate(-0 291.263073 154.871094)">2023</text>
+   </g>
+   <g id="text_49">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="346.80974" y="154.871094" transform="rotate(-0 346.80974 154.871094)">2022</text>
+   </g>
+   <g id="text_50">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="402.356406" y="154.871094" transform="rotate(-0 402.356406 154.871094)">2023</text>
+   </g>
+   <g id="text_51">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="457.903073" y="154.871094" transform="rotate(-0 457.903073 154.871094)">2022</text>
+   </g>
+   <g id="text_52">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="513.44974" y="154.871094" transform="rotate(-0 513.44974 154.871094)">2022</text>
+   </g>
+   <g id="text_53">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="568.996406" y="154.871094" transform="rotate(-0 568.996406 154.871094)">2024</text>
+   </g>
+   <g id="text_54">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="624.543073" y="154.871094" transform="rotate(-0 624.543073 154.871094)">2025</text>
+   </g>
+   <g id="text_55">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="680.08974" y="154.871094" transform="rotate(-0 680.08974 154.871094)">2024</text>
+   </g>
+   <g id="text_56">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="735.636406" y="154.871094" transform="rotate(-0 735.636406 154.871094)">2025</text>
+   </g>
+   <g id="text_57">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="791.183073" y="154.871094" transform="rotate(-0 791.183073 154.871094)">2025</text>
+   </g>
+   <g id="text_58">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="180.16974" y="201.187094" transform="rotate(-0 180.16974 201.187094)">2024</text>
+   </g>
+   <g id="text_59">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="235.716406" y="201.187094" transform="rotate(-0 235.716406 201.187094)">2022</text>
+   </g>
+   <g id="text_60">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="291.263073" y="201.187094" transform="rotate(-0 291.263073 201.187094)">2022</text>
+   </g>
+   <g id="text_61">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="346.80974" y="201.187094" transform="rotate(-0 346.80974 201.187094)">2022</text>
+   </g>
+   <g id="text_62">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="402.356406" y="201.187094" transform="rotate(-0 402.356406 201.187094)">2022</text>
+   </g>
+   <g id="text_63">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="457.903073" y="201.187094" transform="rotate(-0 457.903073 201.187094)">2022</text>
+   </g>
+   <g id="text_64">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="513.44974" y="201.187094" transform="rotate(-0 513.44974 201.187094)">2022</text>
+   </g>
+   <g id="text_65">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="568.996406" y="201.187094" transform="rotate(-0 568.996406 201.187094)">2025</text>
+   </g>
+   <g id="text_66">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="624.543073" y="201.187094" transform="rotate(-0 624.543073 201.187094)">2022</text>
+   </g>
+   <g id="text_67">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="680.08974" y="201.187094" transform="rotate(-0 680.08974 201.187094)">2024</text>
+   </g>
+   <g id="text_68">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="735.636406" y="201.187094" transform="rotate(-0 735.636406 201.187094)">2022</text>
+   </g>
+   <g id="text_69">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="791.183073" y="201.187094" transform="rotate(-0 791.183073 201.187094)">2025</text>
+   </g>
+   <g id="text_70">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="180.16974" y="247.503094" transform="rotate(-0 180.16974 247.503094)">2024</text>
+   </g>
+   <g id="text_71">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="235.716406" y="247.503094" transform="rotate(-0 235.716406 247.503094)">2025</text>
+   </g>
+   <g id="text_72">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="291.263073" y="247.503094" transform="rotate(-0 291.263073 247.503094)">2023</text>
+   </g>
+   <g id="text_73">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="346.80974" y="247.503094" transform="rotate(-0 346.80974 247.503094)">2023</text>
+   </g>
+   <g id="text_74">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="402.356406" y="247.503094" transform="rotate(-0 402.356406 247.503094)">2023</text>
+   </g>
+   <g id="text_75">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="457.903073" y="247.503094" transform="rotate(-0 457.903073 247.503094)">2025</text>
+   </g>
+   <g id="text_76">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="513.44974" y="247.503094" transform="rotate(-0 513.44974 247.503094)">2023</text>
+   </g>
+   <g id="text_77">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="568.996406" y="247.503094" transform="rotate(-0 568.996406 247.503094)">2024</text>
+   </g>
+   <g id="text_78">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="624.543073" y="247.503094" transform="rotate(-0 624.543073 247.503094)">2024</text>
+   </g>
+   <g id="text_79">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="680.08974" y="247.503094" transform="rotate(-0 680.08974 247.503094)">2025</text>
+   </g>
+   <g id="text_80">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="735.636406" y="247.503094" transform="rotate(-0 735.636406 247.503094)">2023</text>
+   </g>
+   <g id="text_81">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="791.183073" y="247.503094" transform="rotate(-0 791.183073 247.503094)">2023</text>
+   </g>
+   <g id="text_82">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="180.16974" y="293.819094" transform="rotate(-0 180.16974 293.819094)">2024</text>
+   </g>
+   <g id="text_83">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="235.716406" y="293.819094" transform="rotate(-0 235.716406 293.819094)">2024</text>
+   </g>
+   <g id="text_84">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="291.263073" y="293.819094" transform="rotate(-0 291.263073 293.819094)">2022</text>
+   </g>
+   <g id="text_85">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="346.80974" y="293.819094" transform="rotate(-0 346.80974 293.819094)">2022</text>
+   </g>
+   <g id="text_86">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="402.356406" y="293.819094" transform="rotate(-0 402.356406 293.819094)">2022</text>
+   </g>
+   <g id="text_87">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="457.903073" y="293.819094" transform="rotate(-0 457.903073 293.819094)">2022</text>
+   </g>
+   <g id="text_88">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="513.44974" y="293.819094" transform="rotate(-0 513.44974 293.819094)">2022</text>
+   </g>
+   <g id="text_89">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="568.996406" y="293.819094" transform="rotate(-0 568.996406 293.819094)">2025</text>
+   </g>
+   <g id="text_90">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="624.543073" y="293.819094" transform="rotate(-0 624.543073 293.819094)">2025</text>
+   </g>
+   <g id="text_91">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="680.08974" y="293.819094" transform="rotate(-0 680.08974 293.819094)">2025</text>
+   </g>
+   <g id="text_92">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="735.636406" y="293.819094" transform="rotate(-0 735.636406 293.819094)">2022</text>
+   </g>
+   <g id="text_93">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="791.183073" y="293.819094" transform="rotate(-0 791.183073 293.819094)">2025</text>
+   </g>
+   <g id="text_94">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="180.16974" y="340.135094" transform="rotate(-0 180.16974 340.135094)">2023</text>
+   </g>
+   <g id="text_95">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="235.716406" y="340.135094" transform="rotate(-0 235.716406 340.135094)">2025</text>
+   </g>
+   <g id="text_96">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="291.263073" y="340.135094" transform="rotate(-0 291.263073 340.135094)">2022</text>
+   </g>
+   <g id="text_97">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="346.80974" y="340.135094" transform="rotate(-0 346.80974 340.135094)">2022</text>
+   </g>
+   <g id="text_98">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="402.356406" y="340.135094" transform="rotate(-0 402.356406 340.135094)">2023</text>
+   </g>
+   <g id="text_99">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="457.903073" y="340.135094" transform="rotate(-0 457.903073 340.135094)">2022</text>
+   </g>
+   <g id="text_100">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="513.44974" y="340.135094" transform="rotate(-0 513.44974 340.135094)">2025</text>
+   </g>
+   <g id="text_101">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="568.996406" y="340.135094" transform="rotate(-0 568.996406 340.135094)">2025</text>
+   </g>
+   <g id="text_102">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="624.543073" y="340.135094" transform="rotate(-0 624.543073 340.135094)">2025</text>
+   </g>
+   <g id="text_103">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="680.08974" y="340.135094" transform="rotate(-0 680.08974 340.135094)">2025</text>
+   </g>
+   <g id="text_104">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="735.636406" y="340.135094" transform="rotate(-0 735.636406 340.135094)">2025</text>
+   </g>
+   <g id="text_105">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="791.183073" y="340.135094" transform="rotate(-0 791.183073 340.135094)">2025</text>
+   </g>
+   <g id="text_106">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="180.16974" y="386.451094" transform="rotate(-0 180.16974 386.451094)">2023</text>
+   </g>
+   <g id="text_107">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="235.716406" y="386.451094" transform="rotate(-0 235.716406 386.451094)">2022</text>
+   </g>
+   <g id="text_108">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="291.263073" y="386.451094" transform="rotate(-0 291.263073 386.451094)">2023</text>
+   </g>
+   <g id="text_109">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="346.80974" y="386.451094" transform="rotate(-0 346.80974 386.451094)">2024</text>
+   </g>
+   <g id="text_110">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="402.356406" y="386.451094" transform="rotate(-0 402.356406 386.451094)">2022</text>
+   </g>
+   <g id="text_111">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="457.903073" y="386.451094" transform="rotate(-0 457.903073 386.451094)">2022</text>
+   </g>
+   <g id="text_112">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="513.44974" y="386.451094" transform="rotate(-0 513.44974 386.451094)">2024</text>
+   </g>
+   <g id="text_113">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="568.996406" y="386.451094" transform="rotate(-0 568.996406 386.451094)">2024</text>
+   </g>
+   <g id="text_114">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183544" x="624.543073" y="386.451094" transform="rotate(-0 624.543073 386.451094)">2023</text>
+   </g>
+   <g id="text_115">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="680.08974" y="386.451094" transform="rotate(-0 680.08974 386.451094)">2024</text>
+   </g>
+   <g id="text_116">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="735.636406" y="386.451094" transform="rotate(-0 735.636406 386.451094)">2024</text>
+   </g>
+   <g id="text_117">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="791.183073" y="386.451094" transform="rotate(-0 791.183073 386.451094)">2024</text>
+   </g>
+   <g id="text_118">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #183544" x="152.396406" y="18.597656" transform="rotate(-0 152.396406 18.597656)">Which source year supplies each representative month?</text>
+   </g>
+  </g>
+  <g id="text_119">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #4b6270" transform="translate(11.800406 467.915625)">Each cell identifies the source year selected by the implemented month-scoring rule.</text>
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #4b6270" transform="translate(11.800406 477.993656)">Colour is categorical: it represents source identity, not confidence or better performance.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p092973f7ee">
+   <rect x="152.396406" y="36.597656" width="666.56" height="370.528"/>
+  </clipPath>
+ </defs>
+</svg>

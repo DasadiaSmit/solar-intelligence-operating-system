@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-25",
+  "sourceCommit": "869cb1310894ba6d1827b2e6ff4a557f5c5a800f",
+  "releaseVersion": 20,
+  "automated": {
+    "tests": {
+      "departments": 4,
+      "science": 11,
+      "research": 11,
+      "assessment": 86,
+      "mission": 15,
+      "visual": 96,
+      "renderedSmoke": 8,
+      "total": 231
+    },
+    "typecheck": "pass",
+    "scopedEslint": "pass",
+    "productionBuild": "pass",
+    "initialIssue": "Rendered smoke stylesheet stub omitted the new CSS import; explicit mock list fixed, all eight smoke tests passed afterward.",
+    "testLog": "test.log"
+  },
+  "browser": {
+    "local": {
+      "studyLoad": "pass; fixed baseline 49248.55942623277 kWh",
+      "subset": "options 4 and 9, 2/4 wins each, worst regrets 280.536884 and 338.924146 kWh",
+      "crossWorkspaceSelection": "pass",
+      "minimumOne": "last checkbox disabled",
+      "keyboard": "Space toggles selected checkbox",
+      "exports": [
+        "HTML",
+        "Markdown",
+        "JSON",
+        "CSV"
+      ],
+      "failureRetry": "blocked assessment endpoint, retry restored verified values",
+      "widths": [
+        320,
+        390
+      ],
+      "pageOverflow": false,
+      "nightTheme": "checked",
+      "reducedMotion": "no button transform",
+      "consoleErrors": 0
+    },
+    "published": {
+      "url": "https://solar-intelligence-os.vaikartana-revanta.chatgpt.site/",
+      "sourceBaseline": "49248.56 kWh",
+      "sourceOmissionRange": "47150.23–51936.45 kWh",
+      "subset": "8 of 9 persists into Publication",
+      "jsonDownload": "sheffield-2026-10-25-48kwp-options-2-3-4-5-6-7-8-9.json",
+      "consoleErrors": 0,
+      "desktopWidth": 1125,
+      "pageOverflow": false,
+      "screenshot": "published-analysis.png"
+    }
+  },
+  "limits": [
+    "No new physical or human validation is claimed.",
+    "Browser checks are desktop emulation, not physical-device or assistive-technology acceptance.",
+    "Known build chunk-size advisory remains; existing asset budgets pass."
+  ]
+}

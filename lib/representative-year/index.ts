@@ -8,6 +8,8 @@ import type { SampleYear } from "../sample/weather";
 import { DAYS_IN_MONTH, SAMPLE_YEARS } from "../sample/weather";
 import { clamp, mean, quantile } from "../solar/math";
 
+const REPRESENTATIVE_YEAR_METHOD_VERSION = "sios-fs-month-selection-1.0.0";
+
 interface DailyCandidate {
   year: SampleYear;
   month: number;
@@ -15,15 +17,39 @@ interface DailyCandidate {
   hours: WeatherHour[];
   irradiationKWhM2: number;
   meanTemperatureC: number;
+  meanWindSpeedMps: number;
   meanCloudPct: number;
   precipitationMm: number;
   snowHours: number;
   regime: string;
 }
 
+export interface RepresentativeYearOptions {
+  sourceYears?: readonly SampleYear[];
+  persistenceWeight?: number;
+  continuityWeight?: number;
+}
+
+export interface MonthCandidateScore {
+  month: number;
+  year: SampleYear;
+  distributionScore: number;
+  persistencePenalty: number;
+  continuityPenalty: number;
+  totalScore: number;
+  selected: boolean;
+}
+
 export interface RepresentativeYearBuild {
   weather: WeatherHour[];
   record: RepresentativeYearRecord;
+  diagnostics: {
+    sourceYears: SampleYear[];
+    persistenceWeight: number;
+    continuityWeight: number;
+    candidates: MonthCandidateScore[];
+    selectionMargins: Array<{ month: number; selectedYear: SampleYear; margin: number }>;
+  };
 }
 
 function dailyRegime(candidate: Omit<DailyCandidate, "regime">): string {
@@ -36,10 +62,20 @@ function dailyRegime(candidate: Omit<DailyCandidate, "regime">): string {
 
 function groupDaily(
   historical: Record<SampleYear, WeatherHour[]>,
+  sourceYears: readonly SampleYear[],
 ): Map<number, DailyCandidate[]> {
   const result = new Map<number, DailyCandidate[]>();
-  for (const year of SAMPLE_YEARS) {
+  for (const year of sourceYears) {
     const weather = historical[year];
+    if (!weather || weather.length !== 8760) throw new Error(`Source year ${year} must have 8760 complete no-leap hours.`);
+    for (let index = 0; index < weather.length; index++) {
+      const hour = weather[index];
+      if (hour.sourceYear !== year || hour.hour !== index % 24 || hour.dayOfYear !== Math.floor(index / 24) + 1 ||
+          hour.day < 1 || hour.day > (DAYS_IN_MONTH[hour.month - 1] ?? 0) ||
+          noLeapDayOfYear(hour.month, hour.day) !== hour.dayOfYear) {
+        throw new Error(`Source year ${year} has an invalid no-leap calendar at hour ${index}.`);
+      }
+    }
     for (let offset = 0; offset < weather.length; offset += 24) {
       const hours = weather.slice(offset, offset + 24);
       const first = hours[0];
@@ -51,6 +87,7 @@ function groupDaily(
         hours,
         irradiationKWhM2: hours.reduce((total, hour) => total + hour.ghiWm2 / 1000, 0),
         meanTemperatureC: mean(hours.map((hour) => hour.temperatureC)),
+        meanWindSpeedMps: mean(hours.map((hour) => hour.windSpeedMps)),
         meanCloudPct: mean(hours.map((hour) => hour.cloudCoverPct)),
         precipitationMm: hours.reduce((total, hour) => total + hour.precipitationMm, 0),
         snowHours: hours.filter((hour) => hour.snowDepthCm > 0.5).length,
@@ -64,10 +101,64 @@ function groupDaily(
   return result;
 }
 
-function normalizedDifference(value: number, target: number, values: readonly number[]): number {
-  const sorted = [...values].sort((a, b) => a - b);
-  const scale = Math.max(0.001, quantile(sorted, 0.9) - quantile(sorted, 0.1));
-  return Math.abs(value - target) / scale;
+function upperBound(sorted: readonly number[], value: number): number {
+  let low = 0;
+  let high = sorted.length;
+  while (low < high) {
+    const middle = Math.floor((low + high) / 2);
+    if ((sorted[middle] ?? 0) <= value) low = middle + 1;
+    else high = middle;
+  }
+  return low;
+}
+
+/** Mean absolute separation between a candidate-month and long-term empirical CDF. */
+function finkelsteinSchaferStatistic(
+  candidate: readonly number[],
+  longTerm: readonly number[],
+): number {
+  if (candidate.length === 0 || longTerm.length === 0) return Number.POSITIVE_INFINITY;
+  const candidateSorted = [...candidate].sort((a, b) => a - b);
+  const longTermSorted = [...longTerm].sort((a, b) => a - b);
+  let difference = 0;
+  for (let index = 0; index < longTermSorted.length; index += 1) {
+    const value = longTermSorted[index] ?? 0;
+    const longTermCdf = (index + 1) / longTermSorted.length;
+    const candidateCdf = upperBound(candidateSorted, value) / candidateSorted.length;
+    difference += Math.abs(candidateCdf - longTermCdf);
+  }
+  return difference / longTermSorted.length;
+}
+
+function longestRun(days: readonly DailyCandidate[], regime: string): number {
+  let longest = 0;
+  let current = 0;
+  for (const day of days) {
+    if (day.regime === regime) {
+      current += 1;
+      longest = Math.max(longest, current);
+    } else current = 0;
+  }
+  return longest;
+}
+
+function persistencePenalty(
+  candidate: readonly DailyCandidate[],
+  candidatesByYear: Map<SampleYear, DailyCandidate[]>,
+  sourceYears: readonly SampleYear[],
+): number {
+  const regimes = ["clear", "overcast", "wet"];
+  let total = 0;
+  for (const regime of regimes) {
+    const referenceRuns = sourceYears.map((year) => longestRun(candidatesByYear.get(year) ?? [], regime));
+    const reference = mean(referenceRuns);
+    total += Math.abs(longestRun(candidate, regime) - reference) / Math.max(1, reference);
+  }
+  return total / regimes.length;
+}
+
+function noLeapDayOfYear(month: number, day: number): number {
+  return DAYS_IN_MONTH.slice(0, month - 1).reduce((total, value) => total + value, 0) + day;
 }
 
 function remapHour(hour: WeatherHour, targetYear: number, month: number, day: number): WeatherHour {
@@ -76,128 +167,164 @@ function remapHour(hour: WeatherHour, targetYear: number, month: number, day: nu
     ...hour,
     timestamp,
     sourceTimestamp: hour.sourceTimestamp,
+    dayOfYear: noLeapDayOfYear(month, day),
     month,
     day,
     quality: makeQuality(
-      Math.max(0, hour.quality.score - 0.025),
-      [...hour.quality.flags, "representative-day-selection"],
+      Math.max(0, hour.quality.score - 0.02),
+      [...new Set([...hour.quality.flags, "representative-month-selection"])],
       hour.quality.completeness,
       hour.quality.imputed,
     ),
   };
 }
 
+function boundaryPenalty(prior: DailyCandidate | null, next: DailyCandidate | undefined): number {
+  const priorLast = prior?.hours[23];
+  const nextFirst = next?.hours[0];
+  if (!priorLast || !nextFirst) return 0;
+  return (
+    Math.abs(priorLast.temperatureC - nextFirst.temperatureC) / 30 * 0.6 +
+    Math.abs(priorLast.cloudCoverPct - nextFirst.cloudCoverPct) / 100 * 0.4
+  );
+}
+
+function sourceFingerprint(value: string): string {
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return (hash >>> 0).toString(16).padStart(8, "0");
+}
+
 /**
- * Builds a distribution-matched synthetic year. Each monthly sequence draws
- * whole historical days against irradiance, temperature and cloud quantiles,
- * with source-balance, no-reuse and boundary-continuity penalties. This retains
- * physically coherent intraday weather instead of averaging individual hours.
+ * Constructs a TMY-like no-leap year by selecting one complete source month
+ * for each calendar month. Candidate months are ranked with a
+ * Finkelstein–Schafer-inspired multivariate empirical-CDF score, persistence
+ * and boundary-continuity penalties. With only four source years this remains
+ * an experimental representative year, not a standards-compliant long-term
+ * TMY product.
  */
 export function buildRepresentativeYear(
   historical: Record<SampleYear, WeatherHour[]>,
   targetYear = 2026,
+  sourceIdentity = DATASET_VERSION,
+  options: RepresentativeYearOptions = {},
 ): RepresentativeYearBuild {
-  const grouped = groupDaily(historical);
+  const sourceYears = [...(options.sourceYears ?? SAMPLE_YEARS)].sort((a,b) => a-b);
+  if (sourceYears.length < 2 || new Set(sourceYears).size !== sourceYears.length ||
+      sourceYears.some(year => !SAMPLE_YEARS.includes(year))) throw new Error("Select at least two distinct supported source years.");
+  const persistenceWeight = options.persistenceWeight ?? 0.08;
+  const continuityWeight = options.continuityWeight ?? 0.04;
+  if (![persistenceWeight, continuityWeight].every(v => Number.isFinite(v) && v >= 0)) throw new Error("Selection weights must be finite and nonnegative.");
+  const isDefault = sourceYears.join() === SAMPLE_YEARS.join() && persistenceWeight === 0.08 && continuityWeight === 0.04;
+  const methodIdentity = isDefault ? REPRESENTATIVE_YEAR_METHOD_VERSION :
+    `${REPRESENTATIVE_YEAR_METHOD_VERSION}|audit-1|${sourceYears.join(',')}|${persistenceWeight}|${continuityWeight}`;
+  const diagnostics: RepresentativeYearBuild["diagnostics"] = { sourceYears, persistenceWeight, continuityWeight, candidates: [], selectionMargins: [] };
+  const grouped = groupDaily(historical, sourceYears);
   const output: WeatherHour[] = [];
   const monthlyConstruction: RepresentativeMonthRecord[] = [];
   const annualCounts: Record<SampleYear, number> = { 2022: 0, 2023: 0, 2024: 0, 2025: 0 };
-  let priorDay: DailyCandidate | null = null;
+  const selectedYears: SampleYear[] = [];
+  let priorMonthLastDay: DailyCandidate | null = null;
 
   for (let month = 1; month <= 12; month += 1) {
     const candidates = grouped.get(month) ?? [];
     const requiredDays = DAYS_IN_MONTH[month - 1] ?? 0;
-    if (candidates.length < requiredDays) {
-      throw new Error(`Insufficient source days for representative month ${month}`);
-    }
-    const irradianceValues = candidates.map((day) => day.irradiationKWhM2);
-    const temperatureValues = candidates.map((day) => day.meanTemperatureC);
-    const cloudValues = candidates.map((day) => day.meanCloudPct);
-    const sortedIrradiance = [...irradianceValues].sort((a, b) => a - b);
-    const sortedTemperature = [...temperatureValues].sort((a, b) => a - b);
-    const sortedCloud = [...cloudValues].sort((a, b) => a - b);
-    const selected = new Set<string>();
-    const monthCounts: Record<SampleYear, number> = { 2022: 0, 2023: 0, 2024: 0, 2025: 0 };
-    const chosen: DailyCandidate[] = [];
-    let continuityTotal = 0;
-
-    for (let targetDay = 1; targetDay <= requiredDays; targetDay += 1) {
-      // Golden-ratio sequences avoid arranging the synthetic month from dark to bright.
-      const qIrr = ((targetDay * 0.61803398875 + month * 0.173) % 1 + 1) % 1;
-      const qTemp = ((targetDay * 0.41421356237 + month * 0.297) % 1 + 1) % 1;
-      const qCloud = ((targetDay * 0.73205080757 + month * 0.119) % 1 + 1) % 1;
-      const targetIrradiance = quantile(sortedIrradiance, qIrr);
-      const targetTemperature = quantile(sortedTemperature, qTemp);
-      const targetCloud = quantile(sortedCloud, qCloud);
-      let best: DailyCandidate | null = null;
-      let bestScore = Number.POSITIVE_INFINITY;
-      let bestContinuity = 0;
-      for (const candidate of candidates) {
-        const key = `${candidate.year}-${candidate.month}-${candidate.day}`;
-        if (selected.has(key)) continue;
-        const distributionScore =
-          0.52 * normalizedDifference(candidate.irradiationKWhM2, targetIrradiance, irradianceValues) +
-          0.25 * normalizedDifference(candidate.meanTemperatureC, targetTemperature, temperatureValues) +
-          0.23 * normalizedDifference(candidate.meanCloudPct, targetCloud, cloudValues);
-        const sourceShare = monthCounts[candidate.year] / Math.max(1, targetDay - 1);
-        const balancePenalty = Math.max(0, sourceShare - 0.32) * 0.7;
-        let continuityPenalty = 0;
-        if (priorDay) {
-          const priorLast = priorDay.hours[23];
-          const candidateFirst = candidate.hours[0];
-          if (priorLast && candidateFirst) {
-            continuityPenalty =
-              Math.abs(priorLast.temperatureC - candidateFirst.temperatureC) / 30 * 0.08 +
-              Math.abs(priorLast.cloudCoverPct - candidateFirst.cloudCoverPct) / 100 * 0.05;
-          }
-        }
-        const score = distributionScore + balancePenalty + continuityPenalty;
-        if (score < bestScore) {
-          best = candidate;
-          bestScore = score;
-          bestContinuity = continuityPenalty;
-        }
+    const candidatesByYear = new Map<SampleYear, DailyCandidate[]>();
+    for (const year of sourceYears) {
+      const yearCandidates = candidates
+        .filter((candidate) => candidate.year === year)
+        .sort((a, b) => a.day - b.day);
+      if (yearCandidates.length !== requiredDays) {
+        throw new Error(
+          `Representative month ${month} for ${year} requires ${requiredDays} complete days; received ${yearCandidates.length}.`,
+        );
       }
-      if (!best) throw new Error(`Representative selection failed for month ${month}`);
-      selected.add(`${best.year}-${best.month}-${best.day}`);
-      monthCounts[best.year] += 1;
-      annualCounts[best.year] += 1;
-      continuityTotal += bestContinuity;
-      chosen.push(best);
-      for (const hour of best.hours) output.push(remapHour(hour, targetYear, month, targetDay));
-      priorDay = best;
+      candidatesByYear.set(year, yearCandidates);
     }
 
-    const chosenIrradiance = chosen.map((day) => day.irradiationKWhM2).sort((a, b) => a - b);
-    let percentileDeviation = 0;
-    for (const probability of [0.1, 0.25, 0.5, 0.75, 0.9]) {
-      const sourceValue = quantile(sortedIrradiance, probability);
-      percentileDeviation += Math.abs(quantile(chosenIrradiance, probability) - sourceValue) /
-        Math.max(0.01, sourceValue);
+    const longTerm = {
+      irradiation: candidates.map((day) => day.irradiationKWhM2),
+      temperature: candidates.map((day) => day.meanTemperatureC),
+      wind: candidates.map((day) => day.meanWindSpeedMps),
+      cloud: candidates.map((day) => day.meanCloudPct),
+      precipitation: candidates.map((day) => day.precipitationMm),
+    };
+    let selectedYear: SampleYear | null = null;
+    let selectedDays: DailyCandidate[] = [];
+    let selectedScore = Number.POSITIVE_INFINITY;
+    let selectedContinuity = 0;
+
+    for (const year of sourceYears) {
+      const monthDays = candidatesByYear.get(year) ?? [];
+      const fsScore =
+        0.45 * finkelsteinSchaferStatistic(monthDays.map((day) => day.irradiationKWhM2), longTerm.irradiation) +
+        0.25 * finkelsteinSchaferStatistic(monthDays.map((day) => day.meanTemperatureC), longTerm.temperature) +
+        0.1 * finkelsteinSchaferStatistic(monthDays.map((day) => day.meanWindSpeedMps), longTerm.wind) +
+        0.15 * finkelsteinSchaferStatistic(monthDays.map((day) => day.meanCloudPct), longTerm.cloud) +
+        0.05 * finkelsteinSchaferStatistic(monthDays.map((day) => day.precipitationMm), longTerm.precipitation);
+      const persistence = persistencePenalty(monthDays, candidatesByYear, sourceYears);
+      const continuity = boundaryPenalty(priorMonthLastDay, monthDays[0]);
+      const score = fsScore + persistenceWeight * persistence + continuityWeight * continuity;
+      diagnostics.candidates.push({month, year, distributionScore: fsScore, persistencePenalty: persistence, continuityPenalty: continuity, totalScore: score, selected: false});
+      if (score < selectedScore) {
+        selectedYear = year;
+        selectedDays = monthDays;
+        selectedScore = score;
+        selectedContinuity = continuity;
+      }
     }
+    if (selectedYear === null || selectedDays.length !== requiredDays) {
+      throw new Error(`Representative selection failed for month ${month}.`);
+    }
+
+    const scores = diagnostics.candidates.filter(candidate => candidate.month === month);
+    for (const score of scores) score.selected = score.year === selectedYear;
+    const ordered = [...scores].sort((a,b) => a.totalScore - b.totalScore || a.year - b.year);
+    diagnostics.selectionMargins.push({month, selectedYear, margin: ordered[1].totalScore - ordered[0].totalScore});
+    selectedYears.push(selectedYear);
+    annualCounts[selectedYear] += requiredDays;
+    const sourceYearWeights: Record<SampleYear, number> = { 2022: 0, 2023: 0, 2024: 0, 2025: 0 };
+    sourceYearWeights[selectedYear] = 1;
     const regimeCounts: Record<string, number> = {};
-    for (const day of chosen) regimeCounts[day.regime] = (regimeCounts[day.regime] ?? 0) + 1;
+    for (const day of selectedDays) {
+      regimeCounts[day.regime] = (regimeCounts[day.regime] ?? 0) + 1;
+      for (const hour of day.hours) output.push(remapHour(hour, targetYear, month, day.day));
+    }
+    priorMonthLastDay = selectedDays.at(-1) ?? null;
+
+    const chosenIrradiance = selectedDays.map((day) => day.irradiationKWhM2).sort((a, b) => a - b);
+    const sortedLongTermIrradiance = [...longTerm.irradiation].sort((a, b) => a - b);
+    const percentileDeviation = [0.1, 0.25, 0.5, 0.75, 0.9]
+      .map((probability) => {
+        const reference = quantile(sortedLongTermIrradiance, probability);
+        return Math.abs(quantile(chosenIrradiance, probability) - reference) / Math.max(0.01, reference);
+      })
+      .reduce((total, value) => total + value, 0) / 5;
     monthlyConstruction.push({
       month,
-      sourceYearWeights: {
-        2022: monthCounts[2022] / requiredDays,
-        2023: monthCounts[2023] / requiredDays,
-        2024: monthCounts[2024] / requiredDays,
-        2025: monthCounts[2025] / requiredDays,
-      },
-      irradiancePercentileDeviation: percentileDeviation / 5,
+      sourceYearWeights,
+      irradiancePercentileDeviation: percentileDeviation,
       temperatureDeviationC:
-        mean(chosen.map((day) => day.meanTemperatureC)) - mean(temperatureValues),
-      continuityPenalty: continuityTotal / requiredDays,
+        mean(selectedDays.map((day) => day.meanTemperatureC)) - mean(longTerm.temperature),
+      continuityPenalty: selectedContinuity,
       regimeCounts,
     });
   }
 
-  if (output.length !== 8760) throw new Error(`Representative year must contain 8760 hours, got ${output.length}`);
+  if (output.length !== 8_760) {
+    throw new Error(`Representative year must contain 8,760 hours, got ${output.length}.`);
+  }
+  const usesSimulatedSources = output.every((hour) =>
+    hour.quality.flags.some((flag) => /sample|simulat/i.test(flag)),
+  );
   const record: RepresentativeYearRecord = {
-    id: `representative-${targetYear}-${DATASET_VERSION}`,
-    method: "Monthly multivariate quantile matching with whole-day resampling and continuity penalty",
+    id: `representative-${targetYear}-${sourceFingerprint(`${sourceIdentity}|${selectedYears.join("-")}|${methodIdentity}`)}`,
+    method: "Finkelstein–Schafer-inspired multivariate whole-month selection",
     status: "experimental",
-    sourceYears: [...SAMPLE_YEARS],
+    sourceYears,
     hours: output.length,
     sourceYearWeights: {
       2022: annualCounts[2022] / 365,
@@ -208,14 +335,17 @@ export function buildRepresentativeYear(
     monthlyConstruction,
     comparisons: [],
     assumptions: [
-      "Source days are deterministic simulated proving data, not observations.",
-      "Leap days are excluded so all source years contain 8760 comparable hours.",
-      "Whole days preserve intraday covariance; joins are continuity-penalised but remain synthetic.",
-      "Monthly distributions target irradiance, temperature and cloud quantiles without trend projection.",
+      usesSimulatedSources
+        ? "Source months are deterministic simulated proving data, not observations."
+        : "Source months are weather-model reanalysis and are not direct station observations.",
+      "Each selected month comes intact from one source year; 29 February is excluded for a 365-day comparison calendar.",
+      "Candidate ranking uses multivariate empirical-CDF, weather-persistence and month-boundary continuity scores.",
+      sourceYears.length === 4 ? "Only four source years are available, so this is an experimental representative year rather than a standards-compliant long-term TMY." : `Only ${sourceYears.length} selected source years are available; this is a retrospective short-record diagnostic, not a long-term TMY.`,
+      `Method version: ${methodIdentity}.`,
     ],
-    uncertaintyMethod: "Interannual source spread plus deterministic residual-ensemble intervals",
+    uncertaintyMethod: `Q10–Q90 interannual source-year generation spread (n=${sourceYears.length}); not a calibrated forecast interval`,
   };
-  return { weather: output, record };
+  return { weather: output, record, diagnostics };
 }
 
 export function percentileRank(value: number, values: readonly number[]): number {

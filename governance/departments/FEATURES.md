@@ -26,7 +26,7 @@ The department owns:
 - future `features/operating-state/**`, `features/workspaces/**` and `tests/workspaces/**` paths;
 - workspace registry, linked state, command registration, feature permissions, lifecycle display and durable workflow integration.
 
-The department does not own provider adapters, canonical contracts, scientific calculations, forecasting algorithms, database infrastructure, WebGL internals or assistant inference policy. `deriveScenario` and `orientationScreeningScore` are presently in the UI model but are scientific behavior and must move behind a Solar Engine-owned contract during extraction.
+The department does not own provider adapters, canonical contracts, scientific calculations, forecasting algorithms, database infrastructure, WebGL internals or Mission Intelligence evidence policy. `deriveScenario` and `orientationScreeningScore` are presently in the UI model but are scientific behavior and must move behind a Solar Engine-owned contract during extraction.
 
 ## Interfaces
 
@@ -35,7 +35,7 @@ The department does not own provider adapters, canonical contracts, scientific c
 - Publish `WorkspaceDefinitionV2` with typed ID, route slug, lifecycle, capability requirements, data dependencies, component loader and registered commands.
 - Dispatch `UiCommandV1`; state changes must be validated through one reducer rather than component-local mutations.
 - Request authoritative recalculation from Solar Engine APIs; local UI projections must remain clearly labelled screening approximations until removed.
-- Supply `SceneFrameV1` inputs to Digital Twin and `CopilotContextV1` to PET without leaking secrets or provider-specific raw payloads.
+- Publish typed workspace, selected-object/range, objective and linked-result events for `MissionContextV1` without leaking secrets or provider-specific raw payloads.
 
 ## Decision authority
 

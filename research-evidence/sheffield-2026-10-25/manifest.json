@@ -1,0 +1,26 @@
+{
+  "schema": "sios-frozen-baseline-1",
+  "startedAt": "2026-10-25T14:48:23.549Z",
+  "mode": "live",
+  "sourceCommit": "5bbb7e389a5288b7d5a27f5cd23e3c55a81ff387",
+  "protocolSha256": "ce4e11cbd2d123b5d17d77efcc18f91623a2b5bf817fa73562d459edccb0d02d",
+  "attribution": "Open-Meteo / ECMWF ERA5; see https://open-meteo.com/en/docs/historical-weather-api and source provenance. Sample mode is simulated proving data.",
+  "completedAt": "2026-10-25T14:48:26.333Z",
+  "archiveSha256": "822dc7fb164cb5bbc5212d1701484c8fdeac2c828ac7702088e7bafa4f2ef783",
+  "archiveGzipSha256": "45b04bf4dc937df046fde3aec7f4314c935a2ed5b5f6ab4e6eaf9572759e753a",
+  "configurationSha256": "b48b041134ae6cbbee990322a3ed3317e68b7eff8aa3572b1cd1d27d07873aba",
+  "baselineStudySha256": "eb0a5f5c637426bb655d5ff681b941a449e5bc5ef257eff59ae4e14a0c69b54b",
+  "sourceCounts": [
+    8760,
+    8760,
+    8784,
+    8760
+  ],
+  "rawPayloadsRetained": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "interpretation": "Reanalysis-conditioned estimates; not measured production.2025 has previously been inspected."
+}

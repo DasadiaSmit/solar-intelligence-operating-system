@@ -35,6 +35,8 @@ import { getWeatherDataset } from "../lib/providers/service.ts";
 import {
   deriveScenario,
   normalizeSnapshot,
+  resultForScenario,
+  scenarioEquals,
 } from "../components/solar-os/model.ts";
 
 test("NOAA geometry distinguishes equatorial noon and night", () => {
@@ -88,7 +90,7 @@ test("sample provider and representative-year construction are deterministic 876
   const weight = Object.values(representative.record.sourceYearWeights)
     .reduce((total, value) => total + value, 0);
   assert.ok(Math.abs(weight - 1) < 1e-12);
-  assert.ok(representative.weather.every((hour) => hour.quality.flags.includes("representative-day-selection")));
+  assert.ok(representative.weather.every((hour) => hour.quality.flags.includes("representative-month-selection")));
 });
 
 test("battery dispatch conserves solar energy and respects state limits", () => {
@@ -120,6 +122,36 @@ test("battery dispatch conserves solar energy and respects state limits", () => 
   assert.ok(Math.abs(dispatch.demandKWh - 7) < 1e-9);
 });
 
+test("the scenario resolver preserves the transported scientific base exactly", () => {
+  const base = normalizeSnapshot(buildOperatingSnapshot());
+  const result = resultForScenario(base, { ...base.config });
+  assert.equal(result.changed, false);
+  assert.equal(result.productionFactor, 1);
+  assert.equal(result.hours, base.hours);
+  assert.equal(result.months, base.months);
+  assert.equal(result.summary, base.summary);
+  assert.deepEqual(result.notes, []);
+
+  const changedScenario = {
+    ...base.config,
+    batteryKwh: base.config.batteryKwh + 1,
+  };
+  const screened = resultForScenario(base, changedScenario);
+  const directScreening = deriveScenario(base, changedScenario);
+  assert.equal(screened.changed, true);
+  assert.deepEqual(screened, directScreening);
+  assert.match(screened.notes[0], /screening approximation/i);
+
+  const alternateCurrency = base.config.currency === "GBP" ? "EUR" : "GBP";
+  assert.equal(
+    scenarioEquals(base.config, {
+      ...base.config,
+      currency: alternateCurrency,
+    }),
+    false,
+  );
+});
+
 test("an unchanged scenario preserves production for any recorded base orientation", () => {
   const normalized = normalizeSnapshot(buildOperatingSnapshot());
   const arbitraryConfig = {
@@ -128,7 +160,7 @@ test("an unchanged scenario preserves production for any recorded base orientati
     azimuthDeg: 103,
   };
   const arbitraryBase = { ...normalized, config: arbitraryConfig };
-  const result = deriveScenario(arbitraryBase, { ...arbitraryConfig });
+  const result = resultForScenario(arbitraryBase, { ...arbitraryConfig });
   assert.equal(result.changed, false);
   assert.ok(Math.abs(result.productionFactor - 1) < 1e-12);
   assert.ok(Math.abs(result.summary.annualKwh - normalized.hours.reduce((sum, hour) => sum + hour.acKw, 0)) < 1e-6);

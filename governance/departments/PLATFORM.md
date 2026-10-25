@@ -34,7 +34,7 @@ PLATFORM does not define provider science, solar formulae, forecast promotion, U
 - **ARCH:** versioned API, persistence and job contracts.
 - **DATA:** canonical weather records, provider attempts, dataset manifests and ingestion schedules.
 - **SOLAR, ENERGY and FORECAST:** bounded simulation/model inputs and scientific result envelopes.
-- **FEATURES and PET:** stable API clients, user-owned workspace/scenario state and explicit capability errors.
+- **FEATURES and MI:** stable API clients, user-owned workspace/scenario/scientific-memory state and explicit capability errors.
 - **RESEARCH:** model-version, experiment, metric and artifact metadata.
 - **SECOPS:** identity trust, authorization, rate limits, logs, secrets and release controls.
 - **QA:** deterministic API fixtures, local D1/R2 doubles and failure-mode coverage.
